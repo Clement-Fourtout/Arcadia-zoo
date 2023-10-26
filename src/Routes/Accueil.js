@@ -7,7 +7,7 @@ export default function Accueil() {
   return (
  <>
       <main class="container-lg bg-light p-2 mt-3 mb-3  border border-bottom-0 border-top-0 border-bg-primary-subtle ">
-      <h2 class="text-center"><a class="btn btn-outline-primary btn-lg m-2" href="reparation" role="button">Nos services</a></h2>
+      <h2 class="text-center"><a class="btn btn-outline-primary btn-lg m-2" href="reparation" role="button">Nos services de réparations</a></h2>
       <div class="row justify-content-center">
         <div class="col-6 col-md-7">
           <img src={Reparation} class="img-fluid border border-white " alt="reparation" />    
