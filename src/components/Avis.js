@@ -5,7 +5,7 @@ import Note from "./styles/Logo/Stella.png"
 function Avis () {
   return (
     <>
-    <div class="container-lg bg-light p-2  border border-bottom-0 border-top-0 border-bg-primary-subtle ">
+    <div class="container-lg bg-light  pt-3 pb-3 mb-2 mt-2  border border-bottom-0 border-top-0 border-bg-primary-subtle ">
 
     <div class="container-lg ps-0 pe-0">
       <div id="carouselExampleDark" class="carousel carousel-light slide">
