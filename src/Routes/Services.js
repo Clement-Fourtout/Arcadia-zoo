@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../components/Header";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
-import DiffServices from "../components/DiffServices";
+import DiffServices from "../components/Page/DiffServices.js";
 
 export default function Services() {
   return (

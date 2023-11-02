@@ -1,6 +1,6 @@
-import Mecanique from './styles/Logo/Mecanique.jpg'
-import Carrosserie from './styles/Logo/Carrosserie.jpg'
-import Entretien from './styles/Logo/Vidange.jpg'
+import Mecanique from '../styles/Logo/Mecanique.jpg'
+import Carrosserie from '../styles/Logo/Carrosserie.jpg'
+import Entretien from '../styles/Logo/Vidange.jpg'
 
 
 function DiffServices () {

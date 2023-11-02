@@ -29,7 +29,7 @@ const router = createBrowserRouter([
     path:"contact",
     element:<Contact />,
   },
-])
+]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

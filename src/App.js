@@ -10,13 +10,15 @@ import { Route, Routes } from 'react-router-dom';
 import Occasions from './Routes/Occasions';
 
 
+
+
 function App() {
   return (
     <>
     <Header></Header>
     <Nav></Nav>
     <Routes>
-      <Route path='' element={<Accueil/>} />
+      <Route path='*' element={<Accueil/>} />
       <Route path='contact' element={<Contact/>} />
       <Route path='services' element={<Services/>} />
       <Route path='occasions' element={<Occasions/>} />
