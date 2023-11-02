@@ -1,5 +1,5 @@
 const xhr = new XMLHttpRequest();
-xhr.open('GET', 'https://postgres://qabcivgilpgale:543d5f9c12608c5a4a3c2f844f42e4e196905d3b7052');
+xhr.open('GET', 'https://postgres://qabcivgilpgale:543d5f9c12608c5a4a3c2f844f42e4e196905d3b7052f729e6fe36f51a6cc4c8@ec2-34-228-248-175.compute-1.amazonaws.com:5432/dft23004ee8q23');
 xhr.send();
 
 
