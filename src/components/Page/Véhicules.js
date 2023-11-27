@@ -1,20 +1,55 @@
-const xhr = new XMLHttpRequest();
-xhr.open('GET', 'postgres://qabcivgilpgale:543d5f9c12608c5a4a3c2f844f42e4e196905d3b7052f729e6fe36f51a6cc4c8@ec2-34-228-248-175.compute-1.amazonaws.com:5432/dft23004ee8q23');
-xhr.send();
+//Ne pas oublier cet import au préalable à l’utilisation de hooks
+import { useState }  from "react";
 
+//pour cet exemple, nous utilisons un composant fonctionnel
+export default function Vehicules() {
 
-function Vehicules() {
-  return (
-    <>
-      <div className="Vehicules"/>
-      <main class="container-lg bg-dark-subtle p-2 mt-3 mb-3  border border-bottom-0 border-top-0 border-bg-primary-subtle ">
+    // Variable qui contient la liste des villes à afficher
+    const [villes, setVilles] = useState([]);
+
+    /* Variable qui contient le numéro du département, et qui est mise à jour à chaque modification
+    du formulaire - voir la fonction handleChange. Nous lui donnons la valeur par défaut « 01 » */
+    const [departement, setDepartement] = useState("01");
+
+    // Variable qui contient l’action à réaliser lors du clic sur le bouton « Update »
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        fetch("https://geo.api.gouv.fr/communes?codeDepartement=" + departement)
+            .then((response) => response.json())
+            .then((data) => setVilles(data));
+    };
+
+    /* Variable qui contient l’action à réaliser lors d’une modification de la valeur du formulaire */
+    const handleChange = (event) => {
+
+        //mise à jour de la variable « departement » à partir de son setter « setDepartement »
+        setDepartement(event.target.value);
+
+    };
+
+   return (
+      <main>
+          <div>
+              <h2>Liste des Villes du département</h2>
+              <form action="submit" onSubmit={handleSubmit}>
+                     <input
+                         value={departement}
+                         type="text"
+                         placeholder="département ..."
+                         onChange={handleChange}
+                     />
+                     <button>Update</button>
+              </form>
+
+              <ul>
+                 {villes.map((ville) => (
+                     <li key={ville.code}> 
+                         {ville.nom} : {ville.population} habitants
+                     </li>
+                 ))}
+              </ul>
+          </div>
       </main>
-
-    </>
-
-  )
+    )
 }
 
-
-
-export default Vehicules;

@@ -31,7 +31,7 @@ function DiffServices () {
       <div class="carousel-item" data-bs-interval="5000">
       <img src={Carrosserie} class="d-block w-100" alt="/"></img>
         <div class="carousel-caption d-none d-md-block">
-        <a class="btn btn-warning" href='/mecanique' role='button'>Carrosserie</a>
+        <a class="btn btn-warning" href='/carrosserie' role='button'>Carrosserie</a>
           <li>Réparation plastique automobile</li>
           <li>Rénovation optique phares</li>
           <li>Peinture</li>
@@ -42,7 +42,7 @@ function DiffServices () {
       <div class="carousel-item">
       <img src={Entretien} class="d-block w-100" alt="/"></img>
         <div class="carousel-caption d-none d-md-block">
-        <a class="btn btn-info" href='/mecanique' role='button'>Entretien</a>
+        <a class="btn btn-info" href='/entretien' role='button'>Entretien</a>
           <li>Vidange</li>
           <li>Révision</li>
           <li>Climatisation</li>
