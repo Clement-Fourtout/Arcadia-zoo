@@ -23,7 +23,7 @@ function Avis () {
               <img src={Note} class="c-block w-25 p-4" alt='stella'/>
               <img src={Note} class="c-block w-25 p-4" alt='stella'/>
               <img src={Note} class="c-block w-25 p-4" alt='stella'/>
-              <p>Garage possédant un vrai savoir faire et des tarifs tout à fait abordable.</p>
+              <h4>Garage possédant un vrai savoir faire et des tarifs tout à fait abordable.</h4>
             </div>
           </div>
           <div class="carousel-item" data-bs-interval="2000">
@@ -34,7 +34,7 @@ function Avis () {
               <img src={Note} class="c-block w-25 p-4" alt='stella'/>
               <img src={Note} class="c-block w-25 p-4" alt='stella'/>
               <img src={Note} class="c-block w-25 p-4" alt='stella'/>
-              <h4>Rendez-vous pris rapidement, la révision s'sest trés bien déroulée !</h4>
+              <h4>Rendez-vous pris rapidement, la révision s'est trés bien déroulée !</h4>
             </div>
           </div>
           <div class="carousel-item">
@@ -45,7 +45,7 @@ function Avis () {
               <img src={Note} class="c-block w-25 p-4" alt='stella'/>
               <img src={Note} class="c-block w-25 p-4" alt='stella'/>
               <img src={Note} class="c-block w-25 p-4" alt='stella'/>
-              <h4>Entretien parfait, le garage m'a fait un bilan de tout mes équipements sur leur état d'usure, un futur rendez-vous est déjà planifié</h4>
+              <h4>Entretien parfait, le garage m'a fait un bilan de tout mes équipements sur leur état d'usure, un futur rendez-vous est déjà planifié.</h4>
           </div>
         </div>
         </div>

@@ -5,9 +5,8 @@ function Footer() {
   <footer class="py-3 my-3">
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
       <li class="nav-item"><a href="/accueil" class="nav-link px-3 text-light">Accueil</a></li>
-      <li class="nav-item"><a href="/entretien" class="nav-link px-3 text-light">Caractéristiques</a></li>
+      <li class="nav-item"><a href="/formulaire" class="nav-link px-3 text-light">Contact</a></li>
       <li class="nav-item"><a href="/reparation" class="nav-link px-3 text-light">Tarifs</a></li>
-      <li class="nav-item"><a href="/contact" class="nav-link px-3 text-light">FAQ</a></li>
       <li class="nav-item"><a href="/connexion" class="nav-link px-4 text-light">À propos</a></li>
       <div class="dropdown">
   <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">

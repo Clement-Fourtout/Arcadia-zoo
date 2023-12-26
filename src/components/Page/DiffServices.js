@@ -6,7 +6,7 @@ import Entretien from '../styles/Logo/Vidange.jpg'
 function DiffServices () {
   return (
     <>
-        <div class="container-lg bg-light p-5 mt-5  border border-bottom-0 border-top-0 border-bg-primary-subtle ">
+        <div class="container-lg bg-dark p-5 mt-5  border border-bottom-0 border-top-0 border-bg-primary-subtle ">
       <div class="container-lg ps-0 pe-0">
          <div id="carouselExampleDark" class="carousel carousel-light slide">
     <div class="carousel-indicators">
