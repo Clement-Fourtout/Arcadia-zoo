@@ -9,10 +9,11 @@ function Nav () {
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
 
-        <a class="nav-link" href="/occasions">Nos véhicules</a>
+        <a class="nav-link" href="/occasions">Nos animaux</a>
         <a class="nav-link" href="/services">Nos services</a>
+        <a class="nav-link button" href="/contact">Notre histoire</a>
         <a class="nav-link button" href="/contact">Espace Pro</a>
-
+        <a class="nav-link button" href="/contact">Nous contacter</a>
       </div>
     </div>
   </div>

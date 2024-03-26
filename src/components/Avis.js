@@ -1,5 +1,5 @@
 
-import Etoile from "./styles/Logo/Etoiles.jpg"
+import Etoile from "./styles/Logo/Avis.jpg"
 import Note from "./styles/Logo/Stella.png"
 
 function Avis () {
@@ -7,7 +7,7 @@ function Avis () {
     <>
     <div class="container-lg bg-dark rounded  pt-3 pb-3 mb-2 mt-2   ">
 
-    <div class="container-lg ps-0 pe-0">
+    <div class="container-lg ps-5 pe-5">
       <div id="carouselExampleDark" class="carousel carousel-light slide">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -19,11 +19,8 @@ function Avis () {
             <img src={Etoile} class="d-block w-100" alt="stella"></img>
             <div class="carousel-caption d-none d-md-block">
               <h3>Johanna Delaccio</h3>
-              <img src={Note} class="c-block w-25 p-4" alt='stella'/>
-              <img src={Note} class="c-block w-25 p-4" alt='stella'/>
-              <img src={Note} class="c-block w-25 p-4" alt='stella'/>
-              <img src={Note} class="c-block w-25 p-4" alt='stella'/>
-              <h4>Garage possédant un vrai savoir faire et des tarifs tout à fait abordable.</h4>
+
+              <h5>Garage possédant un vrai savoir faire et des tarifs tout à fait abordable.</h5>
             </div>
           </div>
           <div class="carousel-item" data-bs-interval="2000">
