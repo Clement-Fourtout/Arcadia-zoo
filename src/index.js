@@ -5,10 +5,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import ErrorPage from './Routes/ErrorPage';
-import Occasions from './Routes/Occasions';
+import Parc from './Routes/Parc';
 import Services from './Routes/Services';
-import Contact from './Routes/Connexion';
-
+import Arcadia from './Routes/Arcadia';
+import Connexion from './Routes/Connexion';
 
 
 const router = createBrowserRouter([
@@ -18,17 +18,22 @@ const router = createBrowserRouter([
     errorElement:<ErrorPage/>,
   },
   {
-    path:"occasions",
-    element:<Occasions />,
-  },
-  {
     path:"services",
     element:<Services />,
   },
   {
-    path:"contact",
-    element:<Contact />,
+    path:"parc",
+    element:<Parc />,
   },
+  {
+    path:"arcadia",
+    element:<Arcadia />,
+  },
+  {
+    path:"connexion",
+    element:<Connexion />,
+  },
+
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

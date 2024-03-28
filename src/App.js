@@ -3,13 +3,13 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import Main from './components/Main';
 import Nav from './components/Nav';
-import Contact from './Routes/Connexion.js';
 import Accueil from './Routes/Accueil';
-import Services from './Routes/Services';
+import Services from './Routes/Services.js';
 import { Route, Routes } from 'react-router-dom';
-import Occasions from './Routes/Occasions';
 import Formulaire from './components/Page/Formulaire.js';
-
+import Parc from './Routes/Parc.js';
+import Arcadia from './Routes/Arcadia.js';
+import Connexion from './Routes/Connexion.js';
 
 
 
@@ -20,10 +20,11 @@ function App() {
     <Nav></Nav>
     <Routes>
       <Route path='*' element={<Accueil/>} />
-      <Route path='contact' element={<Contact/>} />
+      <Route path='connexion' element={<Connexion/>} />
+      <Route path='parc' element={<Parc/>} />
       <Route path='services' element={<Services/>} />
-      <Route path='occasions' element={<Occasions/>} />
       <Route path='formulaire' element={<Formulaire/>} />
+      <Route path='arcadia' element={<Arcadia/>} />
     </Routes>
     <Main></Main>
     <Avis></Avis>
