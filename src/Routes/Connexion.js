@@ -1,6 +1,6 @@
 import { Link, Outlet } from 'react-router-dom'
 
-export default function Contact(){
+export default function Connexion(){
 	return(
 	<>
 		<div style={{backgroundColor : 'azure', display : 'flex', justifyContent :    'space-evenly'}}>
