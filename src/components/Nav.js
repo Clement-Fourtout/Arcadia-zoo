@@ -13,7 +13,7 @@ function Nav () {
         <a class="nav-link button" href="/services">Nos services</a>
         <a class="nav-link button" href="/arcadia">Notre histoire</a>
         <a class="nav-link button" href="/connexion">Espace Pro</a>
-        <a class="nav-link button" href="/formulaire">Nous contacter</a>
+        <a class="nav-link button" href="/formulaire">Contact</a>
       </div>
     </div>
   </div>
