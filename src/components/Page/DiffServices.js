@@ -1,7 +1,7 @@
 
 
 
-function Diffservices () {
+function DiffServices () {
   return (
     <>
         <div class="container-fluid bg-dark p-2 mt-1 mb-3 ">
@@ -11,4 +11,4 @@ function Diffservices () {
 )
 }
 
-export default Diffservices;
+export default DiffServices;

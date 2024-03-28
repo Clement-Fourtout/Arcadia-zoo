@@ -24,7 +24,9 @@ export default function Accueil() {
         <hr></hr>
         <h2 class="text-center"><a class="btn btn-outline-info" href="arcadia" role="button">Notre histoire</a></h2>
         <div class="col-6 col-md-7">
-          <img src={Histoire}  class="img-fluid border border-info rounded mb-3" alt="histoire"  /> 
+          <a href='arcadia'>
+          <img src={Histoire}  class="img-fluid border border-info rounded mb-3" alt="histoire"  />
+          </a>
         </div>
       </div>
       </main>
