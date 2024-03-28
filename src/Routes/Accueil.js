@@ -7,7 +7,7 @@ export default function Accueil() {
   return (
  <>
       <main class="container-fluid bg-dark p-2 mt-1 mb-3    ">
-      <h2 class="text-center"><a class="btn btn-outline-success " href="services" role="button">Nos animaux</a></h2>
+      <h2 class="text-center"><a class="btn btn-outline-success " href="parc" role="button">Nos animaux</a></h2>
       <div class="row justify-content-center">
         <div class="col-6 col-md-7">
           <a href="parc">
