@@ -16,3 +16,15 @@ code {
 .navbar-custom {
   background-color: #1d3a23; 
 }
+
+.card-parc-marais{
+  background-color: #536857;
+}
+
+.card-parc-savane{
+background-color: #72742f;
+}
+
+.card-parc-jungle{
+background-color: #438b52;
+}
