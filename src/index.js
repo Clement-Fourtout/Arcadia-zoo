@@ -9,7 +9,9 @@ import Parc from './Routes/Parc';
 import Services from './Routes/Services';
 import Arcadia from './Routes/Arcadia';
 import Connexion from './Routes/Connexion';
-
+import Savane from './components/Page/Savane';
+import Jungle from './components/Page/Jungle';
+import Marais from './components/Page/Marais';
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,18 @@ const router = createBrowserRouter([
   {
     path:"connexion",
     element:<Connexion />,
+  },
+  {
+    path:"savane",
+    element:<Savane />,
+  },
+  {
+    path:"marais",
+    element:<Marais />,
+  },
+  {
+    path:"jungle",
+    element:<Jungle />,
   },
 
 ]);

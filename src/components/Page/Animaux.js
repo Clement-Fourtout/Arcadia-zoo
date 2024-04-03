@@ -7,7 +7,7 @@ export default function Animaux() {
 
   return (
     <div className="container-fluid bg-dark p-2 mt-1 mb-3 text-center ">
-      <h1 class=" text-xl-center text-success text-decoration-underline" style={{marginBottom: "3%", marginTop: "3%"}}>Choisissez votre environnement</h1>
+      <h1 class=" text-xl-center text-light text-decoration-underline" style={{marginBottom: "50px", marginTop: "25px"}}>Choisissez votre environnement</h1>
       <div class="card-deck" style={{marginBottom: "5%"}}>
   <div class="card border-warning">
     <a href="savane">
