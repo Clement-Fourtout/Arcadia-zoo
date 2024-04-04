@@ -7,7 +7,7 @@ function Header() {
       <div class="row justify-content-between">
         <div class="col-sm-1">
           <a href='/'>
-          <img src={Logo} class="img-fluid float-start" alt="logo" />    
+          <img src={Logo} class="img-fluid float-start" alt="logo"/>    
           </a>
         </div>
         <div class="col-sm-7 row align-items-center">
