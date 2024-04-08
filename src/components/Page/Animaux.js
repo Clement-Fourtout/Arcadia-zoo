@@ -47,7 +47,7 @@ export default function Animaux() {
       2.5 millions d'insectes, 500 espèces d'oiseaux, 1000 de grenouilles, plus de 600 espèces de reptiles et mammifères.  </p>
       <a href="jungle" class="btn btn-success">Découvrir la Jungle</a>
       <p></p>
-      <div class="card-footer">Le Paresseux, l'Empereur d'Amazonie, le Jaguar, le Dauphin rose, le Caiman, le Toucan, la Panthère Noire, le Mille-pattes géant, l'Empoisonneuse !
+      <div class="card-footer">Le Paresseux, l'Empereur d'Amazonie, le Jaguar, la Panthère noire, le Dauphin rose, le Toucan, l'Ara rouge, la Tapir, le Mille-pattes géant, l'Empoisonneuse, le gorille, l'orang outans !
     </div>
     </div>
   </div>
