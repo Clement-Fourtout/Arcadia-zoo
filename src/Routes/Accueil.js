@@ -1,5 +1,5 @@
 import React from 'react'
-import Chimpanzée from '../components/styles/Logo/Animaux/Chimpanzée.jpg'
+import Chimpanzée from '../components/styles/Logo/Animaux/Savane/Chimpanzée.jpg'
 import Services from '../components/styles/Logo/Restauration.jpg'
 import Histoire from '../components/styles/Logo/Foret de brocéliande.jpg'
 
