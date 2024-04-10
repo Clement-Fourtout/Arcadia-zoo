@@ -22,9 +22,29 @@ code {
 }
 
 .card-parc-savane{
-background-color: #72742f;
+  background-color: #72742f;
 }
 
 .card-parc-jungle{
-background-color: #438b52;
+  background-color: #438b52;
+}
+.text-custom-marais{
+  color: #92a087;
+}
+.text-custom-jungle{
+  color: #78a518;
+}
+.text-custom-savane{
+  color: #cfd305;
+}
+.text-custom-insectivore{
+  color: #8f621f;
+}
+.breadcrumb{
+  background-color: #ffffff;
+  --bs-breadcrumb-divider: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E");
+  --breadcrumb-active-color: #78a518;
+}
+a{
+  color: #438b52;
 }
