@@ -74,10 +74,8 @@ function DiffServices () {
           <img src={Train} class="img-fluid rounded" alt="train"/>
           <h5 class="mb-5 mt-2">Le zoo possède un petit train permettant la visite intégrale du parc. L'utilisation de ce dernier dépend de l'affluence du parc et ses horaires de disponibilité peuvent donc être varaibles.
                                 <br/>La durée du trajet varie entre 25 et 35 mins. Déconseilles aux femmes enceintes. Les enfants doivent rester sous la responsabilité d'un adulte.</h5>
-
           </div>
           </div>
-        
       </div>
     </>
 )

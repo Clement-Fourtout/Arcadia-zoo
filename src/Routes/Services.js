@@ -9,18 +9,16 @@ export default function Services() {
   return (
     <>
     <a id="top" href="top"> </a>
-    <a href="#top" >
-      <img src={Top} class="" alt="" style={{position: "fixed", bottom : "50px", right: "10px", opacity: 0.5}}/>
+      <a href="#top">
+        <img src={Top} class="" alt="" style={{position: "fixed", bottom : "50px", right: "10px", opacity: 0.5}}/>
       </a>
-    <Header></Header>
-    <Nav></Nav>
-    <Diffservices></Diffservices>
-=
-    <div class="d-grid col-1 mx-auto mt-3 mb-3">
-
-    <a class="btn btn-primary" href='/formulaire' role='button'>Contact</a>
-    </div>
-    <Footer></Footer>
+        <Header></Header>
+          <Nav></Nav>
+            <Diffservices></Diffservices>
+              <div class="d-grid col-1 mx-auto mt-3 mb-3">
+                <a class="btn btn-primary" href='/formulaire' role='button'>Contact</a>
+              </div>
+            <Footer></Footer>
 
     </>
   )

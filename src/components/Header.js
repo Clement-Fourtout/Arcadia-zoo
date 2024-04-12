@@ -4,8 +4,8 @@ function Header() {
   return (
     <>
     <header class="container-fluid bg-white ">
-      <div class="row justify-content-between">
-        <div class="col-lg-1" style={{maxWidth:"25%"}}>
+      <div class="row justify-content-center">
+        <div class="col-lg-1" style={{maxWidth:"30%"}}>
           <a href='/'>
           <img src={Logo} class="img-fluid float-start" alt="logo"/>    
           </a>
