@@ -47,6 +47,19 @@ export default function Savane() {
               <h5 class="text-light text-left mt-3"><em>Habitat : </em> dans la Savane, les plaines, forêts sèches et les semi-déserts.</h5>
               <h5 class="text-light text-left mt-3"><em>Etat de santé :</em> Gius est en trés bonne santé.</h5>
                 <h5 class="text-light text-left mt-3"><em>Régime alimentaire :</em> <span class="text-danger">Carnivore</span> mangeant 7 à 10 kilos par repas (jeunes mammifères, pachydermes, oiseaux et reptiles).</h5>
+                <p class="d-inline-flex gap-1">
+                  <button class="btn btn-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                  En savoir plus.
+                  </button>
+                </p>
+                <div class="collapse" id="collapseExample">
+                  <div class="card card-body text-left text-light bg-dark border-light">
+                  Santé :
+                  <br/>Nourriture :
+                  <br/>Grammage :
+                  <br/>Date de passage :
+                  </div>
+                </div>
                 <h5 class="text-light font-weight-light  text-decoration-underline"><em>Dernier passage</em> 22.04.2024</h5>
         </div>
 
