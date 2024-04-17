@@ -1,15 +1,7 @@
-import Header from '../components/Header';
-import Logo from '../components/styles/Logo/Arcadia Zoo.png'
+/* Importing fonts from Google */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
-// Sélectionnez le head du document
-var head = document.head || document.getElementsByTagName('head')[0];
-
-// Créez un élément style pour ajouter vos styles CSS
-var style = document.createElement('style');
-style.type = 'text/css';
-
-// Définissez les styles CSS à partir de votre fichier connexion.css
-var css = `
+/* Reseting */
 * {
     margin: 0;
     padding: 0;
@@ -109,44 +101,4 @@ body {
         margin: 30px 20px;
         padding: 40px 15px 15px 15px;
     }
-
-`;
-
-// Ajoutez les styles CSS à l'élément style
-if (style.styleSheet){
-  // Ce code est pour les anciennes versions d'Internet Explorer
-  style.styleSheet.cssText = css;
-} else {
-  style.appendChild(document.createTextNode(css));
 }
-
-// Ajoutez l'élément style au head du document
-head.appendChild(style);
-
-
-export default function Connexion(){
-	return(
-	<>
-    <Header></Header>
-		<div class="wrapper">
-        <div class="logo">
-            <img src={Logo} alt=""/>
-        </div>
-        <div class="text-center mt-4 name">
-            Arcadia
-        </div>
-        <form class="p-3 mt-3">
-            <div class="form-field d-flex align-items-center">
-                <span class="far fa-user"></span>
-                <input type="text" name="Utilisateur" id="Utilisateur" placeholder="Utilisateur"/>
-            </div>
-            <div class="form-field d-flex align-items-center">
-                <span class="fas fa-key"></span>
-                <input type="password" name="motDePasse" id="mdp" placeholder="Mot de passe"/>
-            </div>
-            <button class="btn mt-3">Connexion</button>
-        </form>
-    </div>
-		</>
-  )
-};

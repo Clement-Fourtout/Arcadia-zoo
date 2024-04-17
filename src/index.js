@@ -8,7 +8,7 @@ import ErrorPage from './Routes/ErrorPage';
 import Parc from './Routes/Parc';
 import Services from './Routes/Services';
 import Arcadia from './Routes/Arcadia';
-import Connexion from './Routes/Connexion';
+import Connexion from './Routes/Connexion.js';
 import Savane from './components/Page/Savane';
 import Jungle from './components/Page/Jungle';
 import Marais from './components/Page/Marais';
