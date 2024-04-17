@@ -15,7 +15,7 @@ import Babouin from "../styles/Logo/Animaux/Savane/Babouin.jpg"
 import Antilope from "../styles/Logo/Animaux/Savane/Antilope.jpg";
 import Suricate from "../styles/Logo/Animaux/Savane/Suricate.jpg";
 import Top from "../styles/Logo/Accessoire/to_top.png";
-import { getTasks } from '/Test/my-app/src/api.js';
+import { getTasks } from "c:/Test/my-app/src/api";
 
 export default function Savane() {
   const [tasks, setTasks] = useState([]);
