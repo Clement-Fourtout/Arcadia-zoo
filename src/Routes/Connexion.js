@@ -1,4 +1,4 @@
-import Header from '../components/Header';
+
 import Logo from '../components/styles/Logo/Arcadia Zoo.png'
 
 // Sélectionnez le head du document
@@ -82,7 +82,7 @@ body {
     box-shadow: none;
     width: 100%;
     height: 40px;
-    background-color: #03A9F4;
+    background-color: #32CD32;
     color: #fff;
     border-radius: 25px;
     box-shadow: 3px 3px 3px #b1b1b1,
@@ -91,7 +91,7 @@ body {
 }
 
 .wrapper .btn:hover {
-    background-color: #039BE5;
+    background-color: #438b52;
 }
 
 .wrapper a {
@@ -127,10 +127,12 @@ head.appendChild(style);
 export default function Connexion(){
 	return(
 	<>
-    <Header></Header>
+    
 		<div class="wrapper">
         <div class="logo">
+            <a href='/'>
             <img src={Logo} alt=""/>
+            </a>
         </div>
         <div class="text-center mt-4 name">
             Arcadia
