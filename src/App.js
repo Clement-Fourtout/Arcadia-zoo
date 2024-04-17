@@ -10,23 +10,10 @@ import Formulaire from './components/Page/Formulaire.js';
 import Parc from './Routes/Parc.js';
 import Arcadia from './Routes/Arcadia.js';
 import Connexion from './Routes/Connexion.js';
-import React, { useEffect, useState } from 'react';
-import { getTasks } from './api';
 
 
 function App() {
-    const [tasks, setTasks] = useState([]);
-  
-    useEffect(() => {
-      // Appel à l'API pour récupérer les tâches au chargement du composant
-      getTasks()
-        .then(data => {
-          setTasks(data);
-        })
-        .catch(error => {
-          // Gérer l'erreur, par exemple afficher un message d'erreur à l'utilisateur
-        });
-    }, []);
+
   return (
     <>
     <Header></Header>
@@ -42,12 +29,6 @@ function App() {
     <Main></Main>
     <Avis></Avis>
     <Footer></Footer>
-    <div>
-            {/* Afficher les tâches dans votre interface utilisateur */}
-            {tasks.map(task => (
-        <div key={task.id}>{task.title}</div>
-      ))}
-    </div>
     </>
   );
 }

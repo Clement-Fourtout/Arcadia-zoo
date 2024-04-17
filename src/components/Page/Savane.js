@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../Header.js";
 import Nav from "../Nav.js";
 import Footer from "../Footer.js";
@@ -12,12 +12,24 @@ import Girafe from "../styles/Logo/Animaux/Savane/girafe.jpg"
 import Dromadaire from "../styles/Logo/Animaux/Savane/Dromadaire.jpg"
 import Elephant from "../styles/Logo/Animaux/Savane/Elephant.jpg"
 import Babouin from "../styles/Logo/Animaux/Savane/Babouin.jpg"
-import Antilope from "../styles/Logo/Animaux/Savane/Antilope.jpg"
-import Suricate from "../styles/Logo/Animaux/Savane/Suricate.jpg"
-import Top from "../styles/Logo/Accessoire/to_top.png"
-
+import Antilope from "../styles/Logo/Animaux/Savane/Antilope.jpg";
+import Suricate from "../styles/Logo/Animaux/Savane/Suricate.jpg";
+import Top from "../styles/Logo/Accessoire/to_top.png";
+import { getTasks } from '/Test/my-app/src/api.js';
 
 export default function Savane() {
+  const [tasks, setTasks] = useState([]);
+  
+    useEffect(() => {
+      // Appel à l'API pour récupérer les tâches au chargement du composant
+      getTasks()
+        .then(data => {
+          setTasks(data);
+        })
+        .catch(error => {
+          // Gérer l'erreur, par exemple afficher un message d'erreur à l'utilisateur
+        });
+    }, []);
   return (
     <>
     <a id="top" href="top"> </a>
@@ -54,10 +66,10 @@ export default function Savane() {
                 </p>
                 <div class="collapse" id="collapseExample">
                   <div class="card card-body text-left text-light bg-dark border-light">
-                  Santé :
-                  <br/>Nourriture :
-                  <br/>Grammage :
-                  <br/>Date de passage :
+                  {/* Afficher les tâches dans votre interface utilisateur */}
+                    {tasks.map(task => (
+                      <div key={task.id}>{task.title}</div>
+                    ))}
                   </div>
                 </div>
                 <h5 class="text-light font-weight-light  text-decoration-underline"><em>Dernier passage</em> 22.04.2024</h5>
