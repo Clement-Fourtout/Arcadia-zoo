@@ -64,7 +64,7 @@ function DiffServices () {
           <div class="col-lg-5 text-light text-center">
           <h2 class=" font-weight-bold text-decoration-underline text-warning mt-5 mb-4">Visite des habitats (guide gratuit)</h2>
             <img src={Guide} class="img-fluid rounded" alt="guide"/>
-            <h5 class="mt-2">De nombreux guides sont disponibles pour une visite guidée du parc sans frais supplémentaire moyennant une simple réservation au préalable de votre séjour ! <br/>Il est inclus dans le billet d'entrée.</h5>
+            <h5 class="mt-2">De nombreux guides sont disponibles pour une visite guidée du parc sans frais supplémentaire moyennant une simple réservation de votre séjour ! <br/>Il est inclus dans le billet d'entrée.</h5>
           </div>
           </div>
 
@@ -72,8 +72,8 @@ function DiffServices () {
           <div class=" col-lg-5 text-light text-center">
           <h2 class=" font-weight-bold text-decoration-underline text-custom-jungle mt-3">Le train du parc</h2>
           <img src={Train} class="img-fluid rounded" alt="train"/>
-          <h5 class="mb-5 mt-2">Le zoo possède un petit train permettant la visite intégrale du parc. L'utilisation de ce dernier dépend de l'affluence du parc et ses horaires de disponibilité peuvent donc être varaibles.
-                                <br/>La durée du trajet varie entre 25 et 35 mins. Déconseilles aux femmes enceintes. Les enfants doivent rester sous la responsabilité d'un adulte.</h5>
+          <h5 class="mb-5 mt-2">Le zoo possède un petit train permettant la visite intégrale du parc. Son utilisation dépend de l'affluence du parc et ses horaires de disponibilité peuvent donc être variables.
+                                <br/>La durée du trajet varie entre 25 et 35 mins. Déconseillé aux femmes enceintes. <br/>Les enfants doivent rester sous la responsabilité d'un adulte.</h5>
           </div>
           </div>
       </div>

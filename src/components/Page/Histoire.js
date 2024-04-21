@@ -29,7 +29,7 @@ function Histoire () {
             <div class="col-lg-4 story">
             <h3 class=" align-items-center text-custom-histoire text-decoration-underline font-weight-bold mt-5">Son Histoire</h3>
                       <p class="text-light">L'histoire commence ici, en 1960 près de la forêt de Brocéliande en Bretagne réputée depuis l'antiquité 
-                                            pour ses légendes et autres récits merveilleux. La famille Saint Pierre à toujours eu une attention particulière pour protéger et préserver la 
+                                            pour ses légendes et autres récits merveilleux. La famille Saint Pierre a toujours eu une attention particulière pour protéger et préserver la 
                                             biodiversité mondiale, une passion pour les animaux qui n'a pas d'égale et ce tout au long de leur vie.</p>
             </div>
             </div>

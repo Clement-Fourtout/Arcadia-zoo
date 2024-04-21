@@ -92,9 +92,9 @@ export default function Savane() {
         </div>
         <div class="col-lg-5 mt-5 border">
           <h3 class="text-xl text-align-center text-light text-decoration-underline mt-3">Le Chacal</h3>
-            <h5 class="text-light text-left mt-4">Baptisé le chacal ou ici le chacal doré est un mammifère pouvant faire de 6 Kg à 15Kg et est de l'ordre des carnivores. Il est la proie de félins, hyènes, rapaces et phytons.</h5>
+            <h5 class="text-light text-left mt-4">Le chacal, ou ici le chacal doré, est un mammifère pouvant peser 6 Kg à 15Kg est de l'ordre des carnivores. Il est la proie de félins, hyènes, rapaces et pythons.</h5>
               <h5 class="text-light text-left mt-3"><em>Habitat : </em> en Asie, au Moyen-Orient et jusqu'en Europe.</h5>
-              <h5 class="text-light text-left mt-3"><em>Etat de santé :</em> Nissam est en bonne santé et attendent une portée de 3 petits. </h5>
+              <h5 class="text-light text-left mt-3"><em>Etat de santé :</em> Nissam est en bonne santé et attend une portée de 3 petits. </h5>
                 <h5 class="text-light text-left mt-3"><em>Régime alimentaire :</em> <span class="text-danger">Carnivore</span> mangeant 2 à 4 kilos par jour (petits rongeurs, oiseaux, charognes, reptiles et insectes)</h5>
                 <h5 class="text-light font-weight-light mt-4 text-decoration-underline"><em>Dernier passage</em> 26.04.2024</h5>
         </div>
