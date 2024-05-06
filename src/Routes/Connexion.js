@@ -139,7 +139,7 @@ export default function Connexion() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ nom, mot_de_passe: motDePasse })
+                body: JSON.stringify({ nom: nom, mot_de_passe: motDePasse })
             });
             
             if (response.ok) {
