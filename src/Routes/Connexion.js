@@ -133,20 +133,20 @@ export default function Connexion() {
         event.preventDefault();
 
         try {
-            const response = await fetch('/login', {
+            const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ utilisateur, motDePasse })
             });
-
+            
             if (response.ok) {
+                return response.json();
                 // Redirection ou traitement de la réponse en cas de connexion réussie
-                console.log('Connexion réussie');
             } else {
                 // Gérer les erreurs d'authentification
-                console.error('Erreur de connexion :', response.statusText);
+                throw new Error('Nom d\'utilisateur ou mot de passe incorrect');
             }
         } catch (error) {
             // Gérer les erreurs de requête
