@@ -128,6 +128,7 @@ head.appendChild(style);
 export default function Connexion() {
     const [utilisateur, setUtilisateur] = useState('');
     const [motDePasse, setMotDePasse] = useState('');
+    const [error, setError] = useState('');
 
     const handleConnexion = async (event) => {
         event.preventDefault();
@@ -142,15 +143,18 @@ export default function Connexion() {
             });
             
             if (response.ok) {
-                return response.json();
-                // Redirection ou traitement de la réponse en cas de connexion réussie
+                const { token } = await response.json();
+                // Stockez le jeton JWT dans le stockage local ou la session
+                localStorage.setItem('token', token);
+                // Redirigez l'utilisateur vers une page protégée ou effectuez d'autres actions
             } else {
-                // Gérer les erreurs d'authentification
-                throw new Error('Nom d\'utilisateur ou mot de passe incorrect');
+                // Si l'authentification échoue, affichez un message d'erreur approprié
+                const { message } = await response.json();
+                setError(message);
             }
         } catch (error) {
-            // Gérer les erreurs de requête
             console.error('Erreur de connexion :', error);
+            setError('Erreur de connexion');
         }
     };
 
