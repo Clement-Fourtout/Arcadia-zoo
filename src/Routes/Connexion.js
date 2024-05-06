@@ -1,5 +1,6 @@
 
 import Logo from '../components/styles/Logo/Arcadia Zoo.png'
+import { useState } from 'react';
 
 // Sélectionnez le head du document
 var head = document.head || document.getElementsByTagName('head')[0];
@@ -8,7 +9,6 @@ var head = document.head || document.getElementsByTagName('head')[0];
 var style = document.createElement('style');
 style.type = 'text/css';
 
-// Définissez les styles CSS à partir de votre fichier connexion.css
 var css = `
 * {
     margin: 0;
@@ -124,31 +124,73 @@ if (style.styleSheet){
 head.appendChild(style);
 
 
-export default function Connexion(){
-	return(
-	<>
-    
-		<div class="wrapper">
-        <div class="logo">
-            <a href='/'>
-            <img src={Logo} alt=""/>
-            </a>
-        </div>
-        <div class="text-center mt-4 name">
-            Arcadia
-        </div>
-        <form class="p-3 mt-3">
-            <div class="form-field d-flex align-items-center">
-                <span class="far fa-user"></span>
-                <input type="text" name="Utilisateur" id="Utilisateur" placeholder="Utilisateur"/>
+
+export default function Connexion() {
+    const [utilisateur, setUtilisateur] = useState('');
+    const [motDePasse, setMotDePasse] = useState('');
+
+    const handleConnexion = async (event) => {
+        event.preventDefault();
+
+        try {
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ utilisateur, motDePasse })
+            });
+
+            if (response.ok) {
+                // Redirection ou traitement de la réponse en cas de connexion réussie
+                console.log('Connexion réussie');
+            } else {
+                // Gérer les erreurs d'authentification
+                console.error('Erreur de connexion :', response.statusText);
+            }
+        } catch (error) {
+            // Gérer les erreurs de requête
+            console.error('Erreur de connexion :', error);
+        }
+    };
+
+    return (
+        <>
+            <div className="wrapper">
+                <div className="logo">
+                    <a href='/'>
+                        <img src={Logo} alt="Logo" />
+                    </a>
+                </div>
+                <div className="text-center mt-4 name">
+                    Arcadia
+                </div>
+                <form className="p-3 mt-3" onSubmit={handleConnexion}>
+                    <div className="form-field d-flex align-items-center">
+                        <span className="far fa-user"></span>
+                        <input
+                            type="text"
+                            name="Utilisateur"
+                            id="Utilisateur"
+                            placeholder="Utilisateur"
+                            value={utilisateur}
+                            onChange={(event) => setUtilisateur(event.target.value)}
+                        />
+                    </div>
+                    <div className="form-field d-flex align-items-center">
+                        <span className="fas fa-key"></span>
+                        <input
+                            type="password"
+                            name="motDePasse"
+                            id="mdp"
+                            placeholder="Mot de passe"
+                            value={motDePasse}
+                            onChange={(event) => setMotDePasse(event.target.value)}
+                        />
+                    </div>
+                    <button type="submit" className="btn mt-3">Connexion</button>
+                </form>
             </div>
-            <div class="form-field d-flex align-items-center">
-                <span class="fas fa-key"></span>
-                <input type="password" name="motDePasse" id="mdp" placeholder="Mot de passe"/>
-            </div>
-            <button class="btn mt-3">Connexion</button>
-        </form>
-    </div>
-		</>
-  )
+        </>
+    );
 };
