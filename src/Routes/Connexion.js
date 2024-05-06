@@ -174,9 +174,9 @@ export default function Connexion() {
                         <span className="far fa-user"></span>
                         <input
                             type="text"
-                            name="Utilisateur"
-                            id="Utilisateur"
-                            placeholder="Utilisateur"
+                            name="nom"
+                            id="nom"
+                            placeholder="Nom d'utilisateur"
                             value={utilisateur}
                             onChange={(event) => setUtilisateur(event.target.value)}
                         />
