@@ -134,7 +134,7 @@ export default function Connexion() {
         event.preventDefault();
 
         try {
-            const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/login', {
+            const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
