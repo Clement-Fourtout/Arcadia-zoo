@@ -126,7 +126,7 @@ head.appendChild(style);
 
 
 export default function Connexion() {
-    const [utilisateur, setUtilisateur] = useState('');
+    const [nom, setNom] = useState('');
     const [motDePasse, setMotDePasse] = useState('');
     const [error, setError] = useState('');
 
@@ -139,7 +139,7 @@ export default function Connexion() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ utilisateur, motDePasse })
+                body: JSON.stringify({ nom, mot_de_passe: motDePasse })
             });
             
             if (response.ok) {
@@ -177,8 +177,8 @@ export default function Connexion() {
                             name="nom"
                             id="nom"
                             placeholder="Nom d'utilisateur"
-                            value={utilisateur}
-                            onChange={(event) => setUtilisateur(event.target.value)}
+                            value={nom}
+                            onChange={(event) => setNom(event.target.value)}
                         />
                     </div>
                     <div className="form-field d-flex align-items-center">
