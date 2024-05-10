@@ -139,7 +139,7 @@ export default function Connexion() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ nom: nom, mot_de_passe: mot_de_passe })
+                body: JSON.stringify({nom: nom,mot_de_passe: mot_de_passe})
             });
             
             if (response.ok) {
@@ -184,9 +184,9 @@ export default function Connexion() {
                     <div className="form-field d-flex align-items-center">
                         <span className="fas fa-key"></span>
                         <input
-                            type="password"
-                            name="motDePasse"
-                            id="mdp"
+                            type="text"
+                            name="mot_de_passe"
+                            id="mot_de_passe"
                             placeholder="Mot de passe"
                             value={mot_de_passe}
                             onChange={(event) => setMotDePasse(event.target.value)}
