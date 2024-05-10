@@ -93,6 +93,21 @@ body {
 .wrapper .btn:hover {
     background-color: #438b52;
 }
+.wrapper .btn1 {
+    box-shadow: none;
+    width: 100%;
+    height: 40px;
+    background-color: #6495ED;
+    color: #fff;
+    border-radius: 25px;
+    box-shadow: 3px 3px 3px #b1b1b1,
+        -3px -3px 3px #fff;
+    letter-spacing: 1.3px;
+}
+
+.wrapper .btn1:hover {
+    background-color: #003399;
+}
 
 .wrapper a {
     text-decoration: none;
@@ -123,7 +138,27 @@ if (style.styleSheet){
 // Ajoutez l'élément style au head du document
 head.appendChild(style);
 
+const register = async (nom, mot_de_passe) => {
+    try {
+        const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nom, mot_de_passe })
+        });
 
+        if (response.ok) {
+            const { message } = await response.json();
+            console.log(message); // Affichez un message de succès
+        } else {
+            const { error } = await response.json();
+            console.error('Erreur lors de la création du compte :', error);
+        }
+    } catch (error) {
+        console.error('Erreur lors de la création du compte :', error);
+    }
+};
 
 export default function Connexion() {
     const [nom, setNom] = useState('');
@@ -157,6 +192,14 @@ export default function Connexion() {
             setError('Erreur de connexion');
         }
     };
+
+    const handleRegister = async (event) => {
+        event.preventDefault();
+
+        // Appel de la fonction register avec le nom d'utilisateur et le mot de passe
+        await register(nom, mot_de_passe);
+    };
+
 
     return (
         <>
@@ -193,6 +236,7 @@ export default function Connexion() {
                         />
                     </div>
                     <button type="submit" className="btn mt-3">Connexion</button>
+                    <button type="button" onClick={handleRegister} className="btn1 mt-3">Créer un compte</button>
                 </form>
             </div>
         </>
