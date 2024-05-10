@@ -127,7 +127,7 @@ head.appendChild(style);
 
 export default function Connexion() {
     const [nom, setNom] = useState('');
-    const [motDePasse, setMotDePasse] = useState('');
+    const [mot_de_passe, setMotDePasse] = useState('');
     const [error, setError] = useState('');
 
     const handleConnexion = async (event) => {
@@ -139,7 +139,7 @@ export default function Connexion() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ nom: nom, mot_de_passe: motDePasse })
+                body: JSON.stringify({ nom: nom, mot_de_passe: mot_de_passe })
             });
             
             if (response.ok) {
