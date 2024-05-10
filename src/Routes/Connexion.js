@@ -188,7 +188,7 @@ export default function Connexion() {
                             name="motDePasse"
                             id="mdp"
                             placeholder="Mot de passe"
-                            value={motDePasse}
+                            value={mot_de_passe}
                             onChange={(event) => setMotDePasse(event.target.value)}
                         />
                     </div>
