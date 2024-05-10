@@ -184,7 +184,7 @@ export default function Connexion() {
                     <div className="form-field d-flex align-items-center">
                         <span className="fas fa-key"></span>
                         <input
-                            type="text"
+                            type="password"
                             name="mot_de_passe"
                             id="mot_de_passe"
                             placeholder="Mot de passe"
