@@ -202,7 +202,7 @@ const registerAdmin = async (nom, mot_de_passe) => {
 };
 
 // Utilisation de la fonction pour créer un nouvel administrateur
-await registerAdmin('admin', 'adminPassword');
+await registerAdmin('Jose', 'labeautedelanature');
 
 
 
