@@ -5,17 +5,19 @@ export default function Admin() {
   const [nom, setNom] = useState('');
   const [mot_de_passe, setMotDePasse] = useState('');
   const [role, setRole] = useState('');
-  const [userId, setUserId] = useState(localStorage.getItem('userId'));
+  const [userId, setUserId] = useState('');
   const [token, setToken] = useState('');
 
   useEffect(() => {
-    // Récupérer userId et token depuis le localStorage ou tout autre endroit où ils sont stockés après la connexion
-    const userIdFromStorage = localStorage.getItem('userId');
-    const tokenFromStorage = localStorage.getItem('token');
-    setUserId(userIdFromStorage);
-    setToken(tokenFromStorage);
-    localStorage.setItem('userId', userIdFromStorage);
-}, []);
+    async function fetchUserData() {
+      const userIdFromStorage = localStorage.getItem('userId');
+      const tokenFromStorage = localStorage.getItem('token');
+      setUserId(userIdFromStorage);
+      setToken(tokenFromStorage);
+    }
+
+    fetchUserData();
+  }, []);
 
 
 var head = document.head || document.getElementsByTagName('head')[0];
