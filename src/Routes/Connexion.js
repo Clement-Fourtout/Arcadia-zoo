@@ -179,14 +179,14 @@ const deleteUser = async (nom, mot_de_passe) => {
 };
 
 
-const registerAdmin = async (nom, mot_de_passe) => {
+const register = async (nom, mot_de_passe) => {
     try {
         const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ nom, mot_de_passe, isAdmin: true })
+            body: JSON.stringify({ nom, mot_de_passe })
         });
 
         if (response.ok) {
@@ -200,11 +200,6 @@ const registerAdmin = async (nom, mot_de_passe) => {
         console.error('Erreur lors de la création du compte :', error);
     }
 };
-
-// Utilisation de la fonction pour créer un nouvel administrateur
-await registerAdmin('Jose', 'labeautedelanature');
-
-
 
 export default function Connexion() {
     const [nom, setNom] = useState('');
@@ -224,9 +219,12 @@ export default function Connexion() {
             });
             
             if (response.ok) {
-                const { token } = await response.json();
+                const { token, role } = await response.json();
                 // Stockez le jeton JWT dans le stockage local ou la session
                 localStorage.setItem('token', token);
+                // Stockez également le rôle de l'utilisateur
+                localStorage.setItem('role', role);
+
                 // Redirigez l'utilisateur vers une page protégée ou effectuez d'autres actions
             } else {
                 // Si l'authentification échoue, affichez un message d'erreur approprié
@@ -239,7 +237,12 @@ export default function Connexion() {
         }
     };
 
+    const handleRegister = async (event) => {
+        event.preventDefault();
 
+        // Appel de la fonction register avec le nom d'utilisateur et le mot de passe
+        await register(nom, mot_de_passe);
+    };
 
     const handleDeleteUser = async (event) => {
         event.preventDefault();
@@ -282,7 +285,7 @@ export default function Connexion() {
                         />
                     </div>
                     <button type="submit" className="btn mt-3">Connexion</button>
-                    <button type="button" onClick={registerAdmin} className="btn1 mt-3">Créer un compte</button>
+                    <button type="button" onClick={handleRegister} className="btn1 mt-3">Créer un compte</button>
                     <button type="button" onClick={handleDeleteUser} className="btn2 mt-3">Supprimer un compte</button>
                 </form>
             </div>
