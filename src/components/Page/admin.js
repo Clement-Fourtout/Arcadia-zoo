@@ -5,7 +5,7 @@ export default function Admin() {
   const [nom, setNom] = useState('');
   const [mot_de_passe, setMotDePasse] = useState('');
   const [role, setRole] = useState('');
-  const [userId, setUserId] = useState('');
+  const [userId, setUserId] = useState(localStorage.getItem('userId'));
   const [token, setToken] = useState('');
 
   useEffect(() => {
@@ -14,6 +14,7 @@ export default function Admin() {
     const tokenFromStorage = localStorage.getItem('token');
     setUserId(userIdFromStorage);
     setToken(tokenFromStorage);
+    localStorage.setItem('userId', userIdFromStorage);
 }, []);
 
 
