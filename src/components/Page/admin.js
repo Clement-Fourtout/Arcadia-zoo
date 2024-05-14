@@ -184,7 +184,7 @@ const handleDeleteAccount = async () => {
 
       if (response.ok) {
           // Redirigez l'utilisateur vers la page de connexion après la suppression réussie du compte
-          window.location.href = '/connexion';
+          window.location.href = "/connexion";
       } else {
           const { error } = await response.json();
           console.error('Erreur lors de la suppression du compte :', error);
@@ -193,7 +193,15 @@ const handleDeleteAccount = async () => {
       console.error('Erreur lors de la suppression du compte :', error);
   }
 };
-
+const handleLogout = () => {
+  // Supprimer le jeton JWT du stockage local
+  localStorage.removeItem('token');
+  // Supprimer d'autres données de session si nécessaire
+  localStorage.removeItem('role');
+  localStorage.removeItem('userId');
+  // Rediriger l'utilisateur vers la page de connexion ou une autre page appropriée
+  window.location.href = "/connexion";
+};
 
 return (
   <>
@@ -250,6 +258,7 @@ return (
                     <h2>Supprimer mon compte</h2>
                     <p>Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</p>
                     <button onClick={handleDeleteAccount}>Supprimer mon compte</button>
+                    <button onClick={handleLogout}>Déconnexion</button>
                 </div>
           </div>
       </div>
