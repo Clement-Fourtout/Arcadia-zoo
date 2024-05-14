@@ -173,7 +173,7 @@ const handleRegister = async (event) => {
   }
 };
 
-const handleDeleteAccount = async () => {
+const handleDeleteAccount = async (userId) => {
   try {
       const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/users/${userId}`, {
           method: 'DELETE',
