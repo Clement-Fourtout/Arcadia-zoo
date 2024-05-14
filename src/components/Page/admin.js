@@ -5,7 +5,6 @@ export default function Admin() {
   const [nom, setNom] = useState('');
   const [mot_de_passe, setMotDePasse] = useState('');
   const [role, setRole] = useState('');
-  const [userId, setUserId] = useState('');
 
 var head = document.head || document.getElementsByTagName('head')[0];
 var style = document.createElement('style');
