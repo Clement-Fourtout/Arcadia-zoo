@@ -1,6 +1,6 @@
-
-import Logo from '../components/styles/Logo/Arcadia Zoo.png'
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Logo from '../components/styles/Logo/Arcadia Zoo.png';
+import React, { useState } from 'react';
 
 // Sélectionnez le head du document
 var head = document.head || document.getElementsByTagName('head')[0];
@@ -202,6 +202,7 @@ const register = async (nom, mot_de_passe) => {
 };
 
 export default function Connexion() {
+    const navigate = useNavigate();
     const [nom, setNom] = useState('');
     const [mot_de_passe, setMotDePasse] = useState('');
     const [error, setError] = useState('');
@@ -226,6 +227,7 @@ export default function Connexion() {
                 localStorage.setItem('role', role);
 
                 // Redirigez l'utilisateur vers une page protégée ou effectuez d'autres actions
+                navigate('/admin')
             } else {
                 // Si l'authentification échoue, affichez un message d'erreur approprié
                 const { message } = await response.json();

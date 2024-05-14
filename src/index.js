@@ -12,6 +12,7 @@ import Connexion from './Routes/Connexion.js';
 import Savane from './components/Page/Savane';
 import Jungle from './components/Page/Jungle';
 import Marais from './components/Page/Marais';
+import Admin from './components/Page/admin.js';
 
 const router = createBrowserRouter([
   {
@@ -47,7 +48,10 @@ const router = createBrowserRouter([
     path:"jungle",
     element:<Jungle />,
   },
-
+  {
+    path:"admin",
+    element:<Admin />,
+  },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -10,7 +10,7 @@ import Formulaire from './components/Page/Formulaire.js';
 import Parc from './Routes/Parc.js';
 import Arcadia from './Routes/Arcadia.js';
 import Connexion from './Routes/Connexion.js';
-
+import Admin from './components/Page/admin.js';
 
 function App() {
 
@@ -25,6 +25,7 @@ function App() {
       <Route path='services' element={<Services/>} />
       <Route path='formulaire' element={<Formulaire/>} />
       <Route path='arcadia' element={<Arcadia/>} />
+      <Route path='admin' element={<Admin/>} />
     </Routes>
     <Main></Main>
     <Avis></Avis>
