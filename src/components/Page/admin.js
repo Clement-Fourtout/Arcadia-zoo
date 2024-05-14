@@ -184,7 +184,7 @@ const handleDeleteAccount = async () => {
 
       if (response.ok) {
           // Redirigez l'utilisateur vers la page de connexion après la suppression réussie du compte
-          window.location.href = '/login';
+          window.location.href = '/connexion';
       } else {
           const { error } = await response.json();
           console.error('Erreur lors de la suppression du compte :', error);
