@@ -124,19 +124,18 @@ if (style.styleSheet){
 // Ajoutez l'élément style au head du document
 head.appendChild(style);
 
-const deleteUser = async (nom, mot_de_passe) => {
+const deleteUser = async (userId) => { 
   try {
-      const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/users/delete`, {
+      const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/users/${userId}`, { 
           method: 'DELETE',
           headers: {
               'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ nom, mot_de_passe })
+          }
       });
 
       if (response.ok) {
           const { message } = await response.json();
-          console.log(message); // Affichez un message de succès
+          console.log(message); // Affiche un message de succès
       } else {
           const { error } = await response.json();
           console.error('Erreur lors de la suppression de l\'utilisateur :', error);
@@ -182,7 +181,8 @@ const handleDeleteUser = async (event) => {
   event.preventDefault();
   const userRole = localStorage.getItem('role');
   if (userRole === 'administrateur') {
-      await deleteUser(nom, mot_de_passe);
+      const userId = event.target.userId.value; // Obtenez l'ID de l'utilisateur à partir du formulaire
+      await deleteUser(userId);
   } else {
       console.error('Vous n\'êtes pas autorisé à supprimer des comptes.');
   }
