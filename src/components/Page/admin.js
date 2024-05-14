@@ -1,10 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Logo from '../styles/Logo/Arcadia Zoo.png'
 
 export default function Admin() {
   const [nom, setNom] = useState('');
   const [mot_de_passe, setMotDePasse] = useState('');
   const [role, setRole] = useState('');
+  const [userId, setUserId] = useState('');
+  const [token, setToken] = useState('');
+
+  useEffect(() => {
+    // Récupérer userId et token depuis le localStorage ou tout autre endroit où ils sont stockés après la connexion
+    const userIdFromStorage = localStorage.getItem('userId');
+    const tokenFromStorage = localStorage.getItem('token');
+    setUserId(userIdFromStorage);
+    setToken(tokenFromStorage);
+}, []);
+
 
 var head = document.head || document.getElementsByTagName('head')[0];
 var style = document.createElement('style');
@@ -125,27 +136,7 @@ if (style.styleSheet){
 // Ajoutez l'élément style au head du document
 head.appendChild(style);
 
-const deleteUser = async (nom, mot_de_passe) => {
-  try {
-      const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/users/delete`, {
-          method: 'DELETE',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ nom, mot_de_passe })
-      });
 
-      if (response.ok) {
-          const { message } = await response.json();
-          console.log(message); // Affichez un message de succès
-      } else {
-          const { error } = await response.json();
-          console.error('Erreur lors de la suppression de l\'utilisateur :', error);
-      }
-  } catch (error) {
-      console.error('Erreur lors de la suppression de l\'utilisateur :', error);
-  }
-};
 
 const register = async (nom, mot_de_passe, role) => {
   try {
@@ -179,15 +170,27 @@ const handleRegister = async (event) => {
   }
 };
 
-const handleDeleteUser = async (event) => {
-  event.preventDefault();
-  const userRole = localStorage.getItem('role');
-  if (userRole === 'administrateur') {
-      await deleteUser(nom, mot_de_passe);
-  } else {
-      console.error('Vous n\'êtes pas autorisé à supprimer des comptes.');
+const handleDeleteAccount = async () => {
+  try {
+      const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/users/${userId}`, {
+          method: 'DELETE',
+          headers: {
+              'Authorization': `Bearer ${token}` // Assurez-vous d'envoyer le jeton d'authentification si nécessaire
+          }
+      });
+
+      if (response.ok) {
+          // Redirigez l'utilisateur vers la page de connexion après la suppression réussie du compte
+          window.location.href = '/login';
+      } else {
+          const { error } = await response.json();
+          console.error('Erreur lors de la suppression du compte :', error);
+      }
+  } catch (error) {
+      console.error('Erreur lors de la suppression du compte :', error);
   }
 };
+
 
 return (
   <>
@@ -239,8 +242,12 @@ return (
                             </select>
                         </div>
                   <button type="button" onClick={handleRegister} className="btn1 mt-3">Créer un compte</button>
-                  <button type="button" onClick={handleDeleteUser} className="btn2 mt-3">Supprimer un compte</button>
               </form>
+              <div className="p-3 mt-3">
+                    <h2>Supprimer mon compte</h2>
+                    <p>Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</p>
+                    <button onClick={handleDeleteAccount}>Supprimer mon compte</button>
+                </div>
           </div>
       </div>
   </>
