@@ -179,14 +179,14 @@ const deleteUser = async (nom, mot_de_passe) => {
 };
 
 
-const register = async (nom, mot_de_passe) => {
+const registerAdmin = async (nom, mot_de_passe) => {
     try {
         const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ nom, mot_de_passe })
+            body: JSON.stringify({ nom, mot_de_passe, isAdmin: true })
         });
 
         if (response.ok) {
@@ -200,6 +200,11 @@ const register = async (nom, mot_de_passe) => {
         console.error('Erreur lors de la création du compte :', error);
     }
 };
+
+// Utilisation de la fonction pour créer un nouvel administrateur
+await registerAdmin('admin', 'adminPassword');
+
+
 
 export default function Connexion() {
     const [nom, setNom] = useState('');
@@ -234,12 +239,7 @@ export default function Connexion() {
         }
     };
 
-    const handleRegister = async (event) => {
-        event.preventDefault();
 
-        // Appel de la fonction register avec le nom d'utilisateur et le mot de passe
-        await register(nom, mot_de_passe);
-    };
 
     const handleDeleteUser = async (event) => {
         event.preventDefault();
@@ -282,7 +282,7 @@ export default function Connexion() {
                         />
                     </div>
                     <button type="submit" className="btn mt-3">Connexion</button>
-                    <button type="button" onClick={handleRegister} className="btn1 mt-3">Créer un compte</button>
+                    <button type="button" onClick={registerAdmin} className="btn1 mt-3">Créer un compte</button>
                     <button type="button" onClick={handleDeleteUser} className="btn2 mt-3">Supprimer un compte</button>
                 </form>
             </div>
