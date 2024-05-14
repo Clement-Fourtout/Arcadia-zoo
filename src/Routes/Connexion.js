@@ -143,11 +143,14 @@ export default function Connexion() {
             });
             
             if (response.ok) {
-                const { token, role } = await response.json();
+                const { token, role, userId } = await response.json();
                 // Stockez le jeton JWT dans le stockage local ou la session
                 localStorage.setItem('token', token);
                 // Stockez également le rôle de l'utilisateur
                 localStorage.setItem('role', role);
+                // Stockez également le numéro utilisateur
+                localStorage.setItem('userId', userId);
+                
 
                 // Redirigez l'utilisateur vers une page protégée ou effectuez d'autres actions
                 navigate('/admin')

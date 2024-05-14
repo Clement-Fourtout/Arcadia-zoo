@@ -179,7 +179,7 @@ const handleDeleteAccount = async () => {
           method: 'DELETE',
           headers: {
               'Authorization': `Bearer ${token}` // Assurez-vous d'envoyer le jeton d'authentification si nécessaire
-          }
+          },
       });
 
       if (response.ok) {
