@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Logo from '../styles/Logo/Arcadia Zoo.png'
-
+import Nav from '../Nav'
 export default function Admin() {
   const [nom, setNom] = useState('');
   const [mot_de_passe, setMotDePasse] = useState('');
   const [role, setRole] = useState('');
   const [userId, setUserId] = useState('');
   const [token, setToken] = useState('');
+  const [successMessageVisible, setSuccessMessageVisible] = useState(false);
 
   useEffect(() => {
     async function fetchUserData() {
@@ -139,38 +140,38 @@ if (style.styleSheet){
 // Ajoutez l'élément style au head du document
 head.appendChild(style);
 
-
-
-const register = async (nom, mot_de_passe, role) => {
-  try {
-      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/register', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ nom, mot_de_passe, role })
-      });
-
-      if (response.ok) {
-          const { message } = await response.json();
-          console.log(message); // Affichez un message de succès
-      } else {
-          const { error } = await response.json();
-          console.error('Erreur lors de la création du compte :', error);
-      }
-  } catch (error) {
-      console.error('Erreur lors de la création du compte :', error);
-  }
-};
-
 const handleRegister = async (event) => {
-  event.preventDefault();
-  const userRole = localStorage.getItem('role');
-  if (userRole === 'administrateur') {
-      await register(nom, mot_de_passe, role);
-  } else {
-      console.error('Vous n\'êtes pas autorisé à créer de nouveaux comptes.');
-  }
+    event.preventDefault();
+    const userRole = localStorage.getItem('role');
+    const email = document.getElementById('email').value;
+    const username = document.getElementById('username').value;
+    if (userRole === 'administrateur') {
+        try {
+            const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ nom, mot_de_passe, role, email, username })
+            });
+
+            if (response.ok) {
+                const { message } = await response.json();
+                console.log(message); // Affichez un message de succès
+                setSuccessMessageVisible(true);
+                setNom('');
+                setMotDePasse('');
+                setRole('');
+            } else {
+                const { error } = await response.json();
+                console.error('Erreur lors de la création du compte :', error);
+            }
+        } catch (error) {
+            console.error('Erreur lors de la création du compte :', error);
+        }
+    } else {
+        console.error('Vous n\'êtes pas autorisé à créer de nouveaux comptes.');
+    }
 };
 
 const handleDeleteAccount = async () => {
@@ -205,6 +206,7 @@ const handleLogout = () => {
 
 return (
   <>
+  <Nav/>
       <div>
           <h1>Page Administrateur</h1>
           <p>Bienvenue sur la page Administrateur.</p>
@@ -251,7 +253,7 @@ return (
                                 <option value="veterinaire">Vétérinaire</option>
                                 <option value="employe">Employé</option>
                             </select>
-                        </div>
+                </div>
                   <button type="button" onClick={handleRegister} className="btn1 mt-3">Créer un compte</button>
               </form>
               <div className="p-3 mt-3">
@@ -262,6 +264,33 @@ return (
                 </div>
           </div>
       </div>
+
+      <div id="registerForm">
+    <h2>Créer un compte</h2>
+    <form>
+        <div>
+            <label for="nom">Nom :</label>
+            <input type="text" id="nom" name="nom" placeholder="Entrez votre nom"/>
+        </div>
+        <div>
+            <label for="email">E-mail :</label>
+            <input type="email" id="email" name="email" placeholder="Entrez votre adresse e-mail"/>
+        </div>
+        <div>
+            <label for="role">Rôle :</label>
+            <select id="role" name="role">
+                <option value="veterinaire">Vétérinaire</option>
+                <option value="employe">Employé</option>
+            </select>
+        </div>
+        <div>
+            <button id="registerButton" type="submit">Créer un compte</button>
+        </div>
+    </form>
+    </div>
+    <div id="successMessage" style={{ display: successMessageVisible ? 'block' : 'none' }}>
+                <p>Votre compte a été créé avec succès. Un e-mail de confirmation a été envoyé à votre adresse e-mail.</p>
+    </div>
   </>
 );
 };
