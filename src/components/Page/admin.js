@@ -7,6 +7,7 @@ export default function Admin() {
   const [role, setRole] = useState('');
   const [userId, setUserId] = useState('');
   const [token, setToken] = useState('');
+  const [email, setEmail] = useState('');
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
 
   useEffect(() => {
@@ -254,39 +255,28 @@ return (
                                 <option value="employe">Employé</option>
                             </select>
                 </div>
+                <div className="form-field d-flex align-items-center">
+                <label htmlFor="email">E-mail :</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Entrez votre adresse e-mail"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    />
+                </div>
               </form>
               <div className="p-3 mt-3">
                     <h2>Supprimer mon compte</h2>
                     <p>Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</p>
+                    <button id="registerButton" onClick={handleRegister} type="submit">Créer un compte</button>
                     <button onClick={handleDeleteAccount}>Supprimer mon compte</button>
                     <button onClick={handleLogout}>Déconnexion</button>
                 </div>
           </div>
       </div>
 
-      <div id="registerForm">
-    <h2>Créer un compte</h2>
-    <form>
-        <div>
-            <label for="nom">Nom :</label>
-            <input type="text" id="nom" name="nom" placeholder="Entrez votre nom"/>
-        </div>
-        <div>
-            <label for="email">E-mail :</label>
-            <input type="email" id="email" name="email" placeholder="Entrez votre adresse e-mail"/>
-        </div>
-        <div>
-            <label for="role">Rôle :</label>
-            <select id="role" name="role">
-                <option value="veterinaire">Vétérinaire</option>
-                <option value="employe">Employé</option>
-            </select>
-        </div>
-        <div>
-            <button id="registerButton" onClick={handleRegister} type="submit">Créer un compte</button>
-        </div>
-    </form>
-    </div>
     <div id="successMessage" style={{ display: successMessageVisible ? 'block' : 'none' }}>
                 <p>Votre compte a été créé avec succès. Un e-mail de confirmation a été envoyé à votre adresse e-mail.</p>
     </div>
