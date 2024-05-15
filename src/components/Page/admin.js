@@ -145,7 +145,7 @@ const handleRegister = async (event) => {
     event.preventDefault();
     const userRole = localStorage.getItem('role');
     const email = document.getElementById('email').value;
-    const username = document.getElementById('username').value;
+    const nom = document.getElementById('nom').value;
     if (userRole === 'administrateur') {
         try {
             const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/register', {
@@ -153,7 +153,7 @@ const handleRegister = async (event) => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ nom, mot_de_passe, role, email, username })
+                body: JSON.stringify({ nom, mot_de_passe, role, email })
             });
 
             if (response.ok) {
@@ -270,9 +270,12 @@ return (
               <div className="p-3 mt-3">
                     <h2>Supprimer mon compte</h2>
                     <p>Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</p>
-                    <button id="registerButton" onClick={handleRegister} type="submit">Créer un compte</button>
+                    
                     <button onClick={handleDeleteAccount}>Supprimer mon compte</button>
+
                     <button onClick={handleLogout}>Déconnexion</button>
+
+                    <button id="registerButton" onClick={handleRegister} type="submit">Créer un compte</button>
                 </div>
           </div>
       </div>
