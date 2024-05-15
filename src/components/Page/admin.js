@@ -254,7 +254,6 @@ return (
                                 <option value="employe">Employé</option>
                             </select>
                 </div>
-                  <button type="button" onClick={handleRegister} className="btn1 mt-3">Créer un compte</button>
               </form>
               <div className="p-3 mt-3">
                     <h2>Supprimer mon compte</h2>
@@ -284,7 +283,7 @@ return (
             </select>
         </div>
         <div>
-            <button id="registerButton" type="submit">Créer un compte</button>
+            <button id="registerButton" onClick={handleRegister} type="submit">Créer un compte</button>
         </div>
     </form>
     </div>
