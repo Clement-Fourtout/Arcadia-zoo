@@ -14,33 +14,41 @@ export default function Admin() {
 
   useEffect(() => {
     async function fetchUserData() {
-      const userIdFromStorage = localStorage.getItem('userId');
-      const tokenFromStorage = localStorage.getItem('token');
-      setUserId(userIdFromStorage);
-      setToken(tokenFromStorage);
+        const userIdFromStorage = localStorage.getItem('userId');
+        const tokenFromStorage = localStorage.getItem('token');
+        setUserId(userIdFromStorage);
+        setToken(tokenFromStorage);
 
-      try {
-        const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/avis_attente', {
-          method: 'GET', // Spécifier la méthode GET
-          headers: {
-            'Content-Type': 'application/json', // Ajouter les en-têtes si nécessaire
-          },
-        });
-        console.log('Réponse de l\'API:', response); // Ajout de cette ligne pour vérifier la réponse complète
-        if (response.ok) {
-          const data = await response.json();
-          console.log('Contenu de la réponse JSON :', data);
-          setAvisAttente(data);
-        } else {
-          console.error('Erreur lors de la récupération des avis en attente :', response.statusText);
+        try {
+            const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/avis_attente', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            console.log('Réponse de l\'API:', response);
+
+            if (response.ok) {
+                const data = await response.json();
+                if (data && data.length > 0) {
+                    console.log('Contenu de la réponse JSON :', data);
+                    setAvisAttente(data);
+                } else if (response.status === 204) {
+                    console.log('Aucune donnée n\'a été renvoyée par l\'API.');
+                } else {
+                    console.error('Erreur lors de la récupération des avis en attente :', response.statusText);
+                }
+            } else {
+                console.error('Erreur lors de la récupération des avis en attente :', response.statusText);
+            }
+        } catch (error) {
+            console.error('Erreur lors de la récupération des avis en attente :', error);
         }
-      } catch (error) {
-        console.error('Erreur lors de la récupération des avis en attente :', error);
-      }
     }
-    
+
     fetchUserData();
-  }, []);
+}, []);
+
 
 
     const head = document.head || document.getElementsByTagName('head')[0];
