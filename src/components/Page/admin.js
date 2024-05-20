@@ -21,7 +21,7 @@ export default function Admin() {
       setToken(tokenFromStorage);
 
       try {
-        const response = await axios.get('https://api-zoo-22654ce4a3d5.herokuapp.com/avis_attente/');
+        const response = await axios.get('https://api-zoo-22654ce4a3d5.herokuapp.com/avis_attente');
         console.log('Contenu de avisAttente:', response.data);
         if (Array.isArray(response.data)) {
             setAvisAttente(response.data);
@@ -316,19 +316,20 @@ return (
                 <p>Votre compte a été créé avec succès. Un e-mail de confirmation a été envoyé à votre adresse e-mail.</p>
     </div>
 
-    <div>
-        <h2>Avis en attente de validation :</h2>
-        <ul>
-          {avisAttente.map(avis => (
-            <li key={avis.id}>
-              <p>Pseudo : {avis.pseudo}</p>
-              <p>Avis : {avis.avis}</p>
-              <button onClick={() => validerAvis(avis.id)}>Valider</button>
-              <button onClick={() => rejeterAvis(avis.id)}>Rejeter</button>
-            </li>
-          ))}
-        </ul>
-      </div>
+    {avisAttente.length > 0 ? (
+  <ul>
+    {avisAttente.map(avis => (
+      <li key={avis.id}>
+        <p>Pseudo : {avis.pseudo}</p>
+        <p>Avis : {avis.avis}</p>
+        <button onClick={() => validerAvis(avis.id)}>Valider</button>
+        <button onClick={() => rejeterAvis(avis.id)}>Rejeter</button>
+      </li>
+    ))}
+  </ul>
+) : (
+  <p>Aucun avis en attente</p>
+)}
 
   </>
 );
