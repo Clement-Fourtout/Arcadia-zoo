@@ -21,6 +21,7 @@ export default function Admin() {
 
       try {
         const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/avis_attente');
+        console.log('Réponse de l\'API:', response); // Ajout de cette ligne pour vérifier la réponse complète
         if (response.ok) {
           const data = await response.json();
           if (data && data.result) {
