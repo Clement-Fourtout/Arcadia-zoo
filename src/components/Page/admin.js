@@ -21,13 +21,14 @@ export default function Admin() {
       setToken(tokenFromStorage);
 
       try {
-        const response = await axios.get('https://api-zoo-22654ce4a3d5.herokuapp.com/avis_attente');
-        console.log('Réponse de la requête API :', response);
-        console.log('Contenu de avisAttente .data:', response.data);
-        console.log('Contenu de avisAttente data.data:', response.data.data);
-        console.log('Contenu de avisAttente data.result:', response.data.result);
+        const result = await axios.get('https://api-zoo-22654ce4a3d5.herokuapp.com/avis_attente');
+        console.log('Réponse de la requête API :', result);
+        console.log('Contenu de avisAttente .data:', result.data);
+        console.log('Contenu de avisAttente data.data:', result.data.data);
+        console.log(avisAttente)
+        console.log(setAvisAttente)
 
-        setAvisAttente(response.data.result);
+        setAvisAttente(result.data);
       } catch (error) {
         console.error('Erreur lors de la récupération des avis en attente :', error);
       }
@@ -159,7 +160,7 @@ head.appendChild(style);
 
 const validerAvis = async (id) => {
     try {
-      await axios.post(`https://api-zoo-22654ce4a3d5.herokuapp.com/avis_valides/${id}`);
+      await axios.post(`https://api-zoo-22654ce4a3d5.herokuapp.com/avis_valide/${id}`);
       setAvisAttente(avisAttente.filter(avis => avis.id !== id));
     } catch (error) {
       console.error('Erreur lors de la validation de l\'avis :', error);
