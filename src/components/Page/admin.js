@@ -25,8 +25,8 @@ export default function Admin() {
         console.log('Réponse de la requête API :', result);
         console.log('Contenu de avisAttente .data:', result.data);
         console.log('Contenu de avisAttente data.data:', result.data.data);
-        console.log(avisAttente)
-        console.log(setAvisAttente)
+        console.log(avisAttente);
+        console.log(setAvisAttente);
 
         setAvisAttente(result.data);
       } catch (error) {
