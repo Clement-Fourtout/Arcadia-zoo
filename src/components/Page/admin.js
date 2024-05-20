@@ -14,40 +14,36 @@ export default function Admin() {
 
   useEffect(() => {
     async function fetchUserData() {
+      try {
         const userIdFromStorage = localStorage.getItem('userId');
         const tokenFromStorage = localStorage.getItem('token');
         setUserId(userIdFromStorage);
         setToken(tokenFromStorage);
+        
+        const response = await fetchAvisAttente();
+        console.log('Réponse de l\'API:', response);
 
-        try {
-            const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/avis_attente', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            console.log('Réponse de l\'API:', response);
-
-            if (response.ok) {
-                const { result } = await response.json();
-                if (result && result.length > 0) {
-                    console.log('Contenu de la réponse JSON :', result);
-                    setAvisAttente(result);
-                } else if (response.status === 204) {
-                    console.log('Aucune donnée n\'a été renvoyée par l\'API.');
-                } else {
-                    console.error('Erreur lors de la récupération des avis en attente :', response.statusText);
-                }
-            } else {
-                console.error('Erreur lors de la récupération des avis en attente :', response.statusText);
-            }
-        } catch (error) {
-            console.error('Erreur lors de la récupération des avis en attente :', error);
+        if (response.ok) {
+          const { result } = await response.json();
+          if (result && result.length > 0) {
+            console.log('Contenu de la réponse JSON :', result);
+            setAvisAttente(result);
+          } else if (response.status === 204) {
+            console.log('Aucune donnée n\'a été renvoyée par l\'API.');
+          } else {
+            console.error('Erreur lors de la récupération des avis en attente :', response.statusText);
+          }
+        } else {
+          console.error('Erreur lors de la récupération des avis en attente :', response.statusText);
         }
+      } catch (error) {
+        console.error('Erreur lors de la récupération des avis en attente :', error);
+      }
     }
-
     fetchUserData();
 }, []);
+
+
 
 
 
@@ -170,6 +166,15 @@ if (style.styleSheet){
 // Ajoutez l'élément style au head du document
 head.appendChild(style);
 
+
+const fetchAvisAttente = async () => {
+    return fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/avis_attente', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  };
 
 const validerAvis = async (id) => {
     try {
