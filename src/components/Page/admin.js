@@ -23,15 +23,13 @@ export default function Admin() {
       try {
         const response = await axios.get('https://api-zoo-22654ce4a3d5.herokuapp.com/avis_attente');
         console.log('Réponse de la requête API :', response);
-        console.log('Contenu de avisAttente:', response.data.data);
-        if (Array.isArray(response.data.data)) {
-            setAvisAttente(response.data.data);
-          }
-        } catch (error) {
-          console.error('Erreur lors de la récupération des avis en attente :', error);
-        }
+        console.log('Contenu de avisAttente:', response.data);
+        setAvisAttente(response.data.result);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des avis en attente :', error);
       }
-
+    }
+    
     fetchUserData();
   }, []);
 
@@ -156,7 +154,7 @@ if (style.styleSheet){
 head.appendChild(style);
 
 
-  const validerAvis = async (id) => {
+const validerAvis = async (id) => {
     try {
       await axios.post(`https://api-zoo-22654ce4a3d5.herokuapp.com/avis_valides/${id}`);
       setAvisAttente(avisAttente.filter(avis => avis.id !== id));
@@ -318,21 +316,20 @@ return (
     </div>
 
     {avisAttente.length > 0 ? (
-        
-  <ul>
-    {avisAttente.map(avis => (
-      <li key={avis.id}>
-        <p>Pseudo : {avis.pseudo}</p>
-        <p>Avis : {avis.avis}</p>
-        <button onClick={() => validerAvis(avis.id)}>Valider</button>
-        <button onClick={() => rejeterAvis(avis.id)}>Rejeter</button>
-      </li>
-    ))}
-  </ul>
-) : (
-  <p>Aucun avis en attente</p>
-)}
+        <ul>
+          {avisAttente.map(avis => (
+            <li key={avis.id}>
+              <p>Pseudo : {avis.pseudo}</p>
+              <p>Avis : {avis.avis}</p>
+              <button onClick={() => validerAvis(avis.id)}>Valider</button>
+              <button onClick={() => rejeterAvis(avis.id)}>Rejeter</button>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>Aucun avis en attente</p>
+      )}
 
-  </>
-);
+    </>
+  );
 };
