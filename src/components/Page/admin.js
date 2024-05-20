@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Logo from '../styles/Logo/Arcadia Zoo.png';
 import Nav from '../Nav';
+import AvisEnAttente from './AvisEnAttente';
 
 export default function Admin() {
   const [nom, setNom] = useState('');
@@ -10,7 +11,6 @@ export default function Admin() {
   const [token, setToken] = useState('');
   const [email, setEmail] = useState('');
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
-  const [avisAttente, setAvisAttente] = useState([]);
 
   useEffect(() => {
     async function fetchUserData() {
@@ -19,30 +19,13 @@ export default function Admin() {
         const tokenFromStorage = localStorage.getItem('token');
         setUserId(userIdFromStorage);
         setToken(tokenFromStorage);
-        
-        const response = await fetchAvisAttente();
-        console.log('Réponse de l\'API:', response);
-
-        if (response.ok) {
-          const { result } = await response.json();
-          if (result && result.length > 0) {
-            console.log('Contenu de la réponse JSON :', result);
-            setAvisAttente(result);
-          } else if (response.status === 204) {
-            console.log('Aucune donnée n\'a été renvoyée par l\'API.');
-          } else {
-            console.error('Erreur lors de la récupération des avis en attente :', response.statusText);
-          }
-        } else {
-          console.error('Erreur lors de la récupération des avis en attente :', response.statusText);
-        }
       } catch (error) {
-        console.error('Erreur lors de la récupération des avis en attente :', error);
+        console.error('Erreur lors de la récupération des données utilisateur :', error);
       }
     }
-    fetchUserData();
-}, []);
 
+    fetchUserData();
+  }, []);
 
 
 
@@ -167,32 +150,7 @@ if (style.styleSheet){
 head.appendChild(style);
 
 
-const fetchAvisAttente = async () => {
-    return fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/avis_attente', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-  };
 
-const validerAvis = async (id) => {
-    try {
-      await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/avis_valide/${id}`, { method: 'POST' });
-      setAvisAttente(avisAttente.filter(avis => avis.id !== id));
-    } catch (error) {
-      console.error('Erreur lors de la validation de l\'avis :', error);
-    }
-  };
-
-  const rejeterAvis = async (id) => {
-    try {
-      await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/avis_rejeter/${id}`, { method: 'DELETE' });
-      setAvisAttente(avisAttente.filter(avis => avis.id !== id));
-    } catch (error) {
-      console.error('Erreur lors du rejet de l\'avis :', error);
-    }
-  };
 
 
 const handleRegister = async (event) => {
@@ -336,21 +294,11 @@ return (
     <div id="successMessage" style={{ display: successMessageVisible ? 'block' : 'none' }}>
                 <p>Votre compte a été créé avec succès. Un e-mail de confirmation a été envoyé à votre adresse e-mail.</p>
     </div>
+    <div>
+      <h1>Avis en attente</h1>
+      <AvisEnAttente />
+    </div>
 
-    {avisAttente && avisAttente.length > 0 ? (
-          <ul>
-            {avisAttente.map(avis => (
-              <li key={avis.id}>
-                <p>Pseudo : {avis.pseudo}</p>
-                <p>Avis : {avis.avis}</p>
-                <button onClick={() => validerAvis(avis.id)}>Valider</button>
-                <button onClick={() => rejeterAvis(avis.id)}>Rejeter</button>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>Aucun avis en attente</p>
-        )}
       </div>
     </>
   );
