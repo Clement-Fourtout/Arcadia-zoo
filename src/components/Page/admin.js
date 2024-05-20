@@ -315,20 +315,22 @@ return (
                 <p>Votre compte a été créé avec succès. Un e-mail de confirmation a été envoyé à votre adresse e-mail.</p>
     </div>
 
-    {avisAttente.length > 0 ? (
-        <ul>
-          {avisAttente.map(avis => (
-            <li key={avis.id}>
-              <p>Pseudo : {avis.pseudo}</p>
-              <p>Avis : {avis.avis}</p>
-              <button onClick={() => validerAvis(avis.id)}>Valider</button>
-              <button onClick={() => rejeterAvis(avis.id)}>Rejeter</button>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Aucun avis en attente</p>
-      )}
+    {avisAttente && avisAttente.length > 0 ? (
+  <ul>
+    {avisAttente.map(avis => (
+      <li key={avis.id}>
+        <p>Pseudo : {avis.pseudo}</p>
+        <p>Avis : {avis.avis}</p>
+        <button onClick={() => validerAvis(avis.id)}>Valider</button>
+        <button onClick={() => rejeterAvis(avis.id)}>Rejeter</button>
+      </li>
+    ))}
+  </ul>
+) : (
+  <p>Aucun avis en attente</p>
+)}
+
+
 
     </>
   );
