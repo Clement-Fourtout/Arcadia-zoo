@@ -1,24 +1,34 @@
-
 import React, { useState } from 'react';
 
-function Avis({ onSubmit }) {
-  
+function Avis() {
   const [pseudo, setPseudo] = useState('');
   const [avis, setAvis] = useState('');
 
-  const handleSubmit = (event) => {
+  const handleAvisSubmit = async (event) => {
     event.preventDefault();
-    if (typeof onSubmit === 'function') {
-      onSubmit({ pseudo, avis });
+    try {
+      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/submit-review', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ pseudo, avis }),
+      });
+      if (!response.ok) {
+        throw new Error('Erreur lors de la soumission de l\'avis');
+      }
+      console.log('Avis soumis avec succès !');
+      setPseudo('');
+      setAvis('');
+    } catch (error) {
+      console.error('Erreur lors de la soumission de l\'avis :', error);
     }
-    setPseudo('');
-    setAvis('');
   };
 
   return (
     <div className="container-fluid mr-3 ml-3 mb-3 text-xl-center">
       <h2>Votre avis compte pour nous</h2>
-      <form onSubmit={handleSubmit} className="row justify-content-center">
+      <form onSubmit={handleAvisSubmit} className="row justify-content-center">
         <input
           className="col-lg-2 col-md-auto mr-3 mb-3 mt-3 bg-white rounded"
           type="text"
