@@ -147,7 +147,7 @@ head.appendChild(style);
 
 const fetchAvisAttente = async () => {
     try {
-      const response = await axios.get('/avis_attente');
+      const response = await axios.get('https://api-zoo-22654ce4a3d5.herokuapp.com/avis_attente');
       setAvisAttente(response.data);
     } catch (error) {
       console.error('Erreur lors de la récupération des avis en attente :', error);
@@ -156,7 +156,7 @@ const fetchAvisAttente = async () => {
 
   const validerAvis = async (id) => {
     try {
-      await axios.post(`/avis_valides/${id}`);
+      await axios.post(`https://api-zoo-22654ce4a3d5.herokuapp.com/avis_valides/${id}`);
       setAvisAttente(avisAttente.filter(avis => avis.id !== id));
     } catch (error) {
       console.error('Erreur lors de la validation de l\'avis :', error);
@@ -165,7 +165,7 @@ const fetchAvisAttente = async () => {
 
   const rejeterAvis = async (id) => {
     try {
-      await axios.delete(`/avis_rejeter/${id}`);
+      await axios.delete(`https://api-zoo-22654ce4a3d5.herokuapp.com/avis_rejeter/${id}`);
       setAvisAttente(avisAttente.filter(avis => avis.id !== id));
     } catch (error) {
       console.error('Erreur lors du rejet de l\'avis :', error);
