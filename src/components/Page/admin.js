@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Logo from '../styles/Logo/Arcadia Zoo.png'
 import Nav from '../Nav'
+import axios from 'axios';
+
 export default function Admin() {
   const [nom, setNom] = useState('');
   const [mot_de_passe, setMotDePasse] = useState('');
@@ -9,6 +11,7 @@ export default function Admin() {
   const [token, setToken] = useState('');
   const [email, setEmail] = useState('');
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
+  const [avisAttente, setAvisAttente] = useState([]);
 
   useEffect(() => {
     async function fetchUserData() {
@@ -16,6 +19,7 @@ export default function Admin() {
       const tokenFromStorage = localStorage.getItem('token');
       setUserId(userIdFromStorage);
       setToken(tokenFromStorage);
+      await fetchAvisAttente();
     }
 
     fetchUserData();
@@ -140,6 +144,33 @@ if (style.styleSheet){
 
 // Ajoutez l'élément style au head du document
 head.appendChild(style);
+
+const fetchAvisAttente = async () => {
+    try {
+      const response = await axios.get('/avis_attente');
+      setAvisAttente(response.data);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des avis en attente :', error);
+    }
+  };
+
+  const validerAvis = async (id) => {
+    try {
+      await axios.post(`/avis_valides/${id}`);
+      setAvisAttente(avisAttente.filter(avis => avis.id !== id));
+    } catch (error) {
+      console.error('Erreur lors de la validation de l\'avis :', error);
+    }
+  };
+
+  const rejeterAvis = async (id) => {
+    try {
+      await axios.delete(`/avis_rejeter/${id}`);
+      setAvisAttente(avisAttente.filter(avis => avis.id !== id));
+    } catch (error) {
+      console.error('Erreur lors du rejet de l\'avis :', error);
+    }
+  };
 
 const handleRegister = async (event) => {
     event.preventDefault();
@@ -283,6 +314,21 @@ return (
     <div id="successMessage" style={{ display: successMessageVisible ? 'block' : 'none' }}>
                 <p>Votre compte a été créé avec succès. Un e-mail de confirmation a été envoyé à votre adresse e-mail.</p>
     </div>
+
+    <div>
+        <h2>Avis en attente de validation :</h2>
+        <ul>
+          {avisAttente.map(avis => (
+            <li key={avis.id}>
+              <p>Pseudo : {avis.pseudo}</p>
+              <p>Avis : {avis.avis}</p>
+              <button onClick={() => validerAvis(avis.id)}>Valider</button>
+              <button onClick={() => rejeterAvis(avis.id)}>Rejeter</button>
+            </li>
+          ))}
+        </ul>
+      </div>
+
   </>
 );
 };
