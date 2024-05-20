@@ -147,7 +147,8 @@ head.appendChild(style);
 
 const fetchAvisAttente = async () => {
     try {
-      const response = await axios.get('https://api-zoo-22654ce4a3d5.herokuapp.com/avis_attente');
+      const response = await axios.get('https://api-zoo-22654ce4a3d5.herokuapp.com/avis_attente/');
+      console.log('Contenu de avisAttente:', avisAttente);
       setAvisAttente(response.data);
     } catch (error) {
       console.error('Erreur lors de la récupération des avis en attente :', error);
