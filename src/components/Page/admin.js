@@ -25,8 +25,8 @@ export default function Admin() {
         if (response.ok) {
           const data = await response.json();
           if (data && data.result) {
-            console.log('Données reçues de l\'API :', data); // Ajout de cette ligne pour vérifier les données
-            setAvisAttente(data.result);
+            console.log('Contenu de la réponse JSON :', data);
+            setAvisAttente(data);
           } else {
             console.error('La réponse de l\'API ne contient pas de données valides');
           }
