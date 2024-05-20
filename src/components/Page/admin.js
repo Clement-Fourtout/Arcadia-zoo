@@ -24,7 +24,7 @@ export default function Admin() {
         if (response.ok) {
           const data = await response.json();
           console.log('Réponse de la requête API :', data);
-          setAvisAttente(data);
+          setAvisAttente(data.result);
         } else {
           console.error('Erreur lors de la récupération des avis en attente :', response.statusText);
         }
@@ -313,7 +313,6 @@ return (
                     <button id="registerButton" onClick={handleRegister} type="submit">Créer un compte</button>
                 </div>
           </div>
-      </div>
 
     <div id="successMessage" style={{ display: successMessageVisible ? 'block' : 'none' }}>
                 <p>Votre compte a été créé avec succès. Un e-mail de confirmation a été envoyé à votre adresse e-mail.</p>
@@ -333,9 +332,7 @@ return (
         ) : (
           <p>Aucun avis en attente</p>
         )}
-
-
-
+      </div>
     </>
   );
 };
