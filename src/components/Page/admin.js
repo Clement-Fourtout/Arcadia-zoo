@@ -23,8 +23,12 @@ export default function Admin() {
         const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/avis_attente');
         if (response.ok) {
           const data = await response.json();
-          console.log('Réponse de la requête API :', data);
-          setAvisAttente(data.result);
+          if (data && data.result) {
+            console.log('Données reçues de l\'API :', data); // Ajout de cette ligne pour vérifier les données
+            setAvisAttente(data.result);
+          } else {
+            console.error('La réponse de l\'API ne contient pas de données valides');
+          }
         } else {
           console.error('Erreur lors de la récupération des avis en attente :', response.statusText);
         }
