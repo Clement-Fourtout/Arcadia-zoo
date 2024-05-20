@@ -29,10 +29,10 @@ export default function Admin() {
             console.log('Réponse de l\'API:', response);
 
             if (response.ok) {
-                const data = await response.json();
-                if (data && data.length > 0) {
-                    console.log('Contenu de la réponse JSON :', data);
-                    setAvisAttente(data);
+                const { result } = await response.json();
+                if (result && result.length > 0) {
+                    console.log('Contenu de la réponse JSON :', result);
+                    setAvisAttente(result);
                 } else if (response.status === 204) {
                     console.log('Aucune donnée n\'a été renvoyée par l\'API.');
                 } else {
