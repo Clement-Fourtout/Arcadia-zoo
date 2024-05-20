@@ -16,14 +16,23 @@ export default function Admin() {
   useEffect(() => {
     async function fetchUserData() {
       const userIdFromStorage = localStorage.getItem('userId');
-      const tokenFromStorage = localStorage.getItem('token');
+      
+    
+const tokenFromStorage = localStorage.getItem('token');
       setUserId(userIdFromStorage);
       setToken(tokenFromStorage);
-      await fetchAvisAttente();
+
+      try {
+        const response = await axios.get('https://api-zoo-22654ce4a3d5.herokuapp.com/avis_attente/');
+        console.log('Contenu de avisAttente:', response.data);
+        setAvisAttente(response.data);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des avis en attente :', error);
+      }
     }
 
     fetchUserData();
-  }, []);
+}, []);
 
 
 var head = document.head || document.getElementsByTagName('head')[0];
@@ -145,15 +154,6 @@ if (style.styleSheet){
 // Ajoutez l'élément style au head du document
 head.appendChild(style);
 
-const fetchAvisAttente = async () => {
-    try {
-      const response = await axios.get('https://api-zoo-22654ce4a3d5.herokuapp.com/avis_attente/');
-      console.log('Contenu de avisAttente:', avisAttente);
-      setAvisAttente(response.data);
-    } catch (error) {
-      console.error('Erreur lors de la récupération des avis en attente :', error);
-    }
-  };
 
   const validerAvis = async (id) => {
     try {
