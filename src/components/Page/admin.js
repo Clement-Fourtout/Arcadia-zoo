@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Logo from '../styles/Logo/Arcadia Zoo.png'
-import Nav from '../Nav'
+import Logo from '../styles/Logo/Arcadia Zoo.png';
+import Nav from '../Nav';
 import axios from 'axios';
 
 export default function Admin() {
@@ -16,9 +16,7 @@ export default function Admin() {
   useEffect(() => {
     async function fetchUserData() {
       const userIdFromStorage = localStorage.getItem('userId');
-      
-    
-const tokenFromStorage = localStorage.getItem('token');
+      const tokenFromStorage = localStorage.getItem('token');
       setUserId(userIdFromStorage);
       setToken(tokenFromStorage);
 
@@ -32,14 +30,14 @@ const tokenFromStorage = localStorage.getItem('token');
     }
 
     fetchUserData();
-}, []);
+  }, []);
 
 
-var head = document.head || document.getElementsByTagName('head')[0];
-var style = document.createElement('style');
-style.type = 'text/css';
+    const head = document.head || document.getElementsByTagName('head')[0];
+    const style = document.createElement('style');
+    style.type = 'text/css';
 
-var css = `
+    const css = `
 * {
     margin: 0;
     padding: 0;
