@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Logo from '../styles/Logo/Arcadia Zoo.png';
 import Nav from '../Nav';
-import axios from 'axios';
 
 export default function Admin() {
   const [nom, setNom] = useState('');
@@ -21,14 +20,14 @@ export default function Admin() {
       setToken(tokenFromStorage);
 
       try {
-        const result = await axios.get('https://api-zoo-22654ce4a3d5.herokuapp.com/avis_attente');
-        console.log('Réponse de la requête API :', result);
-        console.log('Contenu de avisAttente .data:', result.data);
-        console.log('Contenu de avisAttente data.data:', result.data.data);
-        console.log(avisAttente);
-        console.log(setAvisAttente);
-
-        setAvisAttente(result.data);
+        const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/avis_attente');
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Réponse de la requête API :', data);
+          setAvisAttente(data);
+        } else {
+          console.error('Erreur lors de la récupération des avis en attente :', response.statusText);
+        }
       } catch (error) {
         console.error('Erreur lors de la récupération des avis en attente :', error);
       }
@@ -160,7 +159,7 @@ head.appendChild(style);
 
 const validerAvis = async (id) => {
     try {
-      await axios.post(`https://api-zoo-22654ce4a3d5.herokuapp.com/avis_valide/${id}`);
+      await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/avis_valide/${id}`, { method: 'POST' });
       setAvisAttente(avisAttente.filter(avis => avis.id !== id));
     } catch (error) {
       console.error('Erreur lors de la validation de l\'avis :', error);
@@ -169,12 +168,13 @@ const validerAvis = async (id) => {
 
   const rejeterAvis = async (id) => {
     try {
-      await axios.delete(`https://api-zoo-22654ce4a3d5.herokuapp.com/avis_rejeter/${id}`);
+      await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/avis_rejeter/${id}`, { method: 'DELETE' });
       setAvisAttente(avisAttente.filter(avis => avis.id !== id));
     } catch (error) {
       console.error('Erreur lors du rejet de l\'avis :', error);
     }
   };
+
 
 const handleRegister = async (event) => {
     event.preventDefault();
@@ -320,19 +320,19 @@ return (
     </div>
 
     {avisAttente && avisAttente.length > 0 ? (
-  <ul>
-    {avisAttente.map(avis => (
-      <li key={avis.id}>
-        <p>Pseudo : {avis.pseudo}</p>
-        <p>Avis : {avis.avis}</p>
-        <button onClick={() => validerAvis(avis.id)}>Valider</button>
-        <button onClick={() => rejeterAvis(avis.id)}>Rejeter</button>
-      </li>
-    ))}
-  </ul>
-) : (
-  <p>Aucun avis en attente</p>
-)}
+          <ul>
+            {avisAttente.map(avis => (
+              <li key={avis.id}>
+                <p>Pseudo : {avis.pseudo}</p>
+                <p>Avis : {avis.avis}</p>
+                <button onClick={() => validerAvis(avis.id)}>Valider</button>
+                <button onClick={() => rejeterAvis(avis.id)}>Rejeter</button>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Aucun avis en attente</p>
+        )}
 
 
 
