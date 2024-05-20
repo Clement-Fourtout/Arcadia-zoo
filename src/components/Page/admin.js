@@ -23,7 +23,10 @@ export default function Admin() {
       try {
         const response = await axios.get('https://api-zoo-22654ce4a3d5.herokuapp.com/avis_attente');
         console.log('Réponse de la requête API :', response);
-        console.log('Contenu de avisAttente:', response.data);
+        console.log('Contenu de avisAttente .data:', response.data);
+        console.log('Contenu de avisAttente data.data:', response.data.data);
+        console.log('Contenu de avisAttente data.result:', response.data.result);
+
         setAvisAttente(response.data.result);
       } catch (error) {
         console.error('Erreur lors de la récupération des avis en attente :', error);
