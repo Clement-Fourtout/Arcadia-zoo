@@ -20,16 +20,17 @@ export default function Admin() {
       setToken(tokenFromStorage);
 
       try {
-        const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/avis_attente');
+        const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/avis_attente', {
+          method: 'GET', // Spécifier la méthode GET
+          headers: {
+            'Content-Type': 'application/json', // Ajouter les en-têtes si nécessaire
+          },
+        });
         console.log('Réponse de l\'API:', response); // Ajout de cette ligne pour vérifier la réponse complète
         if (response.ok) {
           const data = await response.json();
-          if (data && data.result) {
-            console.log('Contenu de la réponse JSON :', data);
-            setAvisAttente(data);
-          } else {
-            console.error('La réponse de l\'API ne contient pas de données valides');
-          }
+          console.log('Contenu de la réponse JSON :', data);
+          setAvisAttente(data);
         } else {
           console.error('Erreur lors de la récupération des avis en attente :', response.statusText);
         }
