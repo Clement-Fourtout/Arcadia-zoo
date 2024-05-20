@@ -22,6 +22,7 @@ export default function Admin() {
 
       try {
         const response = await axios.get('https://api-zoo-22654ce4a3d5.herokuapp.com/avis_attente');
+        console.log('Réponse de la requête API :', response);
         console.log('Contenu de avisAttente:', response.data);
         if (Array.isArray(response.data)) {
             setAvisAttente(response.data);
@@ -317,6 +318,7 @@ return (
     </div>
 
     {avisAttente.length > 0 ? (
+        
   <ul>
     {avisAttente.map(avis => (
       <li key={avis.id}>
