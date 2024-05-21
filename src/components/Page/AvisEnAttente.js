@@ -6,7 +6,7 @@ const AvisEnAttente = () => {
   useEffect(() => {
     async function fetchAvisAttente() {
       try {
-        const response = await fetch('/https://api-zoo-22654ce4a3d5.herokuapp.com/avis_attente');
+        const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/avis_attente');
         if (response.ok) {
           const data = await response.json();
           const avisEnAttente = data.result;
