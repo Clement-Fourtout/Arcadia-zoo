@@ -16,8 +16,13 @@ const AvisEnAttente = () => {
     }
 
     fetchAvisAttente().catch(error => {
-      console.error('Erreur lors de la récupération des avis en attente :', error);
+      if (error instanceof SyntaxError) {
+        console.error('Erreur de syntaxe lors du traitement des données JSON :', error);
+      } else {
+        console.error('Erreur lors de la récupération des avis en attente :', error);
+      }
     });
+    
   }, []);
 
   return (
