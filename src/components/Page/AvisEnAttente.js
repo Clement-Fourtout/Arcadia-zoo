@@ -6,10 +6,11 @@ const AvisEnAttente = () => {
   useEffect(() => {
     async function fetchAvisAttente() {
       try {
-        const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/avis_attente');
+        const response = await fetch('/https://api-zoo-22654ce4a3d5.herokuapp.com/avis_attente');
         if (response.ok) {
           const data = await response.json();
-          const avisEnAttente = data.result; // Accédez aux données à partir de la propriété "result"
+          const avisEnAttente = data.result;
+          console.log('data.result : ', data.result); // Accédez aux données à partir de la propriété "result"
           setAvisAttente(avisEnAttente);
         } else {
           console.error('Erreur lors de la récupération des avis en attente :', response.statusText);

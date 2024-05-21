@@ -14,14 +14,10 @@ export default function Admin() {
 
   useEffect(() => {
     async function fetchUserData() {
-      try {
         const userIdFromStorage = localStorage.getItem('userId');
         const tokenFromStorage = localStorage.getItem('token');
         setUserId(userIdFromStorage);
         setToken(tokenFromStorage);
-      } catch (error) {
-        console.error('Erreur lors de la récupération des données utilisateur :', error);
-      }
     }
 
     fetchUserData();
@@ -295,7 +291,6 @@ return (
                 <p>Votre compte a été créé avec succès. Un e-mail de confirmation a été envoyé à votre adresse e-mail.</p>
     </div>
     <div>
-      <h1>Avis en attente</h1>
       <AvisEnAttente />
     </div>
 
