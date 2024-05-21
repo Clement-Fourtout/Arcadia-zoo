@@ -10,7 +10,8 @@ const AvisEnAttente = () => {
         const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/avis_attente');
         if (response.ok) {
           const data = await response.json();
-          setAvisAttente(data.result);
+          // Mettre à jour l'état avec les données directement, car elles sont déjà dans la bonne structure
+          setAvisAttente(data);
         } else {
           console.error('Erreur lors de la récupération des avis en attente :', response.statusText);
         }
@@ -26,7 +27,7 @@ const AvisEnAttente = () => {
   return (
     <div>
       <h1>Avis en Attente</h1>
-      {avisAttente && avisAttente.length > 0 ? ( // Vérifiez si avisAttente est défini
+      {avisAttente && avisAttente.length > 0 ? (
         <ul>
           {avisAttente.map(avis => (
             <li key={avis.id}>
