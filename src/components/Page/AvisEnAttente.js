@@ -33,21 +33,21 @@ const AvisEnAttente = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Avis en Attente</h1>
-      {avisAttente.length > 0 ? (
-        <ul>
-          {avisAttente.map(avis => (
-            <li key={avis.id}>
-              <p>Pseudo : {avis.pseudo}</p>
-              <p>Avis : {avis.avis}</p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Aucun avis en attente à afficher</p>
-      )}
-    </div>
+<div>
+  <h1>Avis en Attente</h1>
+  {avisAttente && avisAttente.length > 0 ? ( // Vérifiez si avisAttente est défini
+    <ul>
+      {avisAttente.map(avis => (
+        <li key={avis.id}>
+          <p>Pseudo : {avis.pseudo}</p>
+          <p>Avis : {avis.avis}</p>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p>Aucun avis en attente à afficher</p>
+  )}
+</div>
   );
 };
 
