@@ -5,6 +5,9 @@
   justify-content: center;
   padding: 20px;
   text-align: center;
+  background-color: #f8f9fa; /* Couleur de fond douce */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre pour un peu de profondeur */
 }
 
 .title {
@@ -21,4 +24,7 @@
   border: 1px solid #ccc;
   padding: 10px;
   border-radius: 5px;
+}
+.pseudo {
+  font-weight: bold;
 }
