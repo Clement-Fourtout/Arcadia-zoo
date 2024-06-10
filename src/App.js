@@ -11,6 +11,8 @@ import Arcadia from './Routes/Arcadia.js';
 import Connexion from './Routes/Connexion.js';
 import Admin from './components/Page/admin.js';
 import AvisList from './components/Page/AvisList.js';
+import Politique from './components/Page/Politique.js';
+import MentionsLégales from './components/Page/MentionsLégales.js';
 
 function App() {
 
@@ -26,6 +28,9 @@ function App() {
       <Route path='avis' element={<Avis/>} />
       <Route path='arcadia' element={<Arcadia/>} />
       <Route path='admin' element={<Admin/>} />
+      <Route path='politique' element={<Politique/>} />
+      <Route path='mentions' element={<MentionsLégales/>} />
+
     </Routes>
     <Main></Main>
     <Avis></Avis>

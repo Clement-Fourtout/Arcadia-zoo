@@ -13,6 +13,8 @@ import Savane from './components/Page/Savane';
 import Jungle from './components/Page/Jungle';
 import Marais from './components/Page/Marais';
 import Admin from './components/Page/admin.js';
+import Politique from './components/Page/Politique.js';
+import MentionsLégales from './components/Page/MentionsLégales.js';
 
 const router = createBrowserRouter([
   {
@@ -51,6 +53,14 @@ const router = createBrowserRouter([
   {
     path:"admin",
     element:<Admin />,
+  },
+  {
+    path:"politique",
+    element:<Politique />,
+  },
+  {
+    path:"mentions",
+    element:<MentionsLégales />,
   },
 ]);
 

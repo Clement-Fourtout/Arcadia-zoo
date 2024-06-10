@@ -5,9 +5,9 @@ function Footer() {
   <footer class="py-3 my-3">
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
       <li class="nav-item"><a href="/accueil" class="nav-link px-3 text-light">Accueil</a></li>
-      <li class="nav-item"><a href="/formulaire" class="nav-link px-3 text-light">Contact</a></li>
-      <li class="nav-item"><a href="/reparation" class="nav-link px-3 text-light">Billetterie</a></li>
-      <li class="nav-item"><a href="/connexion" class="nav-link px-3 text-light">À propos</a></li>
+      <li class="nav-item"><a href="/politique" class="nav-link px-3 text-light">Politique des données</a></li>
+      <li class="nav-item"><a href="/mentions" class="nav-link px-3 text-light">Mentions légales</a></li>
+      <li class="nav-item"><a href="/connexion" class="nav-link px-3 text-light">Espace Pro</a></li>
       <div class="dropdown">
   <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
     Nos horaires d'ouverture

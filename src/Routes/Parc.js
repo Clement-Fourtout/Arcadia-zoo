@@ -10,9 +10,6 @@ export default function Parc() {
       <Header></Header>
         <Nav></Nav>
           <Animaux></Animaux>
-            <div class="d-grid col-1 mx-auto mt-3 mb-3">
-              <a class="btn btn-primary" href='/formulaire' role='button'>Contact</a>
-            </div>
           <Footer></Footer>
     </>
   )

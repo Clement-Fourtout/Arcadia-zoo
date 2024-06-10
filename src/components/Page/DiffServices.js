@@ -26,22 +26,19 @@ function DiffServices () {
         <div class="carousel-item active" data-bs-interval="1000">
           <img src={Restaurant1} class="d-block w-100" alt="Sauvageon"/>
           <div class="carousel-caption d-none d-md-block">
-            <h5 class="font-weight-bold fs-3 text-dark text-decoration-underline">- Le Sauvageon -</h5>
-            <p class="font-weight-bold fs-4">Snack/café placé au centre du parc est à côté d'une aire de jeu vous offrira un temps de pause en vous proposant boissons chaudes, paninis, burgers et vieinnoiseries.</p>
+            <h5 class="font-weight-bold fs-1 text-white text-decoration-underline">- Le Sauvageon -</h5>
           </div>
         </div>
         <div class="carousel-item" data-bs-interval="1000">
           <img src={Restauration} class="d-block w-100" alt="La serre gustative"/>
           <div class="carousel-caption d-none d-md-block">
-          <h5 class="font-weight-bold fs-3 text-light text-decoration-underline">- La Serre Gustative -</h5>
-          <p class="fw-bolder fs-4 text-white">La serre vous propose un snack et une découverte de boissons fruitées/aromatiques/détox avec visibilité sur l'habitat des flammants roses. Burger et produits veggie sont à votre dispositions.</p>
+          <h5 class="font-weight-bold fs-1 text-white text-decoration-underline">- La Serre Gustative -</h5>
           </div>
         </div>
         <div class="carousel-item" data-bs-interval="1000">
           <img src={Pacha} class="d-block w-100" alt="Le pacha"/>
           <div class="carousel-caption d-none d-md-block">
-          <h5 class="font-weight-bold fs-3 text-light text-decoration-underline">- Le Pacha -</h5>
-          <p class="fw-bolder fs-4 text-white">Le Pacha vous attend pour une dégustation des meilleurs plats du parc le temps d'un repas élaboré avec des saveurs venant des quatres coins du monde</p>
+          <h5 class="font-weight-bold fs-1 text-white text-decoration-underline">- Le Pacha -</h5>
           </div>
         </div>
       </div>

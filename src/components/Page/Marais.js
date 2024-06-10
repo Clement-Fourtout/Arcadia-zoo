@@ -234,9 +234,6 @@ export default function Marais() {
     <a class="btn btn-success" href='/parc' role='button'>Retour aux Habitats</a>
     </div>
     </div>
-    <div class="d-grid col-1 mx-auto mt-3 mb-3">
-    <a class="btn btn-primary" href='/formulaire' role='button'>Contact</a>
-    </div>
     <Footer></Footer>
     </>
   )
