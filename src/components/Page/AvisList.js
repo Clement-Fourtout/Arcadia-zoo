@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './AvisValides.css';
 
 const AvisList = () => {
   const [avisValidés, setAvisValidés] = useState([]);
@@ -22,7 +23,7 @@ const AvisList = () => {
   }, []);
 
   return (
-    <div>
+    <div className="center-container">
       <h1>Avis Validés</h1>
       {avisValidés && avisValidés.length > 0 ? (
         <ul>
