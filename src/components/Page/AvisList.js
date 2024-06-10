@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './AvisValides.css';
+import '../styles/CSS/AvisValides.css';
 
 const AvisList = () => {
   const [avisValidés, setAvisValidés] = useState([]);
