@@ -1,23 +1,43 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-function AvisList({ avis }) {
-  // Vérifie si avis est défini et s'il est un tableau
-  if (!avis || !Array.isArray(avis)) {
-    return <div class='text-center'>Pas d'avis disponibles pour le moment.</div>;
-  }
+const AvisList = () => {
+  const [avisValidés, setAvisValidés] = useState([]);
+
+  useEffect(() => {
+    async function fetchAvisValidés() {
+      try {
+        const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/avis_valides');
+        if (response.ok) {
+          const data = await response.json();
+          setAvisValidés(data);
+        } else {
+          console.error('Erreur lors de la récupération des avis validés :', response.statusText);
+        }
+      } catch (error) {
+        console.error('Erreur lors de la récupération des avis validés :', error);
+      }
+    }
+
+    fetchAvisValidés();
+  }, []);
 
   return (
-    <div class='container-lg text-center'>
-      <h2>Avis des utilisateurs</h2>
-      <ul>
-        {avis.map((avisItem, index) => (
-          <li key={index}>
-            <strong>{avisItem.pseudo} :</strong> {avisItem.avis}
-          </li>
-        ))}
-      </ul>
+    <div>
+      <h1>Avis Validés</h1>
+      {avisValidés && avisValidés.length > 0 ? (
+        <ul>
+          {avisValidés.map(avis => (
+            <li key={avis.id}>
+              <p>Pseudo : {avis.pseudo}</p>
+              <p>Avis : {avis.avis}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>Aucun avis validé à afficher</p>
+      )}
     </div>
   );
-}
+};
 
 export default AvisList;
