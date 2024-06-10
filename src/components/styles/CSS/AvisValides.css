@@ -15,16 +15,16 @@
 .avis-list {
   list-style-type: none;
   padding: 0;
-  background-color: #f8f9fa; /* Couleur de fond douce */
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre pour un peu de profondeur */
+
 }
 
 .avis-item {
   margin-bottom: 20px;
   border: 1px solid #ccc;
   padding: 10px;
-  border-radius: 5px;
+  background-color: #f8f9fa; /* Couleur de fond douce */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre pour un peu de profondeur */
 }
 .pseudo {
   font-weight: bold;
