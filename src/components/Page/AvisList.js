@@ -24,13 +24,13 @@ const AvisList = () => {
 
   return (
     <div className="center-container">
-      <h1>Avis Validés</h1>
+      <h1>Avis</h1>
       {avisValidés && avisValidés.length > 0 ? (
         <ul>
           {avisValidés.map(avis => (
             <li key={avis.id}>
-              <p>Pseudo : {avis.pseudo}</p>
-              <p>Avis : {avis.avis}</p>
+              <p>Nom : {avis.pseudo}</p>
+              <p> {avis.avis}</p>
             </li>
           ))}
         </ul>

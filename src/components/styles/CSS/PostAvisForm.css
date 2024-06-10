@@ -1,11 +1,15 @@
 .form-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  min-height: 100vh; /* Assurez-vous que le conteneur prend toute la hauteur de la fenêtre */
+  justify-content: center;
   padding: 20px;
+  margin: auto;
+  width: 100%;
+  max-width: 600px;
   background-color: #f8f9fa; /* Couleur de fond douce */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre pour un peu de profondeur */
 }
 
 .form-title {
@@ -19,7 +23,6 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 600px;
   gap: 15px; /* Espacement entre les éléments du formulaire */
 }
 
@@ -37,11 +40,17 @@
   width: 100%;
 }
 
+.form-textarea {
+  height: 100px; /* Hauteur fixe pour le textarea */
+}
+
 .form-button {
   background-color: #007bff;
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: 100px;
+  align-self: center; /* Centrer le bouton */
 }
 
 .form-button:hover {
