@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import Restaurant1 from '../styles/Logo/Services/Restaurant 1.jpg'
 import Restauration from '../styles/Logo/Restauration.jpg'
 import Pacha from '../styles/Logo/Services/Le pacha.jpg'
@@ -10,17 +9,22 @@ const DiffServices = () => {
   const [services, setServices] = useState([]);
 
   useEffect(() => {
+    async function fetchServices() {
+      try {
+        const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services');
+        if (response.ok) {
+          const data = await response.json();
+          setServices(data);
+        } else {
+          console.error('Erreur lors de la récupération des services :', response.statusText);
+        }
+      } catch (error) {
+        console.error('Erreur lors de la récupération des services :', error);
+      }
+    }
+
     fetchServices();
   }, []);
-
-  const fetchServices = async () => {
-    try {
-      const response = await axios.get('https://api-zoo-22654ce4a3d5.herokuapp.com/services');
-      setServices(response.data);
-    } catch (error) {
-      console.error('Error fetching services:', error);
-    }
-  };
 
 
   return (
