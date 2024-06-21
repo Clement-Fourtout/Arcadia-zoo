@@ -265,7 +265,7 @@ const handleAddService = async (event) => {
     const formData = new FormData();
     formData.append('title', newService.title);
     formData.append('description', newService.description);
-    formData.append('image', newService.image);
+    formData.append('image_url', newService.image); // Utilisez image_url au lieu de image
   
     try {
       const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
@@ -288,7 +288,7 @@ const handleAddService = async (event) => {
       console.error('Erreur lors de l\'ajout du service :', error);
     }
   };
-  
+    
   
 
   const handleDeleteService = async (serviceId) => {
