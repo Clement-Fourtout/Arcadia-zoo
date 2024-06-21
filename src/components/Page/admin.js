@@ -272,7 +272,7 @@ const handleAddService = async (event) => {
         body: JSON.stringify({
           title: newService.title,
           description: newService.description,
-          image_url: newService.image,
+          image_url: newService.image || '',
         }),
       });
   
