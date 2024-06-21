@@ -11,6 +11,9 @@ export default function Admin() {
   const [token, setToken] = useState('');
   const [email, setEmail] = useState('');
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
+  const [services, setServices] = useState([]); // State pour stocker les services
+  const [newService, setNewService] = useState({ title: '', description: '', image_url: '' }); // State pour ajouter un nouveau service
+
 
   useEffect(() => {
     async function fetchUserData() {
@@ -213,6 +216,80 @@ const handleLogout = () => {
   window.location.href = "/connexion";
 };
 
+// Gestion des services
+const fetchServices = async (setServices, token) => {
+    try {
+      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Erreur lors de la récupération des services');
+      }
+      const data = await response.json();
+      setServices(data);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des services :', error);
+    }
+  };
+// Suppression service
+  const deleteService = async (serviceId, token) => {
+    try {
+      const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/services/${serviceId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error('Erreur lors de la suppression du service');
+      }
+      console.log('Service supprimé avec succès');
+      // Vous pouvez également mettre à jour la liste des services après la suppression si nécessaire
+    } catch (error) {
+      console.error('Erreur lors de la suppression du service :', error);
+    }
+  };
+
+useEffect(() => {
+  // eslint-disable-next-line
+  fetchServices(setServices, token);
+}, [token]);
+
+const handleAddService = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(newService),
+      });
+      if (!response.ok) {
+        throw new Error('Erreur lors de l\'ajout du service');
+      }
+      const data = await response.json();
+      console.log('Service ajouté avec succès :', data);
+      fetchServices(setServices, token); // Mettre à jour la liste des services après l'ajout
+      setNewService({ title: '', description: '', image_url: '' });
+      setSuccessMessageVisible(true);
+    } catch (error) {
+      console.error('Erreur lors de l\'ajout du service :', error);
+    }
+  };
+
+  const handleDeleteService = async (serviceId) => {
+    try {
+      await deleteService(serviceId, token);
+      fetchServices(setServices, token); // Mettre à jour la liste des services après la suppression
+    } catch (error) {
+      console.error('Erreur lors de la suppression du service :', error);
+    }
+  };
+
 return (
   <>
   <Nav/>
@@ -241,17 +318,6 @@ return (
                       />
                   </div>
                   <div className="form-field d-flex align-items-center">
-                      <span className="fas fa-key"></span>
-                      <input
-                          type="password"
-                          name="mot_de_passe"
-                          id="mot_de_passe"
-                          placeholder="Mot de passe"
-                          value={mot_de_passe}
-                          onChange={(event) => setMotDePasse(event.target.value)}
-                      />
-                  </div>
-                  <div className="form-field d-flex align-items-center">
                             <label htmlFor="role">Type</label>
                             <select
                                 id="role"
@@ -275,6 +341,53 @@ return (
                     />
                 </div>
               </form>
+
+              <form className="p-3 mt-3" onSubmit={handleAddService}>
+            <div className="form-field d-flex align-items-center">
+              <input
+                type="text"
+                name="title"
+                placeholder="Titre du service"
+                value={newService.title}
+                onChange={(event) => setNewService({ ...newService, title: event.target.value })}
+              />
+            </div>
+            <div className="form-field d-flex align-items-center">
+              <textarea
+                name="description"
+                placeholder="Description du service"
+                value={newService.description}
+                onChange={(event) => setNewService({ ...newService, description: event.target.value })}
+              />
+            </div>
+            <div className="form-field d-flex align-items-center">
+              <input
+                type="text"
+                name="image_url"
+                placeholder="URL de l'image"
+                value={newService.image_url}
+                onChange={(event) => setNewService({ ...newService, image_url: event.target.value })}
+              />
+            </div>
+            <button type="submit">Ajouter un service</button>
+          </form>
+
+          <div className="p-3 mt-3">
+            <h2>Liste des Services</h2>
+            <ul>
+              {services.map((service) => (
+                <li key={service.id}>
+                  <h3>{service.title}</h3>
+                  <p>{service.description}</p>
+                  <button onClick={() => handleDeleteService(service.id)}>Supprimer</button>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div id="successMessage" style={{ display: successMessageVisible ? 'block' : 'none' }}>
+            <p>Le service a été ajouté avec succès.</p>
+          </div>
+
               <div className="p-3 mt-3">
                     <h2>Supprimer mon compte</h2>
                     <p>Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</p>
