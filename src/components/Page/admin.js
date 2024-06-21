@@ -262,10 +262,16 @@ useEffect(() => {
 const handleAddService = async (event) => {
     event.preventDefault();
   
+    // Vérifier que tous les champs requis sont remplis
+    if (!newService.title || !newService.description || !newService.image) {
+      console.error('Veuillez remplir tous les champs requis.');
+      return;
+    }
+  
     const formData = new FormData();
     formData.append('title', newService.title);
     formData.append('description', newService.description);
-    formData.append('image_url', newService.image); // Utilisez image_url au lieu de image
+    formData.append('image_url', newService.image);
   
     try {
       const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
@@ -288,6 +294,7 @@ const handleAddService = async (event) => {
       console.error('Erreur lors de l\'ajout du service :', error);
     }
   };
+  
     
   
 
