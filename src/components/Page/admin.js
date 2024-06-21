@@ -15,7 +15,7 @@ export default function Admin() {
   const [newService, setNewService] = useState({
     title: '',
     description: '',
-    image: null, // Ajoutez une clé pour stocker l'image sélectionnée
+    image: '', // Ajoutez une clé pour stocker l'image sélectionnée
   });
 
 
@@ -261,30 +261,32 @@ useEffect(() => {
 
 const handleAddService = async (event) => {
     event.preventDefault();
-
+  
     try {
-      const formData = new FormData();
-      formData.append('title', newService.title);
-      formData.append('description', newService.description);
-      formData.append('image_url', newService.image); // Ajoutez l'image au FormData
-
       const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
         method: 'POST',
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json', // Assurez-vous que le type de contenu est correct
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          title: newService.title,
+          description: newService.description,
+          image_url: newService.image,
+        }),
       });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Service ajouté avec succès :', data);
-        // Réinitialiser le formulaire ou afficher un message de succès
-        setNewService({ title: '', description: '', image: null });
-      } else {
-        console.error('Erreur lors de l\'ajout du service :', response.statusText);
-        // Gérer l'erreur ici, afficher un message d'erreur à l'utilisateur, etc.
+  
+      if (!response.ok) {
+        throw new Error('Erreur lors de l\'ajout du service');
       }
+  
+      console.log('Service ajouté avec succès');
+      fetchServices(setServices, token); // Assurez-vous que cette fonction existe et est correcte
+      setNewService({ title: '', description: '', image: '' });
+      setSuccessMessageVisible(true);
     } catch (error) {
       console.error('Erreur lors de l\'ajout du service :', error);
-      // Gérer l'erreur ici, afficher un message d'erreur à l'utilisateur, etc.
+      // Ajoutez ici un traitement pour afficher un message d'erreur à l'utilisateur
     }
   };
   
@@ -304,7 +306,7 @@ const handleAddService = async (event) => {
   const handleImageChange = (event) => {
     setNewService({ ...newService, image: event.target.files[0] });
   };
-
+  
 
 return (
   <>
