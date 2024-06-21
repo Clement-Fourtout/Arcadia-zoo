@@ -341,7 +341,9 @@ return (
                     />
                 </div>
               </form>
+            </div>
 
+            
               <form className="p-3 mt-3" onSubmit={handleAddService}>
             <div className="form-field d-flex align-items-center">
               <input
@@ -398,7 +400,7 @@ return (
 
                     <button id="registerButton" onClick={handleRegister} type="submit">Créer un compte</button>
                 </div>
-          </div>
+          
 
     <div id="successMessage" style={{ display: successMessageVisible ? 'block' : 'none' }}>
                 <p>Votre compte a été créé avec succès. Un e-mail de confirmation a été envoyé à votre adresse e-mail.</p>
