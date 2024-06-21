@@ -392,19 +392,22 @@ return (
 
             <button type="submit">Ajouter un service</button>
           </form>
-
           <div className="p-3 mt-3">
             <h2>Liste des Services</h2>
             <ul>
-              {services.map((service) => (
+                {services.map((service) => (
                 <li key={service.id}>
-                  <h3>{service.title}</h3>
-                  <p>{service.description}</p>
-                  <button onClick={() => handleDeleteService(service.id)}>Supprimer</button>
+                    <h3>{service.title}</h3>
+                    <p>{service.description}</p>
+                    {service.image_url && (
+                    <img src={service.image_url} alt={service.title} style={{ maxWidth: '100px' }} />
+                    )}
+                    <button onClick={() => handleDeleteService(service.id)}>Supprimer</button>
                 </li>
-              ))}
+                ))}
             </ul>
-          </div>
+            </div>
+
           <div id="successMessage" style={{ display: successMessageVisible ? 'block' : 'none' }}>
             <p>Le service a été ajouté avec succès.</p>
           </div>
