@@ -262,24 +262,18 @@ useEffect(() => {
 const handleAddService = async (event) => {
     event.preventDefault();
   
-    // Vérifier que tous les champs requis sont remplis
-    if (!newService.title || !newService.description || !newService.image) {
-      console.error('Veuillez remplir tous les champs requis.');
-      return;
-    }
-  
-    const formData = new FormData();
-    formData.append('title', newService.title);
-    formData.append('description', newService.description);
-    formData.append('image_url', newService.image);
-  
     try {
       const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
         method: 'POST',
         headers: {
+          'Content-Type': 'application/json', // Assurez-vous que le type de contenu est correct
           Authorization: `Bearer ${token}`,
         },
-        body: formData,
+        body: JSON.stringify({
+          title: newService.title,
+          description: newService.description,
+          image_url: newService.image,
+        }),
       });
   
       if (!response.ok) {
@@ -287,13 +281,15 @@ const handleAddService = async (event) => {
       }
   
       console.log('Service ajouté avec succès');
-      fetchServices(setServices, token);
+      fetchServices(setServices, token); // Assurez-vous que cette fonction existe et est correcte
       setNewService({ title: '', description: '', image: null });
       setSuccessMessageVisible(true);
     } catch (error) {
       console.error('Erreur lors de l\'ajout du service :', error);
+      // Ajoutez ici un traitement pour afficher un message d'erreur à l'utilisateur
     }
   };
+  
   
     
   
