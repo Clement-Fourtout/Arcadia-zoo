@@ -262,28 +262,28 @@ useEffect(() => {
 
 const handleAddService = async (event) => {
     event.preventDefault();
-
+  
     try {
-      const formData = new FormData();
-      formData.append('title', newService.title);
-      formData.append('description', newService.description);
-      formData.append('image', newService.image); // Ajoutez l'image au FormData
-
       const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
         method: 'POST',
         headers: {
+          'Content-Type': 'application/json', // Assurez-vous que le type de contenu est correct
           Authorization: `Bearer ${token}`,
         },
-        body: formData,
+        body: JSON.stringify({
+          title: newService.title,
+          description: newService.description,
+          image_url: newService.image || '',
+        }),
       });
-
+  
       if (!response.ok) {
         throw new Error('Erreur lors de l\'ajout du service');
       }
-
+  
       console.log('Service ajouté avec succès');
-      fetchServices(setServices, token); // Met à jour la liste des services après l'ajout
-      setNewService({ title: '', description: '', image: null, imageBase64: '' });
+      fetchServices(setServices, token); // Assurez-vous que cette fonction existe et est correcte
+      setNewService({ title: '', description: '', image: null });
       setSuccessMessageVisible(true);
     } catch (error) {
       console.error('Erreur lors de l\'ajout du service :', error);
@@ -321,125 +321,127 @@ const handleAddService = async (event) => {
   };
   
 
-  return (
-    <>
-      <Nav />
+return (
+  <>
+  <Nav/>
       <div>
-        <h1>Page Administrateur</h1>
-        <div className="wrapper">
-          <div className="logo">
-            <a href='/'>
-              <img src={Logo} alt="Logo" />
-            </a>
-          </div>
-          <div className="text-center mt-4 name">
-            Arcadia
-          </div>
-          <form className="p-3 mt-3">
+          <h1>Page Administrateur</h1>
+          <div className="wrapper">
+              <div className="logo">
+                  <a href='/'>
+                      <img src={Logo} alt="Logo" />
+                  </a>
+              </div>
+              <div className="text-center mt-4 name">
+                  Arcadia
+              </div>
+              <form className="p-3 mt-3">
+                  <div className="form-field d-flex align-items-center">
+                      <span className="far fa-user"></span>
+                      <input
+                          type="text"
+                          name="nom"
+                          id="nom"
+                          placeholder="Nom d'utilisateur"
+                          value={nom}
+                          onChange={(event) => setNom(event.target.value)}
+                      />
+                  </div>
+                  <div className="form-field d-flex align-items-center">
+                            <label htmlFor="role">Type</label>
+                            <select
+                                id="role"
+                                name="role"
+                                value={role}
+                                onChange={(event) => setRole(event.target.value)}
+                            >
+                                <option value="veterinaire">Vétérinaire</option>
+                                <option value="employe">Employé</option>
+                            </select>
+                </div>
+                <div className="form-field d-flex align-items-center">
+                <label htmlFor="email">E-mail :</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Entrez votre adresse e-mail"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    />
+                </div>
+              </form>
+            </div>
+
+
+              <form className="p-3 mt-3 justify-content-center" onSubmit={handleAddService}>
             <div className="form-field d-flex align-items-center">
-              <span className="far fa-user"></span>
               <input
                 type="text"
-                name="nom"
-                id="nom"
-                placeholder="Nom d'utilisateur"
-                value={nom}
-                onChange={(event) => setNom(event.target.value)}
+                name="title"
+                placeholder="Titre du service"
+                value={newService.title}
+                onChange={(event) => setNewService({ ...newService, title: event.target.value })}
               />
             </div>
             <div className="form-field d-flex align-items-center">
-              <label htmlFor="role">Type</label>
-              <select
-                id="role"
-                name="role"
-                value={role}
-                onChange={(event) => setRole(event.target.value)}
-              >
-                <option value="veterinaire">Vétérinaire</option>
-                <option value="employe">Employé</option>
-              </select>
-            </div>
-            <div className="form-field d-flex align-items-center">
-              <label htmlFor="email">E-mail :</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Entrez votre adresse e-mail"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
+              <textarea
+                name="description"
+                placeholder="Description du service"
+                value={newService.description}
+                onChange={(event) => setNewService({ ...newService, description: event.target.value })}
               />
             </div>
+            <div className="form-field d-flex align-items-center">
+                <label htmlFor="image">Image :</label>
+                    <input
+                    type="file"
+                    id="image"
+                    name="image_url"
+                    accept=".jpg,.jpeg,.png"
+                    onChange={handleImageChange}
+                    />
+                </div>
+
+            <button type="submit">Ajouter un service</button>
           </form>
-        </div>
+
+          <div className="p-3 mt-3">
+            <h2>Liste des Services</h2>
+            <ul>
+              {services.map((service) => (
+                <li key={service.id}>
+                  <h3>{service.title}</h3>
+                  <p>{service.description}</p>
+                  <button onClick={() => handleDeleteService(service.id)}>Supprimer</button>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div id="successMessage" style={{ display: successMessageVisible ? 'block' : 'none' }}>
+            <p>Le service a été ajouté avec succès.</p>
+          </div>
+
+              <div className="p-3 mt-3">
+                    <h2>Supprimer mon compte</h2>
+                    <p>Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</p>
+                    
+                    <button onClick={handleDeleteAccount}>Supprimer mon compte</button>
+
+                    <button onClick={handleLogout}>Déconnexion</button>
+
+                    <button id="registerButton" onClick={handleRegister} type="submit">Créer un compte</button>
+                </div>
+          
+
+    <div id="successMessage" style={{ display: successMessageVisible ? 'block' : 'none' }}>
+                <p>Votre compte a été créé avec succès. Un e-mail de confirmation a été envoyé à votre adresse e-mail.</p>
+    </div>
+    <div>
+      <AvisEnAttente />
     </div>
 
-    
-        <form className="p-3 mt-3 justify-content-center" onSubmit={handleAddService}>
-          <div className="form-field d-flex align-items-center">
-            <input
-              type="text"
-              name="title"
-              placeholder="Titre du service"
-              value={newService.title}
-              onChange={(event) => setNewService({ ...newService, title: event.target.value })}
-            />
-          </div>
-          <div className="form-field d-flex align-items-center">
-            <textarea
-              name="description"
-              placeholder="Description du service"
-              value={newService.description}
-              onChange={(event) => setNewService({ ...newService, description: event.target.value })}
-            />
-          </div>
-          <div className="form-field d-flex align-items-center">
-            <label htmlFor="image">Image :</label>
-            <input
-              type="file"
-              id="image"
-              name="image_url"
-              accept=".jpg,.jpeg,.png"
-              onChange={handleImageChange}
-            />
-          </div>
-
-          <button type="submit">Ajouter un service</button>
-        </form>
-
-        <div className="p-3 mt-3">
-          <h2>Liste des Services</h2>
-          <ul>
-            {services.map((service) => (
-              <li key={service.id}>
-                <h3>{service.title}</h3>
-                <p>{service.description}</p>
-                <button onClick={() => handleDeleteService(service.id)}>Supprimer</button>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div id="successMessage" style={{ display: successMessageVisible ? 'block' : 'none' }}>
-          <p>Le service a été ajouté avec succès.</p>
-        </div>
-
-        <div className="p-3 mt-3">
-          <h2>Supprimer mon compte</h2>
-          <p>Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</p>
-          <button onClick={handleDeleteAccount}>Supprimer mon compte</button>
-          <button onClick={handleLogout}>Déconnexion</button>
-          <button id="registerButton" onClick={handleRegister} type="submit">Créer un compte</button>
-        </div>
-
-        <div id="successMessage" style={{ display: successMessageVisible ? 'block' : 'none' }}>
-          <p>Votre compte a été créé avec succès. Un e-mail de confirmation a été envoyé à votre adresse e-mail.</p>
-        </div>
-
-        <div>
-          <AvisEnAttente />
-        </div>
-      
+      </div>
     </>
   );
 };
