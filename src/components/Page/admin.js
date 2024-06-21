@@ -12,7 +12,11 @@ export default function Admin() {
   const [email, setEmail] = useState('');
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
   const [services, setServices] = useState([]); // State pour stocker les services
-  const [newService, setNewService] = useState({ title: '', description: '', image: null, }); // State pour ajouter un nouveau service
+  const [newService, setNewService] = useState({
+    title: '',
+    description: '',
+    image: null, // Ajoutez une clé pour stocker l'image sélectionnée
+  });
 
 
   useEffect(() => {
@@ -261,7 +265,7 @@ const handleAddService = async (event) => {
     const formData = new FormData();
     formData.append('title', newService.title);
     formData.append('description', newService.description);
-    formData.append('image', newService.image); // Ajoutez l'image sélectionnée
+    formData.append('image', newService.image);
   
     try {
       const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
@@ -278,12 +282,13 @@ const handleAddService = async (event) => {
   
       console.log('Service ajouté avec succès');
       fetchServices(setServices, token);
-      setNewService({ title: '', description: '', image: null }); // Réinitialisez l'état après l'ajout
+      setNewService({ title: '', description: '', image: null });
       setSuccessMessageVisible(true);
     } catch (error) {
       console.error('Erreur lors de l\'ajout du service :', error);
     }
   };
+  
   
 
   const handleDeleteService = async (serviceId) => {
