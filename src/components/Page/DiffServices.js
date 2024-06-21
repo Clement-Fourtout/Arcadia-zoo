@@ -28,44 +28,41 @@ const DiffServices = () => {
 
 
   return (
-    <>
-      <div className="container-fluid bg-dark p-2 mt-1 mb-3">
-        <div className="row justify-content-center">
-          <div className="col col-lg-5 text-light">
-            <h1 className="text-xl-center text-decoration-underline font-weight-bold mt-5 mb-5">Les Services du Parc</h1>
-          </div>
-        </div>
-
-        {services.map(service => (
-          <div key={service.id} className="row justify-content-center">
-            <div className="col-lg-5 text-light text-center">
-              <h2 className={`font-weight-bold text-decoration-underline text-${service.colorClass} mt-3 mb-4`}>{service.title}</h2>
-              {renderServiceImage(service.type)}
-              <h5 className="mt-2">{service.description}</h5>
+    <div className="center-container">
+      <h1>Les Services du Parc</h1>
+      {services && services.length > 0 ? (
+        <div className="services-container">
+          {services.map(service => (
+            <div key={service.id} className="service-item">
+              <h2>{service.title}</h2>
+              <img src={getImageUrl(service.image_url)} alt={service.title} className="service-image" />
+              <p>{service.description}</p>
             </div>
-          </div>
-        ))}
-
-      </div>
-    </>
+          ))}
+        </div>
+      ) : (
+        <p>Aucun service à afficher</p>
+      )}
+    </div>
   );
 };
 
-const renderServiceImage = (type) => {
-  switch (type) {
+// Fonction utilitaire pour obtenir l'URL complète de l'image en fonction de son nom importé
+function getImageUrl(imageName) {
+  switch (imageName) {
     case 'Restaurant1':
-      return <img src={Restaurant1} className="img-fluid rounded" alt="Le Sauvageon" />;
+      return Restaurant1;
     case 'Restauration':
-      return <img src={Restauration} className="img-fluid rounded" alt="La Serre Gustative" />;
+      return Restauration;
     case 'Pacha':
-      return <img src={Pacha} className="img-fluid rounded" alt="Le Pacha" />;
+      return Pacha;
     case 'Guide':
-      return <img src={Guide} className="img-fluid rounded" alt="Guide" />;
+      return Guide;
     case 'Train':
-      return <img src={Train} className="img-fluid rounded" alt="Train" />;
+      return Train;
     default:
-      return null;
+      return ''; // Gérer le cas où l'image n'est pas trouvée
   }
-};
+}
 
 export default DiffServices;

@@ -35,7 +35,7 @@ const AvisList = () => {
           ))}
         </ul>
       ) : (
-        <p>Aucun avis validé à afficher</p>
+        <p>Aucun avis à afficher</p>
       )}
     </div>
   );
