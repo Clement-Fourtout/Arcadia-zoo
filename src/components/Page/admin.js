@@ -312,6 +312,7 @@ const handleAddService = async (event) => {
     setNewService({ ...newService, image: file }); // Met à jour l'état avec le fichier sélectionné
   };
   
+  
 
 return (
   <>
@@ -389,7 +390,7 @@ return (
                     <input
                     type="file"
                     id="image"
-                    name="image"
+                    name="image_url"
                     accept=".jpg,.jpeg,.png"
                     onChange={handleImageChange}
                     />
