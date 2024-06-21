@@ -15,7 +15,7 @@ export default function Admin() {
   const [newService, setNewService] = useState({
     title: '',
     description: '',
-    image: null, // Ajoutez une clé pour stocker l'image sélectionnée
+    image: '', // Ajoutez une clé pour stocker l'image sélectionnée
   });
 
 
@@ -219,7 +219,7 @@ const handleLogout = () => {
 };
 
 // Gestion des services
-const fetchServices = async (token) => {
+const fetchServices = async (setServices, token) => {
     try {
       const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
         headers: {
@@ -254,30 +254,34 @@ const deleteService = async (serviceId, token) => {
     }
   };
 
+useEffect(() => {
+  // eslint-disable-next-line
+  fetchServices(setServices, token);
+}, [token]);
 
 const handleAddService = async (event) => {
     event.preventDefault();
-
-    const formData = new FormData();
-    formData.append('title', newService.title);
-    formData.append('description', newService.description);
-    formData.append('image', newService.image);
-
+  
     try {
       const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
         method: 'POST',
         headers: {
+          'Content-Type': 'application/json', // Assurez-vous que le type de contenu est correct
           Authorization: `Bearer ${token}`,
         },
-        body: formData,
+        body: JSON.stringify({
+          title: newService.title,
+          description: newService.description,
+          image_url: newService.image,
+        }),
       });
-
+  
       if (!response.ok) {
         throw new Error('Erreur lors de l\'ajout du service');
       }
-
+  
       console.log('Service ajouté avec succès');
-      fetchServices(token); // Assurez-vous que cette fonction existe et est correcte
+      fetchServices(setServices, token); // Assurez-vous que cette fonction existe et est correcte
       setNewService({ title: '', description: '', image: null });
       setSuccessMessageVisible(true);
     } catch (error) {
@@ -285,6 +289,9 @@ const handleAddService = async (event) => {
       // Ajoutez ici un traitement pour afficher un message d'erreur à l'utilisateur
     }
   };
+  
+  
+    
   
 
   const handleDeleteService = async (serviceId) => {
@@ -300,18 +307,18 @@ const handleAddService = async (event) => {
     const file = event.target.files[0]; // Récupère le premier fichier sélectionné par l'utilisateur
 
     if (file) {
-      setNewService({
-        ...newService,
-        image: file,
-      });
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setNewService({
+          ...newService,
+          image: file,
+          imageBase64: reader.result, // Stocke l'image en base64 dans l'état
+        });
+      };
     }
   };
   
-  
-useEffect(() => {
-    // eslint-disable-next-line
-    fetchServices(setServices, token);
-  }, [token]);
 
 return (
   <>
