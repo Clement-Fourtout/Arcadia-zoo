@@ -15,7 +15,7 @@ export default function Admin() {
   const [newService, setNewService] = useState({
     title: '',
     description: '',
-    image: '', // Ajoutez une clé pour stocker l'image sélectionnée
+    image: null, // Ajoutez une clé pour stocker l'image sélectionnée
   });
 
 
@@ -282,7 +282,7 @@ const handleAddService = async (event) => {
   
       console.log('Service ajouté avec succès');
       fetchServices(setServices, token); // Assurez-vous que cette fonction existe et est correcte
-      setNewService({ title: '', description: '', image: '' });
+      setNewService({ title: '', description: '', image: null });
       setSuccessMessageVisible(true);
     } catch (error) {
       console.error('Erreur lors de l\'ajout du service :', error);
