@@ -19,17 +19,15 @@ export default function Admin() {
     async function fetchUserData() {
       const userIdFromStorage = localStorage.getItem('userId');
       const tokenFromStorage = localStorage.getItem('token');
-      
+
       if (userIdFromStorage && tokenFromStorage) {
         setUserId(userIdFromStorage);
         setToken(tokenFromStorage);
-        
-        // Si nécessaire, d'autres actions peuvent être effectuées ici
       } else {
         // Gérer le cas où les données utilisateur ne sont pas disponibles dans le localStorage
       }
     }
-  
+
     fetchUserData();
   }, []);
 
@@ -230,38 +228,39 @@ const fetchServices = useCallback(async () => {
         Authorization: `Bearer ${token}`,
       },
     });
-    
+
     if (!response.ok) {
       throw new Error('Erreur lors de la récupération des services');
     }
-    
+
     const data = await response.json();
     setServices(data);
   } catch (error) {
     console.error('Erreur lors de la récupération des services :', error);
   }
-}, [token]); // Dépendance : token
+}, [token]);
+
+useEffect(() => {
+  if (token) {
+    fetchServices();
+  }
+}, [token, fetchServices]);
 
 const handleAddService = async (event) => {
   event.preventDefault();
 
-  // Vérifier si les champs obligatoires sont remplis
+  // Vérifiez que tous les champs requis sont remplis
   if (!newService.title || !newService.description || !newService.image) {
     console.error('Les champs title, description et image doivent être remplis');
     return;
   }
 
   try {
-    // Créer un objet FormData
     const formData = new FormData();
     formData.append('title', newService.title);
     formData.append('description', newService.description);
-    formData.append('image', newService.image); // Ajouter le fichier image
-    console.log('newService:', newService);
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
-    // Envoyer la requête POST au serveur
+    formData.append('image', newService.image);
+
     const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
       method: 'POST',
       headers: {
@@ -269,8 +268,6 @@ const handleAddService = async (event) => {
       },
       body: formData,
     });
-
-    console.log('Status de la réponse:', response.status);
 
     if (!response.ok) {
       const errorData = await response.json();
@@ -280,19 +277,18 @@ const handleAddService = async (event) => {
 
     const data = await response.json();
     console.log('Service ajouté avec succès', data);
-    fetchServices(); // Actualiser la liste des services après l'ajout
-    setNewService({ title: '', description: '', image: null }); // Réinitialiser le formulaire
-    setSuccessMessageVisible(true); // Afficher un message de succès à l'utilisateur
+    fetchServices();
+    setNewService({ title: '', description: '', image: null });
+    setSuccessMessageVisible(true);
   } catch (error) {
     console.error("Erreur lors de l'ajout du service :", error);
-    // Gérer l'erreur et afficher un message à l'utilisateur si nécessaire
   }
 };
 
 const handleImageChange = (event) => {
   setNewService({
     ...newService,
-    image: event.target.files[0], // Stocker le fichier image dans le state
+    image: event.target.files[0],
   });
 };
 
@@ -318,30 +314,6 @@ const handleImageChange = (event) => {
     }
 };
 
-useEffect(() => {
-  const fetchServices = async () => {
-    try {
-      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error('Erreur lors de la récupération des services');
-      }
-
-      const data = await response.json();
-      setServices(data);
-    } catch (error) {
-      console.error('Erreur lors de la récupération des services :', error);
-    }
-  };
-
-  if (token) {
-    fetchServices();
-  }
-}, [token]); // Ajouter 'token' à la liste des dépendances
 
 return (
   <>
@@ -396,33 +368,33 @@ return (
                 </div>
 
                 <div>
-                  <h1>Ajouter un service</h1>
-                    <form onSubmit={handleAddService}>
-                      <input
-                        type="text"
-                        name="title"
-                        placeholder="Titre"
-                        value={newService.title}
-                        onChange={(e) => setNewService({ ...newService, title: e.target.value })}
-                        required
-                      />
-                      <input
-                        type="text"
-                        name="description"
-                        placeholder="Description"
-                        value={newService.description}
-                        onChange={(e) => setNewService({ ...newService, description: e.target.value })}
-                        required
-                      />
-                      <input
-                        type="file"
-                        name="image"
-                        onChange={handleImageChange}
-                        required
-                      />
-                      <button type="submit">Ajouter le service</button>
-                  </form>
-                </div>
+          <h1>Ajouter un service</h1>
+          <form onSubmit={handleAddService}>
+            <input
+              type="text"
+              name="title"
+              placeholder="Titre"
+              value={newService.title}
+              onChange={(e) => setNewService({ ...newService, title: e.target.value })}
+              required
+            />
+            <input
+              type="text"
+              name="description"
+              placeholder="Description"
+              value={newService.description}
+              onChange={(e) => setNewService({ ...newService, description: e.target.value })}
+              required
+            />
+            <input
+              type="file"
+              name="image"
+              onChange={handleImageChange}
+              required
+            />
+            <button type="submit">Ajouter le service</button>
+          </form>
+        </div>
 
                 {successMessageVisible && <p>Service ajouté avec succès!</p>}
 
