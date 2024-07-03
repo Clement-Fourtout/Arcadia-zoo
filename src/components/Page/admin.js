@@ -21,12 +21,19 @@ export default function Admin() {
 
   useEffect(() => {
     async function fetchUserData() {
-        const userIdFromStorage = localStorage.getItem('userId');
-        const tokenFromStorage = localStorage.getItem('token');
+      const userIdFromStorage = localStorage.getItem('userId');
+      const tokenFromStorage = localStorage.getItem('token');
+      
+      if (userIdFromStorage && tokenFromStorage) {
         setUserId(userIdFromStorage);
         setToken(tokenFromStorage);
+        
+        // Si nécessaire, d'autres actions peuvent être effectuées ici
+      } else {
+        // Gérer le cas où les données utilisateur ne sont pas disponibles dans le localStorage
+      }
     }
-
+  
     fetchUserData();
   }, []);
 
@@ -257,41 +264,38 @@ useEffect(() => {
 
 
 
-  const handleAddService = async (event) => {
-    event.preventDefault();
+const handleAddService = async (event) => {
+  event.preventDefault();
 
-    try {
-        const formData = new FormData();
-        formData.append('title', newService.title);
-        formData.append('description', newService.description);
-        formData.append('image', newService.image);
+  try {
+    const formData = new FormData();
+    formData.append('title', newService.title);
+    formData.append('description', newService.description);
+    formData.append('image', newService.image);
 
-        const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
-            method: 'POST',
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-            body: formData,
-        });
+    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
 
-        if (!response.ok) {
-            throw new Error('Erreur lors de l\'ajout du service');
-        }
-
-        console.log('Service ajouté avec succès');
-        fetchServices(); // Rafraîchir la liste des services après l'ajout
-        setNewService({ title: '', description: '', image: null });
-        setSuccessMessageVisible(true);
-    } catch (error) {
-        console.error('Erreur lors de l\'ajout du service :', error);
-        // Gérer l'affichage d'un message d'erreur à l'utilisateur si nécessaire
+    if (!response.ok) {
+      throw new Error('Erreur lors de l\'ajout du service');
     }
+
+    console.log('Service ajouté avec succès');
+    setNewService({ title: '', description: '', image: null });
+  } catch (error) {
+    console.error('Erreur lors de l\'ajout du service :', error);
+  }
 };
   
-  
-  const handleImageChange = (event) => {
-    setNewService({ ...newService, image: event.target.files[0] });
+const handleImageChange = (event) => {
+  setNewService({ ...newService, image: event.target.files[0] });
 };
+
   
 
   const handleDeleteService = async (serviceId) => {
@@ -368,38 +372,40 @@ return (
                     </form>
                 </div>
 
-                {/* Formulaire pour ajouter un service */}
-                <form className="p-3 mt-3 justify-content-center" onSubmit={handleAddService}>
-                    <div className="form-field d-flex align-items-center">
-                        <input
-                            type="text"
-                            name="title"
-                            placeholder="Titre du service"
-                            value={newService.title}
-                            onChange={(event) => setNewService({ ...newService, title: event.target.value })}
-                        />
-                    </div>
-                    <div className="form-field d-flex align-items-center">
-                        <textarea
-                            name="description"
-                            placeholder="Description du service"
-                            value={newService.description}
-                            onChange={(event) => setNewService({ ...newService, description: event.target.value })}
-                        />
-                    </div>
-                    <div className="form-field d-flex align-items-center">
-                        <label htmlFor="image">Image :</label>
-                        <input
-                            type="file"
-                            id="image"
-                            name="image_url"
-                            accept=".jpg,.jpeg,.png"
-                            onChange={handleImageChange}
-                        />
-                    </div>
+                <div>
+      <h1>Ajouter un service</h1>
+      <form className="p-3 mt-3 justify-content-center" onSubmit={handleAddService}>
+        <div className="form-field d-flex align-items-center">
+          <input
+            type="text"
+            name="title"
+            placeholder="Titre du service"
+            value={newService.title}
+            onChange={(event) => setNewService({ ...newService, title: event.target.value })}
+          />
+        </div>
+        <div className="form-field d-flex align-items-center">
+          <textarea
+            name="description"
+            placeholder="Description du service"
+            value={newService.description}
+            onChange={(event) => setNewService({ ...newService, description: event.target.value })}
+          />
+        </div>
+        <div className="form-field d-flex align-items-center">
+          <label htmlFor="image">Image :</label>
+          <input
+            type="file"
+            id="image"
+            name="image"
+            accept=".jpg,.jpeg,.png"
+            onChange={handleImageChange}
+          />
+        </div>
 
-                    <button type="submit">Ajouter un service</button>
-                </form>
+        <button type="submit">Ajouter un service</button>
+      </form>
+    </div>
 
                 {/* Affichage des messages de succès ou d'erreur */}
                 {successMessageVisible && <p>Service ajouté avec succès!</p>}
