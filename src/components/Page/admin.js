@@ -255,7 +255,7 @@ useEffect(() => {
 
 const handleAddService = async (event) => {
   event.preventDefault();
-  
+
   console.log('newService:', newService);
 
   if (!newService.title || !newService.description || !newService.image) {
@@ -266,7 +266,7 @@ const handleAddService = async (event) => {
     const formData = new FormData();
     formData.append('title', newService.title);
     formData.append('description', newService.description);
-    formData.append('image_url', newService.image);
+    formData.append('image', newService.image);
 
     // Log formData content
     for (let [key, value] of formData.entries()) {
