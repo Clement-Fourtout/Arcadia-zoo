@@ -219,122 +219,116 @@ const handleLogout = () => {
 };
 
 // Gestion des services
-const fetchServices = async (setServices, token) => {
-    try {
+const fetchServices = async () => {
+  try {
       const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+          headers: {
+              Authorization: `Bearer ${token}`,
+          },
       });
       if (!response.ok) {
-        throw new Error('Erreur lors de la récupération des services');
+          throw new Error('Erreur lors de la récupération des services');
       }
       const data = await response.json();
       setServices(data);
-    } catch (error) {
+  } catch (error) {
       console.error('Erreur lors de la récupération des services :', error);
-    }
-  };
-// Suppression service
-const deleteService = async (serviceId, token) => {
-    try {
-      const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/services/${serviceId}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (!response.ok) {
-        throw new Error('Erreur lors de la suppression du service');
-      }
-      console.log('Service supprimé avec succès');
-      // Vous pouvez également mettre à jour la liste des services après la suppression si nécessaire
-    } catch (error) {
-      console.error('Erreur lors de la suppression du service :', error);
-    }
-  };
+  }
+};
 
+// Effet pour charger les services lorsque le token change
 useEffect(() => {
-  // eslint-disable-next-line
-  fetchServices(setServices, token);
+  fetchServices();
 }, [token]);
 
-const handleAddService = async (event) => {
+
+
+  const handleAddService = async (event) => {
     event.preventDefault();
-  
+
     try {
-      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json', // Assurez-vous que le type de contenu est correct
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          title: newService.title,
-          description: newService.description,
-          image_url: newService.image,
-        }),
-      });
-  
-      if (!response.ok) {
-        throw new Error('Erreur lors de l\'ajout du service');
-      }
-  
-      console.log('Service ajouté avec succès');
-      fetchServices(setServices, token); // Assurez-vous que cette fonction existe et est correcte
-      setNewService({ title: '', description: '', image: null });
-      setSuccessMessageVisible(true);
+        const formData = new FormData();
+        formData.append('title', newService.title);
+        formData.append('description', newService.description);
+        formData.append('image', newService.image);
+
+        const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            body: formData,
+        });
+
+        if (!response.ok) {
+            throw new Error('Erreur lors de l\'ajout du service');
+        }
+
+        console.log('Service ajouté avec succès');
+        fetchServices(); // Rafraîchir la liste des services après l'ajout
+        setNewService({ title: '', description: '', image: null });
+        setSuccessMessageVisible(true);
     } catch (error) {
-      console.error('Erreur lors de l\'ajout du service :', error);
-      // Ajoutez ici un traitement pour afficher un message d'erreur à l'utilisateur
+        console.error('Erreur lors de l\'ajout du service :', error);
+        // Gérer l'affichage d'un message d'erreur à l'utilisateur si nécessaire
     }
-  };
+};
   
   
-    
+  const handleImageChange = (event) => {
+    setNewService({ ...newService, image: event.target.files[0] });
+};
   
 
   const handleDeleteService = async (serviceId) => {
     try {
-      await deleteService(serviceId, token);
-      fetchServices(setServices, token); // Mettre à jour la liste des services après la suppression
-    } catch (error) {
-      console.error('Erreur lors de la suppression du service :', error);
-    }
-  };
+        const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/services/${serviceId}`, {
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
 
-  const handleImageChange = (event) => {
-    setNewService({ ...newService, image: event.target.files[0] });
-  };
+        if (!response.ok) {
+            throw new Error('Erreur lors de la suppression du service');
+        }
+
+        console.log('Service supprimé avec succès');
+        fetchServices(); // Rafraîchir la liste des services après la suppression
+    } catch (error) {
+        console.error('Erreur lors de la suppression du service :', error);
+    }
+};
+
   
 
 return (
   <>
-  <Nav/>
-      <div>
-          <h1>Page Administrateur</h1>
-          <div className="wrapper">
-              <div className="logo">
-                  <a href='/'>
-                      <img src={Logo} alt="Logo" />
-                  </a>
-              </div>
-              <div className="text-center mt-4 name">
-                  Arcadia
-              </div>
-              <form className="p-3 mt-3">
-                  <div className="form-field d-flex align-items-center">
-                      <span className="far fa-user"></span>
-                      <input
-                          type="text"
-                          name="nom"
-                          id="nom"
-                          placeholder="Nom d'utilisateur"
-                          value={nom}
-                          onChange={(event) => setNom(event.target.value)}
-                      />
-                  </div>
-                  <div className="form-field d-flex align-items-center">
+   <Nav /> {/* Vérifiez que Nav est correctement importé et utilisé */}
+            <div>
+                <h1>Page Administrateur</h1>
+                <div className="wrapper">
+                    <div className="logo">
+                        <a href="/">
+                            <img src={Logo} alt="Logo" /> {/* Assurez-vous que Logo est correctement importé */}
+                        </a>
+                    </div>
+                    <div className="text-center mt-4 name">
+                        Arcadia
+                    </div>
+                    <form className="p-3 mt-3">
+                        <div className="form-field d-flex align-items-center">
+                            <span className="far fa-user"></span>
+                            <input
+                                type="text"
+                                name="nom"
+                                id="nom"
+                                placeholder="Nom d'utilisateur"
+                                value={nom}
+                                onChange={(event) => setNom(event.target.value)}
+                            />
+                        </div>
+                        <div className="form-field d-flex align-items-center">
                             <label htmlFor="role">Type</label>
                             <select
                                 id="role"
@@ -345,65 +339,67 @@ return (
                                 <option value="veterinaire">Vétérinaire</option>
                                 <option value="employe">Employé</option>
                             </select>
-                </div>
-                <div className="form-field d-flex align-items-center">
-                <label htmlFor="email">E-mail :</label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="Entrez votre adresse e-mail"
-                    value={email}
-                    onChange={(event) => setEmail(event.target.value)}
-                    />
-                </div>
-              </form>
-            </div>
-
-
-              <form className="p-3 mt-3 justify-content-center" onSubmit={handleAddService}>
-            <div className="form-field d-flex align-items-center">
-              <input
-                type="text"
-                name="title"
-                placeholder="Titre du service"
-                value={newService.title}
-                onChange={(event) => setNewService({ ...newService, title: event.target.value })}
-              />
-            </div>
-            <div className="form-field d-flex align-items-center">
-              <textarea
-                name="description"
-                placeholder="Description du service"
-                value={newService.description}
-                onChange={(event) => setNewService({ ...newService, description: event.target.value })}
-              />
-            </div>
-            <div className="form-field d-flex align-items-center">
-                <label htmlFor="image">Image :</label>
-                    <input
-                    type="file"
-                    id="image"
-                    name="image_url"
-                    accept=".jpg,.jpeg,.png"
-                    onChange={handleImageChange}
-                    />
+                        </div>
+                        <div className="form-field d-flex align-items-center">
+                            <label htmlFor="email">E-mail :</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Entrez votre adresse e-mail"
+                                value={email}
+                                onChange={(event) => setEmail(event.target.value)}
+                            />
+                        </div>
+                    </form>
                 </div>
 
-            <button type="submit">Ajouter un service</button>
-          </form>
-          <div className="p-3 mt-3">
-            <h2>Liste des Services</h2>
-            <ul>
-                {services.map((service) => (
-                <li key={service.id}>
-                    <h3>{service.title}</h3>
-                    <p>{service.description}</p>
-                    {service.image_url && (
-                    <img src={service.image_url} alt={service.title} style={{ maxWidth: '100px' }} />
-                    )}
-                    <button onClick={() => handleDeleteService(service.id)}>Supprimer</button>
-                </li>
+                {/* Formulaire pour ajouter un service */}
+                <form className="p-3 mt-3 justify-content-center" onSubmit={handleAddService}>
+                    <div className="form-field d-flex align-items-center">
+                        <input
+                            type="text"
+                            name="title"
+                            placeholder="Titre du service"
+                            value={newService.title}
+                            onChange={(event) => setNewService({ ...newService, title: event.target.value })}
+                        />
+                    </div>
+                    <div className="form-field d-flex align-items-center">
+                        <textarea
+                            name="description"
+                            placeholder="Description du service"
+                            value={newService.description}
+                            onChange={(event) => setNewService({ ...newService, description: event.target.value })}
+                        />
+                    </div>
+                    <div className="form-field d-flex align-items-center">
+                        <label htmlFor="image">Image :</label>
+                        <input
+                            type="file"
+                            id="image"
+                            name="image_url"
+                            accept=".jpg,.jpeg,.png"
+                            onChange={handleImageChange}
+                        />
+                    </div>
+
+                    <button type="submit">Ajouter un service</button>
+                </form>
+
+                {/* Affichage des messages de succès ou d'erreur */}
+                {successMessageVisible && <p>Service ajouté avec succès!</p>}
+
+                {/* Liste des services existants */}
+                <div className="service-list">
+                    <h2>Liste des Services</h2>
+                    <ul>
+                        {services.map((service) => (
+                            <li key={service.id}>
+                                <div>{service.title}</div>
+                                <div>{service.description}</div>
+                                <button onClick={() => handleDeleteService(service.id)}>Supprimer</button>
+                            </li>
                 ))}
             </ul>
             </div>
