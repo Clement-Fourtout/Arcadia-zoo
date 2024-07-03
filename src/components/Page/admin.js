@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Logo from '../styles/Logo/Arcadia Zoo.png';
 import Nav from '../Nav';
 import AvisEnAttente from './AvisEnAttente';
-import { v4 as uuidv4 } from 'uuid';
 
 export default function Admin() {
   const [nom, setNom] = useState('');
@@ -252,8 +251,6 @@ const handleAddService = async (event) => {
 
   try {
     const formData = new FormData();
-    const id = uuidv4(); // Générer un ID unique
-    formData.append('id', id); // Ajouter l'ID dans le FormData
     formData.append('title', newService.title);
     formData.append('description', newService.description);
     formData.append('image_url', newService.image);
