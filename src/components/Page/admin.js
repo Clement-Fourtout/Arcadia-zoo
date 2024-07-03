@@ -228,39 +228,24 @@ const handleLogout = () => {
 // Gestion des services
 const fetchServices = async () => {
   try {
-      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
-          headers: {
-              Authorization: `Bearer ${token}`,
-          },
-      });
-      if (!response.ok) {
-          throw new Error('Erreur lors de la récupération des services');
-      }
-      const data = await response.json();
-      setServices(data);
+    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error('Erreur lors de la récupération des services');
+    }
+    const data = await response.json();
+    setServices(data);
   } catch (error) {
-      console.error('Erreur lors de la récupération des services :', error);
+    console.error('Erreur lors de la récupération des services :', error);
   }
 };
 
-// Effet pour charger les services lorsque le token change
 useEffect(() => {
-  // Exemple de fonction fetchServices pour récupérer les données depuis votre API
-  const fetchServices = async () => {
-    try {
-      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services');
-      if (!response.ok) {
-        throw new Error('Erreur lors de la récupération des services');
-      }
-      const data = await response.json();
-      setServices(data);
-    } catch (error) {
-      console.error('Erreur lors de la récupération des services :', error);
-    }
-  };
-
   fetchServices();
-}, []);
+}, [token]);
 
 
 
@@ -268,17 +253,19 @@ const handleAddService = async (event) => {
   event.preventDefault();
 
   try {
-    const formData = new FormData();
-    formData.append('title', newService.title);
-    formData.append('description', newService.description);
-    formData.append('image_url', newService.image);
+    const serviceData = {
+      title: newService.title,
+      description: newService.description,
+      image_url: newService.image // Assurez-vous que l'image est correctement traitée côté serveur
+    };
 
     const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
       method: 'POST',
       headers: {
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: formData,
+      body: JSON.stringify(serviceData),
     });
 
     if (!response.ok) {
@@ -286,7 +273,7 @@ const handleAddService = async (event) => {
     }
 
     console.log('Service ajouté avec succès');
-    fetchServices(setServices, token);
+    await fetchServices(); // Met à jour la liste des services
     setNewService({ title: '', description: '', image: null });
     setSuccessMessageVisible(true);
   } catch (error) {
@@ -294,7 +281,6 @@ const handleAddService = async (event) => {
     // Gérer l'erreur et afficher un message à l'utilisateur si nécessaire
   }
 };
-
 
 const handleImageChange = (event) => {
   setNewService({
@@ -381,37 +367,31 @@ return (
 
                 <div>
       <h1>Ajouter un service</h1>
-      <form className="p-3 mt-3 justify-content-center" onSubmit={handleAddService}>
-      <div className="form-field d-flex align-items-center">
+      <form onSubmit={handleAddService}>
         <input
           type="text"
           name="title"
-          placeholder="Titre du service"
+          placeholder="Titre"
           value={newService.title}
-          onChange={(event) => setNewService({ ...newService, title: event.target.value })}
+          onChange={(e) => setNewService({ ...newService, title: e.target.value })}
+          required
         />
-      </div>
-      <div className="form-field d-flex align-items-center">
-        <textarea
+        <input
+          type="text"
           name="description"
-          placeholder="Description du service"
+          placeholder="Description"
           value={newService.description}
-          onChange={(event) => setNewService({ ...newService, description: event.target.value })}
+          onChange={(e) => setNewService({ ...newService, description: e.target.value })}
+          required
         />
-      </div>
-      <div className="form-field d-flex align-items-center">
-        <label htmlFor="image">Image :</label>
         <input
           type="file"
-          id="image"
           name="image"
-          accept=".jpg,.jpeg,.png"
           onChange={handleImageChange}
+          required
         />
-      </div>
-
-      <button type="submit">Ajouter un service</button>
-    </form>
+        <button type="submit">Ajouter le service</button>
+      </form>
     </div>
 
                 {/* Affichage des messages de succès ou d'erreur */}
