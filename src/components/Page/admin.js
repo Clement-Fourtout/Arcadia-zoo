@@ -383,7 +383,7 @@ return (
             />
             <input
               type="file"
-              name="image"
+              name="image_url"
               onChange={handleImageChange}
               required
             />
