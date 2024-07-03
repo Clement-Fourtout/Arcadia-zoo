@@ -257,14 +257,16 @@ const handleAddService = async (event) => {
     formData.append('title', newService.title);
     formData.append('description', newService.description);
     formData.append('image', newService.image); // Ajouter le fichier image
-
+    console.log('newService:', newService);
     for (let [key, value] of formData.entries()) {
       console.log(`${key}: ${value}`);
     }
     // Envoyer la requête POST au serveur
     const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
       method: 'POST',
-      headers: { Authorization: `Bearer ${token}`},
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       body: formData,
     });
 
