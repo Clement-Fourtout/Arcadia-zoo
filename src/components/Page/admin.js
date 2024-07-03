@@ -255,7 +255,13 @@ useEffect(() => {
 
 const handleAddService = async (event) => {
   event.preventDefault();
+  
+  console.log('newService:', newService);
 
+  if (!newService.title || !newService.description || !newService.image) {
+    console.error('Les champs title, description et image doivent être remplis');
+    return;
+  }
   try {
     const formData = new FormData();
     formData.append('title', newService.title);
