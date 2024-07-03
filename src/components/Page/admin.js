@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Logo from '../styles/Logo/Arcadia Zoo.png';
 import Nav from '../Nav';
 import AvisEnAttente from './AvisEnAttente';
@@ -33,11 +33,7 @@ export default function Admin() {
     fetchUserData();
   }, []);
 
-  useEffect(() => {
-    if (token) {
-      fetchServices();
-    }
-  }, [token]);
+
 
 
     const head = document.head || document.getElementsByTagName('head')[0];
@@ -227,18 +223,24 @@ const handleLogout = () => {
 
 // Gestion des services
 
-const fetchServices = async () => {
+const fetchServices = useCallback(async () => {
   try {
     const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
-    if (!response.ok) throw new Error('Erreur lors de la récupération des services');
+    
+    if (!response.ok) {
+      throw new Error('Erreur lors de la récupération des services');
+    }
+    
     const data = await response.json();
     setServices(data);
   } catch (error) {
     console.error('Erreur lors de la récupération des services :', error);
   }
-};
+}, [token]); // Dépendance : token
 
 const handleAddService = async (event) => {
   event.preventDefault();
@@ -256,14 +258,17 @@ const handleAddService = async (event) => {
     formData.append('description', newService.description);
     formData.append('image', newService.image); // Ajouter le fichier image
 
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}: ${value}`);
+    }
     // Envoyer la requête POST au serveur
     const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
       method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: { Authorization: `Bearer ${token}`},
       body: formData,
     });
+
+    console.log('Status de la réponse:', response.status);
 
     if (!response.ok) {
       const errorData = await response.json();
@@ -311,7 +316,30 @@ const handleImageChange = (event) => {
     }
 };
 
-  
+useEffect(() => {
+  const fetchServices = async () => {
+    try {
+      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Erreur lors de la récupération des services');
+      }
+
+      const data = await response.json();
+      setServices(data);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des services :', error);
+    }
+  };
+
+  if (token) {
+    fetchServices();
+  }
+}, [token]); // Ajouter 'token' à la liste des dépendances
 
 return (
   <>
