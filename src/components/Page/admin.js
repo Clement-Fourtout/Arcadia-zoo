@@ -238,8 +238,22 @@ const fetchServices = async () => {
 
 // Effet pour charger les services lorsque le token change
 useEffect(() => {
+  // Exemple de fonction fetchServices pour récupérer les données depuis votre API
+  const fetchServices = async () => {
+    try {
+      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services');
+      if (!response.ok) {
+        throw new Error('Erreur lors de la récupération des services');
+      }
+      const data = await response.json();
+      setServices(data);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des services :', error);
+    }
+  };
+
   fetchServices();
-}, [token]);
+}, []);
 
 
 
