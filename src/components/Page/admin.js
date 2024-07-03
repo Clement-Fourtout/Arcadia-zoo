@@ -12,11 +12,7 @@ export default function Admin() {
   const [email, setEmail] = useState('');
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
   const [services, setServices] = useState([]); // State pour stocker les services
-  const [newService, setNewService] = useState({
-    title: '',
-    description: '',
-    image: null, // Ajoutez une clé pour stocker l'image sélectionnée
-  });
+  const [newService, setNewService] = useState({ title: '', description: '', image: null });
 
 
   useEffect(() => {
@@ -37,7 +33,11 @@ export default function Admin() {
     fetchUserData();
   }, []);
 
-
+  useEffect(() => {
+    if (token) {
+      fetchServices();
+    }
+  }, [token]);
 
 
     const head = document.head || document.getElementsByTagName('head')[0];
@@ -226,38 +226,22 @@ const handleLogout = () => {
 };
 
 // Gestion des services
+
 const fetchServices = async () => {
   try {
     const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: { Authorization: `Bearer ${token}` },
     });
-    if (!response.ok) {
-      throw new Error('Erreur lors de la récupération des services');
-    }
+    if (!response.ok) throw new Error('Erreur lors de la récupération des services');
     const data = await response.json();
-    console.log('Services fetched successfully:', data);
     setServices(data);
   } catch (error) {
     console.error('Erreur lors de la récupération des services :', error);
   }
 };
 
-// Effet pour charger les services lorsque le token change
-useEffect(() => {
-  if (token) {
-    fetchServices();
-  }
-}, [token]);
-
-
-
 const handleAddService = async (event) => {
   event.preventDefault();
-
-  console.log('newService:', newService);
-
   if (!newService.title || !newService.description || !newService.image) {
     console.error('Les champs title, description et image doivent être remplis');
     return;
@@ -268,23 +252,16 @@ const handleAddService = async (event) => {
     formData.append('description', newService.description);
     formData.append('image', newService.image);
 
-    // Log formData content
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
-
     const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
       method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers: { Authorization: `Bearer ${token}` },
       body: formData,
     });
 
     if (!response.ok) {
       const errorData = await response.json();
-      console.error("Erreur lors de l'ajout du service :", errorData);
-      throw new Error("Erreur lors de l'ajout du service");
+      console.error('Erreur lors de l\'ajout du service :', errorData);
+      throw new Error('Erreur lors de l\'ajout du service');
     }
 
     const data = await response.json();
@@ -293,20 +270,15 @@ const handleAddService = async (event) => {
     setNewService({ title: '', description: '', image: null });
     setSuccessMessageVisible(true);
   } catch (error) {
-    console.error("Erreur lors de l'ajout du service :", error);
-    // Gérer l'erreur et afficher un message à l'utilisateur si nécessaire
+    console.error('Erreur lors de l\'ajout du service :', error);
   }
 };
 
-
 const handleImageChange = (event) => {
-  setNewService({
-    ...newService,
-    image: event.target.files[0], // Stocke le fichier image dans le state
-  });
+  setNewService({ ...newService, image: event.target.files[0] });
 };
 
-  
+
 
   const handleDeleteService = async (serviceId) => {
     try {
@@ -383,35 +355,34 @@ return (
                 </div>
 
                 <div>
-      <h1>Ajouter un service</h1>
-      <form onSubmit={handleAddService}>
-        <input
-          type="text"
-          name="title"
-          placeholder="Titre"
-          value={newService.title}
-          onChange={(e) => setNewService({ ...newService, title: e.target.value })}
-          required
-        />
-        <input
-          type="text"
-          name="description"
-          placeholder="Description"
-          value={newService.description}
-          onChange={(e) => setNewService({ ...newService, description: e.target.value })}
-          required
-        />
-        <input
-          type="file"
-          name="image"
-          onChange={handleImageChange}
-          required
-        />
-        <button type="submit">Ajouter le service</button>
-      </form>
+                <h1>Ajouter un service</h1>
+          <form onSubmit={handleAddService}>
+            <input
+              type="text"
+              name="title"
+              placeholder="Titre"
+              value={newService.title}
+              onChange={(e) => setNewService({ ...newService, title: e.target.value })}
+              required
+            />
+            <input
+              type="text"
+              name="description"
+              placeholder="Description"
+              value={newService.description}
+              onChange={(e) => setNewService({ ...newService, description: e.target.value })}
+              required
+            />
+            <input
+              type="file"
+              name="image"
+              onChange={handleImageChange}
+              required
+            />
+            <button type="submit">Ajouter le service</button>
+          </form>
     </div>
 
-                {/* Affichage des messages de succès ou d'erreur */}
                 {successMessageVisible && <p>Service ajouté avec succès!</p>}
 
                 {/* Liste des services existants */}
