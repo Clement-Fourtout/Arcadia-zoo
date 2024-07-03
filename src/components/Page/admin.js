@@ -242,40 +242,51 @@ const fetchServices = async () => {
 
 const handleAddService = async (event) => {
   event.preventDefault();
+
+  // Vérifier si les champs obligatoires sont remplis
   if (!newService.title || !newService.description || !newService.image) {
     console.error('Les champs title, description et image doivent être remplis');
     return;
   }
+
   try {
+    // Créer un objet FormData
     const formData = new FormData();
     formData.append('title', newService.title);
     formData.append('description', newService.description);
-    formData.append('image', newService.image);
+    formData.append('image', newService.image); // Ajouter le fichier image
 
+    // Envoyer la requête POST au serveur
     const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
       method: 'POST',
-      headers: { Authorization: `Bearer ${token}` },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       body: formData,
     });
 
     if (!response.ok) {
       const errorData = await response.json();
-      console.error('Erreur lors de l\'ajout du service :', errorData);
-      throw new Error('Erreur lors de l\'ajout du service');
+      console.error("Erreur lors de l'ajout du service :", errorData);
+      throw new Error("Erreur lors de l'ajout du service");
     }
 
     const data = await response.json();
     console.log('Service ajouté avec succès', data);
-    fetchServices();
-    setNewService({ title: '', description: '', image: null });
-    setSuccessMessageVisible(true);
+    fetchServices(); // Actualiser la liste des services après l'ajout
+    setNewService({ title: '', description: '', image: null }); // Réinitialiser le formulaire
+    setSuccessMessageVisible(true); // Afficher un message de succès à l'utilisateur
   } catch (error) {
-    console.error('Erreur lors de l\'ajout du service :', error);
+    console.error("Erreur lors de l'ajout du service :", error);
+    // Gérer l'erreur et afficher un message à l'utilisateur si nécessaire
   }
 };
 
 const handleImageChange = (event) => {
-  setNewService({ ...newService, image: event.target.files[0] });
+  setNewService({
+    ...newService,
+    image: event.target.files[0], // Stocker le fichier image dans le state
+  });
 };
 
 
@@ -355,33 +366,33 @@ return (
                 </div>
 
                 <div>
-                <h1>Ajouter un service</h1>
-          <form onSubmit={handleAddService}>
-            <input
-              type="text"
-              name="title"
-              placeholder="Titre"
-              value={newService.title}
-              onChange={(e) => setNewService({ ...newService, title: e.target.value })}
-              required
-            />
-            <input
-              type="text"
-              name="description"
-              placeholder="Description"
-              value={newService.description}
-              onChange={(e) => setNewService({ ...newService, description: e.target.value })}
-              required
-            />
-            <input
-              type="file"
-              name="image"
-              onChange={handleImageChange}
-              required
-            />
-            <button type="submit">Ajouter le service</button>
-          </form>
-    </div>
+                  <h1>Ajouter un service</h1>
+                    <form onSubmit={handleAddService}>
+                      <input
+                        type="text"
+                        name="title"
+                        placeholder="Titre"
+                        value={newService.title}
+                        onChange={(e) => setNewService({ ...newService, title: e.target.value })}
+                        required
+                      />
+                      <input
+                        type="text"
+                        name="description"
+                        placeholder="Description"
+                        value={newService.description}
+                        onChange={(e) => setNewService({ ...newService, description: e.target.value })}
+                        required
+                      />
+                      <input
+                        type="file"
+                        name="image"
+                        onChange={handleImageChange}
+                        required
+                      />
+                      <button type="submit">Ajouter le service</button>
+                  </form>
+                </div>
 
                 {successMessageVisible && <p>Service ajouté avec succès!</p>}
 
