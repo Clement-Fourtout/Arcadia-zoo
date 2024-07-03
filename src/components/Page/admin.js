@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Logo from '../styles/Logo/Arcadia Zoo.png';
 import Nav from '../Nav';
 import AvisEnAttente from './AvisEnAttente';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Admin() {
   const [nom, setNom] = useState('');
@@ -249,14 +250,10 @@ useEffect(() => {
 const handleAddService = async (event) => {
   event.preventDefault();
 
-  // Vérifiez que tous les champs requis sont remplis
-  if (!newService.title || !newService.description || !newService.image) {
-    console.error('Les champs title, description et image doivent être remplis');
-    return;
-  }
-
   try {
     const formData = new FormData();
+    const id = uuidv4(); // Générer un ID unique
+    formData.append('id', id); // Ajouter l'ID dans le FormData
     formData.append('title', newService.title);
     formData.append('description', newService.description);
     formData.append('image', newService.image);
@@ -282,6 +279,7 @@ const handleAddService = async (event) => {
     setSuccessMessageVisible(true);
   } catch (error) {
     console.error("Erreur lors de l'ajout du service :", error);
+    // Gérer l'affichage d'un message d'erreur à l'utilisateur
   }
 };
 
