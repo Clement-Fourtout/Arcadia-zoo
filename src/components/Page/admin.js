@@ -172,7 +172,8 @@ const handleRegister = async (event) => {
 
             if (response.ok) {
                 const { message } = await response.json();
-                console.log(message); // Affichez un message de succès
+                console.log(message);
+                alert(`Mot de passe généré : ${mot_de_passe}`); // Affichez un message de succès
                 setSuccessMessageVisible(true);
                 setNom('');
                 setMotDePasse('');
