@@ -246,30 +246,19 @@ useEffect(() => {
   }
 }, [token, fetchServices]);
 
-const handleAddService = async (event) => {
-  event.preventDefault();
+const handleAddService = async (e) => {
+  e.preventDefault();
 
-  if (!newService.title || !newService.description || !newService.image) {
-    console.error('Les champs title, description et image doivent être remplis');
-    return;
-  }
+  const formData = new FormData();
+  formData.append('title', newService.title);
+  formData.append('description', newService.description);
+  formData.append('image_url', newService.image);
 
   try {
-    const formData = new FormData();
-    formData.append('title', newService.title);
-    formData.append('description', newService.description);
-    formData.append('image_url', newService.image); // Utilisez image_url
-
-    console.log('Données à envoyer :', {
-      title: newService.title,
-      description: newService.description,
-      image_url: newService.image
-    });
-
     const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,  // Assurez-vous que token est défini correctement
       },
       body: formData,
     });
@@ -280,19 +269,17 @@ const handleAddService = async (event) => {
 
     const data = await response.json();
     console.log('Service ajouté avec succès', data);
-    fetchServices();
+    // Réinitialisez le formulaire après un ajout réussi
     setNewService({ title: '', description: '', image: null });
-    setSuccessMessageVisible(true);
+    setSuccessMessageVisible(true);  // Activez votre message de succès si nécessaire
   } catch (error) {
     console.error('Erreur lors de l\'ajout du service :', error);
   }
 };
 
-const handleImageChange = (event) => {
-  setNewService({
-    ...newService,
-    image: event.target.files[0],
-  });
+const handleImageChange = (e) => {
+  const file = e.target.files[0];
+  setNewService({ ...newService, image: file });
 };
 
 
@@ -371,34 +358,34 @@ return (
                 </div>
 
                 <div>
-          <h1>Ajouter un service</h1>
-          <form onSubmit={handleAddService}>
-            <input
-              type="text"
-              name="title"
-              placeholder="Titre"
-              value={newService.title}
-              onChange={(e) => setNewService({ ...newService, title: e.target.value })}
-              required
-            />
-            <input
-              type="text"
-              name="description"
-              placeholder="Description"
-              value={newService.description}
-              onChange={(e) => setNewService({ ...newService, description: e.target.value })}
-              required
-            />
-            <input
-              type="file"
-              name="image_url"
-              onChange={handleImageChange}
-              accept="image/*"
-              required
-            />
-            <button type="submit">Ajouter le service</button>
-          </form>
-        </div>
+      <h1>Ajouter un service</h1>
+      <form onSubmit={handleAddService} encType="multipart/form-data">
+        <input
+          type="text"
+          name="title"
+          placeholder="Titre"
+          value={newService.title}
+          onChange={(e) => setNewService({ ...newService, title: e.target.value })}
+          required
+        />
+        <input
+          type="text"
+          name="description"
+          placeholder="Description"
+          value={newService.description}
+          onChange={(e) => setNewService({ ...newService, description: e.target.value })}
+          required
+        />
+        <input
+          type="file"
+          name="image_url"
+          onChange={handleImageChange}
+          accept="image/*"
+          required
+        />
+        <button type="submit">Ajouter le service</button>
+      </form>
+    </div>
 
                 {successMessageVisible && <p>Service ajouté avec succès!</p>}
 
