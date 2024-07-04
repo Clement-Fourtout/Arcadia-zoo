@@ -386,12 +386,7 @@ return (
         <button type="submit">Ajouter le service</button>
       </form>
     </div>
-    <div>
-      <form action="https://api-zoo-22654ce4a3d5.herokuapp.com/uploads" method="POST" encType="multipart/form-data">
-      <input type="file" name="file" />
-      <button type="submit">Envoyer</button>
-      </form>
-  </div>
+
 
                 {successMessageVisible && <p>Service ajouté avec succès!</p>}
 
