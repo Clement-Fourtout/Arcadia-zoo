@@ -177,7 +177,7 @@ const handleRegister = async (event) => {
                 setNom('');
                 setMotDePasse('');
                 setRole('');
-                await sendConfirmationEmail(nom, email)
+
             } else {
                 const { error } = await response.json();
                 console.error('Erreur lors de la création du compte :', error);
@@ -190,28 +190,6 @@ const handleRegister = async (event) => {
     }
 };
 
-const sendConfirmationEmail = async (nom, email) => {
-  try {
-      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/register', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ nom, email })
-      });
-
-      if (response.ok) {
-          const { message } = await response.json();
-          console.log(message);
-          // Traitez ici la logique de succès de l'envoi de l'email si nécessaire
-      } else {
-          const { error } = await response.json();
-          console.error('Erreur lors de l\'envoi de l\'email :', error);
-      }
-  } catch (error) {
-      console.error('Erreur lors de l\'envoi de l\'email :', error);
-  }
-};
 
 const handleDeleteAccount = async () => {
   try {
@@ -391,7 +369,7 @@ return (
                                 onChange={(event) => setEmail(event.target.value)}
                             />
                         </div>
-                        <button type="submit" className="btn btn-primary">Créer Employé et Envoyer Email</button>
+                        <button type="submit">Enregistrer et Envoyer Email</button>
                 </form>
                 {successMessageVisible && (
                     <div className="success-message">Compte créé avec succès !</div>
