@@ -45,11 +45,11 @@ const DiffServices = () => {
               <h2 className="font-weight-bold text-decoration-underline text-info mt-3 mb-4">
                 {service.title}
               </h2>
-              <p>{service.description}</p>
               <img
-                src={`https://api-zoo-22654ce4a3d5.herokuapp.com/uploads/1720118324536-Gorille.jpg`}
-                className="service-image"
+                src={`https://api-zoo-22654ce4a3d5.herokuapp.com/uploads/${service.image_url}`}
+                className="d-block w-100"
                 alt={service.title}
+
               />
               
               <p className="mt-2">{service.description}</p>
