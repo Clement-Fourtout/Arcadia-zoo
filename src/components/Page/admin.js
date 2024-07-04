@@ -358,35 +358,34 @@ return (
                 </div>
 
                 <div>
-      <h1>Ajouter un service</h1>
-      <form onSubmit={handleAddService} encType="multipart/form-data">
-        <input
-          type="text"
-          name="title"
-          placeholder="Titre"
-          value={newService.title}
-          onChange={(e) => setNewService({ ...newService, title: e.target.value })}
-          required
-        />
-        <input
-          type="text"
-          name="description"
-          placeholder="Description"
-          value={newService.description}
-          onChange={(e) => setNewService({ ...newService, description: e.target.value })}
-          required
-        />
-        <input
-          type="file"
-          name="image_url"
-          onChange={handleImageChange}
-          accept="image/*"
-          required
-        />
-        <button type="submit">Ajouter le service</button>
-      </form>
-    </div>
-
+          <h1>Ajouter un service</h1>
+          <form onSubmit={handleAddService} encType="multipart/form-data">
+            <input
+              type="text"
+              name="title"
+              placeholder="Titre"
+              value={newService.title}
+              onChange={(e) => setNewService({ ...newService, title: e.target.value })}
+              required
+            />
+            <input
+              type="text"
+              name="description"
+              placeholder="Description"
+              value={newService.description}
+              onChange={(e) => setNewService({ ...newService, description: e.target.value })}
+              required
+            />
+            <input
+              type="file"
+              name="image_url"
+              onChange={handleImageChange}
+              accept="image/*"
+              required
+            />
+            <button type="submit">Ajouter le service</button>
+          </form>
+        </div>
 
                 {successMessageVisible && <p>Service ajouté avec succès!</p>}
 
