@@ -11,20 +11,21 @@ const DiffServices = () => {
 
   useEffect(() => {
     fetchServices();
-}, []);
+  }, []);
 
-const fetchServices = async () => {
+  const fetchServices = async () => {
     try {
-        const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services');
-        if (!response.ok) {
-            throw new Error('Erreur lors de la récupération des services');
-        }
+      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services');
+      if (response.ok) {
         const data = await response.json();
-        setServices(data.services);
+        setServices(data);
+      } else {
+        console.error('Erreur lors de la récupération des services :', response.statusText);
+      }
     } catch (error) {
-        console.error(error);
+      console.error('Erreur lors de la récupération des services :', error);
     }
-};
+  };
 
   
 
@@ -46,7 +47,7 @@ const fetchServices = async () => {
               </h2>
               <p>{service.description}</p>
               <img
-                src={`https://api-zoo-22654ce4a3d5.herokuapp.com/${service.image_url}`}
+                src={`https://api-zoo-22654ce4a3d5.herokuapp.com/uploads/${service.image_url}`}
                 className="service-image"
                 alt={service.title}
               />
