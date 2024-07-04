@@ -249,24 +249,33 @@ useEffect(() => {
 const handleAddService = async (event) => {
   event.preventDefault();
 
+  if (!newService.title || !newService.description || !newService.image) {
+    console.error('Les champs title, description et image doivent être remplis');
+    return;
+  }
+
   try {
     const formData = new FormData();
     formData.append('title', newService.title);
     formData.append('description', newService.description);
-    formData.append('image_url', newService.image);
+    formData.append('image_url', newService.image); // Utilisez image_url
+
+    console.log('Données à envoyer :', {
+      title: newService.title,
+      description: newService.description,
+      image_url: newService.image
+    });
 
     const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
       body: formData,
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
-      console.error("Erreur lors de l'ajout du service :", errorData);
-      throw new Error("Erreur lors de l'ajout du service");
+      throw new Error('Erreur lors de l\'ajout du service');
     }
 
     const data = await response.json();
@@ -275,8 +284,7 @@ const handleAddService = async (event) => {
     setNewService({ title: '', description: '', image: null });
     setSuccessMessageVisible(true);
   } catch (error) {
-    console.error("Erreur lors de l'ajout du service :", error);
-    // Gérer l'affichage d'un message d'erreur à l'utilisateur
+    console.error('Erreur lors de l\'ajout du service :', error);
   }
 };
 
@@ -385,6 +393,7 @@ return (
               type="file"
               name="image_url"
               onChange={handleImageChange}
+              accept="image/*"
               required
             />
             <button type="submit">Ajouter le service</button>
