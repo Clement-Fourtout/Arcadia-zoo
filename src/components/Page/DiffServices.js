@@ -29,32 +29,32 @@ const DiffServices = () => {
 
   return (
     <>
-    <div className="container-fluid bg-dark p-2 mt-1 mb-3">
-      <div className="row justify-content-center">
-        <div className="col col-lg-5 text-light">
-          <h1 className="text-xl-center text-decoration-underline font-weight-bold mt-5 mb-5">
-            Les Services du Parc
-          </h1>
-        </div>
-      </div>
-      {services.map((service) => (
-        <div key={service.id} className="row justify-content-center">
-          <div className="col-lg-5 text-light text-center">
-            <h2 className="font-weight-bold text-decoration-underline text-info mt-3 mb-4">
-              {service.title}
-            </h2>
-            <img
-              src={`https://api-zoo-22654ce4a3d5.herokuapp.com/${service.image_url}`}
-              className="d-block w-100"
-              alt={service.title}
-            />
-            <p className="mt-2">{service.description}</p>
+      <div className="container-fluid bg-dark p-2 mt-1 mb-3">
+        <div className="row justify-content-center">
+          <div className="col col-lg-5 text-light">
+            <h1 className="text-xl-center text-decoration-underline font-weight-bold mt-5 mb-5">
+              Les Services du Parc
+            </h1>
           </div>
         </div>
-      ))}
-    </div>
-  </>
-);
+        {services.map((service) => (
+          <div key={service.id} className="row justify-content-center">
+            <div className="col-lg-5 text-light text-center">
+              <h2 className="font-weight-bold text-decoration-underline text-info mt-3 mb-4">
+                {service.title}
+              </h2>
+              <img
+                src={`https://api-zoo-22654ce4a3d5.herokuapp.com/${service.image_url}`}
+                className="d-block w-100"
+                alt={service.title}
+              />
+              <p className="mt-2">{service.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
+  );
 };
 
 // Fonction utilitaire pour obtenir l'URL complète de l'image en fonction de son nom importé
