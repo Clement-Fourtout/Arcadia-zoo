@@ -369,7 +369,7 @@ return (
                                 onChange={(event) => setEmail(event.target.value)}
                             />
                         </div>
-                        <button type="submit">Enregistrer et Envoyer Email</button>
+                        <button type="button" onClick={handleRegister} className="btn1 mt-3">Créer un compte</button>
                 </form>
                 {successMessageVisible && (
                     <div className="success-message">Compte créé avec succès !</div>
