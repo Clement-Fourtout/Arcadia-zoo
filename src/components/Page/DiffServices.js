@@ -47,7 +47,7 @@ const DiffServices = () => {
               </h2>
               <p>{service.description}</p>
               <img
-                src={`https://api-zoo-22654ce4a3d5.herokuapp.com/uploads/${service.image_url}`}
+                src={`https://api-zoo-22654ce4a3d5.herokuapp.com/uploads/1720118324536-Gorille.jpg`}
                 className="service-image"
                 alt={service.title}
               />
