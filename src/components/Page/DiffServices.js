@@ -1,10 +1,5 @@
-
 import React, { useEffect, useState } from 'react';
-import Restaurant1 from '../styles/Logo/Services/Restaurant 1.jpg'
-import Restauration from '../styles/Logo/Restauration.jpg'
-import Pacha from '../styles/Logo/Services/Le pacha.jpg'
-import Guide from '../styles/Logo/Services/Guide.jpg'
-import Train from '../styles/Logo/Services/Train.jpg'
+
 
 const DiffServices = () => {
   const [services, setServices] = React.useState([]);
@@ -53,22 +48,5 @@ const DiffServices = () => {
   );
 };
 
-// Fonction utilitaire pour obtenir l'URL complète de l'image en fonction de son nom importé
-const getServiceImage = (title) => {
-  switch (title) {
-    case 'Le Sauvageon':
-      return Restaurant1;
-    case 'La Serre Gustative':
-      return Restauration;
-    case 'Le Pacha':
-      return Pacha;
-    case 'Guide':
-      return Guide;
-    case 'Train':
-      return Train;
-    default:
-      return '';
-  }
-};
 
 export default DiffServices;

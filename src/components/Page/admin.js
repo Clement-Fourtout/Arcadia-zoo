@@ -246,19 +246,30 @@ useEffect(() => {
   }
 }, [token, fetchServices]);
 
-const handleAddService = async (e) => {
-  e.preventDefault();
+const handleAddService = async (event) => {
+  event.preventDefault();
 
-  const formData = new FormData();
-  formData.append('title', newService.title);
-  formData.append('description', newService.description);
-  formData.append('image_url', newService.image);
+  if (!newService.title || !newService.description || !newService.image) {
+    console.error('Les champs title, description et image doivent être remplis');
+    return;
+  }
 
   try {
+    const formData = new FormData();
+    formData.append('title', newService.title);
+    formData.append('description', newService.description);
+    formData.append('image_url', newService.image); // Utilisez image_url
+
+    console.log('Données à envoyer :', {
+      title: newService.title,
+      description: newService.description,
+      image_url: newService.image
+    });
+
     const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${token}`,  // Assurez-vous que token est défini correctement
+        'Authorization': `Bearer ${token}`,
       },
       body: formData,
     });
@@ -269,17 +280,19 @@ const handleAddService = async (e) => {
 
     const data = await response.json();
     console.log('Service ajouté avec succès', data);
-    // Réinitialisez le formulaire après un ajout réussi
+    fetchServices();
     setNewService({ title: '', description: '', image: null });
-    setSuccessMessageVisible(true);  // Activez votre message de succès si nécessaire
+    setSuccessMessageVisible(true);
   } catch (error) {
     console.error('Erreur lors de l\'ajout du service :', error);
   }
 };
 
-const handleImageChange = (e) => {
-  const file = e.target.files[0];
-  setNewService({ ...newService, image: file });
+const handleImageChange = (event) => {
+  setNewService({
+    ...newService,
+    image: event.target.files[0],
+  });
 };
 
 
@@ -359,7 +372,7 @@ return (
 
                 <div>
           <h1>Ajouter un service</h1>
-          <form onSubmit={handleAddService} encType="multipart/form-data">
+          <form onSubmit={handleAddService}>
             <input
               type="text"
               name="title"
