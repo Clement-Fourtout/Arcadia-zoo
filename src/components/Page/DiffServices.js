@@ -26,10 +26,7 @@ const DiffServices = () => {
       console.error('Erreur lors de la récupération des services :', error);
     }
   };
-  const handleImageError = (event) => {
-    event.target.src = 'https://api-zoo-22654ce4a3d5.herokuapp.com/uploads/1720111770308-Jaguar.jpg'; // Chemin vers une image par défaut
-    event.target.alt = 'Image non disponible'; // Alt text par défaut si l'image ne se charge pas
-  };
+
   
 
   return (
@@ -52,7 +49,6 @@ const DiffServices = () => {
                 src={`https://api-zoo-22654ce4a3d5.herokuapp.com/uploads/${service.image_url}`}
                 className="d-block w-100"
                 alt={service.title}
-                onError={handleImageError} // Gestionnaire d'erreur en cas d'échec du chargement de l'image
               />
               
               <p className="mt-2">{service.description}</p>
