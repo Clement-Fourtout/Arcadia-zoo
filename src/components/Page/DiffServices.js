@@ -31,7 +31,7 @@ const DiffServices = () => {
                             </h2>
                             <img
                                 src={service.image_url} // Utilisez directement l'URL de l'image récupérée
-                                className=""
+                                className="d-block w-100"
                                 alt={service.title}
                             />
                             <p className="mt-2">{service.description}</p>
