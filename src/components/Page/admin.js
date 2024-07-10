@@ -14,7 +14,7 @@ export default function Admin() {
   const [services, setServices] = useState([]); // State pour stocker les services
   const [newService, setNewService] = useState({ title: '', description: '', image: null });
   const [habitats, setHabitats] = useState([]);
-  const [newHabitat, setNewHabitat] = useState({ nom: '', description: '' });
+  const [newHabitat, setNewHabitat] = useState({ nom: '', description: '', image: null  });
 
   useEffect(() => {
     async function fetchUserData() {
@@ -342,14 +342,18 @@ const fetchHabitats = async () => {
 const handleAddHabitat = async (event) => {
   event.preventDefault();
 
+  const formData = new FormData();
+  formData.append('name', newHabitat.nom);
+  formData.append('description', newHabitat.description);
+  formData.append('image', newHabitat.image);  // Ajouter l'image à FormData
+
   try {
     const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/habitats', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
       },
-      body: JSON.stringify(newHabitat),
+      body: formData,
     });
 
     if (!response.ok) {
@@ -359,15 +363,16 @@ const handleAddHabitat = async (event) => {
     const data = await response.json();
     console.log('Habitat ajouté avec succès', data);
     fetchHabitats(); // Rafraîchir la liste des habitats après l'ajout
-    setNewHabitat({ nom: '', description: '' });
+    setNewHabitat({ nom: '', description: '', image: null });
     setSuccessMessageVisible(true);
   } catch (error) {
     console.error('Erreur lors de l\'ajout de l\'habitat :', error);
   }
 };
 
-const handleEditHabitat = async (habitatId) => {
-  // Implémentez la logique pour pré-remplir le formulaire avec les données de l'habitat à modifier
+const handleFileChange = (event) => {
+  const file = event.target.files[0];
+  setNewHabitat({ ...newHabitat, image: file });
 };
 
 const handleDeleteHabitat = async (habitatId) => {
@@ -515,35 +520,33 @@ return (
       <AvisEnAttente />
     </div>
 
-    <h1>Ajouter un habitat</h1>
-<form onSubmit={handleAddHabitat}>
-  <input
-    type="text"
-    name="nom"
-    placeholder="Nom de l'habitat"
-    value={newHabitat.nom}
-    onChange={(e) => setNewHabitat({ ...newHabitat, nom: e.target.value })}
-    required
-  />
-  <textarea
-    name="description"
-    placeholder="Description de l'habitat"
-    value={newHabitat.description}
-    onChange={(e) => setNewHabitat({ ...newHabitat, description: e.target.value })}
-    required
-  />
-  <button type="submit">Ajouter l'habitat</button>
-</form>
-<h2>Modifier un habitat</h2>
-<ul>
-  {habitats.map((habitat) => (
-    <li key={habitat.id}>
-      <div>{habitat.nom}</div>
-      <div>{habitat.description}</div>
-      <button onClick={() => handleEditHabitat(habitat.id)}>Modifier</button>
-    </li>
-  ))}
-</ul>
+    <div>
+      <h1>Ajouter un habitat</h1>
+      <form onSubmit={handleAddHabitat}>
+        <input
+          type="text"
+          name="nom"
+          placeholder="Nom de l'habitat"
+          value={newHabitat.nom}
+          onChange={(e) => setNewHabitat({ ...newHabitat, nom: e.target.value })}
+          required
+        />
+        <textarea
+          name="description"
+          placeholder="Description de l'habitat"
+          value={newHabitat.description}
+          onChange={(e) => setNewHabitat({ ...newHabitat, description: e.target.value })}
+          required
+        />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          required
+        />
+        <button type="submit">Ajouter l'habitat</button>
+      </form>
+    </div>
 <h2>Supprimer un habitat</h2>
 <ul>
   {habitats.map((habitat) => (
