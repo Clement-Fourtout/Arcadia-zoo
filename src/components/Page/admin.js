@@ -371,10 +371,12 @@ const handleAddHabitat = async (event) => {
   }
 };
 
-const handleFileChange = (event) => {
-  const file = event.target.files[0];
-  setNewHabitat({ ...newHabitat, image: file });
-};
+const handleImageHabitatsChange = (event) => {
+  setNewHabitat({
+    ...newHabitat,
+    image: event.target.files[0],
+  });
+}
 
 const handleDeleteHabitat = async (habitatId) => {
   try {
@@ -540,12 +542,11 @@ return (
           required
         />
         <input
-          type="text"
-          name="image"
-          placeholder="URL de l'image"
-          value={newHabitat.image}
-          onChange={(e) => setNewHabitat({ ...newHabitat, image: e.target.value })}
-          required
+              type="file"
+              name="image"
+              onChange={handleImageHabitatsChange}
+              accept="image/*"
+              required
         />
         <textarea
           name="animal_list"
