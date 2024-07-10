@@ -21,16 +21,23 @@ const Habitats = () => {
   }, []);
 
   return (
-    <div className="container-fluid bg-dark p-2 mt-1 mb-3 text-center ">
-      <h1 class=" text-xl-center text-light text-decoration-underline font-weight-bold" style={{marginBottom: "50px", marginTop: "25px"}}>Choisissez votre habitat</h1>
-      {habitats.map(habitat => (
-        <div key={habitat.id} className="habitat-card">
-          <h4 class="card-title text-custom-savane text-decoration-underline">{habitat.name}</h4>
-          <p class="card-text">{habitat.description}</p>
-          <img class="card-img-top" src={habitat.image} alt={habitat.name} />
-          <p class="card-footer">Animaux présents : {habitat.animal_list}</p>
-        </div>
-      ))}
+    <div className="container-fluid bg-dark p-2 mt-1 mb-3 text-center">
+      <h1 className="text-xl-center text-light text-decoration-underline font-weight-bold" style={{ marginBottom: "50px", marginTop: "25px" }}>Choisissez votre habitat</h1>
+      <div className="row justify-content-center">
+        {habitats.map(habitat => (
+          <div key={habitat.id} className="col-md-4 mb-4">
+            <div className="card border-warning">
+              <img className="card-img-top" src={habitat.image} alt={habitat.name} />
+              <div className="card-body">
+                <h4 className="card-title text-custom-savane text-decoration-underline">{habitat.name}</h4>
+                <p className="card-text">{habitat.description}</p>
+                <p className="card-footer">Animaux présents : {habitat.animal_list}</p>
+                <a href={`/${habitat.name.toLowerCase()}`} className="btn btn-warning">Découvrir {habitat.name}</a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
