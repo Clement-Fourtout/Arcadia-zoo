@@ -344,17 +344,30 @@ const fetchHabitats = async () => {
   }
 };
 
+//Ajout d'habitat
 const handleAddHabitat = async (event) => {
   event.preventDefault();
 
   try {
+    const formData = new FormData();
+    formData.append('name', newHabitat.name);
+    formData.append('description', newHabitat.description);
+    formData.append('image', newHabitat.image); // Utilisation de FormData pour l'image
+    formData.append('animal_list', newHabitat.animal_list); // Ajout de animal_list
+
+    console.log('Données à envoyer :', {
+      name: newHabitat.name,
+      description: newHabitat.description,
+      image: newHabitat.image,
+      animal_list: newHabitat.animal_list
+    });
+
     const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/habitats', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`, // Assure-toi d'avoir token défini correctement
+        'Authorization': `Bearer ${token}`,
       },
-      body: JSON.stringify(newHabitat),
+      body: formData,
     });
 
     if (!response.ok) {
@@ -364,12 +377,13 @@ const handleAddHabitat = async (event) => {
     const data = await response.json();
     console.log('Habitat ajouté avec succès', data);
     fetchHabitats(); // Rafraîchir la liste des habitats après l'ajout
-    setNewHabitat({ name: '', description: '', image: '', animal_list: '' }); // Réinitialiser le formulaire
+    setNewHabitat({ name: '', description: '', image: null, animal_list: '' }); // Réinitialiser le formulaire
     setSuccessMessageVisible(true);
   } catch (error) {
     console.error('Erreur lors de l\'ajout de l\'habitat :', error);
   }
 };
+
 
 const handleImageHabitatsChange = (event) => {
   setNewHabitat({
@@ -534,7 +548,8 @@ return (
           onChange={(e) => setNewHabitat({ ...newHabitat, name: e.target.value })}
           required
         />
-        <textarea
+        <input
+          type="text"
           name="description"
           placeholder="Description de l'habitat"
           value={newHabitat.description}
@@ -548,7 +563,7 @@ return (
               accept="image/*"
               required
         />
-        <textarea
+        <input
           name="animal_list"
           placeholder="Liste des animaux (séparés par des virgules)"
           value={newHabitat.animal_list}
