@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 
 export default function Animaux() {
   const [habitats, setHabitats] = useState([]);
 
   useEffect(() => {
-    axios.get('/habitats')
-      .then(response => {
-        setHabitats(response.data);
-      })
-      .catch(error => {
+    const fetchHabitats = async () => {
+      try {
+        const response = await fetch('/habitats');
+        if (!response.ok) {
+          throw new Error('Erreur lors de la récupération des habitats');
+        }
+        const data = await response.json();
+        setHabitats(data);
+      } catch (error) {
         console.error('Error fetching habitats:', error);
-      });
+      }
+    };
+
+    fetchHabitats();
   }, []);
 
   return (
