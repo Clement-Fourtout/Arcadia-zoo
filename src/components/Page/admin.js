@@ -268,7 +268,7 @@ const handleAddService = async (event) => {
     const formData = new FormData();
     formData.append('title', newService.title);
     formData.append('description', newService.description);
-    formData.append('image_url', newService.image); // Utilisez image_url
+    formData.append('image_url', newService.image);
 
     console.log('Données à envoyer :', {
       title: newService.title,
@@ -325,9 +325,14 @@ const handleImageChange = (event) => {
         console.error('Erreur lors de la suppression du service :', error);
     }
 };
-const fetchHabitats = async () => {
+
+
+//Habitat
+
+
+const fetchHabitats = useCallback(async () => {
   try {
-    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/Habitats', {
+    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/habitats', {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -342,18 +347,28 @@ const fetchHabitats = async () => {
   } catch (error) {
     console.error('Erreur lors de la récupération des habitats :', error);
   }
-};
+}, [token]);
+
+useEffect(() => {
+  if (token) {
+    fetchHabitats();
+  }
+}, [token, fetchHabitats]);
+
 
 //Ajout d'habitat
 const handleAddHabitat = async (event) => {
   event.preventDefault();
-
+  if (!newHabitat.name || !newHabitat.description || !newHabitat.image || !newHabitat.animal_list ) {
+    console.error('Les champs title, description et image doivent être remplis');
+    return;
+  }
   try {
     const formData = new FormData();
     formData.append('name', newHabitat.name);
     formData.append('description', newHabitat.description);
-    formData.append('image', newHabitat.image); // Utilisation de FormData pour l'image
-    formData.append('animal_list', newHabitat.animal_list); // Ajout de animal_list
+    formData.append('image', newHabitat.image); 
+    formData.append('animal_list', newHabitat.animal_list);
 
     console.log('Données à envoyer :', {
       name: newHabitat.name,
@@ -362,7 +377,7 @@ const handleAddHabitat = async (event) => {
       animal_list: newHabitat.animal_list
     });
 
-    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/Habitats', {
+    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/habitats', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,
