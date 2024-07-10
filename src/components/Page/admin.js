@@ -13,7 +13,8 @@ export default function Admin() {
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
   const [services, setServices] = useState([]); // State pour stocker les services
   const [newService, setNewService] = useState({ title: '', description: '', image: null });
-
+  const [habitats, setHabitats] = useState([]);
+  const [newHabitat, setNewHabitat] = useState({ nom: '', description: '' });
 
   useEffect(() => {
     async function fetchUserData() {
@@ -154,7 +155,7 @@ if (style.styleSheet){
 head.appendChild(style);
 
 
-
+//Création de compte
 const handleRegister = async (event) => {
     event.preventDefault();
     const userRole = localStorage.getItem('role');
@@ -192,7 +193,7 @@ const handleRegister = async (event) => {
     }
 };
 
-
+//Suppression de compte
 const handleDeleteAccount = async () => {
   try {
       const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/users/${userId}`, {
@@ -249,7 +250,7 @@ useEffect(() => {
     fetchServices();
   }
 }, [token, fetchServices]);
-
+//Ajout de service
 const handleAddService = async (event) => {
   event.preventDefault();
 
@@ -299,8 +300,7 @@ const handleImageChange = (event) => {
   });
 };
 
-
-
+//Suppression de service
   const handleDeleteService = async (serviceId) => {
     try {
         const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/services/${serviceId}`, {
@@ -320,7 +320,75 @@ const handleImageChange = (event) => {
         console.error('Erreur lors de la suppression du service :', error);
     }
 };
+const fetchHabitats = async () => {
+  try {
+    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/habitats', {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
 
+    if (!response.ok) {
+      throw new Error('Erreur lors de la récupération des habitats');
+    }
+
+    const data = await response.json();
+    setHabitats(data);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des habitats :', error);
+  }
+};
+
+const handleAddHabitat = async (event) => {
+  event.preventDefault();
+
+  try {
+    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/habitats', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(newHabitat),
+    });
+
+    if (!response.ok) {
+      throw new Error('Erreur lors de l\'ajout de l\'habitat');
+    }
+
+    const data = await response.json();
+    console.log('Habitat ajouté avec succès', data);
+    fetchHabitats(); // Rafraîchir la liste des habitats après l'ajout
+    setNewHabitat({ nom: '', description: '' });
+    setSuccessMessageVisible(true);
+  } catch (error) {
+    console.error('Erreur lors de l\'ajout de l\'habitat :', error);
+  }
+};
+
+const handleEditHabitat = async (habitatId) => {
+  // Implémentez la logique pour pré-remplir le formulaire avec les données de l'habitat à modifier
+};
+
+const handleDeleteHabitat = async (habitatId) => {
+  try {
+    const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/habitats/${habitatId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Erreur lors de la suppression de l\'habitat');
+    }
+
+    console.log('Habitat supprimé avec succès');
+    fetchHabitats(); // Rafraîchir la liste des habitats après la suppression
+  } catch (error) {
+    console.error('Erreur lors de la suppression de l\'habitat :', error);
+  }
+};
 
 return (
   <>
@@ -447,6 +515,45 @@ return (
       <AvisEnAttente />
     </div>
 
+    <h1>Ajouter un habitat</h1>
+<form onSubmit={handleAddHabitat}>
+  <input
+    type="text"
+    name="nom"
+    placeholder="Nom de l'habitat"
+    value={newHabitat.nom}
+    onChange={(e) => setNewHabitat({ ...newHabitat, nom: e.target.value })}
+    required
+  />
+  <textarea
+    name="description"
+    placeholder="Description de l'habitat"
+    value={newHabitat.description}
+    onChange={(e) => setNewHabitat({ ...newHabitat, description: e.target.value })}
+    required
+  />
+  <button type="submit">Ajouter l'habitat</button>
+</form>
+<h2>Modifier un habitat</h2>
+<ul>
+  {habitats.map((habitat) => (
+    <li key={habitat.id}>
+      <div>{habitat.nom}</div>
+      <div>{habitat.description}</div>
+      <button onClick={() => handleEditHabitat(habitat.id)}>Modifier</button>
+    </li>
+  ))}
+</ul>
+<h2>Supprimer un habitat</h2>
+<ul>
+  {habitats.map((habitat) => (
+    <li key={habitat.id}>
+      <div>{habitat.nom}</div>
+      <div>{habitat.description}</div>
+      <button onClick={() => handleDeleteHabitat(habitat.id)}>Supprimer</button>
+    </li>
+  ))}
+</ul>
       </div>
     </>
   );
