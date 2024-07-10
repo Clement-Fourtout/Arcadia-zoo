@@ -21,14 +21,14 @@ const Habitats = () => {
   }, []);
 
   return (
-    <div className="habitats-container">
-      <h2>Les habitats disponibles</h2>
+    <div className="container-fluid bg-dark p-2 mt-1 mb-3 text-center ">
+      <h1 class=" text-xl-center text-light text-decoration-underline font-weight-bold" style={{marginBottom: "50px", marginTop: "25px"}}>Choisissez votre habitat</h1>
       {habitats.map(habitat => (
         <div key={habitat.id} className="habitat-card">
-          <h3>{habitat.name}</h3>
-          <p>{habitat.description}</p>
-          <img src={habitat.image} alt={habitat.name} />
-          <p>Animaux présents : {habitat.animal_list}</p>
+          <h4 class="card-title text-custom-savane text-decoration-underline">{habitat.name}</h4>
+          <p class="card-text">{habitat.description}</p>
+          <img class="card-img-top" src={habitat.image} alt={habitat.name} />
+          <p class="card-footer">Animaux présents : {habitat.animal_list}</p>
         </div>
       ))}
     </div>
