@@ -362,7 +362,7 @@ const handleAddHabitat = async (event) => {
       animal_list: newHabitat.animal_list
     });
 
-    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/habitats', {
+    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/Habitats', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,
