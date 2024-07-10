@@ -589,28 +589,20 @@ return (
       </form>
     </div>
                     {/* Liste des habitats existants */}
-                    <div className="service-list">
+                    <div className="habitat-list">
                     <h2>Liste des Habitats</h2>
                     <ul>
                         {habitats.map((habitat) => (
                             <li key={habitat.id}>
                                 <div>{habitat.title}</div>
                                 <div>{habitat.description}</div>
+                                <div>{habitat.animal_list}</div>       
                                 <button onClick={() => handleDeleteHabitat(habitat.id)}>Supprimer</button>
                             </li>
                 ))}
-            </ul>
-            </div>
-<h2>Supprimer un habitat</h2>
-<ul>
-  {habitats.map((habitat) => (
-    <li key={habitat.id}>
-      <div>{habitat.nom}</div>
-      <div>{habitat.description}</div>
-      <button onClick={() => handleDeleteHabitat(habitat.id)}>Supprimer</button>
-    </li>
-  ))}
-</ul>
+                    </ul>
+                    </div>
+
       </div>
     </>
   );

@@ -26,7 +26,7 @@ const Habitats = () => {
       <div className="row justify-content-center">
         {habitats.map(habitat => (
           <div key={habitat.id} className="col-md-4 mb-4">
-            <div className="card border-warning">
+            <div className="card bg-light">
               <img className="card-img-top" src={habitat.image} alt={habitat.name} />
               <div className="card-body">
                 <h4 className="card-title text-custom-savane text-decoration-underline">{habitat.name}</h4>
