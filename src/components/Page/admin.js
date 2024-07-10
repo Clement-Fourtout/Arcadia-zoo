@@ -14,7 +14,12 @@ export default function Admin() {
   const [services, setServices] = useState([]); // State pour stocker les services
   const [newService, setNewService] = useState({ title: '', description: '', image: null });
   const [habitats, setHabitats] = useState([]);
-  const [newHabitat, setNewHabitat] = useState({ nom: '', description: '', image: null  });
+  const [newHabitat, setNewHabitat] = useState({
+    name: '',
+    description: '',
+    image: '',
+    animal_list: ''
+  });
 
   useEffect(() => {
     async function fetchUserData() {
@@ -342,18 +347,14 @@ const fetchHabitats = async () => {
 const handleAddHabitat = async (event) => {
   event.preventDefault();
 
-  const formData = new FormData();
-  formData.append('name', newHabitat.nom);
-  formData.append('description', newHabitat.description);
-  formData.append('image', newHabitat.image);  // Ajouter l'image à FormData
-
   try {
     const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/habitats', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`, // Assure-toi d'avoir token défini correctement
       },
-      body: formData,
+      body: JSON.stringify(newHabitat),
     });
 
     if (!response.ok) {
@@ -363,7 +364,7 @@ const handleAddHabitat = async (event) => {
     const data = await response.json();
     console.log('Habitat ajouté avec succès', data);
     fetchHabitats(); // Rafraîchir la liste des habitats après l'ajout
-    setNewHabitat({ nom: '', description: '', image: null });
+    setNewHabitat({ name: '', description: '', image: '', animal_list: '' }); // Réinitialiser le formulaire
     setSuccessMessageVisible(true);
   } catch (error) {
     console.error('Erreur lors de l\'ajout de l\'habitat :', error);
@@ -521,14 +522,14 @@ return (
     </div>
 
     <div>
-      <h1>Ajouter un habitat</h1>
+      <h2>Ajouter un nouvel habitat</h2>
       <form onSubmit={handleAddHabitat}>
         <input
           type="text"
-          name="nom"
+          name="name"
           placeholder="Nom de l'habitat"
-          value={newHabitat.nom}
-          onChange={(e) => setNewHabitat({ ...newHabitat, nom: e.target.value })}
+          value={newHabitat.name}
+          onChange={(e) => setNewHabitat({ ...newHabitat, name: e.target.value })}
           required
         />
         <textarea
@@ -539,9 +540,18 @@ return (
           required
         />
         <input
-          type="file"
-          accept="image/*"
-          onChange={handleFileChange}
+          type="text"
+          name="image"
+          placeholder="URL de l'image"
+          value={newHabitat.image}
+          onChange={(e) => setNewHabitat({ ...newHabitat, image: e.target.value })}
+          required
+        />
+        <textarea
+          name="animal_list"
+          placeholder="Liste des animaux (séparés par des virgules)"
+          value={newHabitat.animal_list}
+          onChange={(e) => setNewHabitat({ ...newHabitat, animal_list: e.target.value })}
           required
         />
         <button type="submit">Ajouter l'habitat</button>
