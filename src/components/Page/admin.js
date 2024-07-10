@@ -588,6 +588,19 @@ return (
         <button type="submit">Ajouter l'habitat</button>
       </form>
     </div>
+                    {/* Liste des habitats existants */}
+                    <div className="service-list">
+                    <h2>Liste des Habitats</h2>
+                    <ul>
+                        {habitats.map((habitat) => (
+                            <li key={habitat.id}>
+                                <div>{habitat.title}</div>
+                                <div>{habitat.description}</div>
+                                <button onClick={() => handleDeleteHabitat(habitat.id)}>Supprimer</button>
+                            </li>
+                ))}
+            </ul>
+            </div>
 <h2>Supprimer un habitat</h2>
 <ul>
   {habitats.map((habitat) => (
