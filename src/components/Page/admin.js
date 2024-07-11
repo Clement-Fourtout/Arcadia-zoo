@@ -746,7 +746,7 @@ return (
             required
           >
             <option value="">Sélectionnez un habitat</option>
-            {habitats.map(habitat => (
+            {habitats.map((habitat) => (
               <option key={habitat.id} value={habitat.id}>{habitat.name}</option>
             ))}
           </select>
