@@ -801,7 +801,7 @@ return (
 </div>
 
 <div>
-  <h2>Liste des animaux par habitat</h2>
+  <h2>Liste des habitats et de leurs animaux</h2>
   <ul>
     {habitats.map((habitat) => (
       <li key={habitat.id}>
@@ -810,7 +810,7 @@ return (
           <ul>
             {habitat.animals.map((animal) => (
               <li key={animal.id}>
-                {animal.name} - {animal.species} - Âge : {animal.age} - Habitat : {animal.habitat_name}{' '}
+                {animal.name} - {animal.species} - Âge : {animal.age}{' '}
                 <button onClick={() => handleDeleteAnimal(animal.id)}>Supprimer</button>
               </li>
             ))}
