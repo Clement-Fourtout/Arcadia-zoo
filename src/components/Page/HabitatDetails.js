@@ -24,12 +24,15 @@ const HabitatDetails = () => {
 
   return (
     <div className="container">
-      <h1>Liste des Animaux dans cet Habitat</h1>
+      <h1>Animaux présents dans l'habitat</h1>
       <ul>
         {animals.length > 0 ? (
           animals.map((animal) => (
             <li key={animal.id}>
-              {animal.name} - {animal.species} - Âge : {animal.age}
+              <h2>{animal.name}</h2>
+              <p>Espèce : {animal.species}</p>
+              <p>Âge : {animal.age}</p>
+              {animal.image && <img src={animal.image} alt={animal.name} style={{ maxWidth: '200px', maxHeight: '200px' }} />}
             </li>
           ))
         ) : (
