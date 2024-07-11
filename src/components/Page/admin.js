@@ -14,12 +14,8 @@ export default function Admin() {
   const [services, setServices] = useState([]); // State pour stocker les services
   const [newService, setNewService] = useState({ title: '', description: '', image: null });
   const [habitats, setHabitats] = useState([]);
-  const [newHabitat, setNewHabitat] = useState({
-    name: '',
-    description: '',
-    image: '',
-    animal_list: ''
-  });
+  const [newHabitat, setNewHabitat] = useState({name: '', description: '', image: '', animal_list: '' });
+  const [newAnimal, setNewAnimal] = useState({name: '', species: '', age: '', habitat_id: '', image: null  });
 
   useEffect(() => {
     async function fetchUserData() {
@@ -255,6 +251,7 @@ useEffect(() => {
     fetchServices();
   }
 }, [token, fetchServices]);
+
 //Ajout de service
 const handleAddService = async (event) => {
   event.preventDefault();
@@ -427,6 +424,81 @@ const handleDeleteHabitat = async (habitatId) => {
   }
 };
 
+// Ajout Animaux
+
+const handleAddAnimal = async (event) => {
+  event.preventDefault();
+  if (!newAnimal.name || !newAnimal.species || !newAnimal.age || !newAnimal.habitat_id || !newAnimal.image) {
+    console.error('Les champs nom, espèce, âge, habitat et image doivent être remplis');
+    return;
+  }
+  try {
+    const formData = new FormData();
+    formData.append('name', newAnimal.name);
+    formData.append('species', newAnimal.species);
+    formData.append('age', newAnimal.age);
+    formData.append('habitat_id', newAnimal.habitat_id);
+    formData.append('image', newAnimal.image);
+
+    console.log('Données à envoyer :', {
+      name: newAnimal.name,
+      species: newAnimal.species,
+      age: newAnimal.age,
+      habitat_id: newAnimal.habitat_id,
+      image: newAnimal.image
+    });
+
+    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animaux', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error('Erreur lors de l\'ajout de l\'animal');
+    }
+
+    const data = await response.json();
+    console.log('Animal ajouté avec succès', data);
+    fetchHabitats(); // Rafraîchir la liste des habitats après l'ajout
+    setNewAnimal({
+      name: '',
+      species: '',
+      age: '',
+      habitat_id: '',
+      image: null
+    }); // Réinitialiser le formulaire
+    alert('Animal ajouté avec succès');
+  } catch (error) {
+    console.error('Erreur lors de l\'ajout de l\'animal :', error);
+    alert('Erreur lors de l\'ajout de l\'animal');
+  }
+};
+
+
+const handleDeleteAnimal = async (animalId) => {
+  if (!window.confirm('Êtes-vous sûr de vouloir supprimer cet animal ?')) {
+    return;
+  }
+  try {
+    const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animaux/${animalId}`, {
+      method: 'DELETE'
+    });
+
+    if (!response.ok) {
+      throw new Error('Erreur lors de la suppression de l\'animal');
+    }
+
+    alert('Animal supprimé avec succès');
+    fetchHabitats(); // Rafraîchir la liste des habitats après la suppression
+  } catch (error) {
+    console.error('Error deleting animal:', error);
+    alert('Erreur lors de la suppression de l\'animal');
+  }
+};
+
 return (
   <>
    <Nav /> {/* Vérifiez que Nav est correctement importé et utilisé */}
@@ -588,21 +660,101 @@ return (
         <button type="submit">Ajouter l'habitat</button>
       </form>
     </div>
-                    {/* Liste des habitats existants */}
-                    <div className="habitat-list">
-                    <h2>Liste des Habitats</h2>
-                    <ul>
-                        {habitats.map((habitat) => (
-                            <li key={habitat.id}>
-                                <div>{habitat.title}</div>
-                                <div>{habitat.description}</div>
-                                <div>{habitat.animal_list}</div>       
-                                <button onClick={() => handleDeleteHabitat(habitat.id)}>Supprimer</button>
-                            </li>
+          {/* Liste des habitats existants */}
+          <div className="habitat-list">
+            <h2>Liste des Habitats</h2>
+              <ul>
+                {habitats.map((habitat) => (
+                  <li key={habitat.id}>
+                    <div>{habitat.title}</div>
+                      <div>{habitat.description}</div>
+                        <div>{habitat.animal_list}</div>       
+                          <button onClick={() => handleDeleteHabitat(habitat.id)}>Supprimer</button>
+                  </li>
                 ))}
-                    </ul>
-                    </div>
-
+              </ul>
+          </div>
+{/* Ajout d'animaux */}
+<div className="container">
+      <h2>Ajouter un nouvel animal</h2>
+      <form onSubmit={handleAddAnimal}>
+        <div>
+          <label>Nom :</label>
+          <input
+            type="text"
+            name="name"
+            placeholder="Nom de l'animal"
+            value={newAnimal.name}
+            onChange={(e) => setNewAnimal({ ...newAnimal, name: e.target.value })}
+            required
+          />
+        </div>
+        <div>
+          <label>Espèce :</label>
+          <input
+            type="text"
+            name="species"
+            placeholder="Espèce"
+            value={newAnimal.species}
+            onChange={(e) => setNewAnimal({ ...newAnimal, species: e.target.value })}
+            required
+          />
+        </div>
+        <div>
+          <label>Âge :</label>
+          <input
+            type="number"
+            name="age"
+            placeholder="age"
+            value={newAnimal.age}
+            onChange={(e) => setNewAnimal({ ...newAnimal, age: e.target.value })}
+            required
+          />
+        </div>
+        <div>
+          <label>Habitat :</label>
+          <select
+            value={newAnimal.habitat_id}
+            onChange={(e) => setNewAnimal({ ...newAnimal, habitat_id: e.target.value })}
+            required
+          >
+            <option value="">Sélectionnez un habitat</option>
+            {habitats.map(habitat => (
+              <option key={habitat.id} value={habitat.id}>{habitat.name}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label>Image :</label>
+          <input
+            type="file"
+            name="image"
+            onChange={handleImageChange}
+            accept="image/*"
+            required
+          />
+        </div>
+        <button type="submit">Ajouter l'animal</button>
+      </form>
+      </div>
+      <div>
+      <h2>Liste des animaux</h2>
+      <ul>
+        {habitats.map(habitat => (
+          <li key={habitat.id}>
+            <h3>{habitat.name}</h3>
+            <ul>
+              {habitat.animals.map(animal => (
+                <li key={animal.id}>
+                  {animal.name} - {animal.species} - Âge : {animal.age}{' '}
+                  <button onClick={() => handleDeleteAnimal(animal.id)}>Supprimer</button>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
+      </div>
       </div>
     </>
   );
