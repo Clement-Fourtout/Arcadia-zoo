@@ -505,6 +505,13 @@ const handleAddAnimal = async (event) => {
     alert('Erreur lors de l\'ajout de l\'animal');
   }
 };
+console.log('Données à envoyer :', {
+  name: newAnimal.name,
+  species: newAnimal.species,
+  age: newAnimal.age,
+  habitat_id: newAnimal.habitat_id,
+  image: newAnimal.image
+});
 
 
 const handleDeleteAnimal = async (animalId) => {
