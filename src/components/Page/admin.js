@@ -501,11 +501,7 @@ const handleAddAnimal = async (event) => {
 
     const data = await response.json();
     console.log('Animal ajouté avec succès', data);
-
-    // Rafraîchir la liste des habitats après l'ajout d'un animal
     fetchAnimals();
-    
-    // Réinitialiser le formulaire
     setNewAnimal({
       name: '',
       species: '',
@@ -521,6 +517,12 @@ const handleAddAnimal = async (event) => {
   }
 };
 
+const handleImageAnimalsChange = (event) => {
+  setNewAnimal({
+    ...newService,
+    image: event.target.files[0],
+  });
+};
 
 const handleDeleteAnimal = async (animalId) => {
   if (!window.confirm('Êtes-vous sûr de vouloir supprimer cet animal ?')) {
@@ -776,7 +778,7 @@ return (
       <input
         type="file"
         name="image"
-        onChange={handleImageChange}
+        onChange={handleImageAnimalsChange}
         accept="image/*"
         required
       />
