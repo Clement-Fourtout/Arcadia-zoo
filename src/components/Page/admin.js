@@ -333,25 +333,66 @@ const handleImageChange = (event) => {
 //Habitat
 
 
-const fetchHabitats = useCallback(async () => {
+const fetchHabitatsAndAnimals = useCallback(async () => {
   try {
-    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/habitats', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    // Récupérer à la fois les habitats et les animaux
+    const [habitatsResponse, animalsResponse] = await Promise.all([
+      fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/habitats', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+      fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animals', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+    ]);
 
-    if (!response.ok) {
-      throw new Error('Erreur lors de la récupération des habitats');
+    // Vérifier les réponses
+    if (!habitatsResponse.ok || !animalsResponse.ok) {
+      throw new Error('Erreur lors de la récupération des données');
     }
 
-    const data = await response.json();
-    setHabitats(data); // Mettre à jour les habitats dans le state
+    // Récupérer les données JSON des deux réponses
+    const habitatsData = await habitatsResponse.json();
+    const animalsData = await animalsResponse.json();
+
+    // Organiser les animaux par habitat
+    const habitatsMap = {};
+
+    animalsData.forEach((animal) => {
+      const { habitat_id } = animal;
+      if (!habitatsMap[habitat_id]) {
+        habitatsMap[habitat_id] = {
+          id: habitat_id,
+          name: '', // Ajoutez le nom de l'habitat si nécessaire
+          description: '', // Ajoutez la description de l'habitat si nécessaire
+          animal_list: [],
+        };
+      }
+      habitatsMap[habitat_id].animal_list.push(animal);
+    });
+
+    // Mettre à jour les habitats avec leurs descriptions si disponibles
+    const updatedHabitats = habitatsData.map((habitat) => ({
+      ...habitat,
+      animals: habitatsMap[habitat.id] ? habitatsMap[habitat.id].animal_list : [],
+    }));
+
+    // Mettre à jour l'état local avec les habitats et les animaux associés
+    setHabitats(updatedHabitats);
   } catch (error) {
-    console.error('Erreur lors de la récupération des habitats :', error);
+    console.error('Erreur lors de la récupération des données :', error);
+    // Gérer les erreurs ici (affichage d'un message d'erreur, etc.)
   }
 }, [token]);
 
+useEffect(() => {
+  if (token) {
+    fetchHabitatsAndAnimals();
+  }
+}, [token, fetchHabitatsAndAnimals]);
 
 //Ajout d'habitat
 const handleAddHabitat = async (event) => {
@@ -388,7 +429,7 @@ const handleAddHabitat = async (event) => {
 
     const data = await response.json();
     console.log('Habitat ajouté avec succès', data);
-    fetchHabitats(); // Rafraîchir la liste des habitats après l'ajout
+    fetchHabitatsAndAnimals(); // Rafraîchir la liste des habitats après l'ajout
     setNewHabitat({ name: '', description: '', image: null, animal_list: '' }); // Réinitialiser le formulaire
     setSuccessMessageVisible(true);
   } catch (error) {
@@ -418,7 +459,7 @@ const handleDeleteHabitat = async (habitatId) => {
     }
 
     console.log('Habitat supprimé avec succès');
-    fetchHabitats(); // Rafraîchir la liste des habitats après la suppression
+    fetchHabitatsAndAnimals(); // Rafraîchir la liste des habitats après la suppression
   } catch (error) {
     console.error('Erreur lors de la suppression de l\'habitat :', error);
   }
@@ -433,50 +474,7 @@ console.log('Données à envoyer :', {
   image: newAnimal.image,
 });
 
-const fetchAnimals = useCallback(async () => {
-  try {
-    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animals', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
 
-    if (!response.ok) {
-      throw new Error('Erreur lors de la récupération des animaux');
-    }
-
-    const data = await response.json();
-
-    // Organiser les animaux par habitat
-    const habitatsMap = {};
-
-    data.forEach((animal) => {
-      const { habitat_id } = animal;
-      if (!habitatsMap[habitat_id]) {
-        habitatsMap[habitat_id] = {
-          id: habitat_id,
-          name: '', // Ajoutez le nom de l'habitat si nécessaire
-          animals: [],
-        };
-      }
-      habitatsMap[habitat_id].animals.push(animal);
-    });
-
-    // Convertir le map en tableau d'habitats
-    const updatedHabitats = Object.values(habitatsMap);
-
-    setHabitats(updatedHabitats);
-  } catch (error) {
-    console.error('Erreur lors de la récupération des animaux :', error);
-    // Gérer les erreurs ici (affichage d'un message d'erreur, etc.)
-  }
-}, [token]);
-
-useEffect(() => {
-  if (token) {
-    fetchAnimals();
-  }
-}, [token, fetchAnimals]);
 
 const handleAddAnimal = async (event) => {
   event.preventDefault();
@@ -514,7 +512,7 @@ const handleAddAnimal = async (event) => {
 
     const data = await response.json();
     console.log('Animal ajouté avec succès', data);
-    fetchAnimals();
+    fetchHabitatsAndAnimals();
     setNewAnimal({
       name: '',
       species: '',
@@ -554,7 +552,7 @@ const handleDeleteAnimal = async (animalId) => {
     }
 
     alert('Animal supprimé avec succès');
-    fetchAnimals(); // Rafraîchir la liste des habitats après la suppression
+    fetchHabitatsAndAnimals(); // Rafraîchir la liste des habitats après la suppression
   } catch (error) {
     console.error('Error deleting animal:', error);
     alert('Erreur lors de la suppression de l\'animal');
@@ -788,24 +786,24 @@ return (
   </form>
 </div>
 
-{/* Liste des habitats existants */}
 <div className="habitat-list">
-  <h2>Liste des Habitats</h2>
+  <h2>Liste des Habitats et de leurs Animaux</h2>
   <ul>
     {habitats.map((habitat) => (
       <li key={habitat.id}>
-        <div>{habitat.title}</div>
+        <div>{habitat.name}</div>
         <div>{habitat.description}</div>
-        {/* Afficher la liste des animaux pour cet habitat */}
-        {habitat.animal_list && (
+        {habitat.animals && habitat.animals.length > 0 ? (
           <ul>
-            {habitat.animal_list.map((animal) => (
+            {habitat.animals.map((animal) => (
               <li key={animal.id}>
                 {animal.name} - {animal.species} - Âge : {animal.age}{' '}
                 <button onClick={() => handleDeleteAnimal(animal.id)}>Supprimer</button>
               </li>
             ))}
           </ul>
+        ) : (
+          <p>Aucun animal trouvé pour cet habitat</p>
         )}
         <button onClick={() => handleDeleteHabitat(habitat.id)}>Supprimer</button>
       </li>
