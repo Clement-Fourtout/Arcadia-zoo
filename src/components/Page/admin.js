@@ -703,85 +703,90 @@ return (
           </div>
 {/* Ajout d'animaux */}
 <div className="container">
-      <h2>Ajouter un nouvel animal</h2>
-      <form onSubmit={handleAddAnimal}>
-        <div>
-          <label>Nom :</label>
-          <input
-            type="text"
-            name="name"
-            placeholder="Nom de l'animal"
-            value={newAnimal.name}
-            onChange={(e) => setNewAnimal({ ...newAnimal, name: e.target.value })}
-            required
-          />
-        </div>
-        <div>
-          <label>Espèce :</label>
-          <input
-            type="text"
-            name="species"
-            placeholder="Espèce"
-            value={newAnimal.species}
-            onChange={(e) => setNewAnimal({ ...newAnimal, species: e.target.value })}
-            required
-          />
-        </div>
-        <div>
-          <label>Âge :</label>
-          <input
-            type="number"
-            name="age"
-            placeholder="age"
-            value={newAnimal.age}
-            onChange={(e) => setNewAnimal({ ...newAnimal, age: e.target.value })}
-            required
-          />
-        </div>
-        <div>
-          <label>Habitat :</label>
-          <select
-            value={newAnimal.habitat_id}
-            onChange={(e) => setNewAnimal({ ...newAnimal, habitat_id: e.target.value })}
-            required
-          >
-            <option value="">Sélectionnez un habitat</option>
-            {habitats.map((habitat) => (
-              <option key={habitat.id} value={habitat.id}>{habitat.name}</option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label>Image :</label>
-          <input
-            type="file"
-            name="image"
-            onChange={handleImageChange}
-            accept="image/*"
-            required
-          />
-        </div>
-        <button type="submit">Ajouter l'animal</button>
-      </form>
-      </div>
-      <div>
-      <h2>Liste des animaux</h2>
-      <ul>
+  <h2>Ajouter un nouvel animal</h2>
+  <form onSubmit={handleAddAnimal}>
+    <div>
+      <label>Nom :</label>
+      <input
+        type="text"
+        name="name"
+        placeholder="Nom de l'animal"
+        value={newAnimal.name}
+        onChange={(e) => setNewAnimal({ ...newAnimal, name: e.target.value })}
+        required
+      />
+    </div>
+    <div>
+      <label>Espèce :</label>
+      <input
+        type="text"
+        name="species"
+        placeholder="Espèce"
+        value={newAnimal.species}
+        onChange={(e) => setNewAnimal({ ...newAnimal, species: e.target.value })}
+        required
+      />
+    </div>
+    <div>
+      <label>Âge :</label>
+      <input
+        type="number"
+        name="age"
+        placeholder="Âge"
+        value={newAnimal.age}
+        onChange={(e) => setNewAnimal({ ...newAnimal, age: e.target.value })}
+        required
+      />
+    </div>
+    <div>
+      <label>Habitat :</label>
+      <select
+        value={newAnimal.habitat_id}
+        onChange={(e) => setNewAnimal({ ...newAnimal, habitat_id: e.target.value })}
+        required
+      >
+        <option value="">Sélectionnez un habitat</option>
         {habitats.map((habitat) => (
-          <li key={habitat.id}>
-            <h3>{habitat.name}</h3>
-            <ul>
-              {habitat.animals.map((animal) => (
-                <li key={animal.id}>
-                  {animal.name} - {animal.species} - Âge : {animal.age}{' '}
-                  <button onClick={() => handleDeleteAnimal(animal.id)}>Supprimer</button>
-                </li>
-              ))}
-            </ul>
-          </li>
+          <option key={habitat.id} value={habitat.id}>{habitat.name}</option>
         ))}
-      </ul>
-      </div>
+      </select>
+    </div>
+    <div>
+      <label>Image :</label>
+      <input
+        type="file"
+        name="image"
+        onChange={handleImageChange}
+        accept="image/*"
+        required
+      />
+    </div>
+    <button type="submit">Ajouter l'animal</button>
+  </form>
+</div>
+
+<div>
+  <h2>Liste des animaux</h2>
+  <ul>
+    {habitats.map((habitat) => (
+      <li key={habitat.id}>
+        <h3>{habitat.name}</h3>
+        {habitat.animals && habitat.animals.length > 0 ? (
+          <ul>
+            {habitat.animals.map((animal) => (
+              <li key={animal.id}>
+                {animal.name} - {animal.species} - Âge : {animal.age}{' '}
+                <button onClick={() => handleDeleteAnimal(animal.id)}>Supprimer</button>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Aucun animal trouvé pour cet habitat</p>
+        )}
+      </li>
+    ))}
+  </ul>
+</div>
       </div>
     </>
   );
