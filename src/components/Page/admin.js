@@ -472,7 +472,7 @@ const handleAddAnimal = async (event) => {
       image: newAnimal.image
     });
 
-    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animaux', {
+    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animals', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -507,7 +507,7 @@ const handleDeleteAnimal = async (animalId) => {
     return;
   }
   try {
-    const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animaux/${animalId}`, {
+    const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${animalId}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`,
