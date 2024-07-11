@@ -44,9 +44,9 @@ const HabitatDetails = () => {
         {animals.length > 0 ? (
           animals.map((animal) => (
             <div key={animal.id} className="col-lg-4 mb-4">
+              <h3 className="text-xl text-align-center text-light text-decoration-underline mt-3">{animal.name}</h3>
               <img src={animal.image} className="col-lg-11 rounded" alt={animal.name} style={{ marginLeft: 0, padding: 0 }} />
-              <div className="col-lg-12 border">
-                <h3 className="text-xl text-align-center text-light text-decoration-underline mt-3">{animal.name}</h3>
+              <div className="col-lg-12">
                 <h5 className="text-light text-left mt-3"><em>Espèce :</em> {animal.species}</h5>
                 <h5 className="text-light text-left mt-3"><em>Âge :</em> {animal.age}</h5>
               </div>
