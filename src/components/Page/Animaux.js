@@ -21,10 +21,6 @@ const Habitats = () => {
     fetchHabitats();
   }, []);
 
-  const generateSlug = (name) => {
-    return name.toLowerCase().replace(/\s+/g, '-');
-  };
-
   return (
     <div className="container-fluid bg-dark p-2 mt-1 mb-3 text-center">
       <h1 className="text-xl-center text-light text-decoration-underline font-weight-bold" style={{ marginBottom: "50px", marginTop: "25px" }}>Choisissez votre habitat</h1>
@@ -37,7 +33,7 @@ const Habitats = () => {
                 <h4 className="card-title text-custom-savane text-decoration-underline">{habitat.name}</h4>
                 <p className="card-text">{habitat.description}</p>
                 <p className="card-footer">Animaux présents : {habitat.animal_list}</p>
-                <Link to={`/habitats/${generateSlug(habitat.name)}`} className="btn btn-warning">Découvrir {habitat.name}</Link>
+                <Link to={`/habitats/${habitat.id}`} className="btn btn-warning">Découvrir {habitat.name}</Link>
               </div>
             </div>
           </div>
