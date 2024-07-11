@@ -15,6 +15,7 @@ export default function Admin() {
   const [newService, setNewService] = useState({ title: '', description: '', image: null });
   const [habitats, setHabitats] = useState([]);
   const [newHabitat, setNewHabitat] = useState({name: '', description: '', image: '', animal_list: '' });
+  const [animals, setAnimals] = useState([]);
   const [newAnimal, setNewAnimal] = useState({
     name: '',
     species: '',
@@ -444,7 +445,7 @@ const fetchAnimals = useCallback(async () => {
     }
 
     const data = await response.json();
-    setServices(data);
+    setAnimals(data);
   } catch (error) {
     console.error('Erreur lors de la récupération des animaux :', error);
   }
@@ -494,7 +495,7 @@ const handleAddAnimal = async (event) => {
     console.log('Animal ajouté avec succès', data);
 
     // Rafraîchir la liste des habitats après l'ajout d'un animal
-    fetchHabitats();
+    fetchAnimals();
     
     // Réinitialiser le formulaire
     setNewAnimal({
@@ -511,13 +512,6 @@ const handleAddAnimal = async (event) => {
     alert('Erreur lors de l\'ajout de l\'animal');
   }
 };
-console.log('Données à envoyer :', {
-  name: newAnimal.name,
-  species: newAnimal.species,
-  age: newAnimal.age,
-  habitat_id: newAnimal.habitat_id,
-  image: newAnimal.image
-});
 
 
 const handleDeleteAnimal = async (animalId) => {
