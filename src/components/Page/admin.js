@@ -432,6 +432,14 @@ const handleDeleteHabitat = async (habitatId) => {
 };
 
 // Ajout Animaux
+console.log('Données à envoyer :', {
+  name: newAnimal.name,
+  species: newAnimal.species,
+  age: newAnimal.age,
+  habitat_id: newAnimal.habitat_id,
+  image: newAnimal.image,
+});
+
 const fetchAnimals = useCallback(async () => {
   try {
     const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animals', {
@@ -459,7 +467,7 @@ useEffect(() => {
 
 const handleAddAnimal = async (event) => {
   event.preventDefault();
-  if (!newAnimal.name || !newAnimal.species || !newAnimal.age || !newAnimal.habitat_id || !newAnimal.image) {
+  if (!newAnimal.name || !newAnimal.species || !newAnimal.age || !newAnimal.habitat_id || !newAnimal.image ) {
     console.error('Les champs nom, espèce, âge, habitat et image doivent être remplis');
     return;
   }
