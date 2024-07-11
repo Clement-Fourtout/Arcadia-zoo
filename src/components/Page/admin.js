@@ -425,6 +425,30 @@ const handleDeleteHabitat = async (habitatId) => {
 };
 
 // Ajout Animaux
+const fetchAnimals = useCallback(async () => {
+  try {
+    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animals', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Erreur lors de la récupération des animaux');
+    }
+
+    const data = await response.json();
+    setServices(data);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des animaux :', error);
+  }
+}, [token]);
+
+useEffect(() => {
+  if (token) {
+    fetchAnimals();
+  }
+}, [token, fetchAnimals]);
 
 const handleAddAnimal = async (event) => {
   event.preventDefault();
@@ -484,7 +508,10 @@ const handleDeleteAnimal = async (animalId) => {
   }
   try {
     const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animaux/${animalId}`, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
     });
 
     if (!response.ok) {
