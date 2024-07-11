@@ -33,7 +33,7 @@ const Habitats = () => {
                 <h4 className="card-title text-custom-savane text-decoration-underline">{habitat.name}</h4>
                 <p className="card-text">{habitat.description}</p>
                 <p className="card-footer">Animaux présents : {habitat.animal_list}</p>
-                <Link to={`/habitats/${habitat.id}`} className="btn btn-warning">Découvrir {habitat.name}</Link>
+                <Link to={`/parc/${habitat.id}`} className="btn btn-warning">Découvrir {habitat.name}</Link>
               </div>
             </div>
           </div>
