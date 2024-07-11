@@ -751,18 +751,18 @@ return (
       />
     </div>
     <div>
-      <label>Habitat :</label>
-      <select
-        value={newAnimal.habitat_id}
-        onChange={(e) => setNewAnimal({ ...newAnimal, habitat_id: e.target.value })}
-        required
-      >
-        <option value="">Sélectionnez un habitat</option>
-        {habitats.map((habitat) => (
-          <option key={habitat.id} value={habitat.id}>{habitat.name}</option>
-        ))}
-      </select>
-    </div>
+  <label>Habitat :</label>
+  <select
+    value={newAnimal.habitat_id}
+    onChange={(e) => setNewAnimal({ ...newAnimal, habitat_id: e.target.value })}
+    required
+  >
+    <option value="">Sélectionnez un habitat</option>
+    {habitats.map((habitat) => (
+      <option key={habitat.id} value={habitat.id}>{habitat.name}</option>
+    ))}
+  </select>
+</div>
     <div>
       <label>Image :</label>
       <input
