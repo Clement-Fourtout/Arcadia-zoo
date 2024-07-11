@@ -13,6 +13,7 @@ import Admin from './components/Page/admin.js';
 import AvisList from './components/Page/AvisList.js';
 import Politique from './components/Page/Politique.js';
 import MentionsLégales from './components/Page/MentionsLégales.js';
+import HabitatDetails from './components/Page/HabitatDetails.js';
 
 function App() {
 
@@ -30,7 +31,7 @@ function App() {
       <Route path='admin' element={<Admin/>} />
       <Route path='politique' element={<Politique/>} />
       <Route path='mentions' element={<MentionsLégales/>} />
-
+      <Route path="parc/:slug" element={<HabitatDetails />} />
     </Routes>
     <Main></Main>
     <Avis></Avis>
