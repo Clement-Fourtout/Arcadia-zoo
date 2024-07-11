@@ -15,7 +15,13 @@ export default function Admin() {
   const [newService, setNewService] = useState({ title: '', description: '', image: null });
   const [habitats, setHabitats] = useState([]);
   const [newHabitat, setNewHabitat] = useState({name: '', description: '', image: '', animal_list: '' });
-  const [newAnimal, setNewAnimal] = useState({name: '', species: '', age: '', habitat_id: '', image: null  });
+  const [newAnimal, setNewAnimal] = useState({
+    name: '',
+    species: '',
+    age: '',
+    habitat_id: '',  // Assurez-vous que habitat_id est initialisé à une chaîne vide
+    image: null
+  });
 
   useEffect(() => {
     async function fetchUserData() {
@@ -752,16 +758,16 @@ return (
     </div>
     <div>
   <label>Habitat :</label>
-  <select
-    value={newAnimal.habitat_id}
-    onChange={(e) => setNewAnimal({ ...newAnimal, habitat_id: e.target.value })}
-    required
-  >
-    <option value="">Sélectionnez un habitat</option>
-    {habitats.map((habitat) => (
-      <option key={habitat.id} value={habitat.id}>{habitat.name}</option>
-    ))}
-  </select>
+<select
+  value={newAnimal.habitat_id}
+  onChange={(e) => setNewAnimal({ ...newAnimal, habitat_id: e.target.value })}
+  required
+>
+  <option value="">Sélectionnez un habitat</option>
+  {habitats.map((habitat) => (
+    <option key={habitat.id} value={habitat.id}>{habitat.name}</option>
+  ))}
+</select>
 </div>
     <div>
       <label>Image :</label>
