@@ -723,19 +723,7 @@ return (
       </form>
     </div>
           {/* Liste des habitats existants */}
-          <div className="habitat-list">
-            <h2>Liste des Habitats</h2>
-              <ul>
-                {habitats.map((habitat) => (
-                  <li key={habitat.id}>
-                    <div>{habitat.title}</div>
-                      <div>{habitat.description}</div>
-                        <div>{habitat.animal_list}</div>       
-                          <button onClick={() => handleDeleteHabitat(habitat.id)}>Supprimer</button>
-                  </li>
-                ))}
-              </ul>
-          </div>
+
 {/* Ajout d'animaux */}
 <div className="container">
   <h2>Ajouter un nouvel animal</h2>
@@ -800,24 +788,26 @@ return (
   </form>
 </div>
 
-<div>
-  <h2>Liste des habitats et de leurs animaux</h2>
+{/* Liste des habitats existants */}
+<div className="habitat-list">
+  <h2>Liste des Habitats</h2>
   <ul>
     {habitats.map((habitat) => (
       <li key={habitat.id}>
-        <h3>{habitat.name}</h3>
-        {habitat.animals && habitat.animals.length > 0 ? (
+        <div>{habitat.title}</div>
+        <div>{habitat.description}</div>
+        {/* Afficher la liste des animaux pour cet habitat */}
+        {habitat.animal_list && (
           <ul>
-            {habitat.animals.map((animal) => (
+            {habitat.animal_list.map((animal) => (
               <li key={animal.id}>
                 {animal.name} - {animal.species} - Âge : {animal.age}{' '}
                 <button onClick={() => handleDeleteAnimal(animal.id)}>Supprimer</button>
               </li>
             ))}
           </ul>
-        ) : (
-          <p>Aucun animal trouvé pour cet habitat</p>
         )}
+        <button onClick={() => handleDeleteHabitat(habitat.id)}>Supprimer</button>
       </li>
     ))}
   </ul>
