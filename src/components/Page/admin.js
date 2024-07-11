@@ -455,21 +455,22 @@ const fetchAnimals = useCallback(async () => {
     const data = await response.json();
 
     // Organiser les animaux par habitat
-    const habitatsWithAnimals = {};
+    const habitatsMap = {};
 
     data.forEach((animal) => {
-      if (!habitatsWithAnimals[animal.habitat_id]) {
-        habitatsWithAnimals[animal.habitat_id] = {
-          id: animal.habitat_id,
-          name: '', // Ajoutez le nom de l'habitat ici si nécessaire
+      const { habitat_id } = animal;
+      if (!habitatsMap[habitat_id]) {
+        habitatsMap[habitat_id] = {
+          id: habitat_id,
+          name: '', // Ajoutez le nom de l'habitat si nécessaire
           animals: [],
         };
       }
-      habitatsWithAnimals[animal.habitat_id].animals.push(animal);
+      habitatsMap[habitat_id].animals.push(animal);
     });
 
-    // Mettez à jour les habitats avec les animaux
-    const updatedHabitats = Object.values(habitatsWithAnimals);
+    // Convertir le map en tableau d'habitats
+    const updatedHabitats = Object.values(habitatsMap);
 
     setHabitats(updatedHabitats);
   } catch (error) {
@@ -828,6 +829,7 @@ return (
     ))}
   </ul>
 </div>
+
       </div>
     </>
   );
