@@ -15,7 +15,6 @@ export default function Admin() {
   const [newService, setNewService] = useState({ title: '', description: '', image: null });
   const [habitats, setHabitats] = useState([]);
   const [newHabitat, setNewHabitat] = useState({name: '', description: '', image: '', animal_list: '' });
-  const [animals, setAnimals] = useState([]);
   const [newAnimal, setNewAnimal] = useState({
     name: '',
     species: '',
@@ -338,7 +337,7 @@ const fetchHabitats = useCallback(async () => {
   try {
     const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/habitats', {
       headers: {
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -347,17 +346,11 @@ const fetchHabitats = useCallback(async () => {
     }
 
     const data = await response.json();
-    setHabitats(data);
+    setHabitats(data); // Mettre à jour les habitats dans le state
   } catch (error) {
     console.error('Erreur lors de la récupération des habitats :', error);
   }
 }, [token]);
-
-useEffect(() => {
-  if (token) {
-    fetchHabitats();
-  }
-}, [token, fetchHabitats]);
 
 
 //Ajout d'habitat
