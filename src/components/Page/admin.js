@@ -519,7 +519,7 @@ const handleAddAnimal = async (event) => {
 
 const handleImageAnimalsChange = (event) => {
   setNewAnimal({
-    ...newService,
+    ...newAnimal,
     image: event.target.files[0],
   });
 };
@@ -541,7 +541,7 @@ const handleDeleteAnimal = async (animalId) => {
     }
 
     alert('Animal supprimé avec succès');
-    fetchHabitats(); // Rafraîchir la liste des habitats après la suppression
+    fetchAnimals(); // Rafraîchir la liste des habitats après la suppression
   } catch (error) {
     console.error('Error deleting animal:', error);
     alert('Erreur lors de la suppression de l\'animal');
