@@ -486,14 +486,19 @@ const handleAddAnimal = async (event) => {
 
     const data = await response.json();
     console.log('Animal ajouté avec succès', data);
-    fetchHabitats(); // Rafraîchir la liste des habitats après l'ajout
+
+    // Rafraîchir la liste des habitats après l'ajout d'un animal
+    fetchHabitats();
+    
+    // Réinitialiser le formulaire
     setNewAnimal({
       name: '',
       species: '',
       age: '',
       habitat_id: '',
       image: null
-    }); // Réinitialiser le formulaire
+    });
+
     alert('Animal ajouté avec succès');
   } catch (error) {
     console.error('Erreur lors de l\'ajout de l\'animal :', error);
