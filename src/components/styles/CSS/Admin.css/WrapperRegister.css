@@ -8,11 +8,11 @@
 }
 
 body {
-  background: #217fc7;
+  background: #ffffff;
 }
 
 .wrapper {
-  max-width: 350px;
+  max-width: 500px;
   min-height: 500px;
   margin: 80px auto;
   padding: 40px 30px 30px 30px;

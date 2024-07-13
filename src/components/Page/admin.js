@@ -596,9 +596,12 @@ return (
             )}
         </div>
 
-                <div>
-          <h1>Ajouter un service</h1>
+        <div className="wrapper">
+        <div className="admin-container">
+          <label className="vertical-form">Ajouter un service</label>
           <form onSubmit={handleAddService}>
+          <div className="form-group">
+          <label className="small-label">Titre :</label>
             <input
               type="text"
               name="title"
@@ -607,6 +610,9 @@ return (
               onChange={(e) => setNewService({ ...newService, title: e.target.value })}
               required
             />
+            </div>
+            <div className="form-group">
+            <label className="small-label">Description :</label>
             <input
               type="text"
               name="description"
@@ -615,6 +621,9 @@ return (
               onChange={(e) => setNewService({ ...newService, description: e.target.value })}
               required
             />
+            </div>
+            <div className="form-group">
+          <label className="small-label">Image :</label>
             <input
               type="file"
               name="image_url"
@@ -622,8 +631,10 @@ return (
               accept="image/*"
               required
             />
-            <button type="submit">Ajouter le service</button>
+            </div>
+            <button type="submit" className="btn btn-primary" style={styles.button}>Ajouter le service</button>
           </form>
+          </div>
         </div>
 
                 {successMessageVisible && <p>Service ajouté avec succès!</p>}
