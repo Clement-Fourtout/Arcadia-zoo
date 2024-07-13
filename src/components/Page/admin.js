@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Logo from '../styles/Logo/Arcadia Zoo.png';
 import Nav from '../Nav';
 import AvisEnAttente from './AvisEnAttente';
+import { useParams } from 'react-router-dom';
 
 export default function Admin() {
   const [nom, setNom] = useState('');
@@ -18,7 +19,12 @@ export default function Admin() {
   const [newAnimal, setNewAnimal] = useState({name: '', species: '', age: '', habitat_id: '',image: null });
   const [animals, setAnimals] = useState([]);
   const [animalId, setAnimalId] = useState('');
+  const [healthStatus, setHealthStatus] = useState('');
+  const [food, setFood] = useState('');
+  const [foodAmount, setFoodAmount] = useState('');
+  const [visitDate, setVisitDate] = useState('');
   const [vetRecordData, setVetRecordData] = useState({health_status: '', food: '', food_amount: '', visit_date: '', details: '', });
+  const { id } = useParams();
   const [isUpdateMode, setIsUpdateMode] = useState(false);
 
   useEffect(() => {
@@ -562,7 +568,7 @@ const handleDeleteAnimal = async (animalId) => {
 useEffect(() => {
   const fetchAnimals = async () => {
     try {
-      const response = await fetch('https://api-votre-backend.herokuapp.com/animals');
+      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animals');
       if (!response.ok) {
         throw new Error('Erreur lors du chargement des animaux');
       }
@@ -582,11 +588,11 @@ const handleSubmit = async (event) => {
   event.preventDefault();
 
   try {
-    let url = 'https://api-votre-backend.herokuapp.com/vetrecords';
+    let url = 'https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords';
     let method = 'POST';
 
     if (isUpdateMode) {
-      url = `https://api-votre-backend.herokuapp.com/vetrecords/${animalId}`;
+      url = `https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords`;
       method = 'PUT';
     }
 
