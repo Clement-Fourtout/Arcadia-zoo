@@ -20,10 +20,8 @@ export default function Admin() {
   const [animals, setAnimals] = useState([]);
   const [animalId, setAnimalId] = useState('');
   const [vetRecordData, setVetRecordData] = useState({health_status: '', food: '', food_amount: '', visit_date: '', details: '', });
-  const [vetRecordId, setVetRecordId] = useState('')
   const [isUpdateMode, setIsUpdateMode] = useState(false);
-  const [vetRecords, setVetRecords] = useState([]);
-  const [error, setError] = useState(null);
+
 
   useEffect(() => {
     async function fetchUserData() {
@@ -573,14 +571,24 @@ const fetchAnimals = async () => {
     setAnimals(data);
   } catch (error) {
     console.error('Erreur lors du chargement des animaux :', error);
+    // Gérer les erreurs ici
   }
 };
 
-const handleAddSubmit = async (event) => {
+const handleSubmit = async (event) => {
   event.preventDefault();
+
   try {
-    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords', {
-      method: 'POST',
+    let url = 'https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords';
+    let method = 'POST';
+
+    if (isUpdateMode) {
+      url = `https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords/${vetRecordData.id}`;
+      method = 'PUT';
+    }
+
+    const response = await fetch(url, {
+      method,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -595,82 +603,41 @@ const handleAddSubmit = async (event) => {
     });
 
     if (!response.ok) {
-      throw new Error('Erreur lors de l\'ajout de l\'enregistrement vétérinaire');
+      throw new Error('Erreur lors de l\'ajout/mise à jour de l\'enregistrement vétérinaire');
     }
 
-    console.log('Enregistrement vétérinaire ajouté avec succès');
-    resetForm();
+    console.log('Enregistrement vétérinaire ajouté/mis à jour avec succès');
+    clearForm();
+    fetchAnimals(); // Rafraîchir la liste des animaux après modification
+
+    // Ajouter ici la logique pour informer l'utilisateur que l'ajout/mise à jour a réussi
   } catch (error) {
-    console.error('Erreur lors de l\'ajout de l\'enregistrement vétérinaire :', error);
+    console.error('Erreur lors de l\'ajout/mise à jour de l\'enregistrement vétérinaire :', error);
+    // Gérer l'erreur ici (affichage d'un message d'erreur, etc.)
   }
 };
 
-const handleUpdateSubmit = async (event) => {
-  event.preventDefault();
-  try {
-    const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords/${vetRecordId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        health_status: vetRecordData.health_status,
-        food: vetRecordData.food,
-        food_amount: vetRecordData.food_amount,
-        visit_date: vetRecordData.visit_date,
-        details: vetRecordData.details,
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error('Erreur lors de la mise à jour de l\'enregistrement vétérinaire');
-    }
-
-    console.log('Enregistrement vétérinaire mis à jour avec succès');
-    resetForm();
-  } catch (error) {
-    console.error('Erreur lors de la mise à jour de l\'enregistrement vétérinaire :', error);
-  }
-};
-
-const fetchVetRecords = async (id) => {
-  try {
-    const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords/${id}`);
-    if (!response.ok) {
-      throw new Error('Erreur lors de la récupération des enregistrements vétérinaires');
-    }
-    const data = await response.json();
-    setVetRecords(data);
-  } catch (error) {
-    console.error('Erreur lors de la récupération des enregistrements vétérinaires :', error);
-    setError('Erreur lors de la récupération des enregistrements vétérinaires');
-  }
-};
-
-// Fonction pour supprimer un enregistrement vétérinaire
-const deleteVetRecord = async (id) => {
+const handleDelete = async (id) => {
   try {
     const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords/${id}`, {
       method: 'DELETE',
     });
+
     if (!response.ok) {
       throw new Error('Erreur lors de la suppression de l\'enregistrement vétérinaire');
     }
-    console.log(`Enregistrement vétérinaire avec l'ID ${id} supprimé avec succès`);
-    // Actualiser la liste des enregistrements après la suppression
-    setVetRecords(vetRecords.filter(record => record.id !== id));
+
+    console.log('Enregistrement vétérinaire supprimé avec succès');
+    fetchAnimals(); // Rafraîchir la liste des animaux après suppression
+
+    // Ajouter ici la logique pour informer l'utilisateur que la suppression a réussi
   } catch (error) {
     console.error('Erreur lors de la suppression de l\'enregistrement vétérinaire :', error);
-    setError('Erreur lors de la suppression de l\'enregistrement vétérinaire');
+    // Gérer l'erreur ici (affichage d'un message d'erreur, etc.)
   }
 };
 
-// Appeler fetchAnimals et fetchVetRecords au chargement du composant
-useEffect(() => {
-  fetchAnimals();
-  fetchVetRecords();
-}, []);
-const resetForm = () => {
+const clearForm = () => {
   setVetRecordData({
     health_status: '',
     food: '',
@@ -690,6 +657,18 @@ const handleChange = (e) => {
   }));
 };
 
+const handleEdit = (vetRecord) => {
+  setVetRecordData({
+    id: vetRecord.id,
+    health_status: vetRecord.health_status,
+    food: vetRecord.food,
+    food_amount: vetRecord.food_amount,
+    visit_date: vetRecord.visit_date,
+    details: vetRecord.details,
+  });
+  setAnimalId(vetRecord.animal_id);
+  setIsUpdateMode(true);
+};
 
 return (
   <>
@@ -947,7 +926,7 @@ return (
       <h1>Section d'administration</h1>
 
       {/* Formulaire d'ajout/mise à jour des enregistrements vétérinaires */}
-      <form onSubmit={isUpdateMode ? handleUpdateSubmit : handleAddSubmit}>
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Sélectionnez un animal :</label>
           <select
@@ -955,9 +934,7 @@ return (
             value={animalId}
             onChange={(e) => {
               setAnimalId(e.target.value);
-              setVetRecordId(''); // Réinitialiser l'ID de l'enregistrement vétérinaire lors de la sélection d'un nouvel animal
-              setIsUpdateMode(false);
-              resetForm();
+              setIsUpdateMode(false); // Réinitialiser le mode mise à jour lorsqu'on sélectionne un nouvel animal
             }}
             required
           >
@@ -1022,57 +999,40 @@ return (
             onChange={handleChange}
           />
         </div>
-        <div className="form-group">
-          {!isUpdateMode && (
-            <button type="submit" className="btn btn-primary">
-              Ajouter Enregistrement Vétérinaire
-            </button>
-          )}
-          {isUpdateMode && (
-            <button type="submit" className="btn btn-warning">
-              Mettre à jour Enregistrement Vétérinaire
-            </button>
-          )}
-        </div>
+        <button type="submit" className="btn btn-primary">
+          {isUpdateMode ? 'Mettre à jour' : 'Ajouter Enregistrement Vétérinaire'}
+        </button>
+        {isUpdateMode && (
+          <button type="button" className="btn btn-danger ml-2" onClick={() => clearForm()}>
+            Annuler la mise à jour
+          </button>
+        )}
       </form>
 
       {/* Liste des enregistrements vétérinaires */}
       {/* Affichage des enregistrements vétérinaires */}
-      <h2>Enregistrements Vétérinaires</h2>
-      {error && <div className="alert alert-danger">{error}</div>}
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Animal</th>
-            <th>État de santé</th>
-            <th>Nourriture</th>
-            <th>Quantité de nourriture</th>
-            <th>Date de visite</th>
-            <th>Détails</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {vetRecords.map(record => (
-            <tr key={record.id}>
-              <td>{record.animal_id}</td>
-              <td>{record.health_status}</td>
-              <td>{record.food}</td>
-              <td>{record.food_amount}</td>
-              <td>{record.visit_date}</td>
-              <td>{record.details}</td>
-              <td>
-                <button
-                  className="btn btn-danger"
-                  onClick={() => deleteVetRecord(record.id)}
-                >
-                  Supprimer
-                </button>
-              </td>
-            </tr>
+      {/* Affichage des enregistrements vétérinaires pour l'animal sélectionné */}
+      <div className="mt-4">
+        <h2>Liste des enregistrements vétérinaires</h2>
+        <ul className="list-group">
+          {animals.map((animal) => (
+            <li key={animal.id} className="list-group-item">
+              <strong>{animal.name}</strong>
+              <div>État de santé : {animal.health_status}</div>
+              <div>Nourriture proposée : {animal.food}</div>
+              <div>Quantité de nourriture : {animal.food_amount}</div>
+              <div>Date de visite : {animal.visit_date}</div>
+              <div>Détails : {animal.details}</div>
+              <button type="button" className="btn btn-info mt-2" onClick={() => handleEdit(animal)}>
+                Modifier
+              </button>
+              <button type="button" className="btn btn-danger mt-2 ml-2" onClick={() => handleDelete(animal.id)}>
+                Supprimer
+              </button>
+            </li>
           ))}
-        </tbody>
-      </table>
+        </ul>
+      </div>
     </div>
       </div>
     </>
