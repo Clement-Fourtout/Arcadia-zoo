@@ -1,7 +1,8 @@
 /* vet-records.css */
 .vet-records-container {
   margin-top: 10px;
-  max-width: 800px; /* Ajuste la largeur maximale du conteneur des enregistrements vétérinaires */
+  margin-bottom: 10px;
+  max-width: 1000px; 
   margin-left: auto;
   margin-right: auto;
   text-align: center; /* Centre le contenu à l'intérieur du conteneur */
