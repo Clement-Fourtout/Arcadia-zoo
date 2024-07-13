@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Logo from '../styles/Logo/Arcadia Zoo.png';
 import Nav from '../Nav';
 import AvisEnAttente from './AvisEnAttente';
+import EditVetRecord from './EditVetRecord';
 
 export default function Admin() {
   const [nom, setNom] = useState('');
@@ -15,13 +16,9 @@ export default function Admin() {
   const [newService, setNewService] = useState({ title: '', description: '', image: null });
   const [habitats, setHabitats] = useState([]);
   const [newHabitat, setNewHabitat] = useState({name: '', description: '', image: '', animal_list: '' });
-  const [newAnimal, setNewAnimal] = useState({
-    name: '',
-    species: '',
-    age: '',
-    habitat_id: '',  // Assurez-vous que habitat_id est initialisé à une chaîne vide
-    image: null
-  });
+  const [newAnimal, setNewAnimal] = useState({name: '', species: '', age: '', habitat_id: '',image: null });
+  const [records, setRecords] = useState([]);
+  const [selectedRecordId, setSelectedRecordId] = useState(null);
 
   useEffect(() => {
     async function fetchUserData() {
@@ -559,6 +556,55 @@ const handleDeleteAnimal = async (animalId) => {
   }
 };
 
+//Section vétérinaire
+ useEffect(() => {
+    const fetchVetRecords = async () => {
+      try {
+        const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (!response.ok) {
+          throw new Error('Erreur lors de la récupération des enregistrements vétérinaires');
+        }
+        const data = await response.json();
+        setRecords(data);
+      } catch (error) {
+        console.error('Error fetching vet records:', error);
+      }
+    };
+
+    fetchVetRecords();
+  }, [token]);
+
+  const handleEdit = (id) => {
+    setSelectedRecordId(id);
+  };
+
+  const handleSave = () => {
+    setSelectedRecordId(null);
+    // Refresh the list of records
+    const fetchVetRecords = async () => {
+      try {
+        const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (!response.ok) {
+          throw new Error('Erreur lors de la récupération des enregistrements vétérinaires');
+        }
+        const data = await response.json();
+        setRecords(data);
+      } catch (error) {
+        console.error('Error fetching vet records:', error);
+      }
+    };
+
+    fetchVetRecords();
+  };
+
 return (
   <>
    <Nav /> {/* Vérifiez que Nav est correctement importé et utilisé */}
@@ -810,7 +856,24 @@ return (
     ))}
   </ul>
 </div>
-
+<div className="container">
+      <h1>Admin Page</h1>
+      {selectedRecordId ? (
+        <EditVetRecord recordId={selectedRecordId} onSave={handleSave} token={token} />
+      ) : (
+        <div>
+          <h2>Enregistrements vétérinaires</h2>
+          <ul>
+            {records.map((record) => (
+              <li key={record.id}>
+                <span>{record.health_status} - {record.food} - {record.food_amount} - {record.visit_date} - {record.details}</span>
+                <button onClick={() => handleEdit(record.id)}>Modifier</button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
       </div>
     </>
   );
