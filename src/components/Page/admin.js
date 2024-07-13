@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Logo from '../styles/Logo/Arcadia Zoo.png';
 import Nav from '../Nav';
 import AvisEnAttente from './AvisEnAttente';
-import '../styles/CSS/Admin.css/Formulaire.css';
+
 
 export default function Admin() {
   const [nom, setNom] = useState('');
@@ -914,14 +914,15 @@ return (
 {/*Données Vétérinaires*/}
 <div className="admin-container">
       <h2>Ajouter des données vétérinaires</h2>
-      <form onSubmit={handleAddVetRecord} className="vertical-form">
+      <form onSubmit={handleAddVetRecord} className="vertical-form" style={styles.form}>
         <div className="form-group">
-          <label>Sélectionnez un animal :</label>
+          <label className="small-label">Sélectionnez un animal :</label>
           <select
             className="form-control"
             value={animalId}
             onChange={(e) => setAnimalId(e.target.value)}
             required
+            style={styles.input}
           >
             <option value="">Sélectionnez un animal</option>
             {animals.map((animal) => (
@@ -932,46 +933,50 @@ return (
           </select>
         </div>
         <div className="form-group">
-          <label>État de santé :</label>
+          <label className="small-label">État de santé :</label>
           <input
             type="text"
             className="form-control"
             value={healthStatus}
             onChange={(e) => setHealthStatus(e.target.value)}
             required
+            style={styles.input}
           />
         </div>
         <div className="form-group">
-          <label>Nourriture :</label>
+          <label className="small-label">Nourriture :</label>
           <input
             type="text"
             className="form-control"
             value={food}
             onChange={(e) => setFood(e.target.value)}
             required
+            style={styles.input}
           />
         </div>
         <div className="form-group">
-          <label>Quantité de nourriture :</label>
+          <label className="small-label">Quantité de nourriture :</label>
           <input
             type="text"
             className="form-control"
             value={foodAmount}
             onChange={(e) => setFoodAmount(e.target.value)}
             required
+            style={styles.input}
           />
         </div>
         <div className="form-group">
-          <label>Date de visite :</label>
+          <label className="small-label">Date de visite :</label>
           <input
             type="date"
             className="form-control"
             value={visitDate}
             onChange={(e) => setVisitDate(e.target.value)}
             required
+            style={styles.input}
           />
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary" style={styles.button}>
           Ajouter données vétérinaires
         </button>
       </form>
@@ -1004,4 +1009,36 @@ return (
       </div>
     </>
   );
+};
+
+const styles = {
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    maxWidth: '400px',
+    margin: 'auto',
+  },
+  input: {
+    width: '100%',
+    padding: '8px',
+    fontSize: '1rem',
+    border: '1px solid #ccc',
+    borderRadius: '4px',
+    marginBottom: '10px',
+  },
+  button: {
+    width: '100%',
+    padding: '10px',
+    fontSize: '1rem',
+    backgroundColor: '#007bff',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer',
+  },
+  smallLabel: {
+    fontSize: '0.85rem',
+    textAlign: 'center',
+    marginBottom: '5px',
+  },
 };
