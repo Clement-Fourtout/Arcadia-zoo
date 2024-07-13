@@ -624,7 +624,7 @@ const handleDeleteVetRecord = async (vetRecordId) => {
 if (!animal) {
   return <div>Chargement...</div>;
 }
-alert('Données vétérinaires supprimées avec succès!');
+
 const handleAddVetRecord = async (event) => {
   event.preventDefault();
 
