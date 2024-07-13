@@ -935,7 +935,7 @@ return (
         </div>
       ))}
     </div>
-    <div>
+
     <h2 className="text-light text-decoration-underline mt-4">Ajouter un enregistrement vétérinaire</h2>
       <form onSubmit={handleAddVetRecord}>
         <div className="form-group">
@@ -994,7 +994,6 @@ return (
         <button type="submit" className="btn btn-primary mt-2">Ajouter</button>
       </form>
     </div>
-      </div>
     </>
   );
 };
