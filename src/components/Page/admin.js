@@ -1013,22 +1013,22 @@ return (
       {/* Affichage des enregistrements vétérinaires */}
       {/* Affichage des enregistrements vétérinaires pour l'animal sélectionné */}
       <h2>Liste des enregistrements vétérinaires</h2>
-        {animals.map((animal) => (
-          <div key={animal.id}>
-            {animal.vet_records.map((record) => (
-              <div key={record.id} className="vet-record border text-light p-3 my-2">
-                <h3>Date de visite: {new Date(record.visit_date).toLocaleDateString()}</h3>
-                <p><strong>État de santé:</strong> {record.health_status}</p>
-                <p><strong>Nourriture proposée:</strong> {record.food}</p>
-                <p><strong>Grammage de la nourriture:</strong> {record.food_amount}</p>
-                <p><strong>Détails:</strong> {record.details}</p>
-                <button type="button" className="btn btn-info mt-2" onClick={() => handleEdit(record)}>
-                  Modifier
-                </button>
-                <button type="button" className="btn btn-danger mt-2 ml-2" onClick={() => handleDelete(record.id)}>
-                  Supprimer
-                </button>
-              </div>
+      {animals.map((animal) => (
+  <div key={animal.id}>
+    {animal.vet_records.map((record) => (  // Utiliser vet_records au lieu de vetRecords
+      <div key={record.id} className="vet-record border text-light p-3 my-2">
+        <h3>Date de visite: {new Date(record.visit_date).toLocaleDateString()}</h3>
+        <p><strong>État de santé:</strong> {record.health_status}</p>
+        <p><strong>Nourriture proposée:</strong> {record.food}</p>
+        <p><strong>Grammage de la nourriture:</strong> {record.food_amount}</p>
+        <p><strong>Détails:</strong> {record.details}</p>
+        <button type="button" className="btn btn-info mt-2" onClick={() => handleEdit(record)}>
+          Modifier
+        </button>
+        <button type="button" className="btn btn-danger mt-2 ml-2" onClick={() => handleDelete(record.id)}>
+          Supprimer
+        </button>
+      </div>
             ))}
           </div>
         ))}
