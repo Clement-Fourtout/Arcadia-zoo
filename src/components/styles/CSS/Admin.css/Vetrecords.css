@@ -39,3 +39,8 @@
   border: none;
   border-radius: 4px;
 }
+.vet-records-wrapper {
+  max-width: 800px; /* Augmente la taille du wrapper pour les enregistrements vétérinaires */
+  margin: 0 auto; /* Centre le wrapper horizontalement */
+  padding: 20px; /* Ajoute un espace intérieur pour plus d'aération */
+}
