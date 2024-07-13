@@ -932,21 +932,47 @@ return (
         </label>
         <label>
           État de santé :
-          <input type="text" value={healthStatus} onChange={(e) => setHealthStatus(e.target.value)} required />
+          <input
+            type="text"
+            className="form-control"
+            value={healthStatus}
+            onChange={(e) => setHealthStatus(e.target.value)}
+            required
+          />
         </label>
         <label>
           Nourriture :
-          <input type="text" value={food} onChange={(e) => setFood(e.target.value)} required />
+          <input
+            type="text"
+            className="form-control"
+            value={food}
+            onChange={(e) => setFood(e.target.value)}
+            required
+          />
         </label>
         <label>
           Quantité de nourriture :
-          <input type="text" value={foodAmount} onChange={(e) => setFoodAmount(e.target.value)} required />
+          <input
+            type="text"
+            className="form-control"
+            value={foodAmount}
+            onChange={(e) => setFoodAmount(e.target.value)}
+            required
+          />
         </label>
         <label>
           Date de visite :
-          <input type="date" value={visitDate} onChange={(e) => setVisitDate(e.target.value)} required />
+          <input
+            type="date"
+            className="form-control"
+            value={visitDate}
+            onChange={(e) => setVisitDate(e.target.value)}
+            required
+          />
         </label>
-        <button type="submit">Ajouter données vétérinaires</button>
+        <button type="submit" className="btn btn-primary">
+          Ajouter données vétérinaires
+        </button>
       </form>
     </div>
 <div>
