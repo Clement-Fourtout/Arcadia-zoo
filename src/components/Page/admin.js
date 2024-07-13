@@ -592,10 +592,8 @@ useEffect(() => {
       console.error('Erreur lors de la récupération des détails de l\'animal :', error);
     }
   };
-  if (id) {
     fetchAnimalDetails();
-  }
-}, [id]);
+  }, [id]);
 
 const handleSubmit = async (event) => {
   event.preventDefault();
