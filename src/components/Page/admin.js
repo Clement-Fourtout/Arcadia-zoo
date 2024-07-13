@@ -24,7 +24,7 @@ export default function Admin() {
   const [isUpdateMode, setIsUpdateMode] = useState(false);
   const [vetRecords, setVetRecords] = useState([]);
   const [error, setError] = useState(null);
-  
+
   useEffect(() => {
     async function fetchUserData() {
       const userIdFromStorage = localStorage.getItem('userId');
@@ -633,9 +633,9 @@ const handleUpdateSubmit = async (event) => {
   }
 };
 
-const fetchVetRecords = async () => {
+const fetchVetRecords = async (id) => {
   try {
-    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords');
+    const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords/${id}`);
     if (!response.ok) {
       throw new Error('Erreur lors de la récupération des enregistrements vétérinaires');
     }
