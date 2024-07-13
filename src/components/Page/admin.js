@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Logo from '../styles/Logo/Arcadia Zoo.png';
 import Nav from '../Nav';
 import AvisEnAttente from './AvisEnAttente';
-import { useParams } from 'react-router-dom';
+
 
 export default function Admin() {
   const [nom, setNom] = useState('');
@@ -19,12 +19,8 @@ export default function Admin() {
   const [newAnimal, setNewAnimal] = useState({name: '', species: '', age: '', habitat_id: '',image: null });
   const [animals, setAnimals] = useState([]);
   const [animalId, setAnimalId] = useState('');
-  const [healthStatus, setHealthStatus] = useState('');
-  const [food, setFood] = useState('');
-  const [foodAmount, setFoodAmount] = useState('');
-  const [visitDate, setVisitDate] = useState('');
   const [vetRecordData, setVetRecordData] = useState({health_status: '', food: '', food_amount: '', visit_date: '', details: '', });
-  const { id } = useParams();
+ 
   const [isUpdateMode, setIsUpdateMode] = useState(false);
 
   useEffect(() => {
