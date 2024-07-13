@@ -1012,27 +1012,26 @@ return (
       {/* Liste des enregistrements vétérinaires */}
       {/* Affichage des enregistrements vétérinaires */}
       {/* Affichage des enregistrements vétérinaires pour l'animal sélectionné */}
-      <div className="mt-4">
-        <h2>Liste des enregistrements vétérinaires</h2>
-        <ul className="list-group">
-          {animals.map((animal) => (
-            <li key={animal.id} className="list-group-item">
-              <strong>{animal.name}</strong>
-              <div>État de santé : {animal.health_status}</div>
-              <div>Nourriture proposée : {animal.food}</div>
-              <div>Quantité de nourriture : {animal.food_amount}</div>
-              <div>Date de visite : {animal.visit_date}</div>
-              <div>Détails : {animal.details}</div>
-              <button type="button" className="btn btn-info mt-2" onClick={() => handleEdit(animal)}>
-                Modifier
-              </button>
-              <button type="button" className="btn btn-danger mt-2 ml-2" onClick={() => handleDelete(animal.id)}>
-                Supprimer
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <h2>Liste des enregistrements vétérinaires</h2>
+        {animals.map((animal) => (
+          <div key={animal.id}>
+            {animal.vet_records.map((record) => (
+              <div key={record.id} className="vet-record border text-light p-3 my-2">
+                <h3>Date de visite: {new Date(record.visit_date).toLocaleDateString()}</h3>
+                <p><strong>État de santé:</strong> {record.health_status}</p>
+                <p><strong>Nourriture proposée:</strong> {record.food}</p>
+                <p><strong>Grammage de la nourriture:</strong> {record.food_amount}</p>
+                <p><strong>Détails:</strong> {record.details}</p>
+                <button type="button" className="btn btn-info mt-2" onClick={() => handleEdit(record)}>
+                  Modifier
+                </button>
+                <button type="button" className="btn btn-danger mt-2 ml-2" onClick={() => handleDelete(record.id)}>
+                  Supprimer
+                </button>
+              </div>
+            ))}
+          </div>
+        ))}
     </div>
       </div>
     </>
