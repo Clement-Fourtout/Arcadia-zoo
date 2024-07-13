@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Logo from '../styles/Logo/Arcadia Zoo.png';
 import Nav from '../Nav';
 import AvisEnAttente from './AvisEnAttente';
-import { useParams } from 'react-router-dom';
+
 export default function Admin() {
   const [nom, setNom] = useState('');
   const [mot_de_passe, setMotDePasse] = useState('');
@@ -18,7 +18,6 @@ export default function Admin() {
   const [newAnimal, setNewAnimal] = useState({name: '', species: '', age: '', habitat_id: '',image: null });
   const [animal, setAnimal] = useState([]);
   const [animals, setAnimals] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [newVetRecord, setNewVetRecord] = useState({
     health_status: '',
     food: '',
@@ -26,7 +25,6 @@ export default function Admin() {
     visit_date: '',
     details: ''
   });
-  const { id } = useParams();
 
   useEffect(() => {
     async function fetchUserData() {
@@ -567,23 +565,37 @@ const handleDeleteAnimal = async (animalId) => {
 
 // Récupérer la liste des animaux depuis l'API
 useEffect(() => {
-  const fetchAnimal = async () => {
-    try {
-      const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${id}`);
-      if (!response.ok) {
-        throw new Error('Erreur lors de la récupération de l\'animal');
-      }
-      const data = await response.json();
-      setAnimal(data);
-    } catch (error) {
-      console.error('Erreur lors de la récupération de l\'animal :', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  fetchAnimals();
+}, []);
 
-  fetchAnimal();
-}, [id]);
+const fetchAnimals = async () => {
+  try {
+    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animals');
+    if (!response.ok) {
+      throw new Error('Erreur lors du chargement des animaux');
+    }
+    const data = await response.json();
+
+    // Récupérer les détails des animaux avec leurs enregistrements vétérinaires
+    const animalsWithVetRecords = await Promise.all(data.map(async (animal) => {
+      const animalResponse = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${animal.id}`);
+      if (!animalResponse.ok) {
+        throw new Error(`Erreur lors du chargement des détails de l'animal ${animal.id}`);
+      }
+      const animalData = await animalResponse.json();
+      return animalData;
+    }));
+
+    setAnimals(animalsWithVetRecords);
+  } catch (error) {
+    console.error('Erreur lors du chargement des animaux :', error);
+    // Gérer les erreurs ici
+  }
+};
+
+if (animals.length === 0) {
+  return <div>Chargement...</div>;
+}
 
 const handleDeleteVetRecord = async (vetRecordId) => {
   try {
@@ -596,19 +608,26 @@ const handleDeleteVetRecord = async (vetRecordId) => {
     }
 
     // Mettre à jour l'état pour refléter la suppression
-    setAnimal((prevAnimal) => {
+    setAnimal(prevAnimal => {
       if (!prevAnimal || !prevAnimal.vetRecords) {
         return prevAnimal;
       }
       return {
         ...prevAnimal,
-        vetRecords: prevAnimal.vetRecords.filter((record) => record.id !== vetRecordId),
+        vetRecords: prevAnimal.vetRecords.filter(record => record.id !== vetRecordId),
       };
     });
   } catch (error) {
     console.error('Erreur lors de la suppression de l\'enregistrement vétérinaire :', error);
+    // Gérer les erreurs ici
   }
 };
+
+if (!animal) {
+  return <div>Chargement...</div>;
+}
+
+
 
 return (
   <>
