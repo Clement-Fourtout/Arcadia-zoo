@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Logo from '../styles/Logo/Arcadia Zoo.png';
 import Nav from '../Nav';
 import AvisEnAttente from './AvisEnAttente';
-import { useParams } from 'react-router-dom';
 
 export default function Admin() {
   const [nom, setNom] = useState('');
@@ -18,10 +17,6 @@ export default function Admin() {
   const [newHabitat, setNewHabitat] = useState({name: '', description: '', image: '', animal_list: '' });
   const [newAnimal, setNewAnimal] = useState({name: '', species: '', age: '', habitat_id: '',image: null });
   const [animal, setAnimal] = useState([]);
-  const [animalId, setAnimalId] = useState('');
-  const [vetRecordData, setVetRecordData] = useState({health_status: '', food: '', food_amount: '', visit_date: '', details: '', });
-  const [isUpdateMode, setIsUpdateMode] = useState(false);
-  const { id } = useParams();
   const [animals, setAnimals] = useState([]);
 
   useEffect(() => {
@@ -596,41 +591,31 @@ if (animals.length === 0) {
 }
 
 
+const handleDeleteVetRecord = async (vetRecordId) => {
+  try {
+    const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords/${vetRecordId}`, {
+      method: 'DELETE',
+    });
 
+    if (!response.ok) {
+      throw new Error('Erreur lors de la suppression de l\'enregistrement vétérinaire');
+    }
 
-
-const clearForm = () => {
-  setVetRecordData({
-    health_status: '',
-    food: '',
-    food_amount: '',
-    visit_date: '',
-    details: '',
-  });
-  setAnimalId('');
-  setIsUpdateMode(false);
+    // Mettre à jour l'état pour refléter la suppression
+    setAnimal(prevAnimal => ({
+      ...prevAnimal,
+      vetRecords: prevAnimal.vetRecords.filter(record => record.id !== vetRecordId),
+    }));
+  } catch (error) {
+    console.error('Erreur lors de la suppression de l\'enregistrement vétérinaire :', error);
+    // Gérer les erreurs ici
+  }
 };
 
-const handleChange = (e) => {
-  const { name, value } = e.target;
-  setVetRecordData((prevData) => ({
-    ...prevData,
-    [name]: value,
-  }));
-};
+if (!animal) {
+  return <div>Chargement...</div>;
+}
 
-const handleEdit = (vetRecord) => {
-  setVetRecordData({
-    id: vetRecord.id,
-    health_status: vetRecord.health_status,
-    food: vetRecord.food,
-    food_amount: vetRecord.food_amount,
-    visit_date: vetRecord.visit_date,
-    details: vetRecord.details,
-  });
-  setAnimalId(vetRecord.animal_id);
-  setIsUpdateMode(true);
-};
 
 return (
   <>
@@ -884,29 +869,35 @@ return (
   </ul>
 </div>
 {/*Données Vétérinaires*/}
-<div>
-      <h1>Liste des Animaux</h1>
-      {animals.map((animal) => (
-        <div key={animal.id}>
-          <h2>{animal.name}</h2>
-          <p>Spécie: {animal.species}</p>
-          <h3>Enregistrements vétérinaires</h3>
-          {animal.vetRecords && animal.vetRecords.length > 0 ? (
-            animal.vetRecords.map((record) => (
-              <div key={record.id}>
-                <p>Date de visite: {new Date(record.visit_date).toLocaleDateString()}</p>
-                <p>État de santé: {record.health_status}</p>
-                <p>Nourriture proposée: {record.food}</p>
-                <p>Grammage de la nourriture: {record.food_amount}</p>
-                <p>Détails: {record.details}</p>
-                {/* Ajoutez ici d'autres actions comme la modification ou la suppression */}
-              </div>
-            ))
-          ) : (
-            <p>Aucun enregistrement vétérinaire trouvé pour cet animal.</p>
-          )}
+<div className="container-fluid bg-dark p-2 mt-1 mb-3 text-center">
+      <h1 className="text-xl-center text-custom-savane text-decoration-underline font-weight-bold" style={{ marginBottom: "50px", marginTop: "25px" }}>
+        {animal.name}
+      </h1>
+      <div className="row justify-content-center mb-2">
+        <div className="col-lg-4">
+          <img src={animal.image} className="col-lg-11 rounded" alt={animal.name} style={{ marginLeft: 0, padding: 0 }} />
         </div>
-      ))}
+        <div className="col-lg-5 border">
+          <h3 className="text-xl text-align-center text-light text-decoration-underline mt-3">{animal.name}</h3>
+          <h5 className="text-light text-left mt-3"><em>Espèce:</em> {animal.species}</h5>
+          <h5 className="text-light text-left mt-3"><em>Âge:</em> {animal.age}</h5>
+        </div>
+      </div>
+      <h2 className="text-light text-decoration-underline">Enregistrements vétérinaires</h2>
+      {animal.vetRecords && animal.vetRecords.length > 0 ? (
+        animal.vetRecords.map((record) => (
+          <div key={record.id} className="vet-record border text-light p-3 my-2">
+            <h3>Date de visite: {new Date(record.visit_date).toLocaleDateString()}</h3>
+            <p><strong>État de santé:</strong> {record.health_status}</p>
+            <p><strong>Nourriture proposée:</strong> {record.food}</p>
+            <p><strong>Grammage de la nourriture:</strong> {record.food_amount}</p>
+            <p><strong>Détails:</strong> {record.details}</p>
+            <button className="btn btn-danger" onClick={() => handleDeleteVetRecord(record.id)}>Supprimer</button>
+          </div>
+        ))
+      ) : (
+        <p className="text-light">Aucun enregistrement vétérinaire trouvé pour cet animal.</p>
+      )}
     </div>
       </div>
     </>
