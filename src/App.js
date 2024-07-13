@@ -14,6 +14,7 @@ import AvisList from './components/Page/AvisList.js';
 import Politique from './components/Page/Politique.js';
 import MentionsLégales from './components/Page/MentionsLégales.js';
 import HabitatDetails from './components/Page/HabitatDetails.js';
+import AnimalDetails from './components/Page/AnimalDetails.js';
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
       <Route path='politique' element={<Politique/>} />
       <Route path='mentions' element={<MentionsLégales/>} />
       <Route path="parc/:id" element={<HabitatDetails />} />
+      <Route path="/animal/:id" component={AnimalDetails} />
     </Routes>
     <Main></Main>
     <Avis></Avis>

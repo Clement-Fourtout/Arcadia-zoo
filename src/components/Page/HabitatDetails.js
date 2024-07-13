@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 const HabitatDetails = () => {
   const { id } = useParams();
+  const history = useHistory();
   const [habitat, setHabitat] = useState(null);
   const [animals, setAnimals] = useState([]);
 
@@ -31,6 +32,11 @@ const HabitatDetails = () => {
     fetchHabitatAndAnimals();
   }, [id]);
 
+  const handleLearnMore = (animalId) => {
+    // Rediriger vers la page de détails de l'animal
+    history.push(`/animal/${animalId}`);
+  };
+
   if (!habitat) {
     return <div>Chargement...</div>;
   }
@@ -49,6 +55,7 @@ const HabitatDetails = () => {
               <div className="col-lg-12">
                 <h5 className="text-light text-left mt-3"><em>Espèce :</em> {animal.species}</h5>
                 <h5 className="text-light text-left mt-3"><em>Âge :</em> {animal.age}</h5>
+                <button onClick={() => handleLearnMore(animal.id)} className="btn btn-info mt-2">En savoir plus</button>
               </div>
             </div>
           ))
