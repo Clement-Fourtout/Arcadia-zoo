@@ -912,7 +912,7 @@ return (
   </ul>
 </div>
 {/*Données Vétérinaires*/}
-<div className="wrapper">
+<div className="wrapper max-width: 1000px">
 <div className="admin-container">
       <h2>Ajouter des données vétérinaires</h2>
       <form onSubmit={handleAddVetRecord} className="vertical-form" style={styles.form}>
