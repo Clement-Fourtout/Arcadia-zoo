@@ -1035,10 +1035,9 @@ return (
       {/* Affichage des enregistrements vétérinaires */}
       {/* Affichage des enregistrements vétérinaires pour l'animal sélectionné */}
       <div className="container">
-      <h1>Détails de l'animal : {animals.name}</h1>
       <h2>Enregistrements vétérinaires :</h2>
-      {animals.vet_records && animals.vet_records.length > 0 ? (
-        animals.vet_records.map((record) => (
+      {animals.vetrecords && animals.vetrecords.length > 0 ? (
+        animals.vetrecords.map((record) => (
           <div key={record.id} className="vet-record border text-light p-3 my-2">
             <h3>Date de visite: {new Date(record.visit_date).toLocaleDateString()}</h3>
             <p><strong>État de santé:</strong> {record.health_status}</p>
