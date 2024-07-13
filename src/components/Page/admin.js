@@ -913,9 +913,9 @@ return (
 {/*Données Vétérinaires*/}
 <div className="admin-container">
       <h2>Ajouter des données vétérinaires</h2>
-      <form onSubmit={handleAddVetRecord}>
-        <label>
-          Sélectionnez un animal :
+      <form onSubmit={handleAddVetRecord} className="vertical-form">
+        <div className="form-group">
+          <label>Sélectionnez un animal :</label>
           <select
             className="form-control"
             value={animalId}
@@ -929,9 +929,9 @@ return (
               </option>
             ))}
           </select>
-        </label>
-        <label>
-          État de santé :
+        </div>
+        <div className="form-group">
+          <label>État de santé :</label>
           <input
             type="text"
             className="form-control"
@@ -939,9 +939,9 @@ return (
             onChange={(e) => setHealthStatus(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Nourriture :
+        </div>
+        <div className="form-group">
+          <label>Nourriture :</label>
           <input
             type="text"
             className="form-control"
@@ -949,9 +949,9 @@ return (
             onChange={(e) => setFood(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Quantité de nourriture :
+        </div>
+        <div className="form-group">
+          <label>Quantité de nourriture :</label>
           <input
             type="text"
             className="form-control"
@@ -959,9 +959,9 @@ return (
             onChange={(e) => setFoodAmount(e.target.value)}
             required
           />
-        </label>
-        <label>
-          Date de visite :
+        </div>
+        <div className="form-group">
+          <label>Date de visite :</label>
           <input
             type="date"
             className="form-control"
@@ -969,7 +969,7 @@ return (
             onChange={(e) => setVisitDate(e.target.value)}
             required
           />
-        </label>
+        </div>
         <button type="submit" className="btn btn-primary">
           Ajouter données vétérinaires
         </button>
