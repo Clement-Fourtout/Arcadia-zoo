@@ -563,7 +563,7 @@ const handleDeleteAnimal = async (animalId) => {
 // Récupérer la liste des animaux depuis l'API
 const fetchAnimals = async () => {
   try {
-    const response = await fetch('https://api-votre-zoo.com/animals');
+    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animals');
     if (!response.ok) {
       throw new Error('Erreur lors de la récupération des animaux');
     }
@@ -584,7 +584,7 @@ const handleSubmit = async (event) => {
   event.preventDefault();
 
   try {
-    const response = await fetch('https://api-votre-zoo.com/vetrecords', {
+    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
