@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Logo from '../styles/Logo/Arcadia Zoo.png';
 import Nav from '../Nav';
 import AvisEnAttente from './AvisEnAttente';
-import EditVetRecord from './EditVetRecord';
+import { useHistory } from 'react-router-dom';
 
 export default function Admin() {
   const [nom, setNom] = useState('');
@@ -17,8 +17,12 @@ export default function Admin() {
   const [habitats, setHabitats] = useState([]);
   const [newHabitat, setNewHabitat] = useState({name: '', description: '', image: '', animal_list: '' });
   const [newAnimal, setNewAnimal] = useState({name: '', species: '', age: '', habitat_id: '',image: null });
-  const [records, setRecords] = useState([]);
-  const [selectedRecordId, setSelectedRecordId] = useState(null);
+  const [animals, setAnimals] = useState([]);
+  const [animalId, setAnimalId] = useState('');
+  const [healthStatus, setHealthStatus] = useState('');
+  const [food, setFood] = useState('');
+  const [foodAmount, setFoodAmount] = useState('');
+  const [visitDate, setVisitDate] = useState('');
 
   useEffect(() => {
     async function fetchUserData() {
@@ -557,53 +561,60 @@ const handleDeleteAnimal = async (animalId) => {
 };
 
 //Section vétérinaire
- useEffect(() => {
-    const fetchVetRecords = async () => {
-      try {
-        const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (!response.ok) {
-          throw new Error('Erreur lors de la récupération des enregistrements vétérinaires');
-        }
-        const data = await response.json();
-        setRecords(data);
-      } catch (error) {
-        console.error('Error fetching vet records:', error);
-      }
-    };
+const history = useHistory();
 
-    fetchVetRecords();
-  }, [token]);
+// Récupérer la liste des animaux depuis l'API
+const fetchAnimals = async () => {
+  try {
+    const response = await fetch('https://api-votre-zoo.com/animals');
+    if (!response.ok) {
+      throw new Error('Erreur lors de la récupération des animaux');
+    }
+    const data = await response.json();
+    setAnimals(data);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des animaux :', error);
+    // Gérer l'erreur ici (affichage d'un message d'erreur, etc.)
+  }
+};
 
-  const handleEdit = (id) => {
-    setSelectedRecordId(id);
-  };
+useEffect(() => {
+  fetchAnimals();
+}, []);
 
-  const handleSave = () => {
-    setSelectedRecordId(null);
-    // Refresh the list of records
-    const fetchVetRecords = async () => {
-      try {
-        const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (!response.ok) {
-          throw new Error('Erreur lors de la récupération des enregistrements vétérinaires');
-        }
-        const data = await response.json();
-        setRecords(data);
-      } catch (error) {
-        console.error('Error fetching vet records:', error);
-      }
-    };
+// Soumettre l'enregistrement vétérinaire
+const handleSubmit = async (event) => {
+  event.preventDefault();
 
-    fetchVetRecords();
-  };
+  try {
+    const response = await fetch('https://api-votre-zoo.com/vetrecords', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        animal_id: animalId,
+        health_status: healthStatus,
+        food: food,
+        food_amount: foodAmount,
+        visit_date: visitDate,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Erreur lors de l\'ajout de l\'enregistrement vétérinaire');
+    }
+
+    // Rediriger l'utilisateur vers une autre page après l'ajout
+    history.push('/'); // À adapter en fonction de votre logique de navigation
+
+    console.log('Enregistrement vétérinaire ajouté avec succès');
+    // Ajoutez ici la logique pour informer l'utilisateur que l'ajout a réussi
+  } catch (error) {
+    console.error('Erreur lors de l\'ajout de l\'enregistrement vétérinaire :', error);
+    // Gérer l'erreur ici (affichage d'un message d'erreur, etc.)
+  }
+};
 
 return (
   <>
@@ -856,22 +867,70 @@ return (
     ))}
   </ul>
 </div>
+{/*Données Vétérinaires*/}
 <div className="container">
-      {selectedRecordId ? (
-        <EditVetRecord recordId={selectedRecordId} onSave={handleSave} token={token} />
-      ) : (
-        <div>
-          <h2>Enregistrements vétérinaires</h2>
-          <ul>
-            {records.map((record) => (
-              <li key={record.id}>
-                <span>{record.health_status} - {record.food} - {record.food_amount} - {record.visit_date} - {record.details}</span>
-                <button onClick={() => handleEdit(record.id)}>Modifier</button>
-              </li>
+      <h2>Ajouter un enregistrement vétérinaire</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Sélectionnez un animal :</label>
+          <select
+            className="form-control"
+            value={animalId}
+            onChange={(e) => setAnimalId(e.target.value)}
+            required
+          >
+            <option value="">Sélectionnez un animal</option>
+            {animals.map((animal) => (
+              <option key={animal.id} value={animal.id}>
+                {animal.name}
+              </option>
             ))}
-          </ul>
+          </select>
         </div>
-      )}
+        <div className="form-group">
+          <label>État de santé :</label>
+          <input
+            type="text"
+            className="form-control"
+            value={healthStatus}
+            onChange={(e) => setHealthStatus(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>Nourriture proposée :</label>
+          <input
+            type="text"
+            className="form-control"
+            value={food}
+            onChange={(e) => setFood(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>Quantité de nourriture :</label>
+          <input
+            type="text"
+            className="form-control"
+            value={foodAmount}
+            onChange={(e) => setFoodAmount(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>Date de visite :</label>
+          <input
+            type="date"
+            className="form-control"
+            value={visitDate}
+            onChange={(e) => setVisitDate(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit" className="btn btn-primary">
+          Ajouter Enregistrement Vétérinaire
+        </button>
+      </form>
     </div>
       </div>
     </>
