@@ -903,6 +903,13 @@ return (
             onChange={(e) => {
               setAnimalId(e.target.value);
               setIsUpdateMode(false); // Réinitialiser le mode mise à jour lorsqu'on sélectionne un nouvel animal
+              setVetRecordData({
+                health_status: '',
+                food: '',
+                food_amount: '',
+                visit_date: '',
+                details: '',
+              }); // Réinitialiser les données du formulaire lors du changement d'animal
             }}
             required
           >
