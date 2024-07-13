@@ -42,127 +42,6 @@ export default function Admin() {
 
 
 
-
-    const head = document.head || document.getElementsByTagName('head')[0];
-    const style = document.createElement('style');
-    style.type = 'text/css';
-
-    const css = `
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
-
-body {
-    background: #ecf0f3;
-}
-
-.wrapper {
-    max-width: 350px;
-    min-height: 500px;
-    margin: 80px auto;
-    padding: 40px 30px 30px 30px;
-    background-color: #ecf0f3;
-    border-radius: 15px;
-    box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
-}
-
-.logo {
-    width: 80px;
-    margin: auto;
-}
-
-.logo img {
-    width: 100%;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 50%;
-    box-shadow: 0px 0px 3px #5f5f5f,
-        0px 0px 0px 5px #ecf0f3,
-        8px 8px 15px #a7aaa7,
-        -8px -8px 15px #fff;
-}
-
-.wrapper .name {
-    font-weight: 600;
-    font-size: 1.4rem;
-    letter-spacing: 1.3px;
-    padding-left: 10px;
-    color: #555;
-}
-
-.wrapper .form-field input {
-    width: 100%;
-    display: block;
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 1.2rem;
-    color: #666;
-    padding: 10px 15px 10px 10px;
-    /* border: 1px solid red; */
-}
-
-.wrapper .form-field {
-    padding-left: 10px;
-    margin-bottom: 20px;
-    border-radius: 20px;
-    box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff;
-}
-
-.wrapper .form-field .fas {
-    color: #555;
-}
-
-.wrapper .btn {
-    box-shadow: none;
-    width: 100%;
-    height: 40px;
-    background-color: #32CD32;
-    color: #fff;
-    border-radius: 25px;
-    box-shadow: 3px 3px 3px #b1b1b1,
-        -3px -3px 3px #fff;
-    letter-spacing: 1.3px;
-}
-
-.wrapper .btn:hover {
-    background-color: #438b52;
-}
-
-
-.wrapper a {
-    text-decoration: none;
-    font-size: 0.8rem;
-    color: #03A9F4;
-}
-
-.wrapper a:hover {
-    color: #039BE5;
-}
-
-@media(max-width: 380px) {
-    .wrapper {
-        margin: 30px 20px;
-        padding: 40px 15px 15px 15px;
-    }
-
-`;
-
-// Ajoutez les styles CSS à l'élément style
-if (style.styleSheet){
-  // Ce code est pour les anciennes versions d'Internet Explorer
-  style.styleSheet.cssText = css;
-} else {
-  style.appendChild(document.createTextNode(css));
-}
-
-// Ajoutez l'élément style au head du document
-head.appendChild(style);
-
-
 //Création de compte
 const handleRegister = async (event) => {
     event.preventDefault();
@@ -666,55 +545,55 @@ return (
             <div>
                 <h1>Page Administrateur</h1>
                 <div className="wrapper">
-                    <div className="logo">
-                        <a href="/">
-                            <img src={Logo} alt="Logo" /> {/* Assurez-vous que Logo est correctement importé */}
-                        </a>
-                    </div>
-                    <div className="text-center mt-4 name">
-                        Arcadia
-                    </div>
-                    <form className="p-3 mt-3">
-                        <div className="form-field d-flex align-items-center">
-                            <span className="far fa-user"></span>
-                            <input
-                                type="text"
-                                name="nom"
-                                id="nom"
-                                placeholder="Nom d'utilisateur"
-                                value={nom}
-                                onChange={(event) => setNom(event.target.value)}
-                            />
-                        </div>
-                        <div className="form-field d-flex align-items-center">
-                            <label htmlFor="role">Type</label>
-                            <select
-                                id="role"
-                                name="role"
-                                value={role}
-                                onChange={(event) => setRole(event.target.value)}
-                            >
-                                <option value="veterinaire">Vétérinaire</option>
-                                <option value="employe">Employé</option>
-                            </select>
-                        </div>
-                        <div className="form-field d-flex align-items-center">
-                            <label htmlFor="email">E-mail :</label>
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                placeholder="Entrez votre adresse e-mail"
-                                value={email}
-                                onChange={(event) => setEmail(event.target.value)}
-                            />
-                        </div>
-                        <button type="button" onClick={handleRegister} className="btn1 mt-3">Créer un compte</button>
-                </form>
-                {successMessageVisible && (
-                    <div className="success-message">Compte créé avec succès !</div>
-                )}
+            <div className="logo">
+                <a href="/">
+                    <img src={Logo} alt="Logo" /> {/* Assurez-vous que Logo est correctement importé */}
+                </a>
+            </div>
+            <div className="text-center mt-4 name">
+                Arcadia
+            </div>
+            <form className="p-3 mt-3">
+                <div className="form-field d-flex align-items-center">
+                    <span className="far fa-user"></span>
+                    <input
+                        type="text"
+                        name="nom"
+                        id="nom"
+                        placeholder="Nom d'utilisateur"
+                        value={nom}
+                        onChange={(event) => setNom(event.target.value)}
+                    />
                 </div>
+                <div className="form-field d-flex align-items-center">
+                    <label htmlFor="role">Type</label>
+                    <select
+                        id="role"
+                        name="role"
+                        value={role}
+                        onChange={(event) => setRole(event.target.value)}
+                    >
+                        <option value="veterinaire">Vétérinaire</option>
+                        <option value="employe">Employé</option>
+                    </select>
+                </div>
+                <div className="form-field d-flex align-items-center">
+                    <label htmlFor="email">E-mail :</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Entrez votre adresse e-mail"
+                        value={email}
+                        onChange={(event) => setEmail(event.target.value)}
+                    />
+                </div>
+                <button type="button" onClick={handleRegister} className="btn mt-3">Créer un compte</button>
+            </form>
+            {successMessageVisible && (
+                <div className="success-message">Compte créé avec succès !</div>
+            )}
+        </div>
 
                 <div>
           <h1>Ajouter un service</h1>
@@ -912,7 +791,7 @@ return (
   </ul>
 </div>
 {/*Données Vétérinaires*/}
-<div className="wrapper vet-records-wrapper">
+<div className="wrapper">
 <div className="admin-container">
       <h2>Ajouter des données vétérinaires</h2>
       <form onSubmit={handleAddVetRecord} className="vertical-form" style={styles.form}>
@@ -987,7 +866,7 @@ return (
       <h1 className='mt-5'>Enregistrements vétérinaires</h1>
       {animals.map((animal) => (
         <div key={animal.id}>
-          <h2 className='mt-5'>{animal.name}</h2>
+          <h2 className='mt-5 underline'>{animal.name}</h2>
           {animal.vetRecords && animal.vetRecords.length > 0 ? (
             <div className="vet-records-container">
               <table className="vet-records-table">
