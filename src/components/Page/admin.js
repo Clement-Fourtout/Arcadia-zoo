@@ -598,7 +598,7 @@ return (
 
         <div className="wrapper">
         <div className="admin-container">
-          <label className="vertical-form">Ajouter un service</label>
+        <h2>Ajouter un service</h2>
           <form onSubmit={handleAddService}>
           <div className="form-group">
           <label className="small-label">Titre :</label>
