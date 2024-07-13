@@ -605,15 +605,7 @@ const handleAddSubmit = async (event) => {
 
     console.log('Enregistrement vétérinaire ajouté avec succès');
     // Réinitialiser le formulaire après soumission réussie
-    setVetRecordData({
-      health_status: '',
-      food: '',
-      food_amount: '',
-      visit_date: '',
-      details: '',
-    });
-    setAnimalId('');
-    // Ajouter ici la logique pour informer l'utilisateur que l'ajout a réussi
+    resetForm();
   } catch (error) {
     console.error('Erreur lors de l\'ajout de l\'enregistrement vétérinaire :', error);
     // Gérer l'erreur ici (affichage d'un message d'erreur, etc.)
@@ -645,20 +637,24 @@ const handleUpdateSubmit = async (event) => {
 
     console.log('Enregistrement vétérinaire mis à jour avec succès');
     // Réinitialiser le formulaire après soumission réussie
-    setVetRecordData({
-      health_status: '',
-      food: '',
-      food_amount: '',
-      visit_date: '',
-      details: '',
-    });
-    setAnimalId('');
-    setIsUpdateMode(false);
-    // Ajouter ici la logique pour informer l'utilisateur que la mise à jour a réussi
+    resetForm();
   } catch (error) {
     console.error('Erreur lors de la mise à jour de l\'enregistrement vétérinaire :', error);
     // Gérer l'erreur ici (affichage d'un message d'erreur, etc.)
   }
+};
+
+// Réinitialiser le formulaire et l'état de mise à jour
+const resetForm = () => {
+  setVetRecordData({
+    health_status: '',
+    food: '',
+    food_amount: '',
+    visit_date: '',
+    details: '',
+  });
+  setAnimalId('');
+  setIsUpdateMode(false);
 };
 
 // Gestion des changements dans le formulaire
@@ -935,13 +931,7 @@ return (
             onChange={(e) => {
               setAnimalId(e.target.value);
               setIsUpdateMode(false); // Réinitialiser le mode mise à jour lorsqu'on sélectionne un nouvel animal
-              setVetRecordData({
-                health_status: '',
-                food: '',
-                food_amount: '',
-                visit_date: '',
-                details: '',
-              }); // Réinitialiser les données du formulaire lors du changement d'animal
+              resetForm(); // Réinitialiser les données du formulaire lors du changement d'animal
             }}
             required
           >
@@ -1007,25 +997,14 @@ return (
           />
         </div>
         <div className="form-group">
-          <button type="submit" className="btn btn-primary">
-            Ajouter Enregistrement Vétérinaire
-          </button>
+          {!isUpdateMode && (
+            <button type="submit" className="btn btn-primary">
+              Ajouter Enregistrement Vétérinaire
+            </button>
+          )}
           {isUpdateMode && (
-            <button
-              type="button"
-              className="btn btn-warning ml-2"
-              onClick={() => {
-                setVetRecordData({
-                  health_status: '',
-                  food: '',
-                  food_amount: '',
-                  visit_date: '',
-                  details: '',
-                });
-                setIsUpdateMode(false);
-              }}
-            >
-              Annuler la mise à jour
+            <button type="submit" className="btn btn-warning">
+              Mettre à jour Enregistrement Vétérinaire
             </button>
           )}
         </div>
