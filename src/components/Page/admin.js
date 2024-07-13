@@ -910,7 +910,7 @@ return (
   </ul>
 </div>
 {/*Données Vétérinaires*/}
-<div>
+<div className='container bg-light'>
       <h1>Liste des Animaux</h1>
       {animals.map((animal) => (
         <div key={animal.id}>
@@ -934,8 +934,8 @@ return (
           )}
         </div>
       ))}
-    </div>
-
+</div>
+<div className='container bg-dark'>
     <h2 className="text-light text-decoration-underline mt-4">Ajouter un enregistrement vétérinaire</h2>
       <form onSubmit={handleAddVetRecord}>
         <div className="form-group">
@@ -993,6 +993,7 @@ return (
         </div>
         <button type="submit" className="btn btn-primary mt-2">Ajouter</button>
       </form>
+      </div>
     </div>
     </>
   );
