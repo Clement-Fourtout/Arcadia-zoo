@@ -21,8 +21,6 @@ export default function Admin() {
   const [animalId, setAnimalId] = useState('');
   const [vetRecordData, setVetRecordData] = useState({health_status: '', food: '', food_amount: '', visit_date: '', details: '', });
   const [isUpdateMode, setIsUpdateMode] = useState(false);
-  const [vetRecord, setVetRecord] = useState(null);
-  const [error, setError] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
@@ -580,32 +578,24 @@ const fetchAnimal = async () => {
 
 
 
-const fetchVetRecord = async (vetRecordId) => {
-  try {
-    const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords/${vetRecordId}`);
-    if (!response.ok) {
-      throw new Error('Erreur lors de la récupération de l\'enregistrement vétérinaire');
-    }
-    const data = await response.json();
-    setVetRecord(data);
-    setError(null); // Réinitialiser l'erreur s'il y en avait une précédemment
-  } catch (error) {
-    console.error('Erreur lors de la récupération de l\'enregistrement vétérinaire :', error);
-    setError('Erreur lors de la récupération de l\'enregistrement vétérinaire');
-  }
-};
-
-// Exemple d'utilisation : Appeler fetchVetRecord avec l'ID extrait de l'URL
 useEffect(() => {
+  const fetchAnimalDetails = async () => {
+    try {
+      const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${id}`);
+      if (!response.ok) {
+        throw new Error('Erreur lors de la récupération des détails de l\'animal');
+      }
+      const data = await response.json();
+      setAnimal(data);
+
+    } catch (error) {
+      console.error('Erreur lors de la récupération des détails de l\'animal :', error);
+    }
+  };
   if (id) {
-    fetchVetRecord(id);
+    fetchAnimalDetails();
   }
-}, [id]); // Utilisation de [id] pour exécuter l'effet lorsque id change
-
-if (error) {
-  return <div>Erreur : {error}</div>;
-}
-
+}, [id]);
 
 const handleSubmit = async (event) => {
   event.preventDefault();
@@ -1044,12 +1034,22 @@ return (
       {/* Liste des enregistrements vétérinaires */}
       {/* Affichage des enregistrements vétérinaires */}
       {/* Affichage des enregistrements vétérinaires pour l'animal sélectionné */}
-      <div className="vet-record border text-light p-3 my-2">
-      <h3>Date de visite: {new Date(vetRecord.visit_date).toLocaleDateString()}</h3>
-      <p><strong>État de santé:</strong> {vetRecord.health_status}</p>
-      <p><strong>Nourriture proposée:</strong> {vetRecord.food}</p>
-      <p><strong>Grammage de la nourriture:</strong> {vetRecord.food_amount}</p>
-      <p><strong>Détails:</strong> {vetRecord.details}</p>
+      <div className="container">
+      <h1>Détails de l'animal : {animals.name}</h1>
+      <h2>Enregistrements vétérinaires :</h2>
+      {animals.vet_records && animals.vet_records.length > 0 ? (
+        animals.vet_records.map((record) => (
+          <div key={record.id} className="vet-record border text-light p-3 my-2">
+            <h3>Date de visite: {new Date(record.visit_date).toLocaleDateString()}</h3>
+            <p><strong>État de santé:</strong> {record.health_status}</p>
+            <p><strong>Nourriture proposée:</strong> {record.food}</p>
+            <p><strong>Grammage de la nourriture:</strong> {record.food_amount}</p>
+            <p><strong>Détails:</strong> {record.details}</p>
+          </div>
+        ))
+      ) : (
+        <p>Aucun enregistrement vétérinaire trouvé pour cet animal.</p>
+      )}
     </div>
     </div>
       </div>
