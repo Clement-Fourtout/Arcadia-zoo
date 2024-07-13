@@ -563,38 +563,37 @@ const handleDeleteAnimal = async (animalId) => {
 
 // Récupérer la liste des animaux depuis l'API
 useEffect(() => {
-  const fetchAnimals = async () => {
-    try {
-      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animals');
-      if (!response.ok) {
-        throw new Error('Erreur lors du chargement des animaux');
-      }
-      const data = await response.json();
-      setAnimals(data);
-    } catch (error) {
-      console.error('Erreur lors du chargement des animaux :', error);
-    }
-  };
-
   fetchAnimals();
 }, []);
 
-
-
-
-const fetchVetRecords = async (animalId) => {
+const fetchAnimals = async () => {
   try {
-    const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords/${animalId}`);
+    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animals');
     if (!response.ok) {
-      throw new Error('Erreur lors du chargement des enregistrements vétérinaires');
+      throw new Error('Erreur lors du chargement des animaux');
     }
     const data = await response.json();
-    console.log('Enregistrements vétérinaires pour animal', animalId, ':', data); // Vérifiez les données renvoyées dans la console
-    // Traitez les données ici
+
+    // Récupérer les détails des animaux avec leurs enregistrements vétérinaires
+    const animalsWithVetRecords = await Promise.all(data.map(async (animal) => {
+      const animalResponse = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${animal.id}`);
+      if (!animalResponse.ok) {
+        throw new Error(`Erreur lors du chargement des détails de l'animal ${animal.id}`);
+      }
+      const animalData = await animalResponse.json();
+      return animalData;
+    }));
+
+    setAnimals(animalsWithVetRecords);
   } catch (error) {
-    console.error('Erreur lors du chargement des enregistrements vétérinaires :', error);
+    console.error('Erreur lors du chargement des animaux :', error);
+    // Gérer les erreurs ici
   }
-};;
+};
+
+if (animals.length === 0) {
+  return <div>Chargement...</div>;
+}
 
 
 
@@ -885,25 +884,29 @@ return (
   </ul>
 </div>
 {/*Données Vétérinaires*/}
-<div className="container">
-      <h1>Section d'administration</h1>
-
-      {/* Formulaire d'ajout/mise à jour des enregistrements vétérinaires */}
-      
-
-      {/* Liste des enregistrements vétérinaires */}
-      {/* Affichage des enregistrements vétérinaires */}
-      {/* Affichage des enregistrements vétérinaires pour l'animal sélectionné */}
-      <div className="admin-page">
-      <h1>Page Admin</h1>
+<div>
+      <h1>Liste des Animaux</h1>
       {animals.map((animal) => (
         <div key={animal.id}>
           <h2>{animal.name}</h2>
-          {/* Affichez d'autres détails de l'animal si nécessaire */}
-          <button onClick={() => fetchVetRecords(animal.id)}>Charger les enregistrements vétérinaires</button>
+          <p>Spécie: {animal.species}</p>
+          <h3>Enregistrements vétérinaires</h3>
+          {animal.vetRecords && animal.vetRecords.length > 0 ? (
+            animal.vetRecords.map((record) => (
+              <div key={record.id}>
+                <p>Date de visite: {new Date(record.visit_date).toLocaleDateString()}</p>
+                <p>État de santé: {record.health_status}</p>
+                <p>Nourriture proposée: {record.food}</p>
+                <p>Grammage de la nourriture: {record.food_amount}</p>
+                <p>Détails: {record.details}</p>
+                {/* Ajoutez ici d'autres actions comme la modification ou la suppression */}
+              </div>
+            ))
+          ) : (
+            <p>Aucun enregistrement vétérinaire trouvé pour cet animal.</p>
+          )}
         </div>
       ))}
-    </div>
     </div>
       </div>
     </>
