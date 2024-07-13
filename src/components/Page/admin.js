@@ -579,21 +579,13 @@ useEffect(() => {
   fetchAnimals();
 }, []);
 
-// Soumettre l'enregistrement vétérinaire
-const handleSubmit = async (event) => {
+// Soumettre l'enregistrement vétérinaire (ajout)
+const handleAddSubmit = async (event) => {
   event.preventDefault();
 
   try {
-    let url = 'https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords';
-    let method = 'POST';
-
-    if (isUpdateMode) {
-      url = `https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords`;
-      method = 'PUT';
-    }
-
-    const response = await fetch(url, {
-      method,
+    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -608,10 +600,50 @@ const handleSubmit = async (event) => {
     });
 
     if (!response.ok) {
-      throw new Error('Erreur lors de l\'ajout/mise à jour de l\'enregistrement vétérinaire');
+      throw new Error('Erreur lors de l\'ajout de l\'enregistrement vétérinaire');
     }
 
-    console.log('Enregistrement vétérinaire ajouté/mis à jour avec succès');
+    console.log('Enregistrement vétérinaire ajouté avec succès');
+    // Réinitialiser le formulaire après soumission réussie
+    setVetRecordData({
+      health_status: '',
+      food: '',
+      food_amount: '',
+      visit_date: '',
+      details: '',
+    });
+    setAnimalId('');
+    // Ajouter ici la logique pour informer l'utilisateur que l'ajout a réussi
+  } catch (error) {
+    console.error('Erreur lors de l\'ajout de l\'enregistrement vétérinaire :', error);
+    // Gérer l'erreur ici (affichage d'un message d'erreur, etc.)
+  }
+};
+
+// Soumettre la mise à jour de l'enregistrement vétérinaire
+const handleUpdateSubmit = async (event) => {
+  event.preventDefault();
+
+  try {
+    const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords/${animalId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        health_status: vetRecordData.health_status,
+        food: vetRecordData.food,
+        food_amount: vetRecordData.food_amount,
+        visit_date: vetRecordData.visit_date,
+        details: vetRecordData.details,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Erreur lors de la mise à jour de l\'enregistrement vétérinaire');
+    }
+
+    console.log('Enregistrement vétérinaire mis à jour avec succès');
     // Réinitialiser le formulaire après soumission réussie
     setVetRecordData({
       health_status: '',
@@ -622,14 +654,14 @@ const handleSubmit = async (event) => {
     });
     setAnimalId('');
     setIsUpdateMode(false);
-    // Ajouter ici la logique pour informer l'utilisateur que l'ajout/mise à jour a réussi
+    // Ajouter ici la logique pour informer l'utilisateur que la mise à jour a réussi
   } catch (error) {
-    console.error('Erreur lors de l\'ajout/mise à jour de l\'enregistrement vétérinaire :', error);
+    console.error('Erreur lors de la mise à jour de l\'enregistrement vétérinaire :', error);
     // Gérer l'erreur ici (affichage d'un message d'erreur, etc.)
   }
 };
 
-// Fonction pour gérer les changements dans le formulaire
+// Gestion des changements dans le formulaire
 const handleChange = (e) => {
   const { name, value } = e.target;
   setVetRecordData((prevData) => ({
@@ -894,7 +926,7 @@ return (
       <h1>Section d'administration</h1>
 
       {/* Formulaire d'ajout/mise à jour des enregistrements vétérinaires */}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={isUpdateMode ? handleUpdateSubmit : handleAddSubmit}>
         <div className="form-group">
           <label>Sélectionnez un animal :</label>
           <select
@@ -974,10 +1006,35 @@ return (
             onChange={handleChange}
           />
         </div>
-        <button type="submit" className="btn btn-primary">
-          {isUpdateMode ? 'Mettre à jour' : 'Ajouter Enregistrement Vétérinaire'}
-        </button>
+        <div className="form-group">
+          <button type="submit" className="btn btn-primary">
+            Ajouter Enregistrement Vétérinaire
+          </button>
+          {isUpdateMode && (
+            <button
+              type="button"
+              className="btn btn-warning ml-2"
+              onClick={() => {
+                setVetRecordData({
+                  health_status: '',
+                  food: '',
+                  food_amount: '',
+                  visit_date: '',
+                  details: '',
+                });
+                setIsUpdateMode(false);
+              }}
+            >
+              Annuler la mise à jour
+            </button>
+          )}
+        </div>
       </form>
+      {isUpdateMode && (
+        <div className="alert alert-info mt-3">
+          Vous êtes en mode mise à jour. Vous pouvez modifier les informations existantes.
+        </div>
+      )}
     </div>
       </div>
     </>
