@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Logo from '../styles/Logo/Arcadia Zoo.png';
 import Nav from '../Nav';
 import AvisEnAttente from './AvisEnAttente';
-
+import { useParams } from 'react-router-dom';
 
 export default function Admin() {
   const [nom, setNom] = useState('');
@@ -21,7 +21,7 @@ export default function Admin() {
   const [animalId, setAnimalId] = useState('');
   const [vetRecordData, setVetRecordData] = useState({health_status: '', food: '', food_amount: '', visit_date: '', details: '', });
   const [isUpdateMode, setIsUpdateMode] = useState(false);
-
+  const { id } = useParams();
 
   useEffect(() => {
     async function fetchUserData() {
@@ -563,12 +563,12 @@ const handleDeleteAnimal = async (animalId) => {
 // Récupérer la liste des animaux depuis l'API
 const fetchAnimals = async () => {
   try {
-    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animals');
+    const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${id}`);
     if (!response.ok) {
-      throw new Error('Erreur lors du chargement des animaux');
+      throw new Error('Erreur lors de la récupération de l\'animal');
     }
     const data = await response.json();
-    setAnimals(data);
+    setAnimals(data);;
   } catch (error) {
     console.error('Erreur lors du chargement des animaux :', error);
     // Gérer les erreurs ici
