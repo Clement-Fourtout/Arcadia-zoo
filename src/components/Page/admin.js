@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Logo from '../styles/Logo/Arcadia Zoo.png';
 import Nav from '../Nav';
 import AvisEnAttente from './AvisEnAttente';
+import { useParams } from 'react-router-dom';
 
 export default function Admin() {
   const [nom, setNom] = useState('');
@@ -22,6 +23,13 @@ export default function Admin() {
   const [food, setFood] = useState('');
   const [foodAmount, setFoodAmount] = useState('');
   const [visitDate, setVisitDate] = useState('');
+  const [vetRecordData, setVetRecordData] = useState({
+    health_status: '',
+    food: '',
+    food_amount: '',
+    visit_date: '',
+    details: '', });
+    const { id } = useParams();
 
   useEffect(() => {
     async function fetchUserData() {
@@ -612,6 +620,38 @@ const handleSubmit = async (event) => {
   }
 };
 
+ const updateVetRecord = async () => {
+  try {
+    const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(vetRecordData),
+    });
+
+    if (!response.ok) {
+      throw new Error('Erreur lors de la mise à jour des données vétérinaires');
+    }
+
+    const data = await response.json();
+    console.log('Données vétérinaires mises à jour avec succès :', data);
+    // Ajouter ici toute logique nécessaire après la mise à jour
+  } catch (error) {
+    console.error('Erreur lors de la mise à jour des données vétérinaires :', error);
+    // Gérer les erreurs ici
+  }
+};
+
+// Fonction pour gérer les changements dans le formulaire
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  setVetRecordData((prevData) => ({
+    ...prevData,
+    [name]: value,
+  }));
+};
+
 return (
   <>
    <Nav /> {/* Vérifiez que Nav est correctement importé et utilisé */}
@@ -926,6 +966,74 @@ return (
         <button type="submit" className="btn btn-primary">
           Ajouter Enregistrement Vétérinaire
         </button>
+      </form>
+    </div>
+    {/*Modifier les données vétérinaires existantes*/}
+    <div className="container">
+      <h1>Modifier des données enregistrés</h1>
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        updateVetRecord();
+      }}>
+        <div className="form-group">
+          <label htmlFor="health_status">État de santé</label>
+          <input
+            type="text"
+            className="form-control"
+            id="health_status"
+            name="health_status"
+            value={vetRecordData.health_status}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="food">Nourriture</label>
+          <input
+            type="text"
+            className="form-control"
+            id="food"
+            name="food"
+            value={vetRecordData.food}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="food_amount">Quantité de nourriture</label>
+          <input
+            type="text"
+            className="form-control"
+            id="food_amount"
+            name="food_amount"
+            value={vetRecordData.food_amount}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="visit_date">Date de visite</label>
+          <input
+            type="date"
+            className="form-control"
+            id="visit_date"
+            name="visit_date"
+            value={vetRecordData.visit_date}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="details">Détails</label>
+          <textarea
+            className="form-control"
+            id="details"
+            name="details"
+            value={vetRecordData.details}
+            onChange={handleChange}
+          />
+        </div>
+        <button type="submit" className="btn btn-primary">Mettre à jour</button>
       </form>
     </div>
       </div>
