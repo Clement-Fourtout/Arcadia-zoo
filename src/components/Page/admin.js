@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Logo from '../styles/Logo/Arcadia Zoo.png';
 import Nav from '../Nav';
 import AvisEnAttente from './AvisEnAttente';
+import '../styles/CSS/Admin.css/Formulaire.css';
 
 export default function Admin() {
   const [nom, setNom] = useState('');
