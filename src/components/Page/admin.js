@@ -609,6 +609,7 @@ return (
               value={newService.title}
               onChange={(e) => setNewService({ ...newService, title: e.target.value })}
               required
+              style={styles.input}
             />
             </div>
             <div className="form-group">
@@ -620,6 +621,7 @@ return (
               value={newService.description}
               onChange={(e) => setNewService({ ...newService, description: e.target.value })}
               required
+              style={styles.input}
             />
             </div>
             <div className="form-group">
@@ -630,6 +632,7 @@ return (
               onChange={handleImageChange}
               accept="image/*"
               required
+              style={styles.input}
             />
             </div>
             <button type="submit" className="btn btn-primary" style={styles.button}>Ajouter le service</button>
