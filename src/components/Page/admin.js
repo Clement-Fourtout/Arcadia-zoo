@@ -606,9 +606,6 @@ if (error) {
   return <div>Erreur : {error}</div>;
 }
 
-if (!vetRecord) {
-  return <div>Chargement...</div>;
-}
 
 const handleSubmit = async (event) => {
   event.preventDefault();
