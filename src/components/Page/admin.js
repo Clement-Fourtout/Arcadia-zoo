@@ -624,7 +624,7 @@ const handleDeleteVetRecord = async (vetRecordId) => {
 if (!animal) {
   return <div>Chargement...</div>;
 }
-
+alert('Données vétérinaires supprimées avec succès!');
 const handleAddVetRecord = async (event) => {
   event.preventDefault();
 
@@ -912,6 +912,7 @@ return (
   </ul>
 </div>
 {/*Données Vétérinaires*/}
+<div className="wrapper">
 <div className="admin-container">
       <h2>Ajouter des données vétérinaires</h2>
       <form onSubmit={handleAddVetRecord} className="vertical-form" style={styles.form}>
@@ -981,8 +982,9 @@ return (
         </button>
       </form>
     </div>
+    </div>
     <div>
-      <h1 className='mt-3'>Enregistrements vétérinaires</h1>
+      <h1 className='mt-5'>Enregistrements vétérinaires</h1>
       {animals.map((animal) => (
         <div key={animal.id}>
           <h2 className='mt-5'>{animal.name}</h2>
