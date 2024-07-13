@@ -981,31 +981,47 @@ return (
         </button>
       </form>
     </div>
-<div>
-      <h1>Liste des Animaux</h1>
-      {animals.map((animal) => (
-        <div key={animal.id}>
-          <h2>{animal.name}</h2>
-          <p>Spécie: {animal.species}</p>
-          <h3>Enregistrements vétérinaires</h3>
-          {animal.vetRecords && animal.vetRecords.length > 0 ? (
-            animal.vetRecords.map((record) => (
-              <div key={record.id}>
-                <p>Date de visite: {new Date(record.visit_date).toLocaleDateString()}</p>
-                <p>État de santé: {record.health_status}</p>
-                <p>Nourriture proposée: {record.food}</p>
-                <p>Grammage de la nourriture: {record.food_amount}</p>
-                <p>Détails: {record.details}</p>
-                <button className="btn btn-danger" onClick={() => handleDeleteVetRecord(record.id)}>Supprimer</button>
-                {/* Ajoutez ici d'autres actions comme la modification ou la suppression */}
-              </div>
-            ))
-          ) : (
-            <p>Aucun enregistrement vétérinaire trouvé pour cet animal.</p>
-          )}
-        </div>
-      ))}
+    <div>
+  <h1>Liste des Animaux</h1>
+  {animals.map((animal) => (
+    <div key={animal.id}>
+      <h2>{animal.name}</h2>
+      <p>Spécie: {animal.species}</p>
+      <h3>Enregistrements vétérinaires</h3>
+      {animal.vetRecords && animal.vetRecords.length > 0 ? (
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Date de visite</th>
+              <th>État de santé</th>
+              <th>Nourriture proposée</th>
+              <th>Grammage de la nourriture</th>
+              <th>Détails</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {animal.vetRecords.map((record) => (
+              <tr key={record.id}>
+                <td>{new Date(record.visit_date).toLocaleDateString()}</td>
+                <td>{record.health_status}</td>
+                <td>{record.food}</td>
+                <td>{record.food_amount}</td>
+                <td>{record.details}</td>
+                <td>
+                  <button className="btn btn-danger" onClick={() => handleDeleteVetRecord(record.id)}>Supprimer</button>
+                  {/* Ajoutez ici d'autres actions comme la modification ou la suppression */}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p>Aucun enregistrement vétérinaire trouvé pour cet animal.</p>
+      )}
     </div>
+  ))}
+</div>
       </div>
     </>
   );
