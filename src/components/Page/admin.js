@@ -881,7 +881,7 @@ return (
       <h1 className='mt-5'>Enregistrements vétérinaires</h1>
       {animals.map((animal) => (
         <div key={animal.id}>
-          <h2 className='mt-5 underline'>{animal.name}</h2>
+          <h2 className='mt-5 text-underline'>{animal.name}</h2>
           {animal.vetRecords && animal.vetRecords.length > 0 ? (
             <div className="vet-records-container">
               <table className="vet-records-table">
