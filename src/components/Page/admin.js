@@ -3,7 +3,6 @@ import Logo from '../styles/Logo/Arcadia Zoo.png';
 import Nav from '../Nav';
 import AvisEnAttente from './AvisEnAttente';
 import { useParams } from 'react-router-dom';
-
 export default function Admin() {
   const [nom, setNom] = useState('');
   const [mot_de_passe, setMotDePasse] = useState('');
@@ -611,53 +610,6 @@ const handleDeleteVetRecord = async (vetRecordId) => {
   }
 };
 
-const handleAddVetRecord = async (e) => {
-  e.preventDefault();
-  try {
-    const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ ...newVetRecord, animal_id: id }),
-    });
-
-    if (!response.ok) {
-      throw new Error('Erreur lors de l\'ajout de l\'enregistrement vétérinaire');
-    }
-
-    const addedRecord = await response.json();
-
-    // Mettre à jour l'état pour refléter l'ajout
-    setAnimal((prevAnimal) => {
-      if (!prevAnimal) return prevAnimal;
-      return {
-        ...prevAnimal,
-        vetRecords: [...prevAnimal.vetRecords, addedRecord],
-      };
-    });
-
-    // Réinitialiser le formulaire
-    setNewVetRecord({
-      health_status: '',
-      food: '',
-      food_amount: '',
-      visit_date: '',
-      details: ''
-    });
-  } catch (error) {
-    console.error('Erreur lors de l\'ajout de l\'enregistrement vétérinaire :', error);
-  }
-};
-
-if (isLoading) {
-  return <div>Chargement...</div>;
-}
-
-if (!animal) {
-  return <div>Erreur de chargement des données de l'animal.</div>;
-}
-
 return (
   <>
    <Nav /> {/* Vérifiez que Nav est correctement importé et utilisé */}
@@ -910,7 +862,7 @@ return (
   </ul>
 </div>
 {/*Données Vétérinaires*/}
-<div className='container bg-light'>
+<div>
       <h1>Liste des Animaux</h1>
       {animals.map((animal) => (
         <div key={animal.id}>
@@ -934,67 +886,8 @@ return (
           )}
         </div>
       ))}
-</div>
-<div className='container bg-dark'>
-    <h2 className="text-light text-decoration-underline mt-4">Ajouter un enregistrement vétérinaire</h2>
-      <form onSubmit={handleAddVetRecord}>
-        <div className="form-group">
-          <label htmlFor="health_status" className="text-light">État de santé</label>
-          <input
-            type="text"
-            id="health_status"
-            className="form-control"
-            value={newVetRecord.health_status}
-            onChange={(e) => setNewVetRecord({ ...newVetRecord, health_status: e.target.value })}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="food" className="text-light">Nourriture proposée</label>
-          <input
-            type="text"
-            id="food"
-            className="form-control"
-            value={newVetRecord.food}
-            onChange={(e) => setNewVetRecord({ ...newVetRecord, food: e.target.value })}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="food_amount" className="text-light">Grammage de la nourriture</label>
-          <input
-            type="text"
-            id="food_amount"
-            className="form-control"
-            value={newVetRecord.food_amount}
-            onChange={(e) => setNewVetRecord({ ...newVetRecord, food_amount: e.target.value })}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="visit_date" className="text-light">Date de visite</label>
-          <input
-            type="date"
-            id="visit_date"
-            className="form-control"
-            value={newVetRecord.visit_date}
-            onChange={(e) => setNewVetRecord({ ...newVetRecord, visit_date: e.target.value })}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="details" className="text-light">Détails</label>
-          <textarea
-            id="details"
-            className="form-control"
-            value={newVetRecord.details}
-            onChange={(e) => setNewVetRecord({ ...newVetRecord, details: e.target.value })}
-          />
-        </div>
-        <button type="submit" className="btn btn-primary mt-2">Ajouter</button>
-      </form>
-      </div>
     </div>
+      </div>
     </>
   );
 };
