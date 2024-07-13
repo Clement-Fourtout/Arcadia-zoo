@@ -577,12 +577,12 @@ const fetchAnimal = async () => {
 };
 
 useEffect(() => {
-  fetchVetRecords();
-}, []);
+  fetchVetRecords(animalId);
+}, [animalId]);
 
-const fetchVetRecords = async () => {
+const fetchVetRecords = async (animalId) => {
   try {
-    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords');
+    const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords/${animalId}`);
     if (!response.ok) {
       throw new Error('Erreur lors du chargement des enregistrements vétérinaires');
     }
@@ -1031,8 +1031,8 @@ return (
       {/* Liste des enregistrements vétérinaires */}
       {/* Affichage des enregistrements vétérinaires */}
       {/* Affichage des enregistrements vétérinaires pour l'animal sélectionné */}
- <div className="container">
-      <h1>Liste des enregistrements vétérinaires</h1>
+      <div className="container">
+      <h2>Liste des enregistrements vétérinaires pour l'animal {animalId}</h2>
       {vetRecords.length > 0 ? (
         vetRecords.map((record) => (
           <div key={record.id} className="vet-record border text-light p-3 my-2">
@@ -1041,16 +1041,10 @@ return (
             <p><strong>Nourriture proposée:</strong> {record.food}</p>
             <p><strong>Grammage de la nourriture:</strong> {record.food_amount}</p>
             <p><strong>Détails:</strong> {record.details}</p>
-            <button type="button" className="btn btn-info mt-2">
-              Modifier
-            </button>
-            <button type="button" className="btn btn-danger mt-2 ml-2">
-              Supprimer
-            </button>
           </div>
         ))
       ) : (
-        <p>Aucun enregistrement vétérinaire trouvé.</p>
+        <p>Aucun enregistrement vétérinaire trouvé pour cet animal.</p>
       )}
     </div>
     </div>
