@@ -627,7 +627,37 @@ if (!animal) {
   return <div>Chargement...</div>;
 }
 
+const handleAddVetRecord = async (event) => {
+  event.preventDefault();
 
+  try {
+    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/vet_records', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(newVetRecord),
+    });
+
+    if (!response.ok) {
+      throw new Error('Erreur lors de l\'ajout de l\'enregistrement vétérinaire');
+    }
+
+    const data = await response.json();
+    fetchAnimals();
+    setNewVetRecord({
+      health_status: '',
+      food: '',
+      food_amount: '',
+      visit_date: '',
+      details: ''
+    });
+    setSuccessMessageVisible(true);
+  } catch (error) {
+    console.error('Erreur lors de l\'ajout de l\'enregistrement vétérinaire :', error);
+  }
+};
 
 return (
   <>
@@ -881,6 +911,55 @@ return (
   </ul>
 </div>
 {/*Données Vétérinaires*/}
+<div>
+      <form onSubmit={handleAddVetRecord}>
+        <label>
+          Health Status:
+          <input
+            type="text"
+            value={newVetRecord.health_status}
+            onChange={(e) => setNewVetRecord({ ...newVetRecord, health_status: e.target.value })}
+            required
+          />
+        </label>
+        <label>
+          Food:
+          <input
+            type="text"
+            value={newVetRecord.food}
+            onChange={(e) => setNewVetRecord({ ...newVetRecord, food: e.target.value })}
+            required
+          />
+        </label>
+        <label>
+          Food Amount:
+          <input
+            type="number"
+            value={newVetRecord.food_amount}
+            onChange={(e) => setNewVetRecord({ ...newVetRecord, food_amount: e.target.value })}
+            required
+          />
+        </label>
+        <label>
+          Visit Date:
+          <input
+            type="date"
+            value={newVetRecord.visit_date}
+            onChange={(e) => setNewVetRecord({ ...newVetRecord, visit_date: e.target.value })}
+            required
+          />
+        </label>
+        <label>
+          Details:
+          <textarea
+            value={newVetRecord.details}
+            onChange={(e) => setNewVetRecord({ ...newVetRecord, details: e.target.value })}
+            required
+          />
+        </label>
+        <button type="submit">Ajouter l'enregistrement vétérinaire</button>
+      </form>
+    </div>
 <div>
       <h1>Liste des Animaux</h1>
       {animals.map((animal) => (
