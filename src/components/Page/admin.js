@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Logo from '../styles/Logo/Arcadia Zoo.png';
 import Nav from '../Nav';
 import AvisEnAttente from './AvisEnAttente';
-import { useParams } from 'react-router-dom';
 
 export default function Admin() {
   const [nom, setNom] = useState('');
@@ -18,10 +17,7 @@ export default function Admin() {
   const [newHabitat, setNewHabitat] = useState({name: '', description: '', image: '', animal_list: '' });
   const [newAnimal, setNewAnimal] = useState({name: '', species: '', age: '', habitat_id: '',image: null });
   const [animal, setAnimal] = useState([]);
-  const [animalId, setAnimalId] = useState('');
-  const [vetRecordData, setVetRecordData] = useState({health_status: '', food: '', food_amount: '', visit_date: '', details: '', });
-  const [isUpdateMode, setIsUpdateMode] = useState(false);
-  const { id } = useParams();
+
   const [animals, setAnimals] = useState([]);
 
   useEffect(() => {
@@ -606,10 +602,15 @@ const handleDeleteVetRecord = async (vetRecordId) => {
     }
 
     // Mettre à jour l'état pour refléter la suppression
-    setAnimal(prevAnimal => ({
-      ...prevAnimal,
-      vetRecords: prevAnimal.vetRecords.filter(record => record.id !== vetRecordId),
-    }));
+    setAnimal(prevAnimal => {
+      if (!prevAnimal || !prevAnimal.vetRecords) {
+        return prevAnimal;
+      }
+      return {
+        ...prevAnimal,
+        vetRecords: prevAnimal.vetRecords.filter(record => record.id !== vetRecordId),
+      };
+    });
   } catch (error) {
     console.error('Erreur lors de la suppression de l\'enregistrement vétérinaire :', error);
     // Gérer les erreurs ici
