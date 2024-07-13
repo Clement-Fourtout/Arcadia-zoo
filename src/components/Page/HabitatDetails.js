@@ -54,7 +54,7 @@ const HabitatDetails = () => {
               <div className="col-lg-12">
                 <h5 className="text-light text-left mt-3"><em>Espèce :</em> {animal.species}</h5>
                 <h5 className="text-light text-left mt-3"><em>Âge :</em> {animal.age}</h5>
-                <button onClick={() => handleMoreInfo(animal.id)}>En savoir plus</button>
+                <button onClick={() => handleMoreInfo(animal.id)} className="btn btn-info mt-2">En savoir plus</button>
               </div>
             </div>
           ))

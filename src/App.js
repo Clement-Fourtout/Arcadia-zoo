@@ -33,7 +33,7 @@ function App() {
       <Route path='politique' element={<Politique/>} />
       <Route path='mentions' element={<MentionsLégales/>} />
       <Route path="parc/:id" element={<HabitatDetails />} />
-      <Route path="/animal/:id" component={AnimalDetails} />
+      <Route path="animals/:id" element={<AnimalDetails />} />
     </Routes>
     <Main></Main>
     <Avis></Avis>
