@@ -7,7 +7,7 @@ const HabitatDetails = () => {
   const [habitat, setHabitat] = useState(null);
   const [animals, setAnimals] = useState([]);
   const handleClick = () => {
-    navigate.push('/new-route');
+    navigate('/new-route');
   };
 
   useEffect(() => {
