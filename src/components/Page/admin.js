@@ -18,14 +18,11 @@ export default function Admin() {
   const [newAnimal, setNewAnimal] = useState({name: '', species: '', age: '', habitat_id: '',image: null });
   const [animal, setAnimal] = useState([]);
   const [animals, setAnimals] = useState([]);
-  const [newVetRecord, setNewVetRecord] = useState({
-    health_status: '',
-    food: '',
-    food_amount: '',
-    visit_date: '',
-    details: ''
-  });
-
+  const [animalId, setAnimalId] = useState('');
+  const [healthStatus, setHealthStatus] = useState('');
+  const [food, setFood] = useState('');
+  const [foodAmount, setFoodAmount] = useState('');
+  const [visitDate, setVisitDate] = useState('');
   useEffect(() => {
     async function fetchUserData() {
       const userIdFromStorage = localStorage.getItem('userId');
@@ -631,31 +628,34 @@ const handleAddVetRecord = async (event) => {
   event.preventDefault();
 
   try {
-    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/vet_records', {
+    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
       },
-      body: JSON.stringify(newVetRecord),
+      body: JSON.stringify({
+        animal_id: animalId,
+        health_status: healthStatus,
+        food: food,
+        food_amount: foodAmount,
+        visit_date: visitDate,
+      }),
     });
 
     if (!response.ok) {
-      throw new Error('Erreur lors de l\'ajout de l\'enregistrement vétérinaire');
+      throw new Error('Erreur lors de l\'ajout des données vétérinaires');
     }
 
-    const data = await response.json();
-    fetchAnimals();
-    setNewVetRecord({
-      health_status: '',
-      food: '',
-      food_amount: '',
-      visit_date: '',
-      details: ''
-    });
-    setSuccessMessageVisible(true);
+    alert('Données vétérinaires ajoutées avec succès!');
+    // Réinitialisez les champs du formulaire après l'ajout
+    setAnimalId('');
+    setHealthStatus('');
+    setFood('');
+    setFoodAmount('');
+    setVisitDate('');
   } catch (error) {
-    console.error('Erreur lors de l\'ajout de l\'enregistrement vétérinaire :', error);
+    console.error('Erreur lors de l\'ajout des données vétérinaires :', error);
+    alert('Erreur lors de l\'ajout des données vétérinaires');
   }
 };
 
@@ -911,53 +911,42 @@ return (
   </ul>
 </div>
 {/*Données Vétérinaires*/}
-<div>
+<div className="admin-container">
+      <h2>Ajouter des données vétérinaires</h2>
       <form onSubmit={handleAddVetRecord}>
         <label>
-          Health Status:
-          <input
-            type="text"
-            value={newVetRecord.health_status}
-            onChange={(e) => setNewVetRecord({ ...newVetRecord, health_status: e.target.value })}
+          Sélectionnez un animal :
+          <select
+            className="form-control"
+            value={animalId}
+            onChange={(e) => setAnimalId(e.target.value)}
             required
-          />
+          >
+            <option value="">Sélectionnez un animal</option>
+            {animals.map((animal) => (
+              <option key={animal.id} value={animal.id}>
+                {animal.name}
+              </option>
+            ))}
+          </select>
         </label>
         <label>
-          Food:
-          <input
-            type="text"
-            value={newVetRecord.food}
-            onChange={(e) => setNewVetRecord({ ...newVetRecord, food: e.target.value })}
-            required
-          />
+          État de santé :
+          <input type="text" value={healthStatus} onChange={(e) => setHealthStatus(e.target.value)} required />
         </label>
         <label>
-          Food Amount:
-          <input
-            type="number"
-            value={newVetRecord.food_amount}
-            onChange={(e) => setNewVetRecord({ ...newVetRecord, food_amount: e.target.value })}
-            required
-          />
+          Nourriture :
+          <input type="text" value={food} onChange={(e) => setFood(e.target.value)} required />
         </label>
         <label>
-          Visit Date:
-          <input
-            type="date"
-            value={newVetRecord.visit_date}
-            onChange={(e) => setNewVetRecord({ ...newVetRecord, visit_date: e.target.value })}
-            required
-          />
+          Quantité de nourriture :
+          <input type="text" value={foodAmount} onChange={(e) => setFoodAmount(e.target.value)} required />
         </label>
         <label>
-          Details:
-          <textarea
-            value={newVetRecord.details}
-            onChange={(e) => setNewVetRecord({ ...newVetRecord, details: e.target.value })}
-            required
-          />
+          Date de visite :
+          <input type="date" value={visitDate} onChange={(e) => setVisitDate(e.target.value)} required />
         </label>
-        <button type="submit">Ajouter l'enregistrement vétérinaire</button>
+        <button type="submit">Ajouter données vétérinaires</button>
       </form>
     </div>
 <div>
