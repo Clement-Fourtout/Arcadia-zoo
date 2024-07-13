@@ -17,7 +17,7 @@ export default function Admin() {
   const [habitats, setHabitats] = useState([]);
   const [newHabitat, setNewHabitat] = useState({name: '', description: '', image: '', animal_list: '' });
   const [newAnimal, setNewAnimal] = useState({name: '', species: '', age: '', habitat_id: '',image: null });
-  const [animals, setAnimals] = useState([]);
+  const [animals, setAnimal] = useState([]);
   const [animalId, setAnimalId] = useState('');
   const [vetRecordData, setVetRecordData] = useState({health_status: '', food: '', food_amount: '', visit_date: '', details: '', });
   const [isUpdateMode, setIsUpdateMode] = useState(false);
@@ -561,19 +561,20 @@ const handleDeleteAnimal = async (animalId) => {
 
 
 // Récupérer la liste des animaux depuis l'API
-const fetchAnimals = async () => {
+const fetchAnimal = async () => {
   try {
     const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${id}`);
     if (!response.ok) {
       throw new Error('Erreur lors de la récupération de l\'animal');
     }
     const data = await response.json();
-    setAnimals(data);;
+    setAnimal(data);;
   } catch (error) {
     console.error('Erreur lors du chargement des animaux :', error);
     // Gérer les erreurs ici
   }
 };
+
 
 const handleSubmit = async (event) => {
   event.preventDefault();
@@ -608,7 +609,7 @@ const handleSubmit = async (event) => {
 
     console.log('Enregistrement vétérinaire ajouté/mis à jour avec succès');
     clearForm();
-    fetchAnimals(); // Rafraîchir la liste des animaux après modification
+    fetchAnimal(); // Rafraîchir la liste des animaux après modification
 
     // Ajouter ici la logique pour informer l'utilisateur que l'ajout/mise à jour a réussi
   } catch (error) {
@@ -628,7 +629,7 @@ const handleDelete = async (id) => {
     }
 
     console.log('Enregistrement vétérinaire supprimé avec succès');
-    fetchAnimals(); // Rafraîchir la liste des animaux après suppression
+    fetchAnimal(); // Rafraîchir la liste des animaux après suppression
 
     // Ajouter ici la logique pour informer l'utilisateur que la suppression a réussi
   } catch (error) {
@@ -1015,7 +1016,7 @@ return (
       <h2>Liste des enregistrements vétérinaires</h2>
       {animals.map((animal) => (
   <div key={animal.id}>
-    {animal.vet_records.map((record) => (  // Utiliser vet_records au lieu de vetRecords
+    {animal.vetrecords.map((record) => (  // Utiliser vet_records au lieu de vetRecords
       <div key={record.id} className="vet-record border text-light p-3 my-2">
         <h3>Date de visite: {new Date(record.visit_date).toLocaleDateString()}</h3>
         <p><strong>État de santé:</strong> {record.health_status}</p>
