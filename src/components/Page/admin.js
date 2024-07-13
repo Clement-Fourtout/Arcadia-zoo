@@ -20,7 +20,7 @@ export default function Admin() {
   const [animals, setAnimals] = useState([]);
   const [animalId, setAnimalId] = useState('');
   const [vetRecordData, setVetRecordData] = useState({health_status: '', food: '', food_amount: '', visit_date: '', details: '', });
- 
+  const [vetRecordId, setVetRecordId] = useState('')
   const [isUpdateMode, setIsUpdateMode] = useState(false);
 
   useEffect(() => {
@@ -561,28 +561,21 @@ const handleDeleteAnimal = async (animalId) => {
 
 
 // Récupérer la liste des animaux depuis l'API
-useEffect(() => {
-  const fetchAnimals = async () => {
-    try {
-      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animals');
-      if (!response.ok) {
-        throw new Error('Erreur lors du chargement des animaux');
-      }
-      const data = await response.json();
-      setAnimals(data);
-    } catch (error) {
-      console.error('Erreur lors du chargement des animaux :', error);
-      // Gérer les erreurs ici
+const fetchAnimals = async () => {
+  try {
+    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animals');
+    if (!response.ok) {
+      throw new Error('Erreur lors du chargement des animaux');
     }
-  };
+    const data = await response.json();
+    setAnimals(data);
+  } catch (error) {
+    console.error('Erreur lors du chargement des animaux :', error);
+  }
+};
 
-  fetchAnimals();
-}, []);
-
-// Soumettre l'enregistrement vétérinaire (ajout)
 const handleAddSubmit = async (event) => {
   event.preventDefault();
-
   try {
     const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords', {
       method: 'POST',
@@ -604,20 +597,16 @@ const handleAddSubmit = async (event) => {
     }
 
     console.log('Enregistrement vétérinaire ajouté avec succès');
-    // Réinitialiser le formulaire après soumission réussie
     resetForm();
   } catch (error) {
     console.error('Erreur lors de l\'ajout de l\'enregistrement vétérinaire :', error);
-    // Gérer l'erreur ici (affichage d'un message d'erreur, etc.)
   }
 };
 
-// Soumettre la mise à jour de l'enregistrement vétérinaire
 const handleUpdateSubmit = async (event) => {
   event.preventDefault();
-
   try {
-    const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords/${animalId}`, {
+    const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords/${vetRecordId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -636,15 +625,30 @@ const handleUpdateSubmit = async (event) => {
     }
 
     console.log('Enregistrement vétérinaire mis à jour avec succès');
-    // Réinitialiser le formulaire après soumission réussie
     resetForm();
   } catch (error) {
     console.error('Erreur lors de la mise à jour de l\'enregistrement vétérinaire :', error);
-    // Gérer l'erreur ici (affichage d'un message d'erreur, etc.)
   }
 };
 
-// Réinitialiser le formulaire et l'état de mise à jour
+const handleDelete = async (vetRecordId) => {
+  try {
+    const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords/${vetRecordId}`, {
+      method: 'DELETE',
+    });
+
+    if (!response.ok) {
+      throw new Error('Erreur lors de la suppression de l\'enregistrement vétérinaire');
+    }
+
+    console.log('Enregistrement vétérinaire supprimé avec succès');
+    // Actualiser la liste des enregistrements après la suppression
+    fetchAnimals(); // Recharger la liste des animaux après suppression
+  } catch (error) {
+    console.error('Erreur lors de la suppression de l\'enregistrement vétérinaire :', error);
+  }
+};
+
 const resetForm = () => {
   setVetRecordData({
     health_status: '',
@@ -657,7 +661,6 @@ const resetForm = () => {
   setIsUpdateMode(false);
 };
 
-// Gestion des changements dans le formulaire
 const handleChange = (e) => {
   const { name, value } = e.target;
   setVetRecordData((prevData) => ({
@@ -930,8 +933,9 @@ return (
             value={animalId}
             onChange={(e) => {
               setAnimalId(e.target.value);
-              setIsUpdateMode(false); // Réinitialiser le mode mise à jour lorsqu'on sélectionne un nouvel animal
-              resetForm(); // Réinitialiser les données du formulaire lors du changement d'animal
+              setVetRecordId(''); // Réinitialiser l'ID de l'enregistrement vétérinaire lors de la sélection d'un nouvel animal
+              setIsUpdateMode(false);
+              resetForm();
             }}
             required
           >
@@ -1009,11 +1013,43 @@ return (
           )}
         </div>
       </form>
-      {isUpdateMode && (
-        <div className="alert alert-info mt-3">
-          Vous êtes en mode mise à jour. Vous pouvez modifier les informations existantes.
-        </div>
-      )}
+
+      {/* Liste des enregistrements vétérinaires */}
+      <div className="mt-5">
+        <h2>Liste des enregistrements vétérinaires</h2>
+        <ul className="list-group">
+          {animals.map((animal) => (
+            <li key={animal.id} className="list-group-item">
+              <div>
+                <strong>Animal :</strong> {animal.name}
+              </div>
+              <div>
+                <strong>État de santé :</strong> {animal.health_status}
+              </div>
+              <div>
+                <strong>Nourriture proposée :</strong> {animal.food}
+              </div>
+              <div>
+                <strong>Quantité de nourriture :</strong> {animal.food_amount}
+              </div>
+              <div>
+                <strong>Date de visite :</strong> {animal.visit_date}
+              </div>
+              <div>
+                <strong>Détails :</strong> {animal.details}
+              </div>
+              <div className="mt-2">
+                <button
+                  className="btn btn-danger"
+                  onClick={() => handleDelete(animal.id)}
+                >
+                  Supprimer
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
       </div>
     </>
