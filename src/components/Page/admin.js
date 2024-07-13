@@ -23,13 +23,8 @@ export default function Admin() {
   const [food, setFood] = useState('');
   const [foodAmount, setFoodAmount] = useState('');
   const [visitDate, setVisitDate] = useState('');
-  const [vetRecordData, setVetRecordData] = useState({
-    health_status: '',
-    food: '',
-    food_amount: '',
-    visit_date: '',
-    details: '', });
-    const { id } = useParams();
+  const [vetRecordData, setVetRecordData] = useState({health_status: '', food: '', food_amount: '', visit_date: '', details: '', });
+  const { id } = useParams();
 
   useEffect(() => {
     async function fetchUserData() {
@@ -975,6 +970,20 @@ return (
         e.preventDefault();
         updateVetRecord();
       }}>
+          <label>Sélectionnez un animal :</label>
+          <select
+            className="form-control"
+            value={animalId}
+            onChange={(e) => setAnimalId(e.target.value)}
+            required
+          >
+            <option value="">Sélectionnez un animal</option>
+            {animals.map((animal) => (
+              <option key={animal.id} value={animal.id}>
+                {animal.name}
+              </option>
+            ))}
+          </select>
         <div className="form-group">
           <label htmlFor="health_status">État de santé</label>
           <input
