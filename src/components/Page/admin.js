@@ -22,7 +22,9 @@ export default function Admin() {
   const [vetRecordData, setVetRecordData] = useState({health_status: '', food: '', food_amount: '', visit_date: '', details: '', });
   const [vetRecordId, setVetRecordId] = useState('')
   const [isUpdateMode, setIsUpdateMode] = useState(false);
-
+  const [vetRecords, setVetRecords] = useState([]);
+  const [error, setError] = useState(null);
+  
   useEffect(() => {
     async function fetchUserData() {
       const userIdFromStorage = localStorage.getItem('userId');
@@ -631,24 +633,43 @@ const handleUpdateSubmit = async (event) => {
   }
 };
 
-const handleDelete = async (vetRecordId) => {
+const fetchVetRecords = async () => {
   try {
-    const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords/${vetRecordId}`, {
-      method: 'DELETE',
-    });
-
+    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords');
     if (!response.ok) {
-      throw new Error('Erreur lors de la suppression de l\'enregistrement vétérinaire');
+      throw new Error('Erreur lors de la récupération des enregistrements vétérinaires');
     }
-
-    console.log('Enregistrement vétérinaire supprimé avec succès');
-    // Actualiser la liste des enregistrements après la suppression
-    fetchAnimals(); // Recharger la liste des animaux après suppression
+    const data = await response.json();
+    setVetRecords(data);
   } catch (error) {
-    console.error('Erreur lors de la suppression de l\'enregistrement vétérinaire :', error);
+    console.error('Erreur lors de la récupération des enregistrements vétérinaires :', error);
+    setError('Erreur lors de la récupération des enregistrements vétérinaires');
   }
 };
 
+// Fonction pour supprimer un enregistrement vétérinaire
+const deleteVetRecord = async (id) => {
+  try {
+    const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords/${id}`, {
+      method: 'DELETE',
+    });
+    if (!response.ok) {
+      throw new Error('Erreur lors de la suppression de l\'enregistrement vétérinaire');
+    }
+    console.log(`Enregistrement vétérinaire avec l'ID ${id} supprimé avec succès`);
+    // Actualiser la liste des enregistrements après la suppression
+    setVetRecords(vetRecords.filter(record => record.id !== id));
+  } catch (error) {
+    console.error('Erreur lors de la suppression de l\'enregistrement vétérinaire :', error);
+    setError('Erreur lors de la suppression de l\'enregistrement vétérinaire');
+  }
+};
+
+// Appeler fetchAnimals et fetchVetRecords au chargement du composant
+useEffect(() => {
+  fetchAnimals();
+  fetchVetRecords();
+}, []);
 const resetForm = () => {
   setVetRecordData({
     health_status: '',
@@ -668,6 +689,7 @@ const handleChange = (e) => {
     [name]: value,
   }));
 };
+
 
 return (
   <>
@@ -1015,41 +1037,42 @@ return (
       </form>
 
       {/* Liste des enregistrements vétérinaires */}
-      <div className="mt-5">
-        <h2>Liste des enregistrements vétérinaires</h2>
-        <ul className="list-group">
-          {animals.map((animal) => (
-            <li key={animal.id} className="list-group-item">
-              <div>
-                <strong>Animal :</strong> {animal.name}
-              </div>
-              <div>
-                <strong>État de santé :</strong> {animal.health_status}
-              </div>
-              <div>
-                <strong>Nourriture proposée :</strong> {animal.food}
-              </div>
-              <div>
-                <strong>Quantité de nourriture :</strong> {animal.food_amount}
-              </div>
-              <div>
-                <strong>Date de visite :</strong> {animal.visit_date}
-              </div>
-              <div>
-                <strong>Détails :</strong> {animal.details}
-              </div>
-              <div className="mt-2">
+      {/* Affichage des enregistrements vétérinaires */}
+      <h2>Enregistrements Vétérinaires</h2>
+      {error && <div className="alert alert-danger">{error}</div>}
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Animal</th>
+            <th>État de santé</th>
+            <th>Nourriture</th>
+            <th>Quantité de nourriture</th>
+            <th>Date de visite</th>
+            <th>Détails</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {vetRecords.map(record => (
+            <tr key={record.id}>
+              <td>{record.animal_id}</td>
+              <td>{record.health_status}</td>
+              <td>{record.food}</td>
+              <td>{record.food_amount}</td>
+              <td>{record.visit_date}</td>
+              <td>{record.details}</td>
+              <td>
                 <button
                   className="btn btn-danger"
-                  onClick={() => handleDelete(animal.id)}
+                  onClick={() => deleteVetRecord(record.id)}
                 >
                   Supprimer
                 </button>
-              </div>
-            </li>
+              </td>
+            </tr>
           ))}
-        </ul>
-      </div>
+        </tbody>
+      </table>
     </div>
       </div>
     </>
