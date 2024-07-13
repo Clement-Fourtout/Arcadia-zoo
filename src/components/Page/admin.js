@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Logo from '../styles/Logo/Arcadia Zoo.png';
 import Nav from '../Nav';
 import AvisEnAttente from './AvisEnAttente';
-import { useHistory } from 'react-router-dom';
 
 export default function Admin() {
   const [nom, setNom] = useState('');
@@ -560,8 +559,6 @@ const handleDeleteAnimal = async (animalId) => {
   }
 };
 
-//Section vétérinaire
-const history = useHistory();
 
 // Récupérer la liste des animaux depuis l'API
 const fetchAnimals = async () => {
@@ -605,8 +602,7 @@ const handleSubmit = async (event) => {
       throw new Error('Erreur lors de l\'ajout de l\'enregistrement vétérinaire');
     }
 
-    // Rediriger l'utilisateur vers une autre page après l'ajout
-    history.push('/'); // À adapter en fonction de votre logique de navigation
+
 
     console.log('Enregistrement vétérinaire ajouté avec succès');
     // Ajoutez ici la logique pour informer l'utilisateur que l'ajout a réussi
