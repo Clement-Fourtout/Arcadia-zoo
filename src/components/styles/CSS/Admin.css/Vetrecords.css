@@ -8,7 +8,7 @@
 }
 
 .vet-records-table {
-  width: 75%; /* Utilise 100% par défaut, mais ajuste en fonction de la largeur maximale souhaitée */
+  width: 100%; /* Utilise 100% par défaut, mais ajuste en fonction de la largeur maximale souhaitée */
   border-collapse: collapse;
   margin-top: 10px;
 }
