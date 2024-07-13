@@ -982,10 +982,10 @@ return (
       </form>
     </div>
     <div>
-      <h1 className='mt-2'>Enregistrements vétérinaires</h1>
+      <h1 className='mt-3'>Enregistrements vétérinaires</h1>
       {animals.map((animal) => (
         <div key={animal.id}>
-          <h2 className='mt-2'>{animal.name}</h2>
+          <h2 className='mt-5'>{animal.name}</h2>
           {animal.vetRecords && animal.vetRecords.length > 0 ? (
             <div className="vet-records-container">
               <table className="vet-records-table">
