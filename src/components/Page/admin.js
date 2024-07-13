@@ -857,7 +857,6 @@ return (
   </ul>
 </div>
 <div className="container">
-      <h1>Admin Page</h1>
       {selectedRecordId ? (
         <EditVetRecord recordId={selectedRecordId} onSave={handleSave} token={token} />
       ) : (
