@@ -461,7 +461,7 @@ function extractAnimalIdFromUrl() {
 // Fonction pour récupérer les vues d'un animal depuis l'API
 async function getAnimalViews(animalId) {
   try {
-      const response = await fetch(`https://api.example.com/animalviews/${animalId}`);
+      const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animalviews/${animalId}`);
       if (!response.ok) {
           throw new Error('Erreur lors de la récupération des vues de l\'animal.');
       }
@@ -475,7 +475,7 @@ async function getAnimalViews(animalId) {
 // Fonction pour ajouter des vues à un animal via l'API
 async function addAnimalViews(animalId) {
   try {
-      const response = await fetch(`https://api.example.com/animalviews/${animalId}`, {
+      const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animalviews/${animalId}`, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'
@@ -501,7 +501,7 @@ function displayAnimalViews(views) {
 // Fonction pour rafraîchir les statistiques des animaux depuis l'API
 async function refreshAnimalStats() {
   try {
-      const response = await fetch('https://api.example.com/animals/stats');
+      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animals/stats');
       if (!response.ok) {
           throw new Error('Erreur lors de la récupération des statistiques des animaux.');
       }
