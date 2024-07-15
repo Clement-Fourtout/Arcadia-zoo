@@ -25,6 +25,7 @@ export default function Admin() {
   const [food, setFood] = useState('');
   const [foodAmount, setFoodAmount] = useState('');
   const [visitDate, setVisitDate] = useState('');
+  const [animalStats, setAnimalStats] = useState([]);
 
   useEffect(() => {
     async function fetchUserData() {
@@ -441,29 +442,76 @@ const handleDeleteAnimal = async (animalId) => {
   }
 };
 
+useEffect(() => {
+  fetchAnimalStats();
+}, []);
 
+const fetchAnimalStats = async () => {
+  try {
+      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animals/stats');
+
+      if (!response.ok) {
+          throw new Error('Erreur lors de la récupération des statistiques');
+      }
+
+      const data = await response.json();
+      setAnimalStats(data.animals); // Mettre à jour le state avec les données des animaux
+  } catch (error) {
+      console.error('Erreur lors de la récupération des statistiques :', error);
+  }
+};
+
+const incrementConsultations = async (animalId) => {
+  try {
+      const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${animalId}/consultations`, {
+          method: 'POST'
+      });
+
+      if (!response.ok) {
+          throw new Error('Erreur lors de l\'incrémentation des consultations');
+      }
+
+      fetchAnimalStats(); // Rafraîchir les statistiques après l'incrémentation
+  } catch (error) {
+      console.error('Erreur lors de l\'incrémentation des consultations :', error);
+      // Gérer les erreurs ici
+  }
+};
 
 // Récupérer la liste des animaux depuis l'API
 useEffect(() => {
-  const fetchAnimals = async () => {
-    try {
-      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animals');
-      if (!response.ok) {
-        throw new Error('Erreur lors de la récupération des animaux');
-      }
-      const data = await response.json();
-      setAnimals(data); // Mettre à jour la liste des animaux
-    } catch (error) {
-      console.error('Erreur lors de la récupération des animaux :', error);
-    }
-  };
-
   fetchAnimals();
 }, []);
 
-if (!animal) {
+const fetchAnimals = async () => {
+  try {
+    const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animals');
+    if (!response.ok) {
+      throw new Error('Erreur lors du chargement des animaux');
+    }
+    const data = await response.json();
+
+    // Récupérer les détails des animaux avec leurs enregistrements vétérinaires
+    const animalsWithVetRecords = await Promise.all(data.map(async (animal) => {
+      const animalResponse = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${animal.id}`);
+      if (!animalResponse.ok) {
+        throw new Error(`Erreur lors du chargement des détails de l'animal ${animal.id}`);
+      }
+      const animalData = await animalResponse.json();
+      return animalData;
+    }));
+
+    setAnimals(animalsWithVetRecords);
+  } catch (error) {
+    console.error('Erreur lors du chargement des animaux :', error);
+    // Gérer les erreurs ici
+  }
+};
+
+if (animals.length === 0) {
   return <div>Chargement...</div>;
 }
+
 const handleDeleteVetRecord = async (vetRecordId) => {
   try {
     const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords/${vetRecordId}`, {
@@ -490,6 +538,9 @@ const handleDeleteVetRecord = async (vetRecordId) => {
   }
 };
 
+if (!animal) {
+  return <div>Chargement...</div>;
+}
 
 const handleAddVetRecord = async (event) => {
   event.preventDefault();
@@ -906,6 +957,21 @@ return (
         </div>
       ))}
     </div>
+    <div className="admin-page">
+            <h1>Statistiques des consultations des animaux</h1>
+            <div className="animal-stats">
+                {animalStats.map(animal => (
+                    <div key={animal._id} className="animal-item">
+                        <h3>Nom de l'animal</h3>
+                        <p>Animal ID: {animal._id}</p>
+                        <p>Consultations: {animal.consultations}</p>
+                        <button onClick={() => incrementConsultations(animal._id)}>
+                            Incrémenter les consultations
+                        </button>
+                    </div>
+                ))}
+            </div>
+        </div>
       </div>
     </>
   );
