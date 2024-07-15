@@ -8,19 +8,20 @@ const HabitatDetails = () => {
   const [animals, setAnimals] = useState([]);
   
   const handleMoreInfo = (animalId) => {
-    // Naviguer vers la page des détails de l'animal
+    console.log('Animal ID:', animalId); // Log l'ID pour vérifier qu'il est correct
     navigate(`/animals/${animalId}`);
-    // Incrémenter les consultations
     incrementConsultations(animalId);
   };
 
   const incrementConsultations = async (animalId) => {
     try {
-      await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animalviews', {
+      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animalviews', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ animalId }),
       });
+      const data = await response.json();
+      console.log('Response from server:', data); // Log la réponse du serveur
     } catch (error) {
       console.error('Erreur lors de l\'incrémentation des consultations:', error);
     }
