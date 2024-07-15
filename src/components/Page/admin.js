@@ -446,21 +446,21 @@ useEffect(() => {
   fetchAnimalStats();
 }, []);
 
-// Fetch animal stats (example with placeholder URL)
 const fetchAnimalStats = async () => {
   try {
       const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animals/stats');
+
       if (!response.ok) {
           throw new Error('Erreur lors de la récupération des statistiques');
       }
+
       const data = await response.json();
-      setAnimalStats(data);
+      setAnimalStats(data.animals); // Mettre à jour le state avec les données des animaux
   } catch (error) {
       console.error('Erreur lors de la récupération des statistiques :', error);
   }
 };
 
-// Function to increment consultations (example with placeholder URL)
 const incrementConsultations = async (animalId) => {
   try {
       const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${animalId}/consultations`, {
@@ -961,11 +961,11 @@ return (
             <h1>Statistiques des consultations des animaux</h1>
             <div className="animal-stats">
                 {animalStats.map(animal => (
-                    <div key={animal.animalId} className="animal-item">
+                    <div key={animal._id} className="animal-item">
                         <h3>Nom de l'animal</h3>
-                        <p>Animal ID: {animal.animalId}</p>
+                        <p>Animal ID: {animal._id}</p>
                         <p>Consultations: {animal.consultations}</p>
-                        <button onClick={() => incrementConsultations(animal.animalId)}>
+                        <button onClick={() => incrementConsultations(animal._id)}>
                             Incrémenter les consultations
                         </button>
                     </div>
