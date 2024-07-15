@@ -8,6 +8,7 @@ const AnimalDetails = () => {
   useEffect(() => {
     const fetchAnimal = async () => {
       try {
+        // Récupérer les détails de l'animal
         const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${id}`);
         if (!response.ok) {
           throw new Error('Erreur lors de la récupération de l\'animal');
@@ -15,22 +16,38 @@ const AnimalDetails = () => {
         const data = await response.json();
         setAnimal(data);
 
-        // Augmenter le compteur de consultations
-        await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${id}/increment`, {
-          method: 'POST',
-        });
+        // Incrémenter le compteur de consultations
+        await incrementConsultations(id);
       } catch (error) {
         console.error('Error fetching animal:', error);
       }
     };
 
     fetchAnimal();
-  }, [id]);
+  }, [id]); // Dépendance useEffect : recharger lorsque l'ID de l'animal change
 
+  // Fonction pour incrémenter les consultations
+  const incrementConsultations = async (animalId) => {
+    try {
+      const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animalviews/${animalId}`, {
+        method: 'POST',
+      });
+      if (!response.ok) {
+        throw new Error('Erreur lors de l\'incrémentation des consultations');
+      }
+      console.log('Consultations incremented successfully.');
+    } catch (error) {
+      console.error('Erreur lors de l\'incrémentation des consultations :', error);
+      // Gérer les erreurs ici
+    }
+  };
+
+  // Si l'animal est en cours de chargement, afficher un message de chargement
   if (!animal) {
     return <div>Chargement...</div>;
   }
 
+  // Si l'animal est chargé, afficher ses détails
   return (
     <div className="container-fluid bg-dark p-2 mt-1 mb-3 text-center">
       <h1 className="text-xl-center text-custom-savane text-decoration-underline font-weight-bold" style={{ marginBottom: "50px", marginTop: "25px" }}>

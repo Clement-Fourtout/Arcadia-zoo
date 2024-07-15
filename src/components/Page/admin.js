@@ -25,7 +25,7 @@ export default function Admin() {
   const [food, setFood] = useState('');
   const [foodAmount, setFoodAmount] = useState('');
   const [visitDate, setVisitDate] = useState('');
-  const [animalStats, setAnimalStats] = useState([]);
+
 
   useEffect(() => {
     async function fetchUserData() {
