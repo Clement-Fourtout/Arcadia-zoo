@@ -26,7 +26,8 @@ export default function Admin() {
   const [foodAmount, setFoodAmount] = useState('');
   const [visitDate, setVisitDate] = useState('');
   const [animalViews, setAnimalViews] = useState([]);
-
+  const [animalName, setAnimalName] = useState('');
+  
   useEffect(() => {
     async function fetchUserData() {
       const userIdFromStorage = localStorage.getItem('userId');
@@ -455,7 +456,7 @@ const handleDeleteAnimal = async (animalId) => {
       const data = await response.json();
       const promises = data.map(async (animalView) => {
         try {
-          const nameResponse = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${animal.id}`);
+          const nameResponse = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${animalId}`);
           if (!nameResponse.ok) {
             throw new Error('Failed to fetch animal name');
           }
