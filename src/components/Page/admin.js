@@ -448,7 +448,7 @@ useEffect(() => {
 
 // Fonction pour récupérer tous les animaux depuis l'API
 const fetchAnimalss = () => {
-  const url = 'https://api-zoo-22654ce4a3d5.herokuapp.com/animals';
+  const url = 'https://api-zoo-22654ce4a3d5.herokuapp.com/animalviews';
 
   fetch(url)
     .then(response => {
@@ -952,8 +952,8 @@ return (
       ))}
     </div>
     <div className="admin-container">
-        <h2>Nom de l'animal:</h2>
-        <h3>Vues totales: {getTotalViews()}</h3>
+        <h2>Nom de l'animal: {animal.name}</h2>
+        <h3>Vues totales: {getTotalViews}</h3>
       </div>
       </div>
     </>
