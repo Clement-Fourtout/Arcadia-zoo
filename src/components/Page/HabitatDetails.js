@@ -18,7 +18,7 @@ const HabitatDetails = () => {
       const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animalviews', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ animalId }),
+        body: JSON.stringify({ animalId: animalId.toString() }), // Convertir en chaîne de caractères
       });
       const data = await response.json();
       console.log('Response from server:', data); // Log la réponse du serveur
