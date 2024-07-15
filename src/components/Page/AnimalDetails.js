@@ -15,6 +15,12 @@ const AnimalDetails = () => {
         const data = await response.json();
         setAnimal(data);
 
+        // Augmenter le compteur de consultations
+        await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animalviews`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ animalId: id }),
+        });
       } catch (error) {
         console.error('Error fetching animal:', error);
       }
