@@ -463,15 +463,18 @@ const fetchAnimalStats = async () => {
 // Function to increment consultations (example with placeholder URL)
 const incrementConsultations = async (animalId) => {
   try {
-      const response = await fetch(`/api/animals/consult/${animalId}`, {
-          method: 'POST'
-      });
-      if (!response.ok) {
-          throw new Error('Erreur lors de l\'incrémentation des consultations');
-      }
-      fetchAnimalStats(); // Refresh stats after incrementing
+    const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${animalId}/increment`, {
+      method: 'POST'
+    });
+
+    if (!response.ok) {
+      throw new Error('Erreur lors de l\'incrémentation des consultations');
+    }
+
+    fetchAnimalStats(); // Rafraîchir les statistiques après l'incrémentation
   } catch (error) {
-      console.error('Erreur lors de l\'incrémentation des consultations :', error);
+    console.error('Erreur lors de l\'incrémentation des consultations :', error);
+    // Gérer les erreurs ici
   }
 };
 
