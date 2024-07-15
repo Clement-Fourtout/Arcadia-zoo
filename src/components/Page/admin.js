@@ -441,35 +441,24 @@ const handleDeleteAnimal = async (animalId) => {
     alert('Erreur lors de la suppression de l\'animal');
   }
 };
+// Afficher compteur d'incrémentation
+  useEffect(() => {
+    fetchAnimalViews();
+  }, []);
 
-useEffect(() => {
-  fetchAnimalss();
-}, []);
-
-// Fonction pour récupérer tous les animaux depuis l'API
-const fetchAnimalss = () => {
-  const url = 'https://api-zoo-22654ce4a3d5.herokuapp.com/animalviews';
-
-  fetch(url)
-    .then(response => {
+  const fetchAnimalViews = async () => {
+    try {
+      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animalviews'); // Assurez-vous que cette URL correspond à votre serveur Express
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        throw new Error('Failed to fetch animal views');
       }
-      return response.json();
-    })
-    .then(data => {
-      setAnimals(data); // Met à jour l'état avec les données des animaux
-    })
-    .catch(error => {
-      console.error('Error fetching animals:', error);
-      // Gestion des erreurs : afficher un message d'erreur ou autre logique
-    });
-};
+      const data = await response.json();
+      setAnimalViews(data);
+    } catch (error) {
+      console.error('Error fetching animal views:', error);
+    }
+  };
 
-// Fonction pour calculer le nombre total de vues pour tous les animaux
-const getTotalViews = () => {
-  return animals.reduce((total, animal) => total + parseInt(animal.viewCount), 0);
-};
 
 // Récupérer la liste des animaux depuis l'API
 useEffect(() => {
@@ -951,10 +940,17 @@ return (
         </div>
       ))}
     </div>
-    <div className="admin-container">
-        <h2>Nom de l'animal: {animal.name}</h2>
-        <h3>Vues totales: {getTotalViews}</h3>
-      </div>
+    <div>
+      <h1>Liste des vues par animal</h1>
+      <ul>
+        {animalViews.map((animal, index) => (
+          <li key={index}>
+            <p>Nom de l'animal : {animal.animalName}</p>
+            <p>Vues totales : {animal.viewCount}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
       </div>
     </>
   );
