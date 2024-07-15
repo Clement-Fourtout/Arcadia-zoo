@@ -463,7 +463,7 @@ const fetchAnimalStats = async () => {
 
 const incrementConsultations = async (animalId) => {
   try {
-      const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${animalId}/consultations`, {
+      const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${animalId}/increment`, {
           method: 'POST'
       });
 
@@ -961,11 +961,11 @@ return (
             <h1>Statistiques des consultations des animaux</h1>
             <div className="animal-stats">
                 {animalStats.map(animal => (
-                    <div key={animal._id} className="animal-item">
+                    <div key={animal.id} className="animal-item">
                         <h3>Nom de l'animal</h3>
-                        <p>Animal ID: {animal._id}</p>
-                        <p>Consultations: {animal.consultations}</p>
-                        <button onClick={() => incrementConsultations(animal._id)}>
+                        <p>Animal ID: {animal.id}</p>
+                        <p>Consultations: {animal.increment}</p>
+                        <button onClick={() => incrementConsultations(animal.id)}>
                             Incrémenter les consultations
                         </button>
                     </div>
