@@ -14,6 +14,7 @@ const AnimalDetails = () => {
         }
         const data = await response.json();
         setAnimal(data);
+
       } catch (error) {
         console.error('Error fetching animal:', error);
       }
@@ -21,27 +22,6 @@ const AnimalDetails = () => {
 
     fetchAnimal();
   }, [id]);
-
-  const incrementConsultations = async () => {
-    try {
-      const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animalviews/`, {
-        method: 'POST',
-      });
-
-      if (!response.ok) {
-        throw new Error('Erreur lors de l\'incrémentation des consultations');
-      }
-
-      // Mettre à jour l'animal pour refléter l'incrémentation (si nécessaire)
-      setAnimal(prevAnimal => ({
-        ...prevAnimal,
-        consultations: prevAnimal.consultations ? prevAnimal.consultations + 1 : 1,
-      }));
-    } catch (error) {
-      console.error('Erreur lors de l\'incrémentation des consultations :', error);
-      // Gérer les erreurs ici
-    }
-  };
 
   if (!animal) {
     return <div>Chargement...</div>;
@@ -60,7 +40,6 @@ const AnimalDetails = () => {
           <h3 className="text-xl text-align-center text-light text-decoration-underline mt-3">{animal.name}</h3>
           <h5 className="text-light text-left mt-3"><em>Espèce:</em> {animal.species}</h5>
           <h5 className="text-light text-left mt-3"><em>Âge:</em> {animal.age}</h5>
-          <button className="btn btn-primary mt-3" onClick={incrementConsultations}>En savoir plus</button>
         </div>
       </div>
       <h2 className="text-light text-decoration-underline">Enregistrements vétérinaires</h2>

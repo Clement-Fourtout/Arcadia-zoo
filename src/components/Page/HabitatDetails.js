@@ -6,8 +6,27 @@ const HabitatDetails = () => {
   const navigate = useNavigate();
   const [habitat, setHabitat] = useState(null);
   const [animals, setAnimals] = useState([]);
-  const handleMoreInfo = (id) => {
-    navigate(`/animals/${id}`); // Génère un lien dynamique basé sur l'ID de l'animal
+
+  const handleMoreInfo = async (animalId) => {
+    try {
+      // Navigation vers la page détaillée de l'animal
+      navigate(`/animals/${animalId}`);
+
+      // Incrémentation des consultations pour l'animal spécifié
+      const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${animalId}/increment`, {
+        method: 'POST'
+      });
+
+      if (!response.ok) {
+        throw new Error('Erreur lors de l\'incrémentation des consultations');
+      }
+
+      // Rafraîchir les données de l'habitat après l'incrémentation (si nécessaire)
+      // Vous pouvez mettre à jour les données de l'habitat ici si l'incrémentation doit être reflétée immédiatement
+    } catch (error) {
+      console.error('Erreur lors de l\'incrémentation des consultations:', error);
+      // Gérer les erreurs ici
+    }
   };
 
   useEffect(() => {
@@ -34,7 +53,6 @@ const HabitatDetails = () => {
 
     fetchHabitatAndAnimals();
   }, [id]);
-
 
   if (!habitat) {
     return <div>Chargement...</div>;
