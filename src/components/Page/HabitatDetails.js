@@ -6,7 +6,7 @@ const HabitatDetails = () => {
   const navigate = useNavigate();
   const [habitat, setHabitat] = useState(null);
   const [animals, setAnimals] = useState([]);
-  
+
   const handleMoreInfo = (animalId) => {
     console.log('Animal ID:', animalId); // Log l'ID pour vérifier qu'il est correct
     navigate(`/animals/${animalId}`);
