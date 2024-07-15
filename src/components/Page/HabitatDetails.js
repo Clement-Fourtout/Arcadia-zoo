@@ -6,26 +6,23 @@ const HabitatDetails = () => {
   const navigate = useNavigate();
   const [habitat, setHabitat] = useState(null);
   const [animals, setAnimals] = useState([]);
+  
+  const handleMoreInfo = (animalId) => {
+    // Naviguer vers la page des détails de l'animal
+    navigate(`/animals/${animalId}`);
+    // Incrémenter les consultations
+    incrementConsultations(animalId);
+  };
 
-  const handleMoreInfo = async (animalId) => {
+  const incrementConsultations = async (animalId) => {
     try {
-      // Navigation vers la page détaillée de l'animal
-      navigate(`/animals/${animalId}`);
-
-      // Incrémentation des consultations pour l'animal spécifié
-      const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animalviews`, {
-        method: 'POST'
+      await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animalviews', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ animalId }),
       });
-
-      if (!response.ok) {
-        throw new Error('Erreur lors de l\'incrémentation des consultations');
-      }
-
-      // Rafraîchir les données de l'habitat après l'incrémentation (si nécessaire)
-      // Vous pouvez mettre à jour les données de l'habitat ici si l'incrémentation doit être reflétée immédiatement
     } catch (error) {
       console.error('Erreur lors de l\'incrémentation des consultations:', error);
-      // Gérer les erreurs ici
     }
   };
 
