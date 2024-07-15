@@ -25,7 +25,7 @@ export default function Admin() {
   const [food, setFood] = useState('');
   const [foodAmount, setFoodAmount] = useState('');
   const [visitDate, setVisitDate] = useState('');
-
+  const [animalStats, setAnimalStats] = useState([]);
 
   useEffect(() => {
     async function fetchUserData() {
@@ -445,9 +445,11 @@ const handleDeleteAnimal = async (animalId) => {
 
 
 // Récupérer la liste des animaux depuis l'API
-// Fonction pour extraire l'ID de l'animal depuis l'URL
 
 
+if (animals.length === 0) {
+  return <div>Chargement...</div>;
+}
 
 const handleDeleteVetRecord = async (vetRecordId) => {
   try {
