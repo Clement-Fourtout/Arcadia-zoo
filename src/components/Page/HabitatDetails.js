@@ -13,7 +13,7 @@ const HabitatDetails = () => {
       navigate(`/animals/${animalId}`);
 
       // Incrémentation des consultations pour l'animal spécifié
-      const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${animalId}/increment`, {
+      const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animalviews`, {
         method: 'POST'
       });
 
