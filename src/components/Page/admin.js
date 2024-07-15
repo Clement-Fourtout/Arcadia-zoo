@@ -582,9 +582,6 @@ const handleDeleteVetRecord = async (vetRecordId) => {
   }
 };
 
-if (!animal) {
-  return <div>Chargement...</div>;
-}
 
 const handleAddVetRecord = async (event) => {
   event.preventDefault();
