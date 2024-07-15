@@ -8,6 +8,7 @@ const HabitatDetails = () => {
   const [animals, setAnimals] = useState([]);
 
   const handleMoreInfo = (animalId) => {
+    document.getElementById(`button-${animalId}`).disabled = true;
     console.log('Animal ID:', animalId); // Log l'ID pour vérifier qu'il est correct
     navigate(`/animals/${animalId}`);
     incrementConsultations(animalId);
@@ -70,7 +71,7 @@ const HabitatDetails = () => {
               <div className="col-lg-12">
                 <h5 className="text-light text-left mt-3"><em>Espèce :</em> {animal.species}</h5>
                 <h5 className="text-light text-left mt-3"><em>Âge :</em> {animal.age}</h5>
-                <button onClick={() => handleMoreInfo(animal.id)} className="btn btn-info mt-2">En savoir plus</button>
+                <button id={`button-${animal.id}`} onClick={() => handleMoreInfo(animal.id)} className="btn btn-info mt-2">En savoir plus</button>
               </div>
             </div>
           ))
