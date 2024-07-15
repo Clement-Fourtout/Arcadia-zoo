@@ -951,8 +951,8 @@ return (
         <ul>
           {animalViews.map(animal => (
             <li key={animal._id}>
-              <div>Nom de l'animal: {animal._id}</div>
-              <div>Vues totales: {animal.totalViews}</div>
+              <div>Nom de l'animal: {animal.name}</div>
+              <div>Vues totales: {animal.viewCount}</div>
             </li>
           ))}
         </ul>
