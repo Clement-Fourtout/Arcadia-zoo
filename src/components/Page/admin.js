@@ -455,7 +455,7 @@ const handleDeleteAnimal = async (animalId) => {
       const data = await response.json();
       const promises = data.map(async (animalView) => {
         try {
-          const nameResponse = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${animalView.animalId}/name`);
+          const nameResponse = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/:id`);
           if (!nameResponse.ok) {
             throw new Error('Failed to fetch animal name');
           }
