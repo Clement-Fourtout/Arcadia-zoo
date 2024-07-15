@@ -26,8 +26,7 @@ export default function Admin() {
   const [foodAmount, setFoodAmount] = useState('');
   const [visitDate, setVisitDate] = useState('');
   const [animalViews, setAnimalViews] = useState([]);
-  const [animalName, setAnimalName] = useState('');
-  
+
   useEffect(() => {
     async function fetchUserData() {
       const userIdFromStorage = localStorage.getItem('userId');
@@ -967,7 +966,7 @@ return (
       <ul>
         {animalViews.map((animalView, index) => (
           <li key={index}>
-            <p>Nom de l'animal : {animalView.animalName}</p>
+            <p>Nom de l'animal : {animal.name}</p>
             <p>Vues totales : {animalView.viewCount}</p>
           </li>
         ))}
