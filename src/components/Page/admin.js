@@ -25,6 +25,7 @@ export default function Admin() {
   const [food, setFood] = useState('');
   const [foodAmount, setFoodAmount] = useState('');
   const [visitDate, setVisitDate] = useState('');
+  const [animalViews, setAnimalViews] = useState([]);
 
   useEffect(() => {
     async function fetchUserData() {
@@ -441,7 +442,29 @@ const handleDeleteAnimal = async (animalId) => {
   }
 };
 
+useEffect(() => {
+  fetchAnimalViews();
+}, []);
 
+// Fonction pour récupérer les vues des animaux depuis l'API
+const fetchAnimalViews = () => {
+  const url = 'https://api-zoo-22654ce4a3d5.herokuapp.com/animalviews';
+
+  fetch(url)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      setAnimalViews(data); // Met à jour l'état avec les données récupérées
+    })
+    .catch(error => {
+      console.error('Error fetching animal views:', error);
+      // Gestion des erreurs : afficher un message d'erreur ou autre logique
+    });
+};
 
 // Récupérer la liste des animaux depuis l'API
 useEffect(() => {
@@ -541,6 +564,7 @@ const handleAddVetRecord = async (event) => {
     alert('Erreur lors de l\'ajout des données vétérinaires');
   }
 };
+
 
 
 
@@ -922,6 +946,17 @@ return (
         </div>
       ))}
     </div>
+    <div className="admin-container">
+        <h2>Vue des animaux les plus consultés</h2>
+        <ul>
+          {animalViews.map(animal => (
+            <li key={animal._id}>
+              <div>Nom de l'animal: {animal._id}</div>
+              <div>Vues totales: {animal.totalViews}</div>
+            </li>
+          ))}
+        </ul>
+      </div>
       </div>
     </>
   );
