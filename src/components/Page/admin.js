@@ -442,10 +442,115 @@ const handleDeleteAnimal = async (animalId) => {
   }
 };
 
+useEffect(() => {
+  fetchAnimalStats();
+}, []);
 
+const fetchAnimalStats = async () => {
+  try {
+      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animals/stats');
+
+      if (!response.ok) {
+          throw new Error('Erreur lors de la récupération des statistiques');
+      }
+
+      const data = await response.json();
+      setAnimalStats(data.animals); // Mettre à jour le state avec les données des animaux
+  } catch (error) {
+      console.error('Erreur lors de la récupération des statistiques :', error);
+  }
+};
+
+const incrementConsultations = async (animalId) => {
+  try {
+      const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${animalId}/increment`, {
+          method: 'POST'
+      });
+
+      if (!response.ok) {
+          throw new Error('Erreur lors de l\'incrémentation des consultations');
+      }
+
+      fetchAnimalStats(); // Rafraîchir les statistiques après l'incrémentation
+  } catch (error) {
+      console.error('Erreur lors de l\'incrémentation des consultations :', error);
+      // Gérer les erreurs ici
+  }
+};
 
 // Récupérer la liste des animaux depuis l'API
+function extractAnimalIdFromUrl() {
+    const url = window.location.href; // Obtient l'URL complète du navigateur
+    const parts = url.split('/'); // Divise l'URL en parties en utilisant le caractère '/'
+    const animalIdIndex = parts.indexOf('animals') + 1; // Trouve l'index juste après 'animals'
+    if (animalIdIndex < parts.length) {
+        const animalId = parts[animalIdIndex];
+        return animalId;
+    } else {
+        throw new Error('Animal ID non trouvé dans l\'URL.');
+    }
+}
 
+// Fonction pour récupérer les vues d'un animal depuis l'API
+async function getAnimalViews(animalId) {
+    try {
+        const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animalviews/${animalId}`);
+        if (!response.ok) {
+            throw new Error('Erreur lors de la récupération des vues de l\'animal.');
+        }
+        const data = await response.json();
+        return data.views;
+    } catch (error) {
+        throw error;
+    }
+}
+
+// Fonction pour ajouter des vues à un animal via l'API
+async function addAnimalViews(animalId) {
+    try {
+        const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animalviews/${animalId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ increment: 1 })
+        });
+        if (!response.ok) {
+            throw new Error('Erreur lors de l\'ajout de vues à l\'animal.');
+        }
+        const data = await response.json();
+        return data.message;
+    } catch (error) {
+        throw error;
+    }
+}
+
+// Fonction pour afficher les vues d'un animal dans l'interface utilisateur
+function displayAnimalViews(views) {
+    const animalViewsContainer = document.getElementById('animalViewsContainer');
+    animalViewsContainer.innerHTML = `<p>Nombre de vues : ${views}</p>`;
+}
+
+// Exemple d'utilisation
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const animalId = extractAnimalIdFromUrl();
+        console.log('ID de l\'animal:', animalId);
+
+        // Récupérer les vues de l'animal
+        const views = await getAnimalViews(animalId);
+        displayAnimalViews(views);
+
+        // Ajouter une vue à l'animal
+        const response = await addAnimalViews(animalId);
+        console.log(response); // Affiche le message de succès
+
+    } catch (error) {
+        console.error('Erreur:', error.message);
+        const animalViewsContainer = document.getElementById('animalViewsContainer');
+        animalViewsContainer.innerHTML = `<p>Erreur : ${error.message}</p>`;
+    }
+});
 
 if (animals.length === 0) {
   return <div>Chargement...</div>;
@@ -896,6 +1001,21 @@ return (
         </div>
       ))}
     </div>
+    <div className="admin-page">
+            <h1>Statistiques des consultations des animaux</h1>
+            <div className="animal-stats">
+                {animalStats.map(animal => (
+                    <div key={animal.id} className="animal-item">
+                        <h3>Nom de l'animal</h3>
+                        <p>Animal ID: {animal.id}</p>
+                        <p>Consultations: {animal.increment}</p>
+                        <button onClick={() => incrementConsultations(animal.id)}>
+                            Incrémenter les consultations
+                        </button>
+                    </div>
+                ))}
+            </div>
+        </div>
       </div>
     </>
   );
