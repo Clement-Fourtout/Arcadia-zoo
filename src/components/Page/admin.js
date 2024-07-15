@@ -453,12 +453,33 @@ const handleDeleteAnimal = async (animalId) => {
         throw new Error('Failed to fetch animal views');
       }
       const data = await response.json();
-      setAnimalViews(data);
+      const promises = data.map(async (animalView) => {
+        try {
+          const nameResponse = await fetch(`/animals/${animalView.animalId}/name`);
+          if (!nameResponse.ok) {
+            throw new Error('Failed to fetch animal name');
+          }
+          const { name } = await nameResponse.json();
+          return {
+            animalId: animalView.animalId,
+            viewCount: animalView.viewCount,
+            animalName: name
+          };
+        } catch (error) {
+          console.error('Error fetching animal name:', error);
+          return {
+            animalId: animalView.animalId,
+            viewCount: animalView.viewCount,
+            animalName: 'Unknown' // Afficher quelque chose en cas d'erreur
+          };
+        }
+      });
+      const resolvedViews = await Promise.all(promises);
+      setAnimalViews(resolvedViews);
     } catch (error) {
       console.error('Error fetching animal views:', error);
     }
   };
-
 
 // Récupérer la liste des animaux depuis l'API
 useEffect(() => {
@@ -943,10 +964,10 @@ return (
     <div>
       <h1>Liste des vues par animal</h1>
       <ul>
-        {animalViews.map((animal, index) => (
+        {animalViews.map((animalView, index) => (
           <li key={index}>
-            <p>Nom de l'animal : {animal.animalName}</p>
-            <p>Vues totales : {animal.viewCount}</p>
+            <p>Nom de l'animal : {animalView.animalName}</p>
+            <p>Vues totales : {animalView.viewCount}</p>
           </li>
         ))}
       </ul>
