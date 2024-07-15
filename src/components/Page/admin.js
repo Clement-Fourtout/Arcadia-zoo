@@ -538,9 +538,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 
-if (animals.length === 0) {
-  return <div>Chargement...</div>;
-}
 
 const handleDeleteVetRecord = async (vetRecordId) => {
   try {
