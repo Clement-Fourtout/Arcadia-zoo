@@ -25,7 +25,6 @@ export default function Admin() {
   const [food, setFood] = useState('');
   const [foodAmount, setFoodAmount] = useState('');
   const [visitDate, setVisitDate] = useState('');
-  const [animalStats, setAnimalStats] = useState([]);
 
   useEffect(() => {
     async function fetchUserData() {
@@ -446,20 +445,20 @@ const handleDeleteAnimal = async (animalId) => {
 
 // Récupérer la liste des animaux depuis l'API
 useEffect(() => {
-  const fetchAnimal = async (id) => {
+  const fetchAnimals = async () => {
     try {
-      const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${id}`);
+      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animals');
       if (!response.ok) {
-        throw new Error('Erreur lors de la récupération de l\'animal');
+        throw new Error('Erreur lors de la récupération des animaux');
       }
       const data = await response.json();
-      setAnimal(data);
+      setAnimals(data); // Mettre à jour la liste des animaux
     } catch (error) {
-      console.error('Error fetching animal:', error);
+      console.error('Erreur lors de la récupération des animaux :', error);
     }
   };
 
-  fetchAnimal();
+  fetchAnimals();
 }, []);
 
 if (!animal) {
