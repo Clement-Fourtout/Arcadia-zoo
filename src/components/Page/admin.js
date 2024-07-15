@@ -449,7 +449,7 @@ useEffect(() => {
 // Fetch animal stats (example with placeholder URL)
 const fetchAnimalStats = async () => {
   try {
-      const response = await fetch('/api/animals/stats');
+      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animals/stats');
       if (!response.ok) {
           throw new Error('Erreur lors de la récupération des statistiques');
       }
