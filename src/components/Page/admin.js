@@ -442,22 +442,37 @@ const handleDeleteAnimal = async (animalId) => {
   }
 };
 // Afficher compteur d'incrémentation
-  useEffect(() => {
-    fetchAnimalViews();
-  }, []);
+useEffect(() => {
+  fetchAnimalViews();
+}, []);
 
-  const fetchAnimalViews = async () => {
-    try {
-      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animalviews'); // Assurez-vous que cette URL correspond à votre serveur Express
-      if (!response.ok) {
-        throw new Error('Failed to fetch animal views');
-      }
-      const data = await response.json();
-      setAnimalViews(data);
-    } catch (error) {
-      console.error('Error fetching animal views:', error);
+const fetchAnimalViews = async () => {
+  try {
+    const response = await fetch('/animalviews');
+    if (!response.ok) {
+      throw new Error('Failed to fetch animal views');
     }
-  };
+    const data = await response.json();
+    // Pour chaque vue d'animal, récupérer le nom de l'animal depuis une autre route
+    const promises = data.map(async (animalView) => {
+      const nameResponse = await fetch(`/animals/${animalView.animalId}/name`);
+      if (!nameResponse.ok) {
+        throw new Error('Failed to fetch animal name');
+      }
+      const nameData = await nameResponse.json();
+      return {
+        animalId: animalView.animalId,
+        viewCount: animalView.viewCount,
+        animalName: nameData.name
+      };
+    });
+    // Attendre toutes les promesses et mettre à jour l'état
+    const resolvedViews = await Promise.all(promises);
+    setAnimalViews(resolvedViews);
+  } catch (error) {
+    console.error('Error fetching animal views:', error);
+  }
+};
 
 
 // Récupérer la liste des animaux depuis l'API
@@ -943,10 +958,10 @@ return (
     <div>
       <h1>Liste des vues par animal</h1>
       <ul>
-        {animalViews.map((animal, index) => (
+        {animalViews.map((animalView, index) => (
           <li key={index}>
-            <p>Nom de l'animal : {animal.animalName}</p>
-            <p>Vues totales : {animal.viewCount}</p>
+            <p>Nom de l'animal : {animalView.animalName}</p>
+            <p>Vues totales : {animalView.viewCount}</p>
           </li>
         ))}
       </ul>
