@@ -443,12 +443,12 @@ const handleDeleteAnimal = async (animalId) => {
 };
 
 useEffect(() => {
-  fetchAnimalViews();
+  fetchAnimalss();
 }, []);
 
-// Fonction pour récupérer les vues des animaux depuis l'API
-const fetchAnimalViews = () => {
-  const url = 'https://api-zoo-22654ce4a3d5.herokuapp.com/animalviews';
+// Fonction pour récupérer tous les animaux depuis l'API
+const fetchAnimalss = () => {
+  const url = 'https://api-zoo-22654ce4a3d5.herokuapp.com/animals';
 
   fetch(url)
     .then(response => {
@@ -458,12 +458,17 @@ const fetchAnimalViews = () => {
       return response.json();
     })
     .then(data => {
-      setAnimalViews(data); // Met à jour l'état avec les données récupérées
+      setAnimals(data); // Met à jour l'état avec les données des animaux
     })
     .catch(error => {
-      console.error('Error fetching animal views:', error);
+      console.error('Error fetching animals:', error);
       // Gestion des erreurs : afficher un message d'erreur ou autre logique
     });
+};
+
+// Fonction pour calculer le nombre total de vues pour tous les animaux
+const getTotalViews = () => {
+  return animals.reduce((total, animal) => total + parseInt(animal.viewCount), 0);
 };
 
 // Récupérer la liste des animaux depuis l'API
@@ -947,15 +952,8 @@ return (
       ))}
     </div>
     <div className="admin-container">
-        <h2>Vue des animaux les plus consultés</h2>
-        <ul>
-          {animalViews.map(animal => (
-            <li key={animal._id}>
-              <div>Nom de l'animal: {animal.name}</div>
-              <div>Vues totales: {animal.viewCount}</div>
-            </li>
-          ))}
-        </ul>
+        <h2>Nom de l'animal:</h2>
+        <h3>Vues totales: {getTotalViews()}</h3>
       </div>
       </div>
     </>
