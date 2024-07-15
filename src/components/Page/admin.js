@@ -13,7 +13,7 @@ export default function Admin() {
   const [token, setToken] = useState('');
   const [email, setEmail] = useState('');
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
-  const [services, setServices] = useState([]); // State pour stocker les services
+  const [services, setServices] = useState([]); 
   const [newService, setNewService] = useState({ title: '', description: '', image: null });
   const [habitats, setHabitats] = useState([]);
   const [newHabitat, setNewHabitat] = useState({name: '', description: '', image: '', animal_list: '' });
@@ -25,6 +25,8 @@ export default function Admin() {
   const [food, setFood] = useState('');
   const [foodAmount, setFoodAmount] = useState('');
   const [visitDate, setVisitDate] = useState('');
+  const [animalStats, setAnimalStats] = useState([]);
+
   useEffect(() => {
     async function fetchUserData() {
       const userIdFromStorage = localStorage.getItem('userId');
@@ -440,6 +442,38 @@ const handleDeleteAnimal = async (animalId) => {
   }
 };
 
+useEffect(() => {
+  fetchAnimalStats();
+}, []);
+
+// Fetch animal stats (example with placeholder URL)
+const fetchAnimalStats = async () => {
+  try {
+      const response = await fetch('/api/animals/stats');
+      if (!response.ok) {
+          throw new Error('Erreur lors de la récupération des statistiques');
+      }
+      const data = await response.json();
+      setAnimalStats(data);
+  } catch (error) {
+      console.error('Erreur lors de la récupération des statistiques :', error);
+  }
+};
+
+// Function to increment consultations (example with placeholder URL)
+const incrementConsultations = async (animalId) => {
+  try {
+      const response = await fetch(`/api/animals/consult/${animalId}`, {
+          method: 'POST'
+      });
+      if (!response.ok) {
+          throw new Error('Erreur lors de l\'incrémentation des consultations');
+      }
+      fetchAnimalStats(); // Refresh stats after incrementing
+  } catch (error) {
+      console.error('Erreur lors de l\'incrémentation des consultations :', error);
+  }
+};
 
 // Récupérer la liste des animaux depuis l'API
 useEffect(() => {
@@ -539,6 +573,8 @@ const handleAddVetRecord = async (event) => {
     alert('Erreur lors de l\'ajout des données vétérinaires');
   }
 };
+
+
 
 return (
   <>
@@ -918,6 +954,21 @@ return (
         </div>
       ))}
     </div>
+    <div className="admin-page">
+            <h1>Statistiques des consultations des animaux</h1>
+            <div className="animal-stats">
+                {animalStats.map(animal => (
+                    <div key={animal.animalId} className="animal-item">
+                        <h3>Nom de l'animal</h3>
+                        <p>Animal ID: {animal.animalId}</p>
+                        <p>Consultations: {animal.consultations}</p>
+                        <button onClick={() => incrementConsultations(animal.animalId)}>
+                            Incrémenter les consultations
+                        </button>
+                    </div>
+                ))}
+            </div>
+        </div>
       </div>
     </>
   );
