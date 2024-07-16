@@ -33,6 +33,12 @@ const AnimalDetails = () => {
     return <div>Chargement...</div>;
   }
 
+    // Triez les vetRecords par date décroissante
+    const sortedVetRecords = [...animal.vetRecords].sort((a, b) => new Date(b.visit_date) - new Date(a.visit_date));
+
+    // Récupérez seulement le dernier enregistrement vétérinaire
+    const latestVetRecord = sortedVetRecords.length > 0 ? sortedVetRecords[0] : null;
+
   return (
     <div className="container-fluid bg-dark p-2 mt-1 mb-3 text-center">
       <h1 className="text-xl-center text-custom-savane text-decoration-underline font-weight-bold" style={{ marginBottom: "50px", marginTop: "25px" }}>
@@ -49,17 +55,15 @@ const AnimalDetails = () => {
           <h5 className="text-light text-left mt-3"><em>Description:</em> {animal.description}</h5>
         </div>
       </div>
-      <h2 className="text-light text-decoration-underline">Enregistrements vétérinaires</h2>
-      {animal.vetRecords && animal.vetRecords.length > 0 ? (
-        animal.vetRecords.map((record) => (
-          <div key={record.id} className="vet-record border text-light p-3 my-2">
-            <h3>Date de visite: {new Date(record.visit_date).toLocaleDateString()}</h3>
-            <p><strong>État de santé:</strong> {record.health_status}</p>
-            <p><strong>Nourriture proposée:</strong> {record.food}</p>
-            <p><strong>Grammage de la nourriture:</strong> {record.food_amount}</p>
-            <p><strong>Détails:</strong> {record.details}</p>
-          </div>
-        ))
+      <h2 className="text-light text-decoration-underline">Dernier enregistrement vétérinaire</h2>
+      {latestVetRecord ? (
+        <div key={latestVetRecord.id} className="vet-record border text-light p-3 my-2">
+          <h3>Date de visite: {new Date(latestVetRecord.visit_date).toLocaleDateString()}</h3>
+          <p><strong>État de santé:</strong> {latestVetRecord.health_status}</p>
+          <p><strong>Nourriture proposée:</strong> {latestVetRecord.food}</p>
+          <p><strong>Grammage de la nourriture:</strong> {latestVetRecord.food_amount}</p>
+          <p><strong>Détails:</strong> {latestVetRecord.details}</p>
+        </div>
       ) : (
         <p className="text-light">Aucun enregistrement vétérinaire trouvé pour cet animal.</p>
       )}
