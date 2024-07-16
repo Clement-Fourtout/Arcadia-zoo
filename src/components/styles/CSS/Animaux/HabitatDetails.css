@@ -1,0 +1,6 @@
+.animal-image {
+  height: 300px; /* Hauteur fixe souhaitée */
+  width: auto; /* Largeur automatique pour conserver l'aspect ratio */
+  max-width: 100%; /* Assure que l'image ne dépasse pas la largeur du conteneur parent */
+  display: block; /* Pour gérer les marges automatiques */
+}
