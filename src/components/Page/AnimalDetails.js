@@ -46,6 +46,7 @@ const AnimalDetails = () => {
           <h3 className="text-xl text-align-center text-light text-decoration-underline mt-3">{animal.name}</h3>
           <h5 className="text-light text-left mt-3"><em>Espèce:</em> {animal.species}</h5>
           <h5 className="text-light text-left mt-3"><em>Âge:</em> {animal.age}</h5>
+          <h5 className="text-light text-left mt-3"><em>Description:</em> {animal.description}</h5>
         </div>
       </div>
       <h2 className="text-light text-decoration-underline">Enregistrements vétérinaires</h2>

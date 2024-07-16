@@ -807,7 +807,7 @@ return (
         type="text"
         name="description"
         placeholder="Description"
-        value={newAnimal.age}
+        value={newAnimal.description}
         onChange={(e) => setNewAnimal({ ...newAnimal, description: e.target.value })}
         required
       />
