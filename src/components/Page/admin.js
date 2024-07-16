@@ -512,9 +512,6 @@ const fetchAnimals = async () => {
   }
 };
 
-if (animals.length === 0) {
-  return <div>Chargement...</div>;
-}
 
 
 const handleDeleteVetRecord = async (vetRecordId) => {
@@ -543,9 +540,7 @@ const handleDeleteVetRecord = async (vetRecordId) => {
   }
 };
 
-if (!animal) {
-  return <div>Chargement...</div>;
-}
+
 
 const handleAddVetRecord = async (event) => {
   event.preventDefault();
