@@ -44,3 +44,7 @@
   margin: 0 auto; /* Centre le wrapper horizontalement */
   padding: 20px; /* Ajoute un espace intérieur pour plus d'aération */
 }
+.table-centered {
+  margin-left: auto;
+  margin-right: auto;
+}

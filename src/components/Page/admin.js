@@ -565,7 +565,7 @@ return (
   <>
    <Nav /> {/* Vérifiez que Nav est correctement importé et utilisé */}
             <div>
-                <h1>Page Administrateur</h1>
+                <h1 className="text-xl-center text-decoration-underline font-weight-bold mt-3">Page Administrateur</h1>
                 <div className="wrapper">
             <div className="logo">
                 <a href="/">
@@ -617,7 +617,7 @@ return (
             )}
         </div>
 
-        <h2>Ajouter un service</h2>
+        <h2 className="text-xl-center text-decoration-underline font-weight-bold">Ajouter un service</h2>
         <div className="wrapper">
         <div className="admin-container">
           <form onSubmit={handleAddService}>
@@ -665,7 +665,7 @@ return (
 
                 {/* Liste des services existants */}
                 <div className="service-list">
-                    <h2>Liste des Services</h2>
+                    <h2 className="text-xl-center text-decoration-underline font-weight-bold mb-3">Liste des Services</h2>
                     <ul>
                         {services.map((service) => (
                             <li key={service.id}>
@@ -682,7 +682,7 @@ return (
           </div>
 
               <div className="p-3 mt-3">
-                    <h2>Supprimer mon compte</h2>
+                    <h2 className="text-xl-center text-decoration-underline font-weight-bold mb-3 mt-3">Supprimer mon compte</h2>
                     <p>Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</p>
                     
                     <button onClick={handleDeleteAccount}>Supprimer mon compte</button>
@@ -701,7 +701,7 @@ return (
     </div>
 
     <div>
-      <h2>Ajouter un nouvel habitat</h2>
+      <h2 className="text-xl-center text-decoration-underline font-weight-bold mb-3 mt-3">Ajouter un nouvel habitat</h2>
       <form onSubmit={handleAddHabitat}>
         <input
           type="text"
@@ -740,7 +740,7 @@ return (
 
 {/* Ajout d'animaux */}
 <div className="container">
-  <h2>Ajouter un nouvel animal</h2>
+  <h2 className="text-xl-center text-decoration-underline font-weight-bold mb-3 mt-3">Ajouter un nouvel animal</h2>
   <form onSubmit={handleAddAnimal}>
     <div>
       <label>Nom :</label>
@@ -803,7 +803,7 @@ return (
 </div>
 
 <div className="habitat-list">
-  <h2>Liste des Habitats et de leurs Animaux</h2>
+  <h2 className="text-xl-center text-decoration-underline font-weight-bold">Liste des Habitats et de leurs Animaux</h2>
   <ul>
     {habitats.map((habitat) => (
       <li key={habitat.id}>
@@ -829,7 +829,7 @@ return (
 {/*Données Vétérinaires*/}
 <div className="wrapper">
 <div className="admin-container">
-      <h2>Ajouter des données vétérinaires</h2>
+      <h2 className="text-xl-center text-decoration-underline font-weight-bold mb-3">Ajouter des données vétérinaires</h2>
       <form onSubmit={handleAddVetRecord} className="vertical-form" style={styles.form}>
         <div className="form-group">
           <label className="small-label">Sélectionnez un animal :</label>
@@ -899,7 +899,7 @@ return (
     </div>
     </div>
     <div>
-      <h1 className='mt-5'>Enregistrements vétérinaires</h1>
+      <h1 className='className="text-xl-center text-decoration-underline font-weight-bold"'>Enregistrements vétérinaires</h1>
       {animals.map((animal) => (
         <div key={animal.id}>
           <h2 className='mt-5 text text-underline'>{animal.name}</h2>
@@ -940,12 +940,12 @@ return (
       ))}
     </div>
     <div className="container-fluid p-2 mt-1 mb-3 text-center">
-      <h1 className="text-xl-center text-custom-savane text-decoration-underline font-weight-bold" style={{ marginBottom: "50px", marginTop: "25px" }}>
+      <h1 className="text-xl-center text-decoration-underline font-weight-bold" style={{ marginBottom: "50px", marginTop: "25px" }}>
         Vue des Animaux
       </h1>
       <div className="row justify-content-center mb-2">
         {animalViews.length > 0 ? (
-          <table className="table table-dark table-striped">
+          <table className="table table-dark table-striped table-centered">
             <thead>
               <tr>
                 <th>Nom de l'Animal</th>
