@@ -18,7 +18,7 @@ export default function Admin() {
   const [habitats, setHabitats] = useState([]);
   const [newHabitat, setNewHabitat] = useState({name: '', description: '', image: '', animal_list: '' });
   const [newAnimal, setNewAnimal] = useState({name: '', species: '', age: '', habitat_id: '',image: null });
-  const [animal, setAnimal] = useState([]);
+  const [setAnimal] = useState([]);
   const [animals, setAnimals] = useState([]);
   const [animalId, setAnimalId] = useState('');
   const [healthStatus, setHealthStatus] = useState('');
@@ -810,7 +810,7 @@ return (
           resize: 'vertical',
           padding: '8px',
           fontSize: '16px',
-          wordWrap: 'break-word', // Permet le retour à la ligne automatique
+          wordWrap: 'break-word',
         }}
       />
     </div>

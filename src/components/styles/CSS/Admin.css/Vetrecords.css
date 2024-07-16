@@ -2,7 +2,7 @@
 .vet-records-container {
   margin-top: 10px;
   margin-bottom: 10px;
-  max-width: 1500px; 
+  max-width: 1000px; 
   margin-left: auto;
   margin-right: auto;
   text-align: center; /* Centre le contenu à l'intérieur du conteneur */
@@ -40,7 +40,7 @@
   border-radius: 4px;
 }
 .vet-records-wrapper {
-  max-width: 800px; /* Augmente la taille du wrapper pour les enregistrements vétérinaires */
+  max-width: 1000px; /* Augmente la taille du wrapper pour les enregistrements vétérinaires */
   margin: 0 auto; /* Centre le wrapper horizontalement */
   padding: 20px; /* Ajoute un espace intérieur pour plus d'aération */
 }
