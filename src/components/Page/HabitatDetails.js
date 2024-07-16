@@ -7,19 +7,34 @@ const HabitatDetails = () => {
   const [habitat, setHabitat] = useState(null);
   const [animals, setAnimals] = useState([]);
 
-  const handleMoreInfo = (animalId) => {
+  const handleMoreInfo = async (animalId) => {
     document.getElementById(`button-${animalId}`).disabled = true;
     console.log('Animal ID:', animalId); // Log l'ID pour vérifier qu'il est correct
+    const animalName = await getAnimalName(animalId);
+    await incrementConsultations(animalId, animalName);
     navigate(`/animals/${animalId}`);
-    incrementConsultations(animalId);
   };
 
-  const incrementConsultations = async (animalId) => {
+  const getAnimalName = async (animalId) => {
+    try {
+      const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${animalId}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch animal details');
+      }
+      const data = await response.json();
+      return data.name;
+    } catch (error) {
+      console.error('Erreur lors de la récupération du nom de l\'animal:', error);
+      return '';
+    }
+  };
+
+  const incrementConsultations = async (animalId, animalName) => {
     try {
       const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animalviews', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ animalId: animalId.toString() }), // Convertir en chaîne de caractères
+        body: JSON.stringify({ animalId: animalId.toString(), animalName: animalName }), // Convertir en chaîne de caractères
       });
       const data = await response.json();
       console.log('Response from server:', data); // Log la réponse du serveur
