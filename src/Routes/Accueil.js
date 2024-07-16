@@ -1,6 +1,6 @@
 import React from 'react'
-import Chimpanzée from '../components/styles/Logo/Animaux/Savane/Chimpanzée.jpg'
-import Services from '../components/styles/Logo/Restauration.jpg'
+import Chimpanzée from '../components/styles/Logo/Animaux/Chimpanzée.jpg'
+import Services from '../components/styles/Logo/Services/Restauration.jpg'
 import Histoire from '../components/styles/Logo//Histoire/Foret de brocéliande.jpg'
 import Top from "../components/styles/Logo/Accessoire/to_top.png"
 
