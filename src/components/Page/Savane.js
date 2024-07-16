@@ -2,18 +2,6 @@ import React, { useEffect, useState } from "react";
 import Header from "../Header.js";
 import Nav from "../Nav.js";
 import Footer from "../Footer.js";
-import Lion from "../styles/Logo/Animaux/Savane/Lion.jpg"
-import Hyene from "../styles/Logo/Animaux/Savane/Hyene.jpg"
-import Chacal from "../styles/Logo/Animaux/Savane/Chacal.jpg"
-import Fennec from "../styles/Logo/Animaux/Savane/Fennec.jpg"
-import Tigre from "../styles/Logo/Animaux/Savane/Tigre.jpg"
-import Hippopotame from "../styles/Logo/Animaux/Savane/Hippopotame.jpg"
-import Girafe from "../styles/Logo/Animaux/Savane/girafe.jpg"
-import Dromadaire from "../styles/Logo/Animaux/Savane/Dromadaire.jpg"
-import Elephant from "../styles/Logo/Animaux/Savane/Elephant.jpg"
-import Babouin from "../styles/Logo/Animaux/Savane/Babouin.jpg"
-import Antilope from "../styles/Logo/Animaux/Savane/Antilope.jpg";
-import Suricate from "../styles/Logo/Animaux/Savane/Suricate.jpg";
 import Top from "../styles/Logo/Accessoire/to_top.png";
 import { getTasks } from "../../api.js";
 
@@ -49,7 +37,6 @@ export default function Savane() {
       </h1>
       <div class="row justify-content-center mb-2">
         <div class="col-lg-4 ">
-          <img src={Lion} class="col-lg-11 rounded" alt="lion" style={{marginLeft:0, padding:0}} />
         </div>
         <div class="col-lg-5 border">
           <h3 class="text-xl text-align-center text-light text-decoration-underline mt-3">Le Lion d'Afrique</h3>
@@ -76,7 +63,6 @@ export default function Savane() {
         </div>
 
         <div class="col-lg-4 mt-5">
-          <img src={Hyene} class="col-lg-11 rounded" alt="lion" style={{marginLeft:0, padding:0}} />
         </div>
         <div class="col-lg-5 mt-5 border">
           <h3 class="text-xl text-align-center text-light text-decoration-underline mt-3">La Hyène Tachetée</h3>
@@ -88,7 +74,6 @@ export default function Savane() {
         </div>
 
         <div class="col-lg-4 mt-5 ">
-          <img src={Chacal} class="col-lg-11 rounded" alt="chacal" style={{marginLeft:0, padding:0}} />
         </div>
         <div class="col-lg-5 mt-5 border">
           <h3 class="text-xl text-align-center text-light text-decoration-underline mt-3">Le Chacal</h3>
@@ -100,7 +85,6 @@ export default function Savane() {
         </div>
 
         <div class="col-lg-4 mt-5 ">
-          <img src={Fennec} class="col-lg-11 rounded" alt="chacal" style={{marginLeft:0, padding:0}} />
         </div>
         <div class="col-lg-5 mt-5 border">
           <h3 class="text-xl text-align-center text-light text-decoration-underline mt-3">Le Fennec</h3>
@@ -112,7 +96,6 @@ export default function Savane() {
         </div>
 
         <div class="col-lg-4 mt-5 ">
-          <img src={Tigre} class="col-lg-11 rounded" alt="chacal" style={{marginLeft:0, padding:0}} />
         </div>
         <div class="col-lg-5 mt-5 border">
           <h3 class="text-xl text-align-center text-light text-decoration-underline mt-3">Le Tigre de Sumatra</h3>
@@ -126,7 +109,6 @@ export default function Savane() {
         </div>
 
         <div class="col-lg-4 mt-5 ">
-          <img src={Hippopotame} class="col-lg-11 rounded" alt="chacal" style={{marginLeft:0, padding:0}} />
         </div>
         <div class="col-lg-5 mt-5 border">
           <h3 class="text-xl text-align-center text-light text-decoration-underline mt-3">L'Hippopotame</h3>
@@ -141,7 +123,6 @@ export default function Savane() {
         </div>
 
         <div class="col-lg-4 mt-5 ">
-          <img src={Girafe} class="col-lg-11 rounded" alt="chacal" style={{marginLeft:0, padding:0}} />
         </div>
         <div class="col-lg-5 mt-5 border">
           <h3 class="text-xl text-align-center text-light text-decoration-underline mt-3">La Girafe</h3>
@@ -154,7 +135,6 @@ export default function Savane() {
         </div>
 
         <div class="col-lg-4 mt-5 ">
-          <img src={Dromadaire} class="col-lg-11 rounded" alt="chacal" style={{marginLeft:0, padding:0}} />
         </div>
         <div class="col-lg-5 mt-5 border">
           <h3 class="text-xl text-align-center text-light text-decoration-underline mt-3">Le Dromadaire</h3>
@@ -168,7 +148,6 @@ export default function Savane() {
         </div>
 
         <div class="col-lg-4 mt-5 ">
-          <img src={Elephant} class="col-lg-11 rounded" alt="chacal" style={{marginLeft:0, padding:0}} />
         </div>
         <div class="col-lg-5 mt-5 border">
           <h3 class="text-xl text-align-center text-light text-decoration-underline mt-3">L'Éléphant d'Afrique</h3>
@@ -181,7 +160,6 @@ export default function Savane() {
         </div>
 
         <div class="col-lg-4 mt-5 ">
-          <img src={Babouin} class="col-lg-11 rounded" alt="chacal" style={{marginLeft:0, padding:0}} />
         </div>
         <div class="col-lg-5 mt-5 border">
           <h3 class="text-xl text-align-center text-light text-decoration-underline mt-3">Le Babouin</h3>
@@ -195,7 +173,6 @@ export default function Savane() {
         </div>
 
         <div class="col-lg-4 mt-5 ">
-          <img src={Antilope} class="col-lg-11 rounded" alt="chacal" style={{marginLeft:0, padding:0}} />
         </div>
         <div class="col-lg-5 mt-5 border">
           <h3 class="text-xl text-align-center text-light text-decoration-underline mt-3">L'Antilope</h3>
@@ -208,7 +185,6 @@ export default function Savane() {
         </div>
 
         <div class="col-lg-4 mt-5 ">
-          <img src={Suricate} class="col-lg-11 rounded" alt="chacal" style={{marginLeft:0, padding:0}} />
         </div>
         <div class="col-lg-5 mt-5 border">
           <h3 class="text-xl text-align-center text-light text-decoration-underline mt-3">Les Suricates </h3>

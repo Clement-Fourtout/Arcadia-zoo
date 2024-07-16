@@ -2,18 +2,6 @@ import React from "react";
 import Header from "../Header.js";
 import Nav from "../Nav.js";
 import Footer from "../Footer.js";
-import Paresseux from "../styles/Logo/Animaux/Jungle/Le paresseux.jpg"
-import Empereur from "../styles/Logo/Animaux/Jungle/Empereur d'amazonie.jpg"
-import Jaguar from "../styles/Logo/Animaux/Jungle/Jaguar.jpg"
-import PanthèreNoire from "../styles/Logo/Animaux/Jungle/Panthère noire.jpg"
-import DauphinRose from "../styles/Logo/Animaux/Jungle/Dauphin rose.jpg"
-import Toucan from "../styles/Logo/Animaux/Jungle/Toucan.jpg"
-import AraRouge from "../styles/Logo/Animaux/Jungle/Ara Rouge.jpg"
-import Tapir from "../styles/Logo/Animaux/Jungle/Tapir.jpg"
-import MillePattes from "../styles/Logo/Animaux/Jungle/Milles pattes.jpg"
-import Empoisonneuse from "../styles/Logo/Animaux/Jungle/L'empoisonneuse.jpg"
-import Gorille from "../styles/Logo/Animaux/Jungle/Gorille.jpg"
-import OrangOutan from "../styles/Logo/Animaux/Jungle/Orang outans.jpg"
 import Top from "../styles/Logo/Accessoire/to_top.png"
 
 export default function Jungle() {
@@ -35,7 +23,6 @@ export default function Jungle() {
       <h1 class=" text-xl-center text-custom-jungle text-decoration-underline font-weight-bold" style={{marginBottom: "50px", marginTop: "25px"}}>La Jungle</h1>
         <div class="row justify-content-center mb-2">
           <div class="col-lg-4 ">
-            <img src={Paresseux} class="col-lg-11 rounded" alt="lion" style={{marginLeft:0, padding:0}} />
           </div>
           <div class="col-lg-5 border">
             <h3 class="text-xl text-align-center text-light text-decoration-underline mt-3">Le Paresseux</h3>
@@ -51,7 +38,6 @@ export default function Jungle() {
         </div>
         <div class="row justify-content-center mb-2 mt-5">
           <div class="col-lg-4 mt-5">
-            <img src={Empereur} class="col-lg-11 rounded" alt="lion" style={{marginLeft:0, padding:0}} />
           </div>
           <div class="col-lg-5 mt-5 border">
             <h3 class="text-xl text-align-center text-light text-decoration-underline mt-3">L'Empereur d'Amazonie</h3>
@@ -68,7 +54,6 @@ export default function Jungle() {
         </div>
         <div class="row justify-content-center mb-2 mt-5">
         <div class="col-lg-4 mt-5 ">
-          <img src={Jaguar} class="col-lg-11 rounded" alt="" style={{marginLeft:0, padding:0}} />
         </div>
         <div class="col-lg-5 mt-5 border">
           <h3 class="text-xl text-align-center text-light text-decoration-underline mt-3">Le Jaguar</h3>
@@ -83,7 +68,6 @@ export default function Jungle() {
       </div>
       <div class="row justify-content-center mb-2 mt-5">
         <div class="col-lg-4 mt-5 ">
-          <img src={PanthèreNoire} class="col-lg-11 rounded" alt="" style={{marginLeft:0, padding:0}} />
         </div>
         <div class="col-lg-5 mt-5 border">
           <h3 class="text-xl text-align-center text-light text-decoration-underline mt-3">La Panthère Noire</h3>
@@ -100,7 +84,6 @@ export default function Jungle() {
 
       <div class="row justify-content-center mb-2 mt-5">
         <div class="col-lg-4 mt-5 ">
-          <img src={DauphinRose} class="col-lg-11 rounded" alt="" style={{marginLeft:0, padding:0}} />
         </div>
         <div class="col-lg-5 mt-5 border">
           <h3 class="text-xl text-align-center text-light text-decoration-underline mt-3">Le Dauphin Rose</h3>
@@ -116,7 +99,6 @@ export default function Jungle() {
       </div>
       <div class="row justify-content-center mb-2 mt-5">
         <div class="col-lg-4 mt-5 ">
-          <img src={Toucan} class="col-lg-11 rounded" alt="" style={{marginLeft:0, padding:0}} />
         </div>
         <div class="col-lg-5 mt-5 border">
           <h3 class="text-xl text-align-center text-light text-decoration-underline mt-3">Le Toucan</h3>
@@ -131,7 +113,6 @@ export default function Jungle() {
 
       <div class="row justify-content-center mb-2 mt-5">
         <div class="col-lg-4 mt-5 ">
-          <img src={AraRouge} class="col-lg-11 rounded" alt="" style={{marginLeft:0, padding:0}} />
         </div>
         <div class="col-lg-5 mt-5 border">
           <h3 class="text-xl text-align-center text-light text-decoration-underline mt-3">L'Ara Rouge'</h3>
@@ -149,7 +130,6 @@ export default function Jungle() {
 
       <div class="row justify-content-center mb-2 mt-5">
         <div class="col-lg-4 mt-5 ">
-          <img src={Tapir} class="col-lg-11 rounded" alt="" style={{marginLeft:0, padding:0}} />
         </div>
         <div class="col-lg-5 mt-5 border">
           <h3 class="text-xl text-align-center text-light text-decoration-underline mt-3">Le Tapir</h3>
@@ -165,7 +145,6 @@ export default function Jungle() {
 
       <div class="row justify-content-center mb-2 mt-5">
         <div class="col-lg-4 mt-5 ">
-          <img src={MillePattes} class="col-lg-11 rounded" alt="" style={{marginLeft:0, padding:0}} />
         </div>
         <div class="col-lg-5 mt-5 border">
           <h3 class="text-xl text-align-center text-light text-decoration-underline mt-3">Le Mille-Pattes Géant</h3>
@@ -180,7 +159,6 @@ export default function Jungle() {
 
       <div class="row justify-content-center mb-2 mt-5">
         <div class="col-lg-4 mt-5 ">
-          <img src={Empoisonneuse} class="col-lg-11 rounded" alt="" style={{marginLeft:0, padding:0}} />
         </div>
         <div class="col-lg-5 mt-5 border">
           <h3 class="text-xl text-align-center text-light text-decoration-underline mt-3">La Grenouille Empoisonneuse</h3>
@@ -197,7 +175,6 @@ export default function Jungle() {
 
       <div class="row justify-content-center mb-2 mt-5">
         <div class="col-lg-4 mt-5 ">
-          <img src={Gorille} class="col-lg-11 rounded" alt="" style={{marginLeft:0, padding:0}} />
         </div>
         <div class="col-lg-5 mt-5 border">
           <h3 class="text-xl text-align-center text-light text-decoration-underline mt-3">Le Gorille</h3>
@@ -215,7 +192,6 @@ export default function Jungle() {
 
       <div class="row justify-content-center mb-2 mt-5">
         <div class="col-lg-4 mt-5  ">
-          <img src={OrangOutan} class="col-lg-11 rounded" alt="" style={{marginLeft:0, padding:0}} />
         </div>
         <div class="col-lg-5 mt-5  border">
           <h3 class="text-xl text-align-center text-light text-decoration-underline mt-3">L'Orang Outans</h3>
