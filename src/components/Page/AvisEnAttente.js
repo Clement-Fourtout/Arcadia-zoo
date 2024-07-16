@@ -61,7 +61,7 @@ const AvisEnAttente = () => {
 
   return (
     <div>
-      <h1>Avis en Attente</h1>
+      <h1 className="text-xl-center text-decoration-underline font-weight-bold mt-3 mb-3">Avis en Attente</h1>
       {avisAttente && avisAttente.length > 0 ? (
         <ul>
           {avisAttente.map(avis => (

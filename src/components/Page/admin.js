@@ -565,7 +565,7 @@ return (
   <>
    <Nav /> {/* Vérifiez que Nav est correctement importé et utilisé */}
             <div>
-                <h1 className="text-xl-center text-decoration-underline font-weight-bold mt-3">Page Administrateur</h1>
+                <h1 className="text-xl-center text-decoration-underline font-weight-bold mt-5">Page Administrateur</h1>
                 <div className="wrapper">
             <div className="logo">
                 <a href="/">
@@ -617,9 +617,9 @@ return (
             )}
         </div>
 
-        <h2 className="text-xl-center text-decoration-underline font-weight-bold">Ajouter un service</h2>
         <div className="wrapper">
         <div className="admin-container">
+        <h2 className="text-xl-center text-decoration-underline font-weight-bold">Ajouter un service</h2>
           <form onSubmit={handleAddService}>
           <div className="form-group">
           <label className="small-label">Titre :</label>
@@ -899,7 +899,7 @@ return (
     </div>
     </div>
     <div>
-      <h1 className='className="text-xl-center text-decoration-underline font-weight-bold"'>Enregistrements vétérinaires</h1>
+      <h1 className="text-xl-center text-decoration-underline font-weight-bold">Enregistrements vétérinaires</h1>
       {animals.map((animal) => (
         <div key={animal.id}>
           <h2 className='mt-5 text text-underline'>{animal.name}</h2>
@@ -939,7 +939,7 @@ return (
         </div>
       ))}
     </div>
-    <div className="container-fluid p-2 mt-1 mb-3 text-center">
+    <div className="container-fluid bg-light p-2 mt-1 mb-3 text-center">
       <h1 className="text-xl-center text-decoration-underline font-weight-bold" style={{ marginBottom: "50px", marginTop: "25px" }}>
         Vue des Animaux
       </h1>
