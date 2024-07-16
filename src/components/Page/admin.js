@@ -970,7 +970,7 @@ return (
           <tr key={index}>
             <td>{record.animalName}</td>
             <td>{new Date(record.visit_date).toLocaleDateString()}</td>
-            <td>{new Date(record.visit_time).toLocaleDateString()}</td>
+            <td>{record.visit_time}</td>
             <td>{record.health_status}</td>
             <td>{record.food}</td>
             <td>{record.food_amount}</td>
