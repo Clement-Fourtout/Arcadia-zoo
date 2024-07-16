@@ -364,7 +364,7 @@ console.log('Données à envoyer :', {
 
 const handleAddAnimal = async (event) => {
   event.preventDefault();
-  if (!newAnimal.name || !newAnimal.species || !newAnimal.age || !newAnimal.habitat_id || !newAnimal.image ) {
+  if (!newAnimal.name || !newAnimal.species || !newAnimal.age || !newAnimal.description || !newAnimal.habitat_id || !newAnimal.image ) {
     console.error('Les champs nom, espèce, âge, habitat et image doivent être remplis');
     return;
   }
@@ -373,13 +373,15 @@ const handleAddAnimal = async (event) => {
     formData.append('name', newAnimal.name);
     formData.append('species', newAnimal.species);
     formData.append('age', newAnimal.age);
+    formData.append('description', newAnimal.description);
     formData.append('habitat_id', newAnimal.habitat_id);
     formData.append('image', newAnimal.image);
-
+   
     console.log('Données à envoyer :', {
       name: newAnimal.name,
       species: newAnimal.species,
       age: newAnimal.age,
+      description: newAnimal.description,
       habitat_id: newAnimal.habitat_id,
       image: newAnimal.image
     });
@@ -403,6 +405,7 @@ const handleAddAnimal = async (event) => {
       name: '',
       species: '',
       age: '',
+      description:'',
       habitat_id: '',
       image: null
     });
@@ -795,6 +798,17 @@ return (
         placeholder="Âge"
         value={newAnimal.age}
         onChange={(e) => setNewAnimal({ ...newAnimal, age: e.target.value })}
+        required
+      />
+    </div>
+    <div>
+      <label>Description :</label>
+      <input
+        type="text"
+        name="description"
+        placeholder="Description"
+        value={newAnimal.age}
+        onChange={(e) => setNewAnimal({ ...newAnimal, description: e.target.value })}
         required
       />
     </div>
