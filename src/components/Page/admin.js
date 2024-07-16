@@ -445,7 +445,7 @@ const handleDeleteAnimal = async (animalId) => {
 useEffect(() => {
   const fetchAnimalViews = async () => {
     try {
-      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/admin/animalviews');
+      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animalviews');
       if (!response.ok) {
         throw new Error('Failed to fetch animal views');
       }
@@ -939,7 +939,7 @@ return (
         </div>
       ))}
     </div>
-    <div className="container-fluid bg-dark p-2 mt-1 mb-3 text-center">
+    <div className="container-fluid p-2 mt-1 mb-3 text-center">
       <h1 className="text-xl-center text-custom-savane text-decoration-underline font-weight-bold" style={{ marginBottom: "50px", marginTop: "25px" }}>
         Vue des Animaux
       </h1>
