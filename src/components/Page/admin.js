@@ -918,8 +918,9 @@ return (
         </button>
       </form>
     </div>
-
+    </div>
     <div className="container">
+
 <h1 className="text-center text-decoration-underline font-weight-bold">Enregistrements vétérinaires</h1>
 
 <div className="filters">
@@ -974,7 +975,7 @@ return (
 </div>
 </div>
 
-    </div>
+    
     <div className="container-fluid p-2 mt-1 mb-3 text-center">
       <h1 className="text-xl-center text-decoration-underline font-weight-bold" style={{ marginBottom: "50px", marginTop: "25px" }}>
         Vue des Animaux
