@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-
+import '../styles/CSS/Animaux/HabitatDetails.css'
 const HabitatDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -84,8 +84,8 @@ const HabitatDetails = () => {
               <h3 className="text-xl text-align-center text-light text-decoration-underline mt-3">{animal.name}</h3>
               <img src={animal.image} className="animal-image col-lg-11 rounded" alt={animal.name} style={{ marginLeft: 0, padding: 0 }} />
               <div className="col-lg-12">
-                <h5 className="text-light text-center mt-3"><em>Espèce :</em> {animal.species}</h5>
-                <h5 className="text-light text-center mt-3"><em>Âge :</em> {animal.age}</h5>
+                <h5 className="text-light text-left mt-3"><em>Espèce :</em> {animal.species}</h5>
+                <h5 className="text-light text-left mt-3"><em>Âge :</em> {animal.age}</h5>
                 <button id={`button-${animal.id}`} onClick={() => handleMoreInfo(animal.id)} className="btn btn-info mt-2">En savoir plus</button>
               </div>
             </div>
