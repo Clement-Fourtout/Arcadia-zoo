@@ -442,44 +442,22 @@ const handleDeleteAnimal = async (animalId) => {
   }
 };
 // Afficher compteur d'incrémentation
-  useEffect(() => {
-    fetchAnimalViews();
-  }, []);
-
+useEffect(() => {
   const fetchAnimalViews = async () => {
     try {
-      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animalviews'); // Assurez-vous que cette URL correspond à votre serveur Express
+      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/admin/animalviews');
       if (!response.ok) {
         throw new Error('Failed to fetch animal views');
       }
       const data = await response.json();
-      const promises = data.map(async (animalView) => {
-        try {
-          const nameResponse = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${animalId}`);
-          if (!nameResponse.ok) {
-            throw new Error('Failed to fetch animal name');
-          }
-          const { name } = await nameResponse.json();
-          return {
-            animalId: animalView.animalId,
-            viewCount: animalView.viewCount,
-            animalName: name
-          };
-        } catch (error) {
-          console.error('Error fetching animal name:', error);
-          return {
-            animalId: animalView.animalId,
-            viewCount: animalView.viewCount,
-            animalName: 'Unknown' // Afficher quelque chose en cas d'erreur
-          };
-        }
-      });
-      const resolvedViews = await Promise.all(promises);
-      setAnimalViews(resolvedViews);
+      setAnimalViews(data);
     } catch (error) {
       console.error('Error fetching animal views:', error);
     }
   };
+
+  fetchAnimalViews();
+}, []);
 
 // Récupérer la liste des animaux depuis l'API
 useEffect(() => {
@@ -961,16 +939,32 @@ return (
         </div>
       ))}
     </div>
-    <div>
-      <h1>Liste des vues par animal</h1>
-      <ul>
-        {animalViews.map((animalView, index) => (
-          <li key={index}>
-            <p>Nom de l'animal : {animal.name}</p>
-            <p>Vues totales : {animalView.viewCount}</p>
-          </li>
-        ))}
-      </ul>
+    <div className="container-fluid bg-dark p-2 mt-1 mb-3 text-center">
+      <h1 className="text-xl-center text-custom-savane text-decoration-underline font-weight-bold" style={{ marginBottom: "50px", marginTop: "25px" }}>
+        Vue des Animaux
+      </h1>
+      <div className="row justify-content-center mb-2">
+        {animalViews.length > 0 ? (
+          <table className="table table-dark table-striped">
+            <thead>
+              <tr>
+                <th>Nom de l'Animal</th>
+                <th>Nombre de Vues</th>
+              </tr>
+            </thead>
+            <tbody>
+              {animalViews.map((view) => (
+                <tr key={view.animalId}>
+                  <td>{view.animalName}</td>
+                  <td>{view.viewCount}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p className="text-light">Aucune vue trouvée pour les animaux.</p>
+        )}
+      </div>
     </div>
       </div>
     </>
