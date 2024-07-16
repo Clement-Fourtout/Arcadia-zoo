@@ -29,7 +29,7 @@ export default function Admin() {
   const [selectedAnimal, setSelectedAnimal] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
   const [filteredVetRecords, setFilteredVetRecords] = useState([]);
-
+  const [visitTime, setVisitTime] = useState('');
   useEffect(() => {
     async function fetchUserData() {
       const userIdFromStorage = localStorage.getItem('userId');
@@ -559,6 +559,7 @@ const handleAddVetRecord = async (event) => {
         food: food,
         food_amount: foodAmount,
         visit_date: visitDate,
+        visit_time: visitTime,
       }),
     });
 
@@ -573,6 +574,7 @@ const handleAddVetRecord = async (event) => {
     setFood('');
     setFoodAmount('');
     setVisitDate('');
+    setVisitTime('');
   } catch (error) {
     console.error('Erreur lors de l\'ajout des données vétérinaires :', error);
     alert('Erreur lors de l\'ajout des données vétérinaires');
@@ -913,16 +915,26 @@ return (
             style={styles.input}
           />
         </div>
+        <div className="form-group">
+            <label className="small-label">Heure d'alimentation :</label>
+            <input
+              type="time"
+              className="form-control"
+              value={visitTime}
+              onChange={(e) => setVisitTime(e.target.value)}
+              required
+              style={styles.input}
+            />
+          </div>
         <button type="submit" className="btn btn-primary" style={styles.button}>
           Ajouter données vétérinaires
         </button>
       </form>
     </div>
     </div>
-    <div className="container">
 
+<div className="container">
 <h1 className="text-center text-decoration-underline font-weight-bold">Enregistrements vétérinaires</h1>
-
 <div className="filters">
   <select value={selectedAnimal} onChange={(e) => setSelectedAnimal(e.target.value)}>
     <option value="">Tous les animaux</option>
