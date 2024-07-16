@@ -805,7 +805,14 @@ return (
         value={newAnimal.description}
         onChange={(e) => setNewAnimal({ ...newAnimal, description: e.target.value })}
         required
-        style={{ width: '100%', minHeight: '100px', resize: 'vertical', padding: '8px', fontSize: '16px' }}
+        style={{
+          width: '100%',
+          minHeight: '100px',
+          resize: 'vertical',
+          padding: '8px',
+          fontSize: '16px',
+          wordWrap: 'break-word', // Permet le retour à la ligne automatique
+        }}
       />
     </div>
     <div>
