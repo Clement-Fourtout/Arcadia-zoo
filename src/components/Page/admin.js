@@ -805,7 +805,7 @@ return (
         value={newAnimal.description}
         onChange={(e) => setNewAnimal({ ...newAnimal, description: e.target.value })}
         required
-        style={{ resize: 'vertical', height: 'auto' }}
+        style={{resize: 'vertical' }}
       />
     </div>
     <div>
