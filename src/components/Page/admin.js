@@ -939,14 +939,14 @@ return (
         </div>
       ))}
     </div>
-    <div className="container-fluid bg-light p-2 mt-1 mb-3 text-center">
+    <div className="container-fluid p-2 mt-1 mb-3 text-center">
       <h1 className="text-xl-center text-decoration-underline font-weight-bold" style={{ marginBottom: "50px", marginTop: "25px" }}>
         Vue des Animaux
       </h1>
       <div className="row justify-content-center mb-2">
         {animalViews.length > 0 ? (
           <div className="col-lg-8">
-          <table className="table table-dark table-striped table-centered">
+          <table className="table table-light table-striped table-centered">
             <thead>
               <tr>
                 <th>Nom de l'Animal</th>
