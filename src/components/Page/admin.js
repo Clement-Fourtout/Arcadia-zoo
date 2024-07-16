@@ -807,7 +807,6 @@ return (
         required
         style={{
           width: '100%',
-          minHeight: '100px',
           resize: 'vertical',
           padding: '8px',
           fontSize: '16px',
