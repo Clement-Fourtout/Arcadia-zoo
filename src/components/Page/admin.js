@@ -945,6 +945,7 @@ return (
       </h1>
       <div className="row justify-content-center mb-2">
         {animalViews.length > 0 ? (
+          <div className="col-lg-8">
           <table className="table table-dark table-striped table-centered">
             <thead>
               <tr>
@@ -961,6 +962,7 @@ return (
               ))}
             </tbody>
           </table>
+          </div>
         ) : (
           <p className="text-light">Aucune vue trouvée pour les animaux.</p>
         )}
