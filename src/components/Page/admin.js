@@ -26,10 +26,10 @@ export default function Admin() {
   const [foodAmount, setFoodAmount] = useState('');
   const [visitDate, setVisitDate] = useState('');
   const [animalViews, setAnimalViews] = useState([]);
-  const [filteredVetRecords, setFilteredVetRecords] = useState([]);
   const [selectedAnimal, setSelectedAnimal] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
-  
+  const [filteredVetRecords, setFilteredVetRecords] = useState([]);
+
   useEffect(() => {
     async function fetchUserData() {
       const userIdFromStorage = localStorage.getItem('userId');
@@ -479,7 +479,6 @@ useEffect(() => {
   });
   setFilteredVetRecords(records);
 }, [selectedAnimal, selectedDate, animals]);
-
 // Récupérer la liste des animaux depuis l'API
 useEffect(() => {
   fetchAnimals();
@@ -919,60 +918,62 @@ return (
         </button>
       </form>
     </div>
-    </div>
-<div className="container">
-      <h1 className="text-center text-decoration-underline font-weight-bold">Enregistrements vétérinaires</h1>
 
-      <div className="filters">
-        <select value={selectedAnimal} onChange={(e) => setSelectedAnimal(e.target.value)}>
-          <option value="">Tous les animaux</option>
-          {animals.map(animal => (
-            <option key={animal.id} value={animal.id}>{animal.name}</option>
-          ))}
-        </select>
+    <div className="container">
+<h1 className="text-center text-decoration-underline font-weight-bold">Enregistrements vétérinaires</h1>
 
-        <input
-          type="date"
-          value={selectedDate}
-          onChange={(e) => setSelectedDate(new Date(e.target.value).toLocaleDateString())}
-        />
-      </div>
+<div className="filters">
+  <select value={selectedAnimal} onChange={(e) => setSelectedAnimal(e.target.value)}>
+    <option value="">Tous les animaux</option>
+    {animals.map(animal => (
+      <option key={animal.id} value={animal.id}>{animal.name}</option>
+    ))}
+  </select>
 
-      <div className="vet-records-container" style={{ margin: '0 auto', width: '80%' }}>
-        {filteredVetRecords.length > 0 ? (
-          <table className="table table-bordered">
-            <thead>
-              <tr>
-                <th>Nom de l'animal</th>
-                <th>Date de visite</th>
-                <th>État de santé</th>
-                <th>Nourriture proposée</th>
-                <th>Grammage de la nourriture</th>
-                <th>Détails</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredVetRecords.map((record, index) => (
-                <tr key={index}>
-                  <td>{record.animalName}</td>
-                  <td>{new Date(record.visit_date).toLocaleDateString()}</td>
-                  <td>{record.health_status}</td>
-                  <td>{record.food}</td>
-                  <td>{record.food_amount}</td>
-                  <td>{record.details}</td>
-                  <td>
-                    <button className="btn btn-danger" onClick={() => handleDeleteVetRecord(record.id)}>Supprimer</button>
-                    {/* Ajoutez ici d'autres actions comme la modification */}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <p className="text-center">Aucun enregistrement vétérinaire trouvé pour les critères sélectionnés.</p>
-        )}
-      </div>
+  <input
+    type="date"
+    value={selectedDate}
+    onChange={(e) => setSelectedDate(new Date(e.target.value).toLocaleDateString())}
+  />
+</div>
+
+<div className="vet-records-container">
+  {filteredVetRecords.length > 0 ? (
+    <table className="vet-records-table">
+      <thead>
+        <tr>
+          <th className='mt-5 text text-underline'>Nom de l'animal</th>
+          <th>Date de visite</th>
+          <th>État de santé</th>
+          <th>Nourriture proposée</th>
+          <th>Grammage de la nourriture</th>
+          <th>Détails</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {filteredVetRecords.map((record, index) => (
+          <tr key={index}>
+            <td>{record.animalName}</td>
+            <td>{new Date(record.visit_date).toLocaleDateString()}</td>
+            <td>{record.health_status}</td>
+            <td>{record.food}</td>
+            <td>{record.food_amount}</td>
+            <td>{record.details}</td>
+            <td>
+              <button className="vet-records-button btn btn-danger" onClick={() => handleDeleteVetRecord(record.id)}>Supprimer</button>
+              {/* Ajoutez ici d'autres actions comme la modification */}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  ) : (
+    <p className="text-center">Aucun enregistrement vétérinaire trouvé pour les critères sélectionnés.</p>
+  )}
+</div>
+</div>
+
     </div>
     <div className="container-fluid p-2 mt-1 mb-3 text-center">
       <h1 className="text-xl-center text-decoration-underline font-weight-bold" style={{ marginBottom: "50px", marginTop: "25px" }}>
@@ -1039,3 +1040,4 @@ const styles = {
     marginBottom: '5px',
   },
 };
+
