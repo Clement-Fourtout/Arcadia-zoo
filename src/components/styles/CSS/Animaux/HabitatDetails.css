@@ -1,5 +1,5 @@
 .animal-image {
   width: 100%;
-  height: 500px; /* ou une valeur fixe qui vous convient */
+  height: 400px; /* ou une valeur fixe qui vous convient */
   object-fit: cover;
 }
