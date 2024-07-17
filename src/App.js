@@ -15,7 +15,7 @@ import MentionsLégales from './components/Page/MentionsLégales.js';
 import HabitatDetails from './components/Page/HabitatDetails.js';
 import AnimalDetails from './components/Page/AnimalDetails.js';
 import EditAnimal from './components/Page/Edit/EditAnimal.js';
-import { AuthProvider } from './components/Page/Edit/AuthContext.js';
+
 function App() {
 
   return (
@@ -35,8 +35,6 @@ function App() {
       <Route path="parc/:id" element={<HabitatDetails />} />
       <Route path="animals/:id" element={<AnimalDetails />} />
       <Route path="/edit-animal/:id" element={<EditAnimal />} />
-      <AuthProvider>
-    </AuthProvider>
     </Routes>
     <Main></Main>
     <Footer></Footer>

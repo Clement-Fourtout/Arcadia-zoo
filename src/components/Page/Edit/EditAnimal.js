@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useAuth } from './AuthContext.js';
 
 const EditAnimal = () => {
   const { id } = useParams();
-  const { token } = useAuth();
   const navigate = useNavigate();
   const [animal, setAnimal] = useState({
     name: '',
@@ -12,7 +10,7 @@ const EditAnimal = () => {
     age: '',
     description: '',
     habitat_id: '',
-    image: null, // Utilisez null pour représenter l'absence d'image initialement
+    image: null, // Utilisez null pour le champ image
   });
   const [habitats, setHabitats] = useState([]);
 
@@ -20,6 +18,9 @@ const EditAnimal = () => {
     const fetchAnimal = async () => {
       try {
         const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${id}`);
+        if (!response.ok) {
+          throw new Error('Erreur lors de la récupération des données de l\'animal');
+        }
         const data = await response.json();
         setAnimal(data);
       } catch (error) {
@@ -30,6 +31,9 @@ const EditAnimal = () => {
     const fetchHabitats = async () => {
       try {
         const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/habitats');
+        if (!response.ok) {
+          throw new Error('Erreur lors de la récupération des habitats');
+        }
         const data = await response.json();
         setHabitats(data);
       } catch (error) {
@@ -44,20 +48,18 @@ const EditAnimal = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setAnimal((prevAnimal) => ({
-      ...prevAnimal, [name]: value
+      ...prevAnimal,
+      [name]: value
     }));
   };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setAnimal((prevAnimal) => ({
-          ...prevAnimal, image: file // Utilisez directement le fichier sélectionné comme image
-        }));
-      };
-      reader.readAsDataURL(file);
+      setAnimal((prevAnimal) => ({
+        ...prevAnimal,
+        image: file
+      }));
     }
   };
 
@@ -76,9 +78,6 @@ const EditAnimal = () => {
 
       const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${id}`, {
         method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${token}`, // Assurez-vous de définir votre jeton d'authentification correctement
-        },
         body: formData,
       });
 
@@ -86,16 +85,15 @@ const EditAnimal = () => {
         throw new Error('Erreur lors de la mise à jour de l\'animal');
       }
 
-      navigate('/admin'); // Redirection vers la page d'administration après la mise à jour réussie
+       // Redirige vers la page d'administration après la mise à jour
     } catch (error) {
       console.error('Erreur lors de la mise à jour de l\'animal', error);
-      alert('Erreur lors de la mise à jour de l\'animal');
     }
   };
 
   return (
     <div className="container">
-      <h2 className="text-xl-center text-decoration-underline font-weight-bold mb-3 mt-3">Modifier Animal</h2>
+      <h2 className="text-center text-decoration-underline font-weight-bold mb-3 mt-3">Modifier Animal</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Nom :</label>
