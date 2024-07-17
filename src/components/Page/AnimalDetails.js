@@ -4,36 +4,33 @@ import { useParams } from 'react-router-dom';
 const AnimalDetails = () => {
   const { id } = useParams();
   const [animal, setAnimal] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchAnimal = async () => {
       try {
         const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${id}`);
         if (!response.ok) {
-          throw new Error('Failed to fetch animal');
+          throw new Error('Erreur lors de la récupération de l\'animal');
         }
         const data = await response.json();
-        setAnimal(data);
+        setAnimal(data); // Mettre à jour l'état de l'animal avec les données récupérées
       } catch (error) {
         console.error('Error fetching animal:', error);
-      } finally {
-        setLoading(false);
       }
     };
 
     fetchAnimal();
   }, [id]);
 
-  if (loading) {
-    return <div>Chargement...</div>;
+  if (!animal) {
+    return <div>Chargement...</div>; // Affichage de chargement pendant que les données sont récupérées
   }
 
-  // Triez les vetRecords par date décroissante
-  const sortedVetRecords = [...animal.vetRecords].sort((a, b) => new Date(b.visit_date) - new Date(a.visit_date));
+    // Triez les vetRecords par date décroissante
+    const sortedVetRecords = [...animal.vetRecords].sort((a, b) => new Date(b.visit_date) - new Date(a.visit_date));
 
-  // Récupérez seulement le dernier enregistrement vétérinaire
-  const latestVetRecord = sortedVetRecords.length > 0 ? sortedVetRecords[0] : null;
+    // Récupérez seulement le dernier enregistrement vétérinaire
+    const latestVetRecord = sortedVetRecords.length > 0 ? sortedVetRecords[0] : null;
 
   return (
     <div className="container-fluid bg-dark p-2 mt-1 mb-3 text-center">
