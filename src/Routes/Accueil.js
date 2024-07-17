@@ -4,7 +4,6 @@ import Services from '../components/styles/Logo/Services/Restauration.jpg'
 import Histoire from '../components/styles/Logo//Histoire/Foret de brocéliande.jpg'
 import Top from "../components/styles/Logo/Accessoire/to_top.png"
 import AvisList from '../components/Page/AvisList'
-import Avis from '../components/Page/Avis'
 export default function Accueil() {
   return (
 <>
@@ -39,7 +38,6 @@ export default function Accueil() {
     <img src={Top} alt="" style={{ position: "fixed", bottom: "50px", right: "50px", opacity: 0.5 }} />
   </a>
   <AvisList></AvisList>
-  <Avis></Avis>
 </>
 
   )

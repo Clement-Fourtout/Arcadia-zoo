@@ -34,11 +34,8 @@ function App() {
       <Route path="parc/:id" element={<HabitatDetails />} />
       <Route path="animals/:id" element={<AnimalDetails />} />
       <Route path="/edit-animal/:id" element={<EditAnimal />} />
-
     </Routes>
     <Main></Main>
-    <Avis></Avis>
-    
     <Footer></Footer>
     </>
   );
