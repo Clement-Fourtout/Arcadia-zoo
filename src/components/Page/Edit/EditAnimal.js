@@ -10,10 +10,9 @@ const EditAnimal = () => {
     age: '',
     description: '',
     habitat_id: '',
-    image: null,
+    image: null, // Utilisez null pour le champ image
   });
   const [habitats, setHabitats] = useState([]);
-
 
   useEffect(() => {
     const fetchAnimal = async () => {
@@ -76,7 +75,6 @@ const EditAnimal = () => {
       if (animal.image) {
         formData.append('image', animal.image);
       }
-
 
       const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${id}`, {
         method: 'PUT',
