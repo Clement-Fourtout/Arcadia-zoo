@@ -13,7 +13,7 @@ const EditAnimal = () => {
     image: null,
   });
   const [habitats, setHabitats] = useState([]);
-  const [currentImage, setCurrentImage] = useState('');
+
 
   useEffect(() => {
     const fetchAnimal = async () => {
@@ -24,7 +24,6 @@ const EditAnimal = () => {
         }
         const data = await response.json();
         setAnimal(data);
-        setCurrentImage(data.image); // Sauvegarde l'URL de l'image actuelle
       } catch (error) {
         console.error('Erreur lors de la récupération des données de l\'animal', error);
       }
@@ -65,22 +64,6 @@ const EditAnimal = () => {
     }
   };
 
-  const deleteImageFromS3 = async (imageUrl) => {
-    try {
-      // Extraction du nom du fichier de l'URL de l'image S3
-      const filename = imageUrl.split('/').pop();
-      const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/delete-image/${filename}`, {
-        method: 'DELETE',
-      });
-      if (!response.ok) {
-        throw new Error('Erreur lors de la suppression de l\'image depuis S3');
-      }
-    } catch (error) {
-      console.error('Erreur lors de la suppression de l\'image depuis S3', error);
-      throw error;
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -94,10 +77,6 @@ const EditAnimal = () => {
         formData.append('image', animal.image);
       }
 
-      // Suppression de l'image actuelle sur S3 si une nouvelle image est chargée
-      if (animal.image && currentImage) {
-        await deleteImageFromS3(currentImage);
-      }
 
       const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${id}`, {
         method: 'PUT',
@@ -108,7 +87,7 @@ const EditAnimal = () => {
         throw new Error('Erreur lors de la mise à jour de l\'animal');
       }
 
-      navigate('/admin'); // Redirige vers la page d'administration après la mise à jour
+       // Redirige vers la page d'administration après la mise à jour
     } catch (error) {
       console.error('Erreur lors de la mise à jour de l\'animal', error);
     }
