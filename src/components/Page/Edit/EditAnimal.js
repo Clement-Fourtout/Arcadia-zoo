@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useAuth } from './AuthContext.js';
 
 const EditAnimal = () => {
   const { id } = useParams();
+  const { token } = useAuth();
   const navigate = useNavigate();
   const [animal, setAnimal] = useState({
     name: '',
@@ -10,7 +12,7 @@ const EditAnimal = () => {
     age: '',
     description: '',
     habitat_id: '',
-    image: ''
+    image: null, // Utilisez null pour représenter l'absence d'image initialement
   });
   const [habitats, setHabitats] = useState([]);
 
@@ -52,7 +54,7 @@ const EditAnimal = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setAnimal((prevAnimal) => ({
-          ...prevAnimal, image: reader.result
+          ...prevAnimal, image: file // Utilisez directement le fichier sélectionné comme image
         }));
       };
       reader.readAsDataURL(file);
@@ -62,25 +64,32 @@ const EditAnimal = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const formData = new FormData();
+      formData.append('name', animal.name);
+      formData.append('species', animal.species);
+      formData.append('age', animal.age);
+      formData.append('description', animal.description);
+      formData.append('habitat_id', animal.habitat_id);
+      if (animal.image) {
+        formData.append('image', animal.image);
+      }
+
       const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${id}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`, // Assurez-vous de définir votre jeton d'authentification correctement
         },
-        body: JSON.stringify(animal),
+        body: formData,
       });
-  
+
       if (!response.ok) {
         throw new Error('Erreur lors de la mise à jour de l\'animal');
       }
-  
-      const data = await response.json();
-      console.log('Réponse de mise à jour:', data); // Vérifiez la réponse de mise à jour dans la console
-  
-      // Temporairement, commentez ou retirez cette ligne pour éviter la redirection automatique
-      // navigate('/admin'); // Redirige vers la page d'administration après la mise à jour
+
+      navigate('/admin'); // Redirection vers la page d'administration après la mise à jour réussie
     } catch (error) {
       console.error('Erreur lors de la mise à jour de l\'animal', error);
+      alert('Erreur lors de la mise à jour de l\'animal');
     }
   };
 
