@@ -4,7 +4,8 @@ import Nav from '../Nav';
 import AvisEnAttente from './AvisEnAttente';
 import '../styles/CSS/Admin.css/Vetrecords.css';
 import '../styles/CSS/Admin.css/WrapperRegister.css';
-import useNavigate  from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Admin() {
   const [nom, setNom] = useState('');
