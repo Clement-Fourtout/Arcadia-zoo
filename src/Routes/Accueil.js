@@ -3,7 +3,7 @@ import Chimpanzée from '../components/styles/Logo/Animaux/Chimpanzée.jpg'
 import Services from '../components/styles/Logo/Services/Restauration.jpg'
 import Histoire from '../components/styles/Logo//Histoire/Foret de brocéliande.jpg'
 import Top from "../components/styles/Logo/Accessoire/to_top.png"
-
+import AvisList from '../components/Page/AvisList';
 
 export default function Accueil() {
   return (
@@ -38,6 +38,7 @@ export default function Accueil() {
   <a href="#top">
     <img src={Top} alt="" style={{ position: "fixed", bottom: "50px", right: "50px", opacity: 0.5 }} />
   </a>
+  <AvisList></AvisList>
 </>
 
   )

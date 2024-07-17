@@ -10,7 +10,6 @@ import Parc from './Routes/Parc.js';
 import Arcadia from './Routes/Arcadia.js';
 import Connexion from './Routes/Connexion.js';
 import Admin from './components/Page/admin.js';
-import AvisList from './components/Page/AvisList.js';
 import Politique from './components/Page/Politique.js';
 import MentionsLégales from './components/Page/MentionsLégales.js';
 import HabitatDetails from './components/Page/HabitatDetails.js';
@@ -39,7 +38,7 @@ function App() {
     </Routes>
     <Main></Main>
     <Avis></Avis>
-    <AvisList></AvisList>
+    
     <Footer></Footer>
     </>
   );
