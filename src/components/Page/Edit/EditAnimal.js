@@ -69,12 +69,16 @@ const EditAnimal = () => {
         },
         body: JSON.stringify(animal),
       });
-
+  
       if (!response.ok) {
         throw new Error('Erreur lors de la mise à jour de l\'animal');
       }
-
-      navigate('/admin'); // Redirige vers la page d'administration après la mise à jour
+  
+      const data = await response.json();
+      console.log('Réponse de mise à jour:', data); // Vérifiez la réponse de mise à jour dans la console
+  
+      // Temporairement, commentez ou retirez cette ligne pour éviter la redirection automatique
+      // navigate('/admin'); // Redirige vers la page d'administration après la mise à jour
     } catch (error) {
       console.error('Erreur lors de la mise à jour de l\'animal', error);
     }
