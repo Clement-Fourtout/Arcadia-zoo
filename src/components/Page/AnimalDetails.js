@@ -13,7 +13,14 @@ const AnimalDetails = () => {
           throw new Error('Erreur lors de la récupération de l\'animal');
         }
         const data = await response.json();
-        setAnimal(data); // Mettre à jour l'état de l'animal avec les données récupérées
+        setAnimal(data);
+
+        // Augmenter le compteur de consultations
+        await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animalviews`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ animalId: id }),
+        });
       } catch (error) {
         console.error('Error fetching animal:', error);
       }
@@ -23,7 +30,7 @@ const AnimalDetails = () => {
   }, [id]);
 
   if (!animal) {
-    return <div>Chargement...</div>; // Affichage de chargement pendant que les données sont récupérées
+    return <div>Chargement...</div>;
   }
 
     // Triez les vetRecords par date décroissante
