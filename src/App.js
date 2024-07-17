@@ -23,7 +23,6 @@ function App() {
     <Header></Header>
     <Nav></Nav>
     <Routes>
-    <AuthProvider>
       <Route path='*' element={<Accueil/>} />
       <Route path='connexion' element={<Connexion/>} />
       <Route path='parc' element={<Parc/>} />
@@ -36,6 +35,7 @@ function App() {
       <Route path="parc/:id" element={<HabitatDetails />} />
       <Route path="animals/:id" element={<AnimalDetails />} />
       <Route path="/edit-animal/:id" element={<EditAnimal />} />
+      <AuthProvider>
     </AuthProvider>
     </Routes>
     <Main></Main>
