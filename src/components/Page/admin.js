@@ -34,7 +34,7 @@ export default function Admin() {
   const [visitTime, setVisitTime] = useState('');
   const navigate = useNavigate();
 
-  
+
   useEffect(() => {
     async function fetchUserData() {
       const userIdFromStorage = localStorage.getItem('userId');
@@ -335,7 +335,9 @@ const handleImageHabitatsChange = (event) => {
     image: event.target.files[0],
   });
 }
-
+const handleEditHabitat = (habitatId) => {
+  navigate(`/edit-habitat/${habitatId}`);
+};
 const handleDeleteHabitat = async (habitatId) => {
   try {
     const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/habitats/${habitatId}`, {
@@ -871,6 +873,7 @@ return (
           <p>Aucun animal trouvé pour cet habitat</p>
         )}
         <button onClick={() => handleDeleteHabitat(habitat.id)}>Supprimer</button>
+        <button onClick={() => handleEditHabitat(habitat.id)}>Modifier</button>
       </li>
     ))}
   </ul>

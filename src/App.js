@@ -15,7 +15,7 @@ import MentionsLégales from './components/Page/MentionsLégales.js';
 import HabitatDetails from './components/Page/HabitatDetails.js';
 import AnimalDetails from './components/Page/AnimalDetails.js';
 import EditAnimal from './components/Page/Edit/EditAnimal.js';
-
+import EditHabitat from './components/Page/Edit/EditHabitat.js';
 function App() {
 
   return (
@@ -35,6 +35,8 @@ function App() {
       <Route path="parc/:id" element={<HabitatDetails />} />
       <Route path="animals/:id" element={<AnimalDetails />} />
       <Route path="/edit-animal/:id" element={<EditAnimal />} />
+      <Route path="/edit-habitat/:id" element={<EditHabitat />} />
+
     </Routes>
     <Main></Main>
     <Footer></Footer>
