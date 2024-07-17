@@ -703,7 +703,7 @@ return (
                             <li key={service.id}>
                                 <div>{service.title}</div>
                                 <div>{service.description}</div>
-                                <button onClick={() => handleDeleteService(service.id)}>Supprimer</button>
+                                <button onClick={() => handleDeleteService(service.id)} className='vet-records-button btn btn-danger'>Supprimer</button>
                             </li>
                 ))}
             </ul>
@@ -717,9 +717,9 @@ return (
                     <h2 className="text-xl-center text-decoration-underline font-weight-bold mb-3 mt-3">Supprimer mon compte</h2>
                     <p>Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</p>
                     
-                    <button onClick={handleDeleteAccount}>Supprimer mon compte</button>
+                    <button onClick={handleDeleteAccount} className='vet-records-button btn btn-danger'>Supprimer mon compte</button>
 
-                    <button onClick={handleLogout}>Déconnexion</button>
+                    <button onClick={handleLogout} className='vet-records-button btn btn-info'>Déconnexion</button>
 
                     <button id="registerButton" onClick={handleRegister} type="submit">Créer un compte</button>
                 </div>
@@ -864,16 +864,16 @@ return (
             {habitat.animals.map((animal) => (
               <li key={animal.id}>
                 {animal.name} - {animal.species} - Âge : {animal.age}{' '}
-                <button onClick={() => handleDeleteAnimal(animal.id)}>Supprimer</button>
-                <button onClick={() => handleEditAnimal(animal.id)}>Modifier</button>
+                <button onClick={() => handleDeleteAnimal(animal.id)} className='vet-records-button btn btn-danger'>Supprimer</button>
+                <button onClick={() => handleEditAnimal(animal.id)} className="vet-records-button btn btn-warning">Modifier</button>
               </li>
             ))}
           </ul>
         ) : (
           <p>Aucun animal trouvé pour cet habitat</p>
         )}
-        <button onClick={() => handleDeleteHabitat(habitat.id)}>Supprimer</button>
-        <button onClick={() => handleEditHabitat(habitat.id)}>Modifier</button>
+        <button onClick={() => handleDeleteHabitat(habitat.id)} className='vet-records-button btn btn-danger'>Supprimer</button>
+        <button onClick={() => handleEditHabitat(habitat.id)} className="vet-records-button btn btn-warning">Modifier</button>
       </li>
     ))}
   </ul>
