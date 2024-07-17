@@ -4,6 +4,7 @@ import Nav from '../Nav';
 import AvisEnAttente from './AvisEnAttente';
 import '../styles/CSS/Admin.css/Vetrecords.css';
 import '../styles/CSS/Admin.css/WrapperRegister.css';
+import useNavigate  from 'react-router-dom';
 
 export default function Admin() {
   const [nom, setNom] = useState('');
@@ -30,6 +31,7 @@ export default function Admin() {
   const [selectedDate, setSelectedDate] = useState('');
   const [filteredVetRecords, setFilteredVetRecords] = useState([]);
   const [visitTime, setVisitTime] = useState('');
+  const navigate = useNavigate();
   useEffect(() => {
     async function fetchUserData() {
       const userIdFromStorage = localStorage.getItem('userId');
@@ -447,6 +449,10 @@ const handleDeleteAnimal = async (animalId) => {
     alert('Erreur lors de la suppression de l\'animal');
   }
 };
+
+const handleEditAnimal = (animalId) => {
+  navigate(`/edit-animal/${animalId}`);
+};
 // Afficher compteur d'incrémentation
 useEffect(() => {
   const fetchAnimalViews = async () => {
@@ -854,6 +860,7 @@ return (
               <li key={animal.id}>
                 {animal.name} - {animal.species} - Âge : {animal.age}{' '}
                 <button onClick={() => handleDeleteAnimal(animal.id)}>Supprimer</button>
+                <button onClick={() => handleEditAnimal(animal.id)}>Modifier</button>
               </li>
             ))}
           </ul>

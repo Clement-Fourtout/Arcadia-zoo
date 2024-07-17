@@ -15,7 +15,7 @@ import Politique from './components/Page/Politique.js';
 import MentionsLégales from './components/Page/MentionsLégales.js';
 import HabitatDetails from './components/Page/HabitatDetails.js';
 import AnimalDetails from './components/Page/AnimalDetails.js';
-
+import EditAnimal from './components/Page/Edit/EditAnimal.js';
 function App() {
 
   return (
@@ -34,6 +34,8 @@ function App() {
       <Route path='mentions' element={<MentionsLégales/>} />
       <Route path="parc/:id" element={<HabitatDetails />} />
       <Route path="animals/:id" element={<AnimalDetails />} />
+      <Route path="/edit-animal/:id" element={<EditAnimal />} />
+
     </Routes>
     <Main></Main>
     <Avis></Avis>
