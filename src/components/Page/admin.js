@@ -715,13 +715,9 @@ return (
 
               <div className="p-3 mt-3">
                     <h2 className="text-xl-center text-decoration-underline font-weight-bold mb-3 mt-3">Supprimer mon compte</h2>
-                    <p>Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</p>
-                    
+                    <p>Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</p>                  
                     <button onClick={handleDeleteAccount} className='vet-records-button btn btn-danger'>Supprimer mon compte</button>
-
                     <button onClick={handleLogout} className='vet-records-button btn btn-info'>Déconnexion</button>
-
-                    <button id="registerButton" onClick={handleRegister} type="submit">Créer un compte</button>
                 </div>
           
 
