@@ -85,7 +85,7 @@ const EditAnimal = () => {
         throw new Error('Erreur lors de la mise à jour de l\'animal');
       }
 
-       // Redirige vers la page d'administration après la mise à jour
+    navigate('/admin');  // Redirige vers la page d'administration après la mise à jour
     } catch (error) {
       console.error('Erreur lors de la mise à jour de l\'animal', error);
     }
