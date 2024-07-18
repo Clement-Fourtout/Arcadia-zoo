@@ -18,7 +18,11 @@ const EditService = () => {
                     throw new Error('Erreur lors de la récupération du service');
                 }
                 const data = await response.json();
-                setService(data);
+                setService({
+                    title: data.title,
+                    description: data.description,
+                    image_url: null,
+                });
             } catch (error) {
                 console.error('Erreur lors de la récupération du service', error);
             }
@@ -40,7 +44,7 @@ const EditService = () => {
         if (file) {
             setService((prevService) => ({
                 ...prevService,
-                image: file,
+                image_url: file,
             }));
         }
     };
@@ -52,7 +56,7 @@ const EditService = () => {
             formData.append('title', service.title);
             formData.append('description', service.description);
             if (service.image_url) {
-                formData.append('image_url', service.image_url);
+                formData.append('image', service.image_url);
             }
 
             const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/services/${id}`, {
@@ -105,10 +109,10 @@ const EditService = () => {
                 <div>
                     <label>Image :</label>
                     <input
-                        type="text"
-                        name="image_url"
+                        type="file"
+                        name="image"
                         onChange={handleImageChange}
-                        accept='image/*'
+                        accept="image/*"
                     />
                 </div>
                 <button type="submit">Enregistrer les modifications</button>
