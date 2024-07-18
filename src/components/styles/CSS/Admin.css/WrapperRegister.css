@@ -57,6 +57,7 @@ body {
   min-height: 50px; /* Hauteur minimale */
   height: auto; /* Permet à l'input de s'agrandir automatiquement */
   padding-bottom: 10px; /* Ajoute un espacement en bas */
+  resize: vertical; /* Permet le redimensionnement vertical */
 }
 
 .wrapper .form-field {
