@@ -7,17 +7,18 @@ const EditHoraire = () => {
     const [jour, setJour] = useState('');
     const [heures, setHeures] = useState('');
     const [token, setToken] = useState('');
+    const [modifiedHoraires, setModifiedHoraires] = useState([]);
 
     useEffect(() => {
-      const tokenFromStorage = localStorage.getItem('token');
-      if (tokenFromStorage) {
-        setToken(tokenFromStorage);
-      } else {
-        navigate('/connexion');
-      }
-      
         const fetchHoraire = async () => {
             try {
+                const tokenFromStorage = localStorage.getItem('token');
+                if (!tokenFromStorage) {
+                    navigate('/connexion');
+                    return;
+                }
+                setToken(tokenFromStorage);
+
                 const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/horaires/${id}`);
                 if (!response.ok) {
                     throw new Error('Erreur lors de la récupération de l\'horaire');
@@ -25,6 +26,8 @@ const EditHoraire = () => {
                 const data = await response.json();
                 setJour(data.jour);
                 setHeures(data.heures);
+                // Initialisation de modifiedHoraires avec l'horaire récupéré
+                setModifiedHoraires([{ jour: data.jour, heures: data.heures }]);
             } catch (error) {
                 console.error('Erreur lors de la récupération de l\'horaire :', error);
             }
@@ -33,6 +36,10 @@ const EditHoraire = () => {
         fetchHoraire();
     }, [navigate, id]);
 
+    const handleChange = (field, value) => {
+        setModifiedHoraires([{ ...modifiedHoraires[0], [field]: value }]);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -40,10 +47,11 @@ const EditHoraire = () => {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,                
-                  },
-                body: JSON.stringify({ jour, heures }),
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(modifiedHoraires[0]),
             });
+
             if (!response.ok) {
                 throw new Error('Erreur lors de la mise à jour de l\'horaire');
             }
@@ -55,27 +63,29 @@ const EditHoraire = () => {
 
     return (
         <div className="container">
-            <h2>Modifier Horaire</h2>
+            <h2>Modifier les Horaires</h2>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Jour :</label>
+                <div className="mb-3">
+                    <label htmlFor="jour">Jour :</label>
                     <input
+                        id="jour"
                         type="text"
-                        value={jour}
-                        onChange={(e) => setJour(e.target.value)}
+                        value={modifiedHoraires[0].jour}
+                        onChange={(e) => handleChange('jour', e.target.value)}
                         required
                     />
                 </div>
-                <div>
-                    <label>Heures :</label>
+                <div className="mb-3">
+                    <label htmlFor="heures">Heures :</label>
                     <input
+                        id="heures"
                         type="text"
-                        value={heures}
-                        onChange={(e) => setHeures(e.target.value)}
+                        value={modifiedHoraires[0].heures}
+                        onChange={(e) => handleChange('heures', e.target.value)}
                         required
                     />
                 </div>
-                <button type="submit">Enregistrer les modifications</button>
+                <button type="submit" className="btn btn-primary">Enregistrer les modifications</button>
             </form>
         </div>
     );
