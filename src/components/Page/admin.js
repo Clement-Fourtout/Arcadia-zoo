@@ -668,22 +668,22 @@ return (
                     />
                 </div>
                 <div className="form-field d-flex align-items-center">
-      <label htmlFor="role">Type</label>
-      <select
-        className="form-control"
-        id="role"
-        name="role"
-        value={role}
-        onChange={(event) => setRole(event.target.value)}
-      >
-        <option value="">Sélectionnez un rôle</option>
-        {roles.map((r) => (
-          <option key={r} value={r}>
-            {r}
-          </option>
-        ))}
-      </select>
-    </div>
+  <label htmlFor="role">Sélectionnez un rôle :</label>
+  <select
+    className="form-control"
+    id="role"
+    name="role"
+    value={role}
+    onChange={(event) => setRole(event.target.value)}
+  >
+    <option value="">Sélectionnez un rôle</option>
+    {roles.map((r) => (
+      <option key={r} value={r}>
+        {r.charAt(0).toUpperCase() + r.slice(1)} {/* Capitalize first letter */}
+      </option>
+    ))}
+  </select>
+</div>
                 <div className="form-field d-flex align-items-center">
                     <label htmlFor="email">E-mail :</label>
                     <input
