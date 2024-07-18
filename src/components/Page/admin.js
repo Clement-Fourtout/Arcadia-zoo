@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 export default function Admin() {
+  const [roles, setRoles] = useState([]); // État pour stocker les rôles
   const [nom, setNom] = useState('');
   const [mot_de_passe, setMotDePasse] = useState('');
   const [role, setRole] = useState('');
@@ -93,6 +94,23 @@ const handleRegister = async (event) => {
     }
 };
 
+useEffect(() => {
+  // Fonction pour charger les rôles depuis l'API
+  const fetchRoles = async () => {
+    try {
+      const response = await fetch('https://votre-api.com/roles'); // Remplacez par votre URL d'API
+      if (!response.ok) {
+        throw new Error('Erreur lors de la récupération des rôles');
+      }
+      const data = await response.json();
+      setRoles(data); // Met à jour l'état des rôles avec les données de l'API
+    } catch (error) {
+      console.error('Erreur lors de la récupération des rôles', error);
+    }
+  };
+
+  fetchRoles();
+}, []);
 //Suppression de compte
 const handleDeleteAccount = async () => {
   try {
@@ -640,6 +658,7 @@ return (
                 <div className="form-field d-flex align-items-center">
                     <span className="far fa-user"></span>
                     <input
+                    className="form-control"
                         type="text"
                         name="nom"
                         id="nom"
@@ -649,20 +668,26 @@ return (
                     />
                 </div>
                 <div className="form-field d-flex align-items-center">
-                    <label htmlFor="role">Type</label>
-                    <select
-                        id="role"
-                        name="role"
-                        value={role}
-                        onChange={(event) => setRole(event.target.value)}
-                    >
-                        <option value="veterinaire">Vétérinaire</option>
-                        <option value="employe">Employé</option>
-                    </select>
-                </div>
+      <label htmlFor="role">Type</label>
+      <select
+        className="form-control"
+        id="role"
+        name="role"
+        value={role}
+        onChange={(event) => setRole(event.target.value)}
+      >
+        <option value="">Sélectionnez un rôle</option>
+        {roles.map((r) => (
+          <option key={r} value={r}>
+            {r}
+          </option>
+        ))}
+      </select>
+    </div>
                 <div className="form-field d-flex align-items-center">
                     <label htmlFor="email">E-mail :</label>
                     <input
+                      className="form-control"
                         type="email"
                         id="email"
                         name="email"
@@ -696,7 +721,7 @@ return (
             </div>
             <div className="form-group">
             <label className="small-label">Description :</label>
-            <input
+            <textarea
               type="text"
               name="description"
               placeholder="Description"
