@@ -10,8 +10,18 @@ const EditHabitat = () => {
     animal_list: '',
     image: null, // Utilisez null pour le champ image
   });
+  const [userId, setUserId] = useState('');
+  const [token, setToken] = useState('');
 
   useEffect(() => {
+    const userIdFromStorage = localStorage.getItem('userId');
+    const tokenFromStorage = localStorage.getItem('token');
+    if (userIdFromStorage && tokenFromStorage) {
+      setUserId(userIdFromStorage);
+      setToken(tokenFromStorage);
+    } else {
+      navigate('/connexion');
+    }
     const fetchHabitat = async () => {
       try {
         const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/habitats/${id}`);
@@ -31,7 +41,7 @@ const EditHabitat = () => {
     };
 
     fetchHabitat();
-  }, [id]);
+  }, [navigate, id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -65,6 +75,9 @@ const EditHabitat = () => {
       const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/habitats/${id}`, {
         method: 'PUT',
         body: formData,
+        headers: {
+          Authorization: `Bearer ${token}`, // Ajouter le token JWT dans l'en-tête Authorization
+      },
       });
 
       if (!response.ok) {
