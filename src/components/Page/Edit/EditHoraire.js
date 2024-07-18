@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 
 const EditHoraire = () => {
-    const { id } = useParams();
     const navigate = useNavigate();
     const [modifiedHoraires, setModifiedHoraires] = useState([]);
     const [token, setToken] = useState('');
@@ -17,7 +16,7 @@ const EditHoraire = () => {
 
         const fetchHoraire = async () => {
             try {
-                const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/horaires/${id}`);
+                const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/horaires`);
                 if (!response.ok) {
                     throw new Error('Erreur lors de la récupération de l\'horaire');
                 }
@@ -29,7 +28,7 @@ const EditHoraire = () => {
         };
 
         fetchHoraire();
-    }, [navigate, id]);
+    }, [navigate,]);
 
     const handleChange = (field, value) => {
         const updatedHoraire = { ...modifiedHoraires[0], [field]: value };
@@ -39,7 +38,7 @@ const EditHoraire = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/horaires/${id}`, {
+            const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/horaires`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
