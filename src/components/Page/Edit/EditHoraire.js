@@ -39,7 +39,8 @@ const EditHoraire = () => {
         body: JSON.stringify(modifiedHoraires),
       });
       if (!response.ok) {
-        throw new Error('Erreur lors de la mise à jour des horaires');
+        const errorResponse = await response.json(); // Capture et analyse de la réponse d'erreur
+        throw new Error(`Erreur lors de la mise à jour des horaires : ${errorResponse.message}`);
       }
       navigate('/admin'); // Redirige vers la page d'administration après la mise à jour
     } catch (error) {
