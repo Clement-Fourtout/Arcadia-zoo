@@ -871,7 +871,7 @@ return (
     </div>
     <div className="form-group">
       <label className="small-label">Description :</label>
-      <input
+      <textarea
         type="text"
         name="description"
         placeholder="Description"

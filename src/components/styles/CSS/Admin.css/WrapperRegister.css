@@ -66,6 +66,20 @@ body {
   border-radius: 20px;
   box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff;
 }
+.wrapper .form-field textarea {
+  width: 100%;
+  display: block;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 1.2rem;
+  color: #666;
+  padding: 10px 15px 10px 10px;
+  min-height: 100px; /* Hauteur minimale */
+  height: auto; /* Permet au textarea de s'agrandir automatiquement */
+  padding-bottom: 10px; /* Ajoute un espacement en bas */
+  resize: vertical; /* Permet le redimensionnement vertical */
+}
 
 .wrapper .form-field .fas {
   color: #555;
