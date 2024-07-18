@@ -17,7 +17,6 @@ import AnimalDetails from './components/Page/AnimalDetails.js';
 import EditAnimal from './components/Page/Edit/EditAnimal.js';
 import EditHabitat from './components/Page/Edit/EditHabitat.js';
 import EditService from './components/Page/Edit/EditService.js';
-import ProtectedRoute from './Routes/ProtectedRoute.js';
 
 function App() {
 

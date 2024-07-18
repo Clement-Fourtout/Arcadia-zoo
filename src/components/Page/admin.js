@@ -44,12 +44,13 @@ export default function Admin() {
         setUserId(userIdFromStorage);
         setToken(tokenFromStorage);
       } else {
+        navigate('/connexion');
         // Gérer le cas où les données utilisateur ne sont pas disponibles dans le localStorage
       }
     }
 
     fetchUserData();
-  }, []);
+  }, [navigate]);
 
 
 
