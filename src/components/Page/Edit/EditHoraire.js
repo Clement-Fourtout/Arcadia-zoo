@@ -4,8 +4,16 @@ import { useNavigate } from 'react-router-dom';
 const EditHoraire = () => {
   const navigate = useNavigate();
   const [modifiedHoraires, setModifiedHoraires] = useState([]);
+  const [token, setToken] = useState('');
 
   useEffect(() => {
+    const tokenFromStorage = localStorage.getItem('token');
+    if (tokenFromStorage) {
+      setToken(tokenFromStorage);
+    } else {
+      navigate('/connexion');
+    }
+
     const fetchHoraires = async () => {
       try {
         const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/horaires');
@@ -20,7 +28,7 @@ const EditHoraire = () => {
     };
 
     fetchHoraires();
-  }, []);
+  }, [navigate]);
 
   const handleChange = (index, field, value) => {
     const updatedHoraires = [...modifiedHoraires];
@@ -35,6 +43,7 @@ const EditHoraire = () => {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(modifiedHoraires),
       });

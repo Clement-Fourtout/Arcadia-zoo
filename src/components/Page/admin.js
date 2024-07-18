@@ -35,8 +35,8 @@ export default function Admin() {
   const [visitTime, setVisitTime] = useState('');
   const [animalDetails, setAnimalDetails] = useState([]);
   const [horaires, setHoraires] = useState([]);
+  
   const navigate = useNavigate();
-
 
   useEffect(() => {
     async function fetchUserData() {
@@ -93,7 +93,6 @@ const handleRegister = async (event) => {
         console.error('Vous n\'êtes pas autorisé à créer de nouveaux comptes.');
     }
 };
-
 useEffect(() => {
   // Fonction pour charger les rôles depuis l'API
   const fetchRoles = async () => {
@@ -102,8 +101,10 @@ useEffect(() => {
       if (!response.ok) {
         throw new Error('Erreur lors de la récupération des rôles');
       }
-      const data = await response.json();
-      setRoles(data); // Met à jour l'état des rôles avec les données de l'API
+      let data = await response.json();
+      data = data.filter(r => r !== 'administrateur');
+      setRoles(data);
+       // Met à jour l'état des rôles avec les données de l'API
     } catch (error) {
       console.error('Erreur lors de la récupération des rôles', error);
     }
@@ -111,6 +112,7 @@ useEffect(() => {
 
   fetchRoles();
 }, []);
+
 //Suppression de compte
 const handleDeleteAccount = async () => {
   try {
@@ -668,22 +670,22 @@ return (
                     />
                 </div>
                 <div className="form-field d-flex align-items-center">
-  <label htmlFor="role">Sélectionnez un rôle :</label>
-  <select
-    className="form-control"
-    id="role"
-    name="role"
-    value={role}
-    onChange={(event) => setRole(event.target.value)}
-  >
-    <option value="">Sélectionnez un rôle</option>
-    {roles.map((r) => (
-      <option key={r} value={r}>
-        {r.charAt(0).toUpperCase() + r.slice(1)} {/* Capitalize first letter */}
-      </option>
-    ))}
-  </select>
-</div>
+          <label htmlFor="role">Type</label>
+          <select
+            className="form-control"
+            id="role"
+            name="role"
+            value={role}
+            onChange={(event) => setRole(event.target.value)}
+          >
+            <option value="">Sélectionnez un rôle</option>
+            {roles.map((r) => (
+              <option key={r} value={r}>
+                {r}
+              </option>
+            ))}
+          </select>
+        </div>
                 <div className="form-field d-flex align-items-center">
                     <label htmlFor="email">E-mail :</label>
                     <input
