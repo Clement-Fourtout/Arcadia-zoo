@@ -32,6 +32,7 @@ export default function Admin() {
   const [selectedDate, setSelectedDate] = useState('');
   const [filteredVetRecords, setFilteredVetRecords] = useState([]);
   const [visitTime, setVisitTime] = useState('');
+  const [horaires, setHoraires] = useState([]);
   const navigate = useNavigate();
 
 
@@ -51,7 +52,6 @@ export default function Admin() {
 
     fetchUserData();
   }, [navigate]);
-
 
 
 //Création de compte
@@ -220,13 +220,36 @@ const handleImageChange = (event) => {
         console.error('Erreur lors de la suppression du service :', error);
     }
 };
+
+useEffect(() => {
+  const fetchHoraires = async () => {
+    try {
+      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/horaires');
+      if (!response.ok) {
+        throw new Error('Erreur lors de la récupération des horaires');
+      }
+      const data = await response.json();
+      setHoraires(data);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des horaires', error);
+    }
+  };
+
+  fetchHoraires();
+}, []);
+// Edition de service pour pouvoir les modifier via EditHoraire.js
+const handleEditHoraire = (horaireID) => {
+  navigate(`/admin/edit-horaire/${horaireID}`);
+};
+// Edition de service pour pouvoir les modifier via EditService.js
 const handleEditService = (serviceID) => {
   navigate(`/admin/edit-service/${serviceID}`);
 };
 
-//Habitat
 
 
+
+//Gestion des Habitats
 const fetchHabitatsAndAnimals = useCallback(async () => {
   try {
     // Récupérer à la fois les habitats et les animaux
@@ -339,7 +362,7 @@ const handleImageHabitatsChange = (event) => {
   });
 }
 const handleEditHabitat = (habitatId) => {
-  navigate(`/edit-habitat/${habitatId}`);
+  navigate(`/admin/edit-habitat/${habitatId}`);
 };
 const handleDeleteHabitat = async (habitatId) => {
   try {
@@ -459,7 +482,7 @@ const handleDeleteAnimal = async (animalId) => {
 };
 
 const handleEditAnimal = (animalId) => {
-  navigate(`/edit-animal/${animalId}`);
+  navigate(`/admin/edit-animal/${animalId}`);
 };
 // Afficher compteur d'incrémentation
 useEffect(() => {
@@ -718,21 +741,58 @@ return (
             <p>Le service a été ajouté avec succès.</p>
           </div>
 
-              <div className="p-3 mt-3">
-                    <h2 className="text-xl-center text-decoration-underline font-weight-bold mb-3 mt-3">Supprimer mon compte</h2>
-                    <p>Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</p>                  
-                    <button onClick={handleDeleteAccount} className='vet-records-button btn btn-danger'>Supprimer mon compte</button>
-                    <button onClick={handleLogout} className='vet-records-button btn btn-info'>Déconnexion</button>
-                </div>
+
+          {/* Gestion des horaires */}
+          <div className="container">
+      <h2 className="text-center">Gestion des Horaires</h2>
+      <div className="mt-4">
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">Jour</th>
+              <th scope="col">Heures</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {horaires.map((horaire) => (
+              <tr key={horaire.id}>
+                <td>{horaire.jour}</td>
+                <td>{horaire.heures}</td>
+                <td>
+                  <button
+                    className="vet-records-button btn btn-warning"
+                    onClick={() => handleEditHoraire(horaire.id)}
+                  >
+                    Modifier
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+
+    {/* Suppression de compte / Déconnexion */}
+    <div className="p-3 mt-3">
+      <h2 className="text-xl-center text-decoration-underline font-weight-bold mb-3 mt-3">Supprimer mon compte</h2>
+        <p>Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</p>                  
+          <button onClick={handleDeleteAccount} className='vet-records-button btn btn-danger'>Supprimer mon compte</button>
+          <button onClick={handleLogout} className='vet-records-button btn btn-info'>Déconnexion</button>
+    </div>
           
 
-    <div id="successMessage" style={{ display: successMessageVisible ? 'block' : 'none' }}>
-                <p>Votre compte a été créé avec succès. Un e-mail de confirmation a été envoyé à votre adresse e-mail.</p>
-    </div>
+{/* Affichage des avis en attente de confirmation par un employé */}
     <div>
       <AvisEnAttente />
     </div>
 
+
+
+    {/* Ajout d'habitat */}
     <div>
       <h2 className="text-xl-center text-decoration-underline font-weight-bold mb-3 mt-3">Ajouter un nouvel habitat</h2>
       <form onSubmit={handleAddHabitat}>

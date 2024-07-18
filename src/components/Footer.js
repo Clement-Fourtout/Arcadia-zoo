@@ -1,40 +1,51 @@
+import React, { useState, useEffect } from 'react';
+
 function Footer() {
-  return (
-    <>
-<div class="container-lg bg-dark rounded">
-  <footer class="py-3 my-3">
-    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-      <li class="nav-item"><a href="/accueil" class="nav-link px-3 text-light">Accueil</a></li>
-      <li class="nav-item"><a href="/politique" class="nav-link px-3 text-light">Politique des données</a></li>
-      <li class="nav-item"><a href="/mentions" class="nav-link px-3 text-light">Mentions légales</a></li>
-      <li class="nav-item"><a href="/connexion" class="nav-link px-3 text-light">Espace Pro</a></li>
-      <div class="dropdown">
-  <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Nos horaires d'ouverture
-  </button>
-  <ul class="dropdown-menu">
-    <li><span class="dropdown-item-text">Lundi : 09:00 - 13:00  14:30 - 18:00</span></li>
-    <li><hr class="dropdown-divider"/></li>
-    <li><span class="dropdown-item-text">Mardi : 09:00 - 13:00  14:30 - 18:00</span></li>
-    <li><hr class="dropdown-divider"/></li>
-    <li><span class="dropdown-item-text">Mercredi : 09:00 - 13:00  14:30 - 18:00</span></li>
-    <li><hr class="dropdown-divider"/></li>
-    <li><span class="dropdown-item-text">Jeudi : 09:00 - 13:00  14:30 - 18:00</span></li>
-    <li><hr class="dropdown-divider"/></li>
-    <li><span class="dropdown-item-text">Vendredi : 09:00 - 13:00  14:30 - 18:00</span></li>
-    <li><hr class="dropdown-divider"/></li>
-    <li><span class="dropdown-item-text">Samedi : 09:00 - 13:00</span></li>
+    const [horaires, setHoraires] = useState([]);
 
-  </ul>
-</div>
-    </ul>
-    <p class="text-center text-light">© Arcadia Zoo de Brocéliande.</p>
+    useEffect(() => {
+        async function fetchHoraires() {
+            try {
+                const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/horaires');
+                if (!response.ok) {
+                    throw new Error('Erreur lors de la récupération des horaires');
+                }
+                const data = await response.json();
+                setHoraires(data);
+            } catch (error) {
+                console.error('Erreur lors de la récupération des horaires', error);
+            }
+        }
 
-  </footer>
-</div>
+        fetchHoraires();
+    }, []);
 
-    </>
-  );
+    return (
+        <div className="container-lg bg-dark rounded">
+            <footer className="py-3 my-3">
+                <ul className="nav justify-content-center border-bottom pb-3 mb-3">
+                    <li className="nav-item"><a href="/accueil" className="nav-link px-3 text-light">Accueil</a></li>
+                    <li className="nav-item"><a href="/politique" className="nav-link px-3 text-light">Politique des données</a></li>
+                    <li className="nav-item"><a href="/mentions" className="nav-link px-3 text-light">Mentions légales</a></li>
+                    <li className="nav-item"><a href="/connexion" className="nav-link px-3 text-light">Espace Pro</a></li>
+                    <div className="dropdown">
+                        <button className="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Nos horaires d'ouverture
+                        </button>
+                        <ul className="dropdown-menu">
+                            {horaires.map((horaire, index) => (
+                                <li key={index}>
+                                    <span className="dropdown-item-text">{horaire.jour} : {horaire.heures}</span>
+                                    {index < horaires.length - 1 && <hr className="dropdown-divider" />}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </ul>
+                <p className="text-center text-light">© Arcadia Zoo de Brocéliande.</p>
+            </footer>
+        </div>
+    );
 }
 
 export default Footer;

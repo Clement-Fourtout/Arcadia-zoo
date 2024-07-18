@@ -17,6 +17,7 @@ import AnimalDetails from './components/Page/AnimalDetails.js';
 import EditAnimal from './components/Page/Edit/EditAnimal.js';
 import EditHabitat from './components/Page/Edit/EditHabitat.js';
 import EditService from './components/Page/Edit/EditService.js';
+import EditHoraire from './components/Page/Edit/EditHoraire.js';
 
 function App() {
 
@@ -39,6 +40,7 @@ function App() {
       <Route path="/admin/edit-animal/:id" element={<EditAnimal />} />
       <Route path="/admin/edit-habitat/:id" element={<EditHabitat />} />
       <Route path="/admin/edit-service/:id" element={<EditService />} />
+      <Route path="/admin/edit-horaires/:id" element={<EditHoraire />} />
 
     </Routes>
     <Main></Main>
