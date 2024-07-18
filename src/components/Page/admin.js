@@ -219,7 +219,9 @@ const handleImageChange = (event) => {
         console.error('Erreur lors de la suppression du service :', error);
     }
 };
-
+const handleEditService = (animalId) => {
+  navigate(`/edit-service/${serviceID}`);
+};
 
 //Habitat
 
@@ -704,6 +706,8 @@ return (
                                 <div>{service.title}</div>
                                 <div>{service.description}</div>
                                 <button onClick={() => handleDeleteService(service.id)} className='vet-records-button btn btn-danger'>Supprimer</button>
+                                <button onClick={() => handleEditService(service.id)} className="vet-records-button btn btn-warning">Modifier</button>
+
                             </li>
                 ))}
             </ul>
