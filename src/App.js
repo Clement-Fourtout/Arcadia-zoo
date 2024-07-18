@@ -32,14 +32,14 @@ function App() {
       <Route path='/services' element={<Services/>} />
       <Route path='/avis' element={<Avis/>} />
       <Route path='/arcadia' element={<Arcadia/>} />
-      <ProtectedRoute path='/admin' element={<Admin/>} />
+      <Route path='/admin' element={<Admin/>} />
       <Route path='/politique' element={<Politique/>} />
       <Route path='/mentions' element={<MentionsLégales/>} />
       <Route path="/parc/:id" element={<HabitatDetails />} />
       <Route path="/animals/:id" element={<AnimalDetails />} />
-      <ProtectedRoute path="/edit-animal/:id" element={<EditAnimal />} />
-      <ProtectedRoute path="/edit-habitat/:id" element={<EditHabitat />} />
-      <ProtectedRoute path="/admin/edit-service/:id" element={<EditService />} />
+      <Route path="/edit-animal/:id" element={<EditAnimal />} />
+      <Route path="/edit-habitat/:id" element={<EditHabitat />} />
+      <Route path="/admin/edit-service/:id" element={<EditService />} />
 
     </Routes>
     <Main></Main>
