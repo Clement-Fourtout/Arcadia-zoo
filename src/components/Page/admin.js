@@ -745,7 +745,7 @@ return (
           {/* Gestion des horaires */}
           <div className="container-fluid p-2 mt-1 mb-3 text-center">
             <h2 className="text-xl-center text-decoration-underline font-weight-bold mb-3 mt-3">Gestion des Horaires</h2>
-            <div className="mt-4">
+            <div className="col-lg-5">
                 <table className="table table-light table-striped table-centered">
                     <thead>
                         <tr>
