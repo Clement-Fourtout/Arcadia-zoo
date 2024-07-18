@@ -9,8 +9,15 @@ const EditService = () => {
         description: '',
         image_url: null,
     });
+    const [token, setToken] = useState('');
 
     useEffect(() => {
+      const tokenFromStorage = localStorage.getItem('token');
+      if (tokenFromStorage) {
+        setToken(tokenFromStorage);
+      } else {
+        navigate('/connexion');
+      }
         const fetchService = async () => {
             try {
                 const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/services/${id}`);
@@ -29,7 +36,7 @@ const EditService = () => {
         };
 
         fetchService();
-    }, [id]);
+    }, [navigate, id]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -62,6 +69,9 @@ const EditService = () => {
             const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/services/${id}`, {
                 method: 'PUT',
                 body: formData,
+                headers: {
+                  Authorization: `Bearer ${token}`, // Ajouter le token JWT dans l'en-tête Authorization
+              },
             });
 
             if (!response.ok) {
