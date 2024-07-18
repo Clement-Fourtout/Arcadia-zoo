@@ -220,7 +220,7 @@ const handleImageChange = (event) => {
     }
 };
 const handleEditService = (serviceID) => {
-  navigate(`/edit-service/${serviceID}`);
+  navigate(`/admin/edit-service/${serviceID}`);
 };
 
 //Habitat
