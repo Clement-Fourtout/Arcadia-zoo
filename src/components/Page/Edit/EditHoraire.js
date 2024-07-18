@@ -61,33 +61,35 @@ const EditHoraire = () => {
     }
 
     return (
-        <div className="container">
-            <h2>Modifier les Horaires</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <label htmlFor="jour">Jour :</label>
-                    <input
-                        id="jour"
-                        type="text"
-                        value={modifiedHoraires[0].jour}
-                        onChange={(e) => handleChange('jour', e.target.value)}
-                        required
-                    />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="heures">Heures :</label>
-                    <input
-                        id="heures"
-                        type="text"
-                        value={modifiedHoraires[0].heures}
-                        onChange={(e) => handleChange('heures', e.target.value)}
-                        required
-                    />
-                </div>
-                <button type="submit" className="btn btn-primary">Enregistrer les modifications</button>
-            </form>
-        </div>
-    );
+      <div className="container">
+      <h2>Modifier les Horaires</h2>
+      <form onSubmit={handleSubmit}>
+        {modifiedHoraires.map((horaire, index) => (
+          <div key={index} className="mb-3">
+            <label htmlFor={`jour-${index}`}>Jour :</label>
+            <input
+              id={`jour-${index}`}
+              type="text"
+              value={horaire.jour}
+              onChange={(e) => handleChange(index, 'jour', e.target.value)}
+              required
+            />
+            <label htmlFor={`heures-${index}`}>Heures :</label>
+            <input
+              id={`heures-${index}`}
+              type="text"
+              value={horaire.heures}
+              onChange={(e) => handleChange(index, 'heures', e.target.value)}
+              required
+            />
+          </div>
+        ))}
+        <button type="submit" className="btn btn-primary">
+          Enregistrer les modifications
+        </button>
+      </form>
+    </div>
+  );
 };
 
 export default EditHoraire;
