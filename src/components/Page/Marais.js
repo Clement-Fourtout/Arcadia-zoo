@@ -27,9 +27,7 @@ export default function Marais() {
           </div>
           <div class="col-lg-5 border">
             <h3 class="text-xl text-align-center text-light text-decoration-underline mt-3">L'Alligator d'Amérique</h3>
-              <h5 class="text-light text-left mt-4">L'Alligator d'Amérique est un grand crocodilien mesurant enttre 2,5m et 4,5m pour un poids allant de 90kg à 230kg. 
-                                                    Il est réputé pour la force de sa machoire équivalent à 13 200 Newton (1,3 tonnes/cm2) 
-                                                    le hissant à la 2nd place de la pluis puissante morsure du règne animal</h5>
+              <h5 class="text-light text-left mt-4">L'Alligator d'Amérique est un grand crocodilien mesurant enttre 2,5m et 4,5m pour un poids allant de 90kg à 230kg. Il est réputé pour la force de sa machoire équivalent à 13 200 Newton (1,3 tonnes/cm2) le hissant à la 2nd place de la pluis puissante morsure du règne animal</h5>
                 <h5 class="text-light text-left mt-3"><em>Habitat : </em> les cours d'eau et zones marécageuses d'Amérique du Nord</h5>
                 <h5 class="text-light text-left mt-3"><em>Etat de santé :</em> Smooth est en trés bonne santé.</h5>
                   <h5 class="text-light text-left mt-3"><em>Régime alimentaire :</em> <span class="text-danger">Carnivore</span> (notamment piscivore et inectivore) 
