@@ -36,8 +36,8 @@ function App() {
       <Route path='/mentions' element={<MentionsLégales/>} />
       <Route path="/parc/:id" element={<HabitatDetails />} />
       <Route path="/animals/:id" element={<AnimalDetails />} />
-      <Route path="/edit-animal/:id" element={<EditAnimal />} />
-      <Route path="/edit-habitat/:id" element={<EditHabitat />} />
+      <Route path="/admin/edit-animal/:id" element={<EditAnimal />} />
+      <Route path="/admin/edit-habitat/:id" element={<EditHabitat />} />
       <Route path="/admin/edit-service/:id" element={<EditService />} />
 
     </Routes>
