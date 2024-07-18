@@ -4,30 +4,25 @@ import { useParams, useNavigate } from 'react-router-dom';
 const EditHoraire = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const [jour, setJour] = useState('');
-    const [heures, setHeures] = useState('');
-    const [token, setToken] = useState('');
     const [modifiedHoraires, setModifiedHoraires] = useState([]);
+    const [token, setToken] = useState('');
 
     useEffect(() => {
+        const tokenFromStorage = localStorage.getItem('token');
+        if (tokenFromStorage) {
+            setToken(tokenFromStorage);
+        } else {
+            navigate('/connexion');
+        }
+
         const fetchHoraire = async () => {
             try {
-                const tokenFromStorage = localStorage.getItem('token');
-                if (!tokenFromStorage) {
-                    navigate('/connexion');
-                    return;
-                }
-                setToken(tokenFromStorage);
-
                 const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/horaires/${id}`);
                 if (!response.ok) {
                     throw new Error('Erreur lors de la récupération de l\'horaire');
                 }
                 const data = await response.json();
-                setJour(data.jour);
-                setHeures(data.heures);
-                // Initialisation de modifiedHoraires avec l'horaire récupéré
-                setModifiedHoraires([{ jour: data.jour, heures: data.heures }]);
+                setModifiedHoraires([data]); // Mettre les données dans un tableau pour accéder à modifiedHoraires[0]
             } catch (error) {
                 console.error('Erreur lors de la récupération de l\'horaire :', error);
             }
@@ -37,7 +32,8 @@ const EditHoraire = () => {
     }, [navigate, id]);
 
     const handleChange = (field, value) => {
-        setModifiedHoraires([{ ...modifiedHoraires[0], [field]: value }]);
+        const updatedHoraire = { ...modifiedHoraires[0], [field]: value };
+        setModifiedHoraires([updatedHoraire]);
     };
 
     const handleSubmit = async (e) => {
@@ -47,19 +43,23 @@ const EditHoraire = () => {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${token}`,                
                 },
-                body: JSON.stringify(modifiedHoraires[0]),
+                body: JSON.stringify(modifiedHoraires[0]), // Envoyer le premier élément de modifiedHoraires
             });
-
             if (!response.ok) {
                 throw new Error('Erreur lors de la mise à jour de l\'horaire');
             }
-            navigate('/admin'); // Redirige vers la page d'administration après la mise à jour
+            navigate('/admin'); // Rediriger vers la page d'administration après la mise à jour
         } catch (error) {
             console.error('Erreur lors de la mise à jour de l\'horaire :', error);
         }
     };
+
+    // Vérifier si modifiedHoraires[0] est défini avant d'afficher le formulaire
+    if (!modifiedHoraires[0]) {
+        return <p>Chargement en cours...</p>;
+    }
 
     return (
         <div className="container">

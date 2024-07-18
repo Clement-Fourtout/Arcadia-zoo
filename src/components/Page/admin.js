@@ -238,7 +238,7 @@ useEffect(() => {
   fetchHoraires();
 }, []);
 // Edition de service pour pouvoir les modifier via EditHoraire.js
-const handleEditHoraire = (horaireID) => {
+const handleEditHoraires = (horaireID) => {
   navigate(`/admin/edit-horaire/`);
 };
 // Edition de service pour pouvoir les modifier via EditService.js
@@ -744,35 +744,29 @@ return (
 
           {/* Gestion des horaires */}
           <div className="container">
-      <h2 className="text-center">Gestion des Horaires</h2>
-      <div className="mt-4">
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">Jour</th>
-              <th scope="col">Heures</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {horaires.map((horaire) => (
-              <tr key={horaire.id}>
-                <td>{horaire.jour}</td>
-                <td>{horaire.heures}</td>
-                <td>
-                  <button
-                    className="vet-records-button btn btn-warning"
-                    onClick={() => handleEditHoraire(horaire.id)}
-                  >
-                    Modifier
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
+            <h2 className="text-center">Gestion des Horaires</h2>
+            <div className="mt-4">
+                <button className="btn btn-warning mb-3" onClick={handleEditHoraires}>
+                    Modifier les horaires
+                </button>
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Jour</th>
+                            <th scope="col">Heures</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {horaires.map((horaire) => (
+                            <tr key={horaire.id}>
+                                <td>{horaire.jour}</td>
+                                <td>{horaire.heures}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
 
 
