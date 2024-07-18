@@ -16,6 +16,7 @@ import HabitatDetails from './components/Page/HabitatDetails.js';
 import AnimalDetails from './components/Page/AnimalDetails.js';
 import EditAnimal from './components/Page/Edit/EditAnimal.js';
 import EditHabitat from './components/Page/Edit/EditHabitat.js';
+import EditService from './components/Page/Edit/EditService.js';
 function App() {
 
   return (
@@ -36,6 +37,7 @@ function App() {
       <Route path="animals/:id" element={<AnimalDetails />} />
       <Route path="/edit-animal/:id" element={<EditAnimal />} />
       <Route path="/edit-habitat/:id" element={<EditHabitat />} />
+      <Route path="/admin/edit-service/:id" element={<EditService />} />
 
     </Routes>
     <Main></Main>
