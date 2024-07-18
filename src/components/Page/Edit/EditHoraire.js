@@ -1,67 +1,57 @@
 import React, { useState, useEffect } from 'react';
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const EditHoraire = () => {
-    const navigate = useNavigate();
-    const [modifiedHoraires, setModifiedHoraires] = useState([]);
-    const [token, setToken] = useState('');
+  const navigate = useNavigate();
+  const [modifiedHoraires, setModifiedHoraires] = useState([]);
 
-    useEffect(() => {
-        const tokenFromStorage = localStorage.getItem('token');
-        if (tokenFromStorage) {
-            setToken(tokenFromStorage);
-        } else {
-            navigate('/connexion');
+  useEffect(() => {
+    const fetchHoraires = async () => {
+      try {
+        const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/horaires');
+        if (!response.ok) {
+          throw new Error('Erreur lors de la récupération des horaires');
         }
-
-        const fetchHoraire = async () => {
-            try {
-                const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/horaires`);
-                if (!response.ok) {
-                    throw new Error('Erreur lors de la récupération de l\'horaire');
-                }
-                const data = await response.json();
-                setModifiedHoraires([data]); // Mettre les données dans un tableau pour accéder à modifiedHoraires[0]
-            } catch (error) {
-                console.error('Erreur lors de la récupération de l\'horaire :', error);
-            }
-        };
-
-        fetchHoraire();
-    }, [navigate,]);
-
-    const handleChange = (field, value) => {
-        const updatedHoraire = { ...modifiedHoraires[0], [field]: value };
-        setModifiedHoraires([updatedHoraire]);
+        const data = await response.json();
+        setModifiedHoraires(data);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des horaires', error);
+      }
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/horaires`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,                
-                },
-                body: JSON.stringify(modifiedHoraires[0]), // Envoyer le premier élément de modifiedHoraires
-            });
-            if (!response.ok) {
-                throw new Error('Erreur lors de la mise à jour de l\'horaire');
-            }
-            navigate('/admin'); // Rediriger vers la page d'administration après la mise à jour
-        } catch (error) {
-            console.error('Erreur lors de la mise à jour de l\'horaire :', error);
-        }
-    };
+    fetchHoraires();
+  }, []);
 
-    // Vérifier si modifiedHoraires[0] est défini avant d'afficher le formulaire
-    if (!modifiedHoraires[0]) {
-        return <p>Chargement en cours...</p>;
+  const handleChange = (index, field, value) => {
+    const updatedHoraires = [...modifiedHoraires];
+    updatedHoraires[index][field] = value;
+    setModifiedHoraires(updatedHoraires);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/horaires', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(modifiedHoraires),
+      });
+      if (!response.ok) {
+        throw new Error('Erreur lors de la mise à jour des horaires');
+      }
+      navigate('/admin'); // Redirige vers la page d'administration après la mise à jour
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour des horaires :', error);
     }
+  };
 
-    return (
-      <div className="container">
+  // Vérification des données dans la console
+  console.log('modifiedHoraires:', modifiedHoraires);
+
+  return (
+    <div className="container">
       <h2>Modifier les Horaires</h2>
       <form onSubmit={handleSubmit}>
         {modifiedHoraires.map((horaire, index) => (
@@ -70,7 +60,7 @@ const EditHoraire = () => {
             <input
               id={`jour-${index}`}
               type="text"
-              value={horaire.jour}
+              value={horaire.jour || ''}
               onChange={(e) => handleChange(index, 'jour', e.target.value)}
               required
             />
@@ -78,7 +68,7 @@ const EditHoraire = () => {
             <input
               id={`heures-${index}`}
               type="text"
-              value={horaire.heures}
+              value={horaire.heures || ''}
               onChange={(e) => handleChange(index, 'heures', e.target.value)}
               required
             />
