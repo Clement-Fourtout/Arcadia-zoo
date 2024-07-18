@@ -40,7 +40,7 @@ function App() {
       <Route path="/admin/edit-animal/:id" element={<EditAnimal />} />
       <Route path="/admin/edit-habitat/:id" element={<EditHabitat />} />
       <Route path="/admin/edit-service/:id" element={<EditService />} />
-      <Route path="/admin/edit-horaire/:id" element={<EditHoraire />} />
+      <Route path="/admin/edit-horaire" element={<EditHoraire />} />
 
     </Routes>
     <Main></Main>

@@ -239,7 +239,7 @@ useEffect(() => {
 }, []);
 // Edition de service pour pouvoir les modifier via EditHoraire.js
 const handleEditHoraire = (horaireID) => {
-  navigate(`/admin/edit-horaire/${horaireID}`);
+  navigate(`/admin/edit-horaire/`);
 };
 // Edition de service pour pouvoir les modifier via EditService.js
 const handleEditService = (serviceID) => {
