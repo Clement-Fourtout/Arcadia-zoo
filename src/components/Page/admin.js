@@ -98,7 +98,7 @@ useEffect(() => {
   // Fonction pour charger les rôles depuis l'API
   const fetchRoles = async () => {
     try {
-      const response = await fetch('https://votre-api.com/roles'); // Remplacez par votre URL d'API
+      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/roles'); // Remplacez par votre URL d'API
       if (!response.ok) {
         throw new Error('Erreur lors de la récupération des rôles');
       }
