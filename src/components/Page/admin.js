@@ -743,13 +743,10 @@ return (
 
 
           {/* Gestion des horaires */}
-          <div className="container">
-            <h2 className="text-center">Gestion des Horaires</h2>
+          <div className="container-fluid p-2 mt-1 mb-3 text-center">
+            <h2 className="text-xl-center text-decoration-underline font-weight-bold mb-3 mt-3">Gestion des Horaires</h2>
             <div className="mt-4">
-                <button className="btn btn-warning mb-3" onClick={handleEditHoraires}>
-                    Modifier les horaires
-                </button>
-                <table className="table">
+                <table className="table table-light table-striped table-centered">
                     <thead>
                         <tr>
                             <th scope="col">Jour</th>
@@ -765,6 +762,9 @@ return (
                         ))}
                     </tbody>
                 </table>
+                <button className='vet-records-button btn btn-info ' onClick={handleEditHoraires}>
+                Modifier les horaires
+                </button>
             </div>
         </div>
 
