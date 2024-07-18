@@ -219,7 +219,7 @@ const handleImageChange = (event) => {
         console.error('Erreur lors de la suppression du service :', error);
     }
 };
-const handleEditService = (animalId) => {
+const handleEditService = (serviceID) => {
   navigate(`/edit-service/${serviceID}`);
 };
 
