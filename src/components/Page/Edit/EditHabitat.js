@@ -10,14 +10,12 @@ const EditHabitat = () => {
     animal_list: '',
     image: null, // Utilisez null pour le champ image
   });
-  const [userId, setUserId] = useState('');
+
   const [token, setToken] = useState('');
 
   useEffect(() => {
-    const userIdFromStorage = localStorage.getItem('userId');
     const tokenFromStorage = localStorage.getItem('token');
-    if (userIdFromStorage && tokenFromStorage) {
-      setUserId(userIdFromStorage);
+    if (tokenFromStorage) {
       setToken(tokenFromStorage);
     } else {
       navigate('/connexion');
