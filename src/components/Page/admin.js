@@ -32,6 +32,7 @@ export default function Admin() {
   const [selectedDate, setSelectedDate] = useState('');
   const [filteredVetRecords, setFilteredVetRecords] = useState([]);
   const [visitTime, setVisitTime] = useState('');
+  const [animalDetails, setAnimalDetails] = useState([]);
   const [horaires, setHoraires] = useState([]);
   const navigate = useNavigate();
 
@@ -595,6 +596,7 @@ const handleAddVetRecord = async (event) => {
         food_amount: foodAmount,
         visit_date: visitDate,
         visit_time: visitTime,
+        details: animalDetails,
       }),
     });
 
@@ -610,6 +612,7 @@ const handleAddVetRecord = async (event) => {
     setFoodAmount('');
     setVisitDate('');
     setVisitTime('');
+    setAnimalDetails('');
   } catch (error) {
     console.error('Erreur lors de l\'ajout des données vétérinaires :', error);
     alert('Erreur lors de l\'ajout des données vétérinaires');
@@ -1016,6 +1019,17 @@ return (
               style={styles.input}
             />
           </div>
+        <div className="form-group">
+          <label className="small-label">Détails :</label>
+          <textarea
+            type="text"
+            className="form-control"
+            value={animalDetails}
+            onChange={(e) => setAnimalDetails(e.target.value)}
+            required
+            style={styles.input}
+          />
+        </div>
         <button type="submit" className="btn btn-primary" style={styles.button}>
           Ajouter données vétérinaires
         </button>
