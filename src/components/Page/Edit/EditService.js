@@ -56,7 +56,7 @@ const EditService = () => {
             formData.append('title', service.title);
             formData.append('description', service.description);
             if (service.image_url) {
-                formData.append('image', service.image_url);
+                formData.append('image_url', service.image_url);
             }
 
             const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/services/${id}`, {
@@ -110,7 +110,7 @@ const EditService = () => {
                     <label>Image :</label>
                     <input
                         type="file"
-                        name="image"
+                        name="image_url"
                         onChange={handleImageChange}
                         accept="image/*"
                     />
