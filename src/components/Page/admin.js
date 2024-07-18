@@ -828,22 +828,25 @@ return (
           {/* Liste des habitats existants */}
 
 {/* Ajout d'animaux */}
-<div className="container">
+<div className='wrapper'>
+<div className="admin-container">
   <h2 className="text-xl-center text-decoration-underline font-weight-bold mb-3 mt-3">Ajouter un nouvel animal</h2>
-  <form onSubmit={handleAddAnimal}>
-    <div>
-      <label>Nom :</label>
+  <form onSubmit={handleAddAnimal} className="vertical-form" style={styles.form}>
+    <div className="form-group"> 
+      <label className="small-label">Nom :</label>
       <input
         type="text"
+        className="form-control"
         name="name"
         placeholder="Nom de l'animal"
         value={newAnimal.name}
         onChange={(e) => setNewAnimal({ ...newAnimal, name: e.target.value })}
         required
+        style={styles.input}
       />
     </div>
-    <div>
-      <label>Espèce :</label>
+    <div className="form-group">
+      <label className="small-label">Espèce :</label>
       <input
         type="text"
         name="species"
@@ -851,10 +854,11 @@ return (
         value={newAnimal.species}
         onChange={(e) => setNewAnimal({ ...newAnimal, species: e.target.value })}
         required
+        style={styles.input}
       />
     </div>
-    <div>
-      <label>Âge :</label>
+    <div className="form-group">
+      <label className="small-label">Âge :</label>
       <input
         type="number"
         name="age"
@@ -862,10 +866,11 @@ return (
         value={newAnimal.age}
         onChange={(e) => setNewAnimal({ ...newAnimal, age: e.target.value })}
         required
+        style={styles.input}
       />
     </div>
-    <div>
-      <label>Description :</label>
+    <div className="form-group">
+      <label className="small-label">Description :</label>
       <input
         type="text"
         name="description"
@@ -873,21 +878,17 @@ return (
         value={newAnimal.description}
         onChange={(e) => setNewAnimal({ ...newAnimal, description: e.target.value })}
         required
-        style={{
-          width: '100%',
-          resize: 'vertical',
-          padding: '8px',
-          fontSize: '16px',
-          wordWrap: 'break-word',
-        }}
+        style={styles.input}
       />
     </div>
-    <div>
-  <label>Habitat :</label>
+    <div className="form-group">
+  <label className="small-label">Habitat :</label>
 <select
+  className="form-control"
   value={newAnimal.habitat_id}
   onChange={(e) => setNewAnimal({ ...newAnimal, habitat_id: e.target.value })}
   required
+  style={styles.input}
 >
   <option value="">Sélectionnez un habitat</option>
   {habitats.map((habitat) => (
@@ -895,19 +896,22 @@ return (
   ))}
 </select>
 </div>
-    <div>
-      <label>Image :</label>
+    <div className="form-group">
+      <label className="small-label">Image :</label>
       <input
         type="file"
         name="image"
         onChange={handleImageAnimalsChange}
         accept="image/*"
         required
+        style={styles.input}
       />
     </div>
-    <button type="submit">Ajouter l'animal</button>
+    <button type="submit" className="btn btn-primary" style={styles.button}>Ajouter l'animal</button>
   </form>
 </div>
+</div>
+
 
 <div className="habitat-list">
   <h2 className="text-xl-center text-decoration-underline font-weight-bold">Liste des Habitats et de leurs Animaux</h2>
