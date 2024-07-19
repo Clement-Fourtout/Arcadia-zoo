@@ -29,13 +29,13 @@
   object-fit: cover; /* Cover the container */
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  filter: brightness(70%); /* Adjust the brightness */
+  filter: brightness(90%); /* Adjust the brightness */
 }
 
 /* Container for description text over the image */
 .animal-description-container {
   position: absolute;
-  top: 50%;
+  top: 90%;
   left: 50%;
   transform: translate(-50%, -50%); /* Center the text */
   color: #fff;
