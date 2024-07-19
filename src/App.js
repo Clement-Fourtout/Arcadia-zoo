@@ -8,6 +8,7 @@ import { Route, Routes } from 'react-router-dom';
 import Avis from './components/Page/Avis.js';
 import Parc from './Routes/Parc.js';
 import Arcadia from './Routes/Arcadia.js';
+import { CookiesProvider } from 'react-cookie';
 import Connexion from './Routes/Connexion.js';
 import Admin from './components/Page/admin.js';
 import Politique from './components/Page/Politique.js';
@@ -19,14 +20,17 @@ import EditHabitat from './components/Page/Edit/EditHabitat.js';
 import EditService from './components/Page/Edit/EditService.js';
 import EditHoraire from './components/Page/Edit/EditHoraire.js';
 import Contact from './components/Page/Contact.js';
+import CookieConsent from './Routes/CookieConsent.js';
 
 function App() {
 
   return (
     <>
+    <CookiesProvider>
     <Header></Header>
     <Nav></Nav>
     <Routes>
+      <CookieConsent/>
       <Route path='/' element={<Accueil/>} />
       <Route path='/connexion' element={<Connexion/>} />
       <Route path='/parc' element={<Parc/>} />
@@ -43,10 +47,10 @@ function App() {
       <Route path="/admin/edit-habitat/:id" element={<EditHabitat />} />
       <Route path="/admin/edit-service/:id" element={<EditService />} />
       <Route path="/admin/edit-horaire" element={<EditHoraire />} />
-
     </Routes>
     <Main></Main>
     <Footer></Footer>
+    </CookiesProvider>
     </>
   );
 }
