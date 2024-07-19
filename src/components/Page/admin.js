@@ -835,16 +835,20 @@ return (
 
 {/* Affichage des mails de visiteurs en attente de réponses par un employé */}
 
-    <div>
+<div>
       <h2 className="text-xl-center text-decoration-underline font-weight-bold mb-3 mt-3">Messages de visiteurs</h2>
       <ul>
-        {contacts.map(contact => (
-          <li key={contact.id}>
-            <h3>{contact.title}</h3>
-            <p>{contact.description}</p>
-            <p><strong>Email:</strong> {contact.email}</p>
-          </li>
-        ))}
+        {Array.isArray(contacts) ? (
+          contacts.map(contact => (
+            <li key={contact.id}>
+              <h3>{contact.title}</h3>
+              <p>{contact.description}</p>
+              <p><strong>Email:</strong> {contact.email}</p>
+            </li>
+          ))
+        ) : (
+          <p>Aucun message trouvé.</p>
+        )}
       </ul>
     </div>
 
