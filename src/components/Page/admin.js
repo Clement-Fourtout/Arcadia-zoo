@@ -16,6 +16,8 @@ export default function Admin() {
   const [token, setToken] = useState('');
   const [email, setEmail] = useState('');
   const [contacts, setContacts] = useState([]);
+  const [selectedContact, setSelectedContact] = useState(null);
+  const [responseMessage, setResponseMessage] = useState('');
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
   const [services, setServices] = useState([]); 
   const [newService, setNewService] = useState({ title: '', description: '', image: null });
@@ -145,8 +147,7 @@ const handleLogout = () => {
   window.location.href = "/connexion";
 };
 
-// Systeme d'affichage des mails visiteurs
-
+// Systeme d'affichage d'affichage mails visiteurs
 useEffect(() => {
   const fetchContacts = async () => {
     try {
@@ -160,6 +161,43 @@ useEffect(() => {
 
   fetchContacts();
 }, []);
+
+// Systeme de réponse aux mails visiteurs 
+
+const handleResponseChange = (event) => {
+  setResponseMessage(event.target.value);
+};
+
+const handleSendResponse = async () => {
+  if (selectedContact && responseMessage) {
+    try {
+      const response = await fetch('/send-response', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          to: selectedContact.email,
+          subject: `Réponse à votre message: ${selectedContact.title}`,
+          text: responseMessage,
+        }),
+      });
+
+      if (response.ok) {
+        alert('Réponse envoyée avec succès.');
+        setResponseMessage('');
+        setSelectedContact(null);
+        // Rafraîchir les messages si nécessaire
+      } else {
+        console.error('Erreur lors de l\'envoi de la réponse.');
+      }
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi de la réponse:', error);
+    }
+  } else {
+    alert('Veuillez sélectionner un message et écrire une réponse.');
+  }
+};
 
 // Gestion des services
 const fetchServices = useCallback(async () => {
@@ -834,13 +872,12 @@ return (
 
 
 {/* Affichage des mails de visiteurs en attente de réponses par un employé */}
-
-<div>
+    <div>
       <h2 className="text-xl-center text-decoration-underline font-weight-bold mb-3 mt-3">Messages de visiteurs</h2>
       <ul>
-        {Array.isArray(contacts) ? (
+        {Array.isArray(contacts) && contacts.length > 0 ? (
           contacts.map(contact => (
-            <li key={contact.id}>
+            <li key={contact.id} onClick={() => setSelectedContact(contact)}>
               <h3>{contact.title}</h3>
               <p>{contact.description}</p>
               <p><strong>Email:</strong> {contact.email}</p>
@@ -850,7 +887,21 @@ return (
           <p>Aucun message trouvé.</p>
         )}
       </ul>
+
+      {selectedContact && (
+        <div>
+          <h3>Répondre à {selectedContact.email}</h3>
+          <textarea
+            rows="4"
+            value={responseMessage}
+            onChange={handleResponseChange}
+            placeholder="Votre réponse ici..."
+          />
+          <button onClick={handleSendResponse}>Envoyer la réponse</button>
+        </div>
+      )}
     </div>
+ 
 
 
     {/* Ajout d'habitat */}
