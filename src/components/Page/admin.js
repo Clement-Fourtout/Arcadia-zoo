@@ -571,7 +571,9 @@ useEffect(() => {
         throw new Error('Failed to fetch animal views');
       }
       const data = await response.json();
-      setAnimalViews(data);
+      // Trier les données par nombre de vues
+      const sortedData = data.sort((a, b) => b.viewCount - a.viewCount);
+      setAnimalViews(sortedData);
     } catch (error) {
       console.error('Error fetching animal views:', error);
     }
@@ -1291,7 +1293,6 @@ return (
 </div>
 </div>
 
-    
     <div className="container-fluid p-2 mt-1 mb-3 text-center">
       <h1 className="text-xl-center text-decoration-underline font-weight-bold" style={{ marginBottom: "50px", marginTop: "25px" }}>
         Vue des Animaux
@@ -1299,22 +1300,22 @@ return (
       <div className="row justify-content-center mb-2">
         {animalViews.length > 0 ? (
           <div className="col-lg-8">
-          <table className="table table-light table-striped table-centered">
-            <thead>
-              <tr>
-                <th>Nom de l'Animal</th>
-                <th>Nombre de Vues</th>
-              </tr>
-            </thead>
-            <tbody>
-              {animalViews.map((view) => (
-                <tr key={view.animalId}>
-                  <td>{view.animalName}</td>
-                  <td>{view.viewCount}</td>
+            <table className="table table-light table-striped table-centered">
+              <thead>
+                <tr>
+                  <th>Nom de l'Animal</th>
+                  <th>Nombre de Vues</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {animalViews.map((view) => (
+                  <tr key={view.animalId}>
+                    <td>{view.animalName}</td>
+                    <td>{view.viewCount}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         ) : (
           <p className="text-light">Aucune vue trouvée pour les animaux.</p>

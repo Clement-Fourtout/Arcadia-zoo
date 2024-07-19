@@ -3,7 +3,7 @@
   background-color: #343a40;
   color: #ffffff;
   padding: 20px;
-  margin-top: 25px;
+  margin-top: 5px;
   margin-bottom: 25px;
   text-align: center;
 }
@@ -77,17 +77,17 @@
   background-color: #138496;
 }
 
-/* Top icon styling */
+
 .top-icon {
   position: fixed;
   bottom: 50px;
   right: 50px;
   opacity: 0.5;
   cursor: pointer;
-  width: 50px; /* Adjust size as needed */
+  width: 50px; 
 }
 
-/* Media queries for responsiveness */
+/* Responsive pour téléphone/tablette*/
 @media (max-width: 992px) {
   .animal-card {
     width: calc(50% - 40px);

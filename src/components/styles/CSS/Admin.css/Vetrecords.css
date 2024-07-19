@@ -1,15 +1,15 @@
-/* vet-records.css */
+
 .vet-records-container {
   margin-top: 10px;
   margin-bottom: 10px;
   max-width: 1000px; 
   margin-left: auto;
   margin-right: auto;
-  text-align: center; /* Centre le contenu à l'intérieur du conteneur */
+  text-align: center; 
 }
 
 .vet-records-table {
-  width: 100%; /* Utilise 100% par défaut, mais ajuste en fonction de la largeur maximale souhaitée */
+  width: 100%; 
   border-collapse: collapse;
   margin-top: 10px;
 }
@@ -40,9 +40,9 @@
   border-radius: 4px;
 }
 .vet-records-wrapper {
-  max-width: 1000px; /* Augmente la taille du wrapper pour les enregistrements vétérinaires */
-  margin: 0 auto; /* Centre le wrapper horizontalement */
-  padding: 20px; /* Ajoute un espace intérieur pour plus d'aération */
+  max-width: 1000px; 
+  margin: 0 auto; 
+  padding: 20px; 
 }
 .table-centered {
   margin-left: auto;

@@ -7,9 +7,9 @@
   margin: auto;
   width: 100%;
   max-width: 600px;
-  background-color: #f8f9fa; /* Couleur de fond douce */
+  background-color: #f8f9fa; 
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre pour un peu de profondeur */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
 .form-title {
@@ -23,7 +23,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 15px; /* Espacement entre les éléments du formulaire */
+  gap: 15px; 
 }
 
 .form-input,
@@ -41,7 +41,7 @@
 }
 
 .form-textarea {
-  height: 100px; /* Hauteur fixe pour le textarea */
+  height: 100px; 
 }
 
 .form-button {
@@ -50,7 +50,7 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   width: 100px;
-  align-self: center; /* Centrer le bouton */
+  align-self: center;
 }
 
 .form-button:hover {

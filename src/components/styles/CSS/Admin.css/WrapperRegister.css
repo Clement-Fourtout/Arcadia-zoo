@@ -54,10 +54,10 @@ body {
   font-size: 1.2rem;
   color: #666;
   padding: 10px 15px 10px 10px;
-  min-height: 50px; /* Hauteur minimale */
-  height: auto; /* Permet à l'input de s'agrandir automatiquement */
-  padding-bottom: 10px; /* Ajoute un espacement en bas */
-  resize: vertical; /* Permet le redimensionnement vertical */
+  min-height: 50px; 
+  height: auto; 
+  padding-bottom: 10px; 
+  resize: vertical; 
 }
 
 .wrapper .form-field {

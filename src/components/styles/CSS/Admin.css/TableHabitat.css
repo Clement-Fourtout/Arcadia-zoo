@@ -1,10 +1,10 @@
 /* Conteneur de chaque habitat */
 .habitat-container {
-  margin-bottom: 40px; /* Espacement entre les habitats */
+  margin-bottom: 40px; 
   padding: 20px;
-  border: 1px solid #ddd; /* Bordure autour de chaque habitat */
-  border-radius: 8px; /* Coins arrondis */
-  background-color: #f9f9f9; /* Fond léger pour chaque habitat */
+  border: 1px solid #ddd; 
+  border-radius: 8px; 
+  background-color: #f9f9f9; 
 }
 
 /* Nom de l'habitat */
@@ -35,9 +35,9 @@
   background-color: #f2f2f2;
 }
 .vet-records-button {
-  margin-right: 10px; /* Ajustez cette valeur selon vos besoins */
+  margin-right: 10px; 
 }
 
 .button-group {
-  margin-bottom: 10px; /* Espace en bas des groupes de boutons */
+  margin-bottom: 10px;
 }
