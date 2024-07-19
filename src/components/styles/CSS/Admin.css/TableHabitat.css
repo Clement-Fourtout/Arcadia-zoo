@@ -1,42 +1,36 @@
-/* Conteneur du tableau avec largeur maximale et centrage */
-.table-container {
-  max-width: 1200px; /* Ajustez la largeur maximale selon vos besoins */
-  margin: 0 auto; /* Centre le tableau horizontalement */
-  padding: 0 20px; /* Ajoute du padding si nécessaire */
+/* Conteneur de chaque habitat */
+.habitat-container {
+  margin-bottom: 40px; /* Espacement entre les habitats */
+  padding: 20px;
+  border: 1px solid #ddd; /* Bordure autour de chaque habitat */
+  border-radius: 8px; /* Coins arrondis */
+  background-color: #f9f9f9; /* Fond léger pour chaque habitat */
 }
 
-/* Styles pour le tableau */
-.table {
-  width: 100%; /* Assure que le tableau utilise toute la largeur de son conteneur */
+/* Nom de l'habitat */
+.habitat-name {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+/* Description de l'habitat */
+.habitat-description {
+  margin-bottom: 10px;
+}
+
+/* Tableau des animaux */
+.animals-table {
+  width: 100%;
   border-collapse: collapse;
-  border: 1px solid #ddd; /* Bordure du tableau */
 }
 
-.table th, .table td {
+/* En-têtes et cellules du tableau */
+.animals-table th, .animals-table td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
 }
 
-.table th {
+.animals-table th {
   background-color: #f2f2f2;
-}
-
-/* Ajustements spécifiques pour les colonnes */
-.table .habitat-name {
-  width: 20%;
-}
-
-.table .habitat-description {
-  width: 30%;
-}
-
-.table .animal-name,
-.table .animal-species,
-.table .animal-age {
-  width: 15%;
-}
-
-.table .actions-animal {
-  width: 20%;
 }
