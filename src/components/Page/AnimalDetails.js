@@ -35,14 +35,14 @@ const AnimalDetails = () => {
 
   return (
     
-<div className="container-fluid bg-dark p-2 mt-1 mb-3 text-center">
+<div className="container-fluid bg-dark p-2 mb-3 text-center">
       <a id="top" href="top"> </a>
       <div className="animal-details-container">
         <div className="animal-image-container">
           <img src={animal.image} className="animal-image-2" alt={animal.name} />
         </div>
         <div className="animal-description-container">
-          <h1 className="animal-name text-decoration underline">{animal.name}</h1>
+          <h1 className="animal-name text-decoration-underline">{animal.name}</h1>
           <div className="animal-description">
             <h5 className="text-light"><em>Espèce:</em> {animal.species}</h5>
             <h5 className="text-light"><em>Âge:</em> {animal.age}</h5>
