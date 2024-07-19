@@ -815,8 +815,12 @@ return (
           </div>
         </div>
 
-                {successMessageVisible && <p>Service ajouté avec succès!</p>}
+        {successMessageVisible && <p>Service ajouté avec succès!</p>}
+        <div id="successMessage" style={{ display: successMessageVisible ? 'block' : 'none' }}>
+          <p>Le service a été ajouté avec succès.</p>
+        </div>
 
+        
 {/* Liste des services existants */}
 <div className="service-list">
   <h2 className="text-xl-center text-decoration-underline font-weight-bold mb-3">Liste des Services</h2>
@@ -827,7 +831,7 @@ return (
           <div className="habitat-description">{service.description}</div>
             <button
             onClick={() => {
-            if (window.confirm('Êtes-vous sûr de vouloir supprimer cet habitat ?')) {
+            if (window.confirm('Êtes-vous sûr de vouloir supprimer ce service ?')) {
             handleDeleteService(service.id);
             }
             }}
@@ -836,10 +840,8 @@ return (
         </li>
         ))}
     </ul>
-      </div>
-        <div id="successMessage" style={{ display: successMessageVisible ? 'block' : 'none' }}>
-          <p>Le service a été ajouté avec succès.</p>
-        </div>
+</div>
+
 
 
           {/* Gestion des horaires */}

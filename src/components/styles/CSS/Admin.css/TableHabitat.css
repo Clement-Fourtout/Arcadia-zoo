@@ -41,3 +41,7 @@
 .button-group {
   margin-bottom: 10px;
 }
+.service-list ul {
+  list-style-type: none; /* Retirer les puces */
+  padding: 0; /* Supprimer les marges internes */
+}
