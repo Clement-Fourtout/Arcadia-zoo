@@ -171,7 +171,7 @@ const handleResponseChange = (event) => {
 const handleSendResponse = async () => {
   if (selectedContact && responseMessage) {
     try {
-      const response = await fetch('/send-response', {
+      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/send-response', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
