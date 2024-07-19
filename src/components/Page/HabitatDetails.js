@@ -76,33 +76,39 @@ const HabitatDetails = () => {
 
   return (
     
-    <div className="container-fluid bg-dark p-2 mt-1 mb-3 text-center">
-      <a id="top" href="top"> </a>
-      <h1 className="text-xl-center text-custom-savane text-decoration-underline font-weight-bold" style={{ marginBottom: "50px", marginTop: "25px" }}>
-        {habitat.name}
-      </h1>
-      <div className="row justify-content-center mb-2">
-        {animals.length > 0 ? (
-          animals.map((animal) => (
-            <div key={animal.id} className="col-lg-4 mb-4">
-              <h3 className="text-xl text-align-center text-light text-decoration-underline mt-3">{animal.name}</h3>
-              <img src={animal.image} className="animal-image col-lg-11 rounded" alt={animal.name} style={{ marginLeft: 0, padding: 0 }} />
-              <div className="col-lg-12">
-                <h5 className="text-light text-center mt-3"><em>Espèce :</em> {animal.species}</h5>
-                <h5 className="text-light text-center mt-3"><em>Âge :</em> {animal.age}</h5>
-                <button id={`button-${animal.id}`} onClick={() => handleMoreInfo(animal.id)} className="btn btn-info mt-2">En savoir plus</button>
-              </div>
+    <div className="habitat-details-container container-fluid">
+    <a id="top" href="#top"> </a>
+    <h1 className="habitat-title text-xl-center">
+      {habitat.name}
+    </h1>
+    <div className="animal-row row justify-content-center mb-2">
+      {animals.length > 0 ? (
+        animals.map((animal) => (
+          <div key={animal.id} className="animal-card col-lg-4 mb-4">
+            <h3 className="animal-name text-xl text-align-center mt-3">{animal.name}</h3>
+            <img src={animal.image} className="animal-image" alt={animal.name} />
+            <div className="animal-details col-lg-12">
+              <h5 className="text-light text-center mt-3"><em>Espèce :</em> {animal.species}</h5>
+              <h5 className="text-light text-center mt-3"><em>Âge :</em> {animal.age}</h5>
+              <button
+                id={`button-${animal.id}`}
+                onClick={() => handleMoreInfo(animal.id)}
+                className="more-info-button btn mt-2"
+              >
+                En savoir plus
+              </button>
             </div>
-          ))
-        ) : (
-          <p className="text-light">Aucun animal trouvé pour cet habitat.</p>
-        )}
-      </div>
-      <a href="#top">
-    <img src={Top} alt="" style={{ position: "fixed", bottom: "50px", right: "50px", opacity: 0.5 }} />
-  </a>
+          </div>
+        ))
+      ) : (
+        <p className="text-light">Aucun animal trouvé pour cet habitat.</p>
+      )}
     </div>
-  );
+    <a href="#top">
+      <img src={Top} alt="Top" className="top-icon" />
+    </a>
+  </div>
+);
 };
 
 export default HabitatDetails;
