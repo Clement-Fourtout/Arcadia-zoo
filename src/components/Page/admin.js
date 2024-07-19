@@ -707,8 +707,9 @@ return (
    
    {/* Création de compte */}
             <div>
+            <button onClick={handleLogout} className='vet-records-button btn btn-info justify-content-center'>Déconnexion</button>
+
                 <h1 className="text-xl-center text-decoration-underline font-weight-bold mt-5">Page Administrateur</h1>
-                <button onClick={handleLogout} className='vet-records-button btn btn-info'>Déconnexion</button>
                 <div className="wrapper">
                 <div className="admin-container">
             <div className="text-xl-center text-decoration-underline font-weight-bold">
