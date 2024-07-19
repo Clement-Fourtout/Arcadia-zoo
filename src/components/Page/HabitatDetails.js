@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import '../styles/CSS/Animaux/HabitatDetails.css';
+import Top from "../styles/Logo/Accessoire/to_top.png";
 
 const HabitatDetails = () => {
   const { id } = useParams();
@@ -74,7 +75,9 @@ const HabitatDetails = () => {
   }
 
   return (
+    
     <div className="container-fluid bg-dark p-2 mt-1 mb-3 text-center">
+      <a id="top" href="top"> </a>
       <h1 className="text-xl-center text-custom-savane text-decoration-underline font-weight-bold" style={{ marginBottom: "50px", marginTop: "25px" }}>
         {habitat.name}
       </h1>
@@ -95,6 +98,9 @@ const HabitatDetails = () => {
           <p className="text-light">Aucun animal trouvé pour cet habitat.</p>
         )}
       </div>
+      <a href="#top">
+    <img src={Top} alt="" style={{ position: "fixed", bottom: "50px", right: "50px", opacity: 0.5 }} />
+  </a>
     </div>
   );
 };

@@ -5,6 +5,7 @@ import AvisEnAttente from './AvisEnAttente';
 import '../styles/CSS/Admin.css/Vetrecords.css';
 import '../styles/CSS/Admin.css/WrapperRegister.css';
 import '../styles/CSS/Admin.css/TableHabitat.css';
+import Top from "../styles/Logo/Accessoire/to_top.png";
 import { useNavigate } from 'react-router-dom';
 
 
@@ -700,7 +701,9 @@ const handleAddVetRecord = async (event) => {
 
 return (
   <>
-   <Nav /> {/* Vérifiez que Nav est correctement importé et utilisé */}
+   <Nav /> 
+   <a id="top" href="top"> </a>
+   {/* Création de compte */}
             <div>
                 <h1 className="text-xl-center text-decoration-underline font-weight-bold mt-5">Page Administrateur</h1>
                 <div className="wrapper">
@@ -1319,6 +1322,9 @@ return (
       </div>
     </div>
       </div>
+      <a href="#top">
+    <img src={Top} alt="" style={{ position: "fixed", bottom: "50px", right: "50px", opacity: 0.5 }} />
+  </a>
     </>
   );
 };
