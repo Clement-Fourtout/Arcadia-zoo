@@ -29,8 +29,8 @@ function App() {
     <CookiesProvider>
     <Header></Header>
     <Nav></Nav>
+    <CookieConsent/>
     <Routes>
-      <CookieConsent/>
       <Route path='/' element={<Accueil/>} />
       <Route path='/connexion' element={<Connexion/>} />
       <Route path='/parc' element={<Parc/>} />
