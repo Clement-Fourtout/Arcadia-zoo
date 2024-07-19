@@ -39,7 +39,7 @@ const AnimalDetails = () => {
       <a id="top" href="top"> </a>
       <div className="animal-details-container">
         <div className="animal-image-container">
-          <img src={animal.image} className="animal-image" alt={animal.name} />
+          <img src={animal.image} className="animal-image-2" alt={animal.name} />
         </div>
         <div className="animal-description-container">
           <h1 className="animal-name">{animal.name}</h1>
