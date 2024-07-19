@@ -1061,7 +1061,7 @@ return (
   <h2 className="text-xl-center text-decoration-underline font-weight-bold">
     Liste des Habitats et de leurs Animaux
   </h2>
-  <table className="table table-striped">
+  <table className="table table-light table-striped table-centered">
     <thead>
       <tr>
         <th>Nom de l'Habitat</th>
@@ -1085,6 +1085,7 @@ return (
                   <>
                     <td rowSpan={habitat.animals.length}>{habitat.name}</td>
                     <td rowSpan={habitat.animals.length}>{habitat.description}</td>
+                    
                   </>
                 )}
                 <td>{animal.name}</td>
