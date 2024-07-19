@@ -1067,6 +1067,7 @@ return (
     <div key={habitat.id} className="habitat-container">
       <h3 className="habitat-name">{habitat.name}</h3>
       <p className="habitat-description">{habitat.description}</p>
+      <div className="button-group">
       <button
         onClick={() => {
           if (window.confirm('Êtes-vous sûr de vouloir supprimer cet habitat ?')) {
@@ -1083,7 +1084,7 @@ return (
       >
         Modifier Habitat
       </button>
-
+        </div>
       <div className="table-container">
         <table className="table table-striped animals-table">
           <thead>
