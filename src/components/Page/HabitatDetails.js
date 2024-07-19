@@ -75,7 +75,6 @@ const HabitatDetails = () => {
   }
 
   return (
-    
     <div className="habitat-details-container container-fluid">
     <a id="top" href="#top"> </a>
     <h1 className="habitat-title text-xl-center">
@@ -110,5 +109,4 @@ const HabitatDetails = () => {
   </div>
 );
 };
-
 export default HabitatDetails;
