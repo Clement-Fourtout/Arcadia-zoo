@@ -14,7 +14,7 @@
 /* Background image for the animal details */
 .animal-image-container {
   width: 100%;
-  max-width: 600px; /* Ajustez la largeur maximale si nécessaire */
+  max-width: 100%; /* Ajustez la largeur maximale si nécessaire */
   margin-bottom: 20px;
   display: flex;
   justify-content: center; /* Centre l'image horizontalement */
