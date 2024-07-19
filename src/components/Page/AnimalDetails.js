@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Top from "../styles/Logo/Accessoire/to_top.png";
-
+import '../styles/CSS/Animaux/AnimalDetails.css'
 
 const AnimalDetails = () => {
   const { id } = useParams();
