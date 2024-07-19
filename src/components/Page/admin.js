@@ -147,7 +147,7 @@ const handleLogout = () => {
   window.location.href = "/connexion";
 };
 
-// Systeme d'affichage d'affichage mails visiteurs
+// Systeme d'affichage d'affichage des mails visiteurs non-répondus
 useEffect(() => {
   const fetchContacts = async () => {
     try {
@@ -177,6 +177,7 @@ const handleSendResponse = async () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          messageId: selectedContact.id,
           to: selectedContact.email,
           subject: `Réponse à votre message: ${selectedContact.title}`,
           text: responseMessage,
