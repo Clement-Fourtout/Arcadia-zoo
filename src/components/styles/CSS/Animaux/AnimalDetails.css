@@ -1,0 +1,56 @@
+/* Container for the entire animal details section */
+.animal-details-container {
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
+}
+
+/* Background image for the animal details */
+.animal-image-container {
+  position: relative;
+  width: 100%;
+  height: 300px; /* Adjust height as needed */
+  overflow: hidden;
+}
+
+/* Image styling */
+.animal-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(50%); /* Dims the image for better readability of text */
+}
+
+/* Container for description text over image */
+.animal-description-container {
+  position: absolute;
+  top: 20%;
+  left: 5%;
+  right: 5%;
+  color: #fff;
+  z-index: 1; /* Ensure it is above the image */
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.5); /* Background color with transparency */
+  border-radius: 8px;
+}
+
+/* Title styling */
+.animal-name {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+/* Description styling */
+.animal-description {
+  font-size: 1.25rem;
+}
+
+/* Top icon styling */
+.top-icon {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  opacity: 0.5;
+  cursor: pointer;
+  width: 50px; /* Adjust size as needed */
+}

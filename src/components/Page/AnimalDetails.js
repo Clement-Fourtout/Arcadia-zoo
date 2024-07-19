@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Top from "../styles/Logo/Accessoire/to_top.png"
+import Top from "../styles/Logo/Accessoire/to_top.png";
+
+
 const AnimalDetails = () => {
   const { id } = useParams();
   const [animal, setAnimal] = useState(null);
@@ -33,20 +35,20 @@ const AnimalDetails = () => {
 
   return (
     
-    <div className="container-fluid bg-dark p-2 mt-1 mb-3 text-center">
+<div className="container-fluid bg-dark p-2 mt-1 mb-3 text-center">
       <a id="top" href="top"> </a>
-      <h1 className="text-xl-center text-custom-savane text-decoration-underline font-weight-bold" style={{ marginBottom: "50px", marginTop: "25px" }}>
-        {animal.name}
-      </h1>
-      <div className="row justify-content-center mb-2">
-        <div className="col-lg-4">
-          <img src={animal.image} className="col-lg-11 rounded" alt={animal.name} style={{ marginLeft: 0, padding: 0 }} />
+      <div className="animal-details-container">
+        <div className="animal-image-container">
+          <img src={animal.image} className="animal-image" alt={animal.name} />
         </div>
-        <div className="col-lg-5 border">
-          <h3 className="text-xl text-align-center text-light text-decoration-underline mt-3">{animal.name}</h3>
-          <h5 className="text-light text-left mt-3"><em>Espèce:</em> {animal.species}</h5>
-          <h5 className="text-light text-left mt-3"><em>Âge:</em> {animal.age}</h5>
-          <h5 className="text-light text-left mt-3"><em>Description:</em> {animal.description}</h5>
+        <div className="animal-description-container">
+          <h1 className="animal-name">{animal.name}</h1>
+          <div className="animal-description">
+            <h3 className="text-light text-decoration-underline">{animal.name}</h3>
+            <h5 className="text-light"><em>Espèce:</em> {animal.species}</h5>
+            <h5 className="text-light"><em>Âge:</em> {animal.age}</h5>
+            <h5 className="text-light"><em>Description:</em> {animal.description}</h5>
+          </div>
         </div>
       </div>
       <h2 className="text-light text-decoration-underline">Dernier enregistrement vétérinaire</h2>
@@ -61,12 +63,11 @@ const AnimalDetails = () => {
       ) : (
         <p className="text-light">Aucun enregistrement vétérinaire trouvé pour cet animal.</p>
       )}
-        <a href="#top">
-    <img src={Top} alt="" style={{ position: "fixed", bottom: "50px", right: "50px", opacity: 0.5 }} />
-  </a>
+      <a href="#top">
+        <img src={Top} alt="Retour en haut" className="top-icon" />
+      </a>
     </div>
-    
   );
-};
+};;
 
 export default AnimalDetails;
