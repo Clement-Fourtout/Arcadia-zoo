@@ -4,20 +4,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: no-repeat center center fixed; /* Change 'path-to-your-background-image.jpg' to your actual image path */
   background-size: cover;
-  overflow: hidden;
   color: white;
   padding: 20px;
   min-height: 100vh;
+  overflow: hidden;
 }
 
-/* Background image for the animal details */
+/* Container for the image of the animal */
 .animal-image-container {
   width: 100%;
   display: flex;
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
-  height: 400px; /* Fixed height */
+  height: 600px; /* Fixed height */
   margin-bottom: 20px;
   overflow: hidden; /* Hide overflow */
 }
@@ -25,15 +26,14 @@
 /* Image styling */
 .animal-image-2 {
   width: 100%;
-  height: auto;
-  max-height: 100%;
+  height: 100%;
+  object-fit: cover; /* Cover the container */
   border-radius: 10px;
-  object-fit: cover;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  filter: brightness(50%); /* Dims the image for better readability of text */
+  filter: brightness(50%); /* Dim the image */
 }
 
-/* Container for description text over image */
+/* Container for description text over the image */
 .animal-description-container {
   position: absolute;
   top: 10%; /* Adjust as needed */
@@ -47,6 +47,7 @@
   max-width: 600px;
   text-align: center;
 }
+
 /* Title styling */
 .animal-name {
   font-size: 2.5rem;
@@ -58,10 +59,13 @@
   margin-bottom: 10px;
 }
 
+/* Style for vet records */
 .vet-record {
-  background: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
   border: 1px solid #ddd;
   border-radius: 10px;
+  padding: 15px;
+  margin-top: 20px;
 }
 
 /* Top icon styling */
