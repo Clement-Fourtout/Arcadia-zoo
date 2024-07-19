@@ -57,7 +57,7 @@
 /* Bouton de déconnexion */
 .fixed-logout-button {
   position: fixed;
-  top: 20px; 
+  top: 60px; 
   right: 20px; 
   z-index: 1000; 
   background-color: #17a2b8; 
