@@ -1061,7 +1061,7 @@ return (
   <h2 className="text-xl-center text-decoration-underline font-weight-bold">
     Liste des Habitats et de leurs Animaux
   </h2>
-  <table className="table table-light table-striped table-centered">
+  <table className="table table-striped">
     <thead>
       <tr>
         <th>Nom de l'Habitat</th>
@@ -1070,7 +1070,6 @@ return (
         <th>Espèce</th>
         <th>Âge</th>
         <th>Actions Animaux</th>
-        <th>Actions Habitat</th>
       </tr>
     </thead>
     <tbody>
@@ -1083,9 +1082,24 @@ return (
                 {/* Nom et description de l'habitat seulement pour le premier animal */}
                 {index === 0 && (
                   <>
-                    <td rowSpan={habitat.animals.length}>{habitat.name}</td>
+                    <td rowSpan={habitat.animals.length}>
+                      {habitat.name}
+                      <br />
+                      <button
+                        onClick={() => handleDeleteHabitat(habitat.id)}
+                        className="vet-records-button btn btn-danger"
+                      >
+                        Supprimer Habitat
+                      </button>
+                      <br />
+                      <button
+                        onClick={() => handleEditHabitat(habitat.id)}
+                        className="vet-records-button btn btn-warning"
+                      >
+                        Modifier Habitat
+                      </button>
+                    </td>
                     <td rowSpan={habitat.animals.length}>{habitat.description}</td>
-                    
                   </>
                 )}
                 <td>{animal.name}</td>
@@ -1107,29 +1121,11 @@ return (
                     Modifier
                   </button>
                 </td>
-                {index === 0 && (
-                  <td rowSpan={habitat.animals.length}>
-                    {/* Actions pour l'habitat */}
-                    <button
-                      onClick={() => handleDeleteHabitat(habitat.id)}
-                      className="vet-records-button btn btn-danger"
-                    >
-                      Supprimer Habitat
-                    </button>
-                    <br />
-                    <button
-                      onClick={() => handleEditHabitat(habitat.id)}
-                      className="vet-records-button btn btn-warning"
-                    >
-                      Modifier Habitat
-                    </button>
-                  </td>
-                )}
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan="7">Aucun animal trouvé pour cet habitat</td>
+              <td colSpan="6">Aucun animal trouvé pour cet habitat</td>
             </tr>
           )}
         </>
