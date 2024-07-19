@@ -906,18 +906,26 @@ return (
 
 
     {/* Ajout d'habitat */}
-    <div>
+    <div className='wrapper'>
+    <div className="admin-container">
       <h2 className="text-xl-center text-decoration-underline font-weight-bold mb-3 mt-3">Ajouter un nouvel habitat</h2>
-      <form onSubmit={handleAddHabitat}>
+      <form onSubmit={handleAddHabitat} className="vertical-form" style={styles.form}> 
+      <div className="form-group"> 
+      <label className="small-label">Nom de l'habitat :</label>
         <input
           type="text"
+          className="form-control"
           name="name"
           placeholder="Nom de l'habitat"
           value={newHabitat.name}
           onChange={(e) => setNewHabitat({ ...newHabitat, name: e.target.value })}
           required
         />
-        <input
+        </div>
+
+        <div className="form-group"> 
+        <label className="small-label">Description :</label>
+        <textarea
           type="text"
           name="description"
           placeholder="Description de l'habitat"
@@ -925,6 +933,10 @@ return (
           onChange={(e) => setNewHabitat({ ...newHabitat, description: e.target.value })}
           required
         />
+        </div>
+
+        <div className="form-group">
+        <label className="small-label">Image :</label>
         <input
               type="file"
               name="image"
@@ -932,15 +944,20 @@ return (
               accept="image/*"
               required
         />
-        <input
+        </div>
+        <div className="form-group">
+        <label className="small-label">Liste des animaux</label>
+        <textarea
           name="animal_list"
           placeholder="Liste des animaux (séparés par des virgules)"
           value={newHabitat.animal_list}
           onChange={(e) => setNewHabitat({ ...newHabitat, animal_list: e.target.value })}
           required
         />
-        <button type="submit">Ajouter l'habitat</button>
+        </div>
+        <button type="submit" className="btn btn-success" style={styles.button}>Ajouter l'habitat</button>
       </form>
+      </div>
     </div>
           {/* Liste des habitats existants */}
 
