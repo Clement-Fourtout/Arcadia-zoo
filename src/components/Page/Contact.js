@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../styles/CSS/Admin.css/WrapperRegister.css';
 
 export default function Contact() {
   const [title, setTitle] = useState('');
@@ -32,32 +33,37 @@ export default function Contact() {
   };
 
   return (
-    <div>
-      <h2>Contactez-nous</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="title">Titre</label>
+<div className='wrapper'>
+<div className="admin-container">
+
+      <h2 className="text-xl-center text-decoration-underline font-weight-bold mb-3 mt-3">Contactez-nous</h2>
+      <form onSubmit={handleSubmit}  className="vertical-form" style={styles.form}>
+      <div className="form-group"> 
+      <label htmlFor="title" className="small-label">Titre</label>
           <input
             type="text"
+            className="form-control"
             id="title"
             name="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
+            style={styles.input}
           />
         </div>
-        <div>
-          <label htmlFor="description">Description</label>
+        <div className="form-group">
+          <label htmlFor="description" className="small-label">Description</label>
           <textarea
             id="description"
             name="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             required
+            style={styles.input}
           ></textarea>
         </div>
-        <div>
-          <label htmlFor="email">Email</label>
+        <div className="form-group">
+          <label htmlFor="email" className="small-label">Email</label>
           <input
             type="email"
             id="email"
@@ -65,11 +71,45 @@ export default function Contact() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            style={styles.input}
           />
         </div>
-        <button type="submit">Envoyer</button>
+        <button type="submit" className="btn btn-primary" style={styles.button}>Envoyer</button>
       </form>
       {successMessage && <p>{successMessage}</p>}
     </div>
+    </div>
   );
 }
+
+const styles = {
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    maxWidth: '400px',
+    margin: 'auto',
+  },
+  input: {
+    width: '100%',
+    padding: '8px',
+    fontSize: '1rem',
+    border: '1px solid #ccc',
+    borderRadius: '4px',
+    marginBottom: '10px',
+  },
+  button: {
+    width: '100%',
+    padding: '10px',
+    fontSize: '1rem',
+    backgroundColor: '#007bff',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer',
+  },
+  smallLabel: {
+    fontSize: '0.85rem',
+    textAlign: 'center',
+    marginBottom: '5px',
+  },
+};
