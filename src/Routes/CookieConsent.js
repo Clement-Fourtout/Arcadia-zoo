@@ -6,7 +6,7 @@ const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(!cookies['user-consent']);
 
   const handleAccept = () => {
-    setCookie('user-consent', 'accepted', { path: '/', maxAge: 31536000 }); // 1 year
+    setCookie('user-consent', 'accepted', { path: '/', maxAge: 31536000 }); 
     setIsVisible(false);
   };
 

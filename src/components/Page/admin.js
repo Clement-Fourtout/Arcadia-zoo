@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import Logo from '../styles/Logo/Arcadia Zoo.png';
 import Nav from '../Nav';
 import AvisEnAttente from './AvisEnAttente';
 import '../styles/CSS/Admin.css/Vetrecords.css';
@@ -704,22 +703,19 @@ const handleAddVetRecord = async (event) => {
 return (
   <>
    <Nav /> 
-   <a id="top" href="top"> </a>
+    <a id="top" href="top"> </a>
+   
    {/* Création de compte */}
             <div>
                 <h1 className="text-xl-center text-decoration-underline font-weight-bold mt-5">Page Administrateur</h1>
                 <div className="wrapper">
-            <div className="logo">
-                <a href="/">
-                    <img src={Logo} alt="Logo" /> {/* Assurez-vous que Logo est correctement importé */}
-                </a>
-            </div>
-            <div className="text-center mt-4 name">
-                Arcadia
+                <div className="admin-container">
+            <div className="text-xl-center text-decoration-underline font-weight-bold">
+                Créer un compte
             </div>
             <form className="p-3 mt-3">
-                <div className="form-field d-flex align-items-center">
-                    <span className="far fa-user"></span>
+                <div className="form-group">
+                <label className="small-label">Nom d'utilisateur :</label>
                     <input
                     className="form-control"
                         type="text"
@@ -728,15 +724,17 @@ return (
                         placeholder="Nom d'utilisateur"
                         value={nom}
                         onChange={(event) => setNom(event.target.value)}
+                        style={styles.input}
                     />
                 </div>
-                <div className="form-field d-flex align-items-center">
-          <label htmlFor="role">Type</label>
+                <div className="form-group">
+          <label htmlFor="role" className="small-label">Type</label>
           <select
             className="form-control"
             id="role"
             name="role"
             value={role}
+            style={styles.input}
             onChange={(event) => setRole(event.target.value)}
           >
             <option value="">Sélectionnez un rôle</option>
@@ -747,25 +745,29 @@ return (
             ))}
           </select>
         </div>
-                <div className="form-field d-flex align-items-center">
-                    <label htmlFor="email">E-mail :</label>
+                <div className="form-group">
+                    <label htmlFor="email" className="small-label">E-mail :</label>
                     <input
                       className="form-control"
                         type="email"
                         id="email"
                         name="email"
                         placeholder="Entrez votre adresse e-mail"
+                        style={styles.input}
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}
                     />
                 </div>
-                <button type="button" onClick={handleRegister} className="btn mt-3">Créer un compte</button>
+                <button type="button" onClick={handleRegister} className="btn btn-success" style={styles.button}>Créer un compte</button>
             </form>
             {successMessageVisible && (
                 <div className="success-message">Compte créé avec succès !</div>
             )}
         </div>
+        </div>
 
+
+{/* Ajouter un service */}
         <div className="wrapper">
         <div className="admin-container">
         <h2 className="text-xl-center text-decoration-underline font-weight-bold">Ajouter un service</h2>
