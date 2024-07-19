@@ -1068,12 +1068,15 @@ return (
       <h3 className="habitat-name">{habitat.name}</h3>
       <p className="habitat-description">{habitat.description}</p>
       <button
-        onClick={() => handleDeleteHabitat(habitat.id)}
+        onClick={() => {
+          if (window.confirm('Êtes-vous sûr de vouloir supprimer cet habitat ?')) {
+            handleDeleteHabitat(habitat.id);
+          }
+        }}
         className="vet-records-button btn btn-danger"
       >
         Supprimer Habitat
       </button>
-      <br />
       <button
         onClick={() => handleEditHabitat(habitat.id)}
         className="vet-records-button btn btn-warning"
@@ -1081,46 +1084,51 @@ return (
         Modifier Habitat
       </button>
 
-      <table className="table table-striped animals-table">
-        <thead>
-          <tr>
-            <th>Nom de l'Animal</th>
-            <th>Espèce</th>
-            <th>Âge</th>
-            <th>Actions Animaux</th>
-          </tr>
-        </thead>
-        <tbody>
-          {habitat.animals.length > 0 ? (
-            habitat.animals.map((animal) => (
-              <tr key={animal.id}>
-                <td>{animal.name}</td>
-                <td>{animal.species}</td>
-                <td>{animal.age}</td>
-                <td>
-                  <button
-                    onClick={() => handleDeleteAnimal(animal.id)}
-                    className="vet-records-button btn btn-danger"
-                  >
-                    Supprimer
-                  </button>
-                  <br />
-                  <button
-                    onClick={() => handleEditAnimal(animal.id)}
-                    className="vet-records-button btn btn-warning"
-                  >
-                    Modifier
-                  </button>
-                </td>
-              </tr>
-            ))
-          ) : (
+      <div className="table-container">
+        <table className="table table-striped animals-table">
+          <thead>
             <tr>
-              <td colSpan="4">Aucun animal trouvé pour cet habitat</td>
+              <th>Nom de l'Animal</th>
+              <th>Espèce</th>
+              <th>Âge</th>
+              <th>Actions Animaux</th>
             </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {habitat.animals.length > 0 ? (
+              habitat.animals.map((animal) => (
+                <tr key={animal.id}>
+                  <td>{animal.name}</td>
+                  <td>{animal.species}</td>
+                  <td>{animal.age}</td>
+                  <td>
+                    <button
+                      onClick={() => {
+                        if (window.confirm('Êtes-vous sûr de vouloir supprimer cet animal ?')) {
+                          handleDeleteAnimal(animal.id);
+                        }
+                      }}
+                      className="vet-records-button btn btn-danger"
+                    >
+                      Supprimer
+                    </button>
+                    <button
+                      onClick={() => handleEditAnimal(animal.id)}
+                      className="vet-records-button btn btn-warning"
+                    >
+                      Modifier
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="4">Aucun animal trouvé pour cet habitat</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   ))}
 </div>
