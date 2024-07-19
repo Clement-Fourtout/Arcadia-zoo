@@ -151,7 +151,7 @@ const handleLogout = () => {
 useEffect(() => {
   const fetchContacts = async () => {
     try {
-      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/contacts');
+      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/unreplied-contacts');
       const data = await response.json();
       setContacts(data);
     } catch (error) {
