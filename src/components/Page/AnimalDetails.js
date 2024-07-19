@@ -42,9 +42,8 @@ const AnimalDetails = () => {
           <img src={animal.image} className="animal-image-2" alt={animal.name} />
         </div>
         <div className="animal-description-container">
-          <h1 className="animal-name">{animal.name}</h1>
+          <h1 className="animal-name text-decoration underline">{animal.name}</h1>
           <div className="animal-description">
-            <h3 className="text-light text-decoration-underline">{animal.name}</h3>
             <h5 className="text-light"><em>Espèce:</em> {animal.species}</h5>
             <h5 className="text-light"><em>Âge:</em> {animal.age}</h5>
             <h5 className="text-light"><em>Description:</em> {animal.description}</h5>
