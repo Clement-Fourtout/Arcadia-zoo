@@ -707,14 +707,14 @@ return (
    
    {/* Création de compte */}
             <div>
-            <button onClick={handleLogout} className='vet-records-button btn btn-info justify-content-center'>Déconnexion</button>
+            <button onClick={handleLogout} className='fixed-logout-button'>Déconnexion</button>
 
                 <h1 className="text-xl-center text-decoration-underline font-weight-bold mt-5">Page Administrateur</h1>
                 <div className="wrapper">
                 <div className="admin-container">
-            <div className="text-xl-center text-decoration-underline font-weight-bold">
+            <h2 className="text-xl-center text-decoration-underline font-weight-bold">
                 Créer un compte
-            </div>
+            </h2>
             <form className="p-3 mt-3">
                 <div className="form-group">
                 <label className="small-label">Nom d'utilisateur :</label>
