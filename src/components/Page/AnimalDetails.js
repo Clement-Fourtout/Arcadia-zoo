@@ -46,7 +46,7 @@ const AnimalDetails = () => {
           <div className="animal-description">
             <h5 className="text-light"><em>Espèce:</em> {animal.species}</h5>
             <h5 className="text-light"><em>Âge:</em> {animal.age}</h5>
-            <h5 className="text-light"><em>Description:</em> {animal.description}</h5>
+            <h5 className="text-light"><em></em> {animal.description}</h5>
           </div>
         </div>
       </div>

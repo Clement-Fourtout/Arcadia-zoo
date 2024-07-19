@@ -10,7 +10,7 @@ export default function Accueil() {
   return (
 <>
   <a id="top" href="top"> </a>
-  <main className="container-fluid bg-dark p-2  mb-3">
+  <main className="container-fluid bg-dark p-2 mt-1 mb-3">
     <div className="row justify-content-center">
       <div className="col-lg-6 col-md-7 mb-3">
         <h2 className="text-center"><a className="btn btn-outline-success" href="parc" role="button">Nos animaux</a></h2>
