@@ -817,25 +817,29 @@ return (
 
                 {successMessageVisible && <p>Service ajouté avec succès!</p>}
 
-                {/* Liste des services existants */}
-                <div className="service-list">
-                    <h2 className="text-xl-center text-decoration-underline font-weight-bold mb-3">Liste des Services</h2>
-                    <ul>
-                        {services.map((service) => (
-                            <li key={service.id}>
-                                <div>{service.title}</div>
-                                <div>{service.description}</div>
-                                <button onClick={() => handleDeleteService(service.id)} className='vet-records-button btn btn-danger'>Supprimer</button>
-                                <button onClick={() => handleEditService(service.id)} className="vet-records-button btn btn-warning">Modifier</button>
-
-                            </li>
-                ))}
-            </ul>
-            </div>
-
-          <div id="successMessage" style={{ display: successMessageVisible ? 'block' : 'none' }}>
-            <p>Le service a été ajouté avec succès.</p>
-          </div>
+{/* Liste des services existants */}
+<div className="service-list">
+  <h2 className="text-xl-center text-decoration-underline font-weight-bold mb-3">Liste des Services</h2>
+    <ul>
+      {services.map((service) => (
+        <li key={service.id} className="habitat-container">
+          <div className="habitat-name">{service.title}</div>
+          <div className="habitat-description">{service.description}</div>
+            <button
+            onClick={() => {
+            if (window.confirm('Êtes-vous sûr de vouloir supprimer cet habitat ?')) {
+            handleDeleteService(service.id);
+            }
+            }}
+            className="vet-records-button btn btn-danger">Supprimer Habitat</button>
+            <button onClick={() => handleEditService(service.id)} className="vet-records-button btn btn-warning">Modifier</button>
+        </li>
+        ))}
+    </ul>
+      </div>
+        <div id="successMessage" style={{ display: successMessageVisible ? 'block' : 'none' }}>
+          <p>Le service a été ajouté avec succès.</p>
+        </div>
 
 
           {/* Gestion des horaires */}
