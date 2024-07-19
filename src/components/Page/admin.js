@@ -4,6 +4,7 @@ import Nav from '../Nav';
 import AvisEnAttente from './AvisEnAttente';
 import '../styles/CSS/Admin.css/Vetrecords.css';
 import '../styles/CSS/Admin.css/WrapperRegister.css';
+import '../styles/CSS/Admin.css/TableHabitat.css';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -1061,15 +1062,15 @@ return (
   <h2 className="text-xl-center text-decoration-underline font-weight-bold">
     Liste des Habitats et de leurs Animaux
   </h2>
-  <table className="table table-light table-striped table-centered">
+  <table className="table table-striped">
     <thead>
       <tr>
-        <th>Nom de l'Habitat</th>
-        <th>Description</th>
-        <th>Nom de l'Animal</th>
-        <th>Espèce</th>
-        <th>Âge</th>
-        <th>Actions Animaux</th>
+        <th className="habitat-name">Nom de l'Habitat</th>
+        <th className="habitat-description">Description</th>
+        <th className="animal-name">Nom de l'Animal</th>
+        <th className="animal-species">Espèce</th>
+        <th className="animal-age">Âge</th>
+        <th className="actions-animal">Actions Animaux</th>
       </tr>
     </thead>
     <tbody>
@@ -1082,7 +1083,7 @@ return (
                 {/* Nom et description de l'habitat seulement pour le premier animal */}
                 {index === 0 && (
                   <>
-                    <td rowSpan={habitat.animals.length}>
+                    <td rowSpan={habitat.animals.length} className="habitat-name">
                       {habitat.name}
                       <br />
                       <button
@@ -1099,13 +1100,15 @@ return (
                         Modifier Habitat
                       </button>
                     </td>
-                    <td rowSpan={habitat.animals.length}>{habitat.description}</td>
+                    <td rowSpan={habitat.animals.length} className="habitat-description">
+                      {habitat.description}
+                    </td>
                   </>
                 )}
-                <td>{animal.name}</td>
-                <td>{animal.species}</td>
-                <td>{animal.age}</td>
-                <td>
+                <td className="animal-name">{animal.name}</td>
+                <td className="animal-species">{animal.species}</td>
+                <td className="animal-age">{animal.age}</td>
+                <td className="actions-animal">
                   {/* Actions pour chaque animal */}
                   <button
                     onClick={() => handleDeleteAnimal(animal.id)}
@@ -1122,9 +1125,7 @@ return (
                   </button>
                 </td>
               </tr>
-              
             ))
-            
           ) : (
             <tr>
               <td colSpan="6">Aucun animal trouvé pour cet habitat</td>
@@ -1135,6 +1136,7 @@ return (
     </tbody>
   </table>
 </div>
+
 
 
 {/*Données Vétérinaires*/}
