@@ -921,6 +921,7 @@ return (
           value={newHabitat.name}
           onChange={(e) => setNewHabitat({ ...newHabitat, name: e.target.value })}
           required
+          style={styles.input}
         />
         </div>
 
@@ -934,6 +935,7 @@ return (
           value={newHabitat.description}
           onChange={(e) => setNewHabitat({ ...newHabitat, description: e.target.value })}
           required
+          style={styles.input}
         />
         </div>
 
@@ -946,6 +948,7 @@ return (
               onChange={handleImageHabitatsChange}
               accept="image/*"
               required
+              style={styles.input}
         />
         </div>
         <div className="form-group">
@@ -957,6 +960,7 @@ return (
           value={newHabitat.animal_list}
           onChange={(e) => setNewHabitat({ ...newHabitat, animal_list: e.target.value })}
           required
+          style={styles.input}
         />
         </div>
         <button type="submit" className="btn btn-success" style={styles.button}>Ajouter l'habitat</button>
