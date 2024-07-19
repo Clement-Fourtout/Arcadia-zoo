@@ -1,6 +1,7 @@
 import Footer from "../Footer"
 import Header from "../Header"
 import Nav from "../Nav"
+import { Link } from 'react-router-dom';
 import'../styles/CSS/Politique.css'
 
 export default function Politique() {
@@ -27,7 +28,7 @@ export default function Politique() {
         <p>Nous nous réservons le droit de modifier cette politique de confidentialité à tout moment. Les modifications prendront effet immédiatement après leur publication sur cette page.</p>
         
         <h2>Contactez-nous</h2>
-        <p>Si vous avez des questions ou des préoccupations concernant notre politique de confidentialité, n'hésitez pas à nous contacter à l'adresse suivante : zoo.arcadia@outlook.com </p>
+        <p>Si vous avez des questions ou des préoccupations concernant notre politique de confidentialité, n'hésitez pas à nous contacter via notre <Link to="/contact">page de contact  </Link> </p>
     </div>
 <Footer></Footer>
     </>
