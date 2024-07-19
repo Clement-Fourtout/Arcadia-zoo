@@ -882,6 +882,7 @@ return (
               <h3>{contact.title}</h3>
               <p>{contact.description}</p>
               <p><strong>Email:</strong> {contact.email}</p>
+              <button onClick={() => setSelectedContact(contact)}>Répondre</button>
             </li>
           ))
         ) : (
@@ -927,6 +928,7 @@ return (
         <label className="small-label">Description :</label>
         <textarea
           type="text"
+          className="form-control"
           name="description"
           placeholder="Description de l'habitat"
           value={newHabitat.description}
@@ -938,6 +940,7 @@ return (
         <div className="form-group">
         <label className="small-label">Image :</label>
         <input
+              className="form-control"
               type="file"
               name="image"
               onChange={handleImageHabitatsChange}
@@ -946,8 +949,9 @@ return (
         />
         </div>
         <div className="form-group">
-        <label className="small-label">Liste des animaux</label>
+        <label className="small-label">Liste des animaux </label>
         <textarea
+          className="form-control"
           name="animal_list"
           placeholder="Liste des animaux (séparés par des virgules)"
           value={newHabitat.animal_list}
