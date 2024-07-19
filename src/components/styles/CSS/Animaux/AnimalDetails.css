@@ -14,13 +14,12 @@
 /* Background image for the animal details */
 .animal-image-container {
   width: 100%;
-  max-width: 100%; /* Ajustez la largeur maximale si nécessaire */
-  margin-bottom: 20px;
   display: flex;
-  justify-content: center; /* Centre l'image horizontalement */
-  align-items: center; /* Centre l'image verticalement */
-  height: 400px; /* Hauteur fixe pour l'espace de l'image */
-  overflow: hidden; /* Masque les débordements pour garder une forme propre */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 400px; /* Fixed height */
+  margin-bottom: 20px;
+  overflow: hidden; /* Hide overflow */
 }
 
 /* Image styling */
@@ -37,7 +36,7 @@
 /* Container for description text over image */
 .animal-description-container {
   position: absolute;
-  top: 20%;
+  top: 10%; /* Adjust as needed */
   left: 5%;
   right: 5%;
   color: #fff;
@@ -48,7 +47,6 @@
   max-width: 600px;
   text-align: center;
 }
-
 /* Title styling */
 .animal-name {
   font-size: 2.5rem;
