@@ -14,7 +14,7 @@
   margin-top: 25px;
   text-decoration: underline;
   font-weight: bold;
-  color: #ffffff;
+  color: #d9ffb6;
 }
 
 /* Container for the animals in a row */
@@ -53,7 +53,7 @@
 .animal-name {
   text-decoration: underline;
   margin-top: 15px;
-  color: #d7f0ff;
+  color: #c0f0ff;
 }
 
 /* Details of the animal */
@@ -85,4 +85,35 @@
   opacity: 0.5;
   cursor: pointer;
   width: 50px; /* Adjust size as needed */
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 992px) {
+  .animal-card {
+    width: calc(50% - 40px);
+  }
+}
+
+@media (max-width: 768px) {
+  .animal-card {
+    width: calc(100% - 40px);
+  }
+  
+  .animal-description-container {
+    position: static;
+    transform: none;
+    top: auto;
+    left: auto;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .more-info-button {
+    padding: 10px;
+    width: 100%;
+  }
 }
