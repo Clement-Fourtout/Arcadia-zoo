@@ -1061,7 +1061,7 @@ return (
   <h2 className="text-xl-center text-decoration-underline font-weight-bold">
     Liste des Habitats et de leurs Animaux
   </h2>
-  <table className="table table-striped">
+  <table className="table table-light table-striped table-centered">
     <thead>
       <tr>
         <th>Nom de l'Habitat</th>
@@ -1122,7 +1122,9 @@ return (
                   </button>
                 </td>
               </tr>
+              
             ))
+            
           ) : (
             <tr>
               <td colSpan="6">Aucun animal trouvé pour cet habitat</td>
