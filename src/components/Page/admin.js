@@ -1058,63 +1058,78 @@ return (
 
 
 <div className="habitat-list">
-      <h2 className="text-xl-center text-decoration-underline font-weight-bold">Liste des Habitats et de leurs Animaux</h2>
-      <table className="table table-striped">
-        <thead>
+  <h2 className="text-xl-center text-decoration-underline font-weight-bold">
+    Liste des Habitats et de leurs Animaux
+  </h2>
+  <table className="table table-striped">
+    <thead>
+      <tr>
+        <th>Nom de l'Habitat</th>
+        <th>Description</th>
+        <th>Animaux</th>
+        <th>Actions Animaux</th>
+        <th>Actions Habitat</th>
+      </tr>
+    </thead>
+    <tbody>
+      {habitats.map((habitat) => (
+        <React.Fragment key={habitat.id}>
           <tr>
-            <th>Nom de l'Habitat</th>
-            <th>Description</th>
-            <th>Animaux</th>
-            <th>Actions Animaux</th>
-            <th>Actions Habitat</th>
+            {/* Cellule pour l'habitat (utilisée pour afficher les détails de l'habitat et actions) */}
+            <td rowSpan={habitat.animals.length + 1}>{habitat.name}</td>
+            <td rowSpan={habitat.animals.length + 1}>{habitat.description}</td>
+            <td>
+              {habitat.animals.length > 0 ? (
+                <>
+                  {/* Affichage des animaux sous l'habitat */}
+                  {habitat.animals[0].name} - {habitat.animals[0].species} - Âge : {habitat.animals[0].age}
+                </>
+              ) : (
+                'Aucun animal trouvé'
+              )}
+            </td>
+            <td rowSpan={habitat.animals.length + 1}>
+              {habitat.animals.length > 0 && (
+                <>
+                  {/* Actions pour le premier animal */}
+                  <button
+                    onClick={() => handleDeleteAnimal(habitat.animals[0].id)}
+                    className="vet-records-button btn btn-danger"
+                  >
+                    Supprimer
+                  </button>
+                  <br />
+                  <button
+                    onClick={() => handleEditAnimal(habitat.animals[0].id)}
+                    className="vet-records-button btn btn-warning"
+                  >
+                    Modifier
+                  </button>
+                </>
+              )}
+            </td>
+            <td rowSpan={habitat.animals.length + 1}>
+              {/* Actions pour l'habitat */}
+              <button
+                onClick={() => handleDeleteHabitat(habitat.id)}
+                className="vet-records-button btn btn-danger"
+              >
+                Supprimer Habitat
+              </button>
+              <br />
+              <button
+                onClick={() => handleEditHabitat(habitat.id)}
+                className="vet-records-button btn btn-warning"
+              >
+                Modifier Habitat
+              </button>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          {habitats.map((habitat) => (
-            <React.Fragment key={habitat.id}>
-              <tr>
-                <td rowSpan={habitat.animals.length + 1}>{habitat.name}</td>
-                <td rowSpan={habitat.animals.length + 1}>{habitat.description}</td>
-                <td>
-                  {habitat.animals && habitat.animals.length > 0 ? (
-                    <ul>
-                      {habitat.animals.map((animal) => (
-                        <li key={animal.id}>
-                          {animal.name} - {animal.species} - Âge : {animal.age}
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p>Aucun animal trouvé pour cet habitat</p>
-                  )}
-                </td>
-                <td>
-                  {habitat.animals && habitat.animals.length > 0 && (
-                    <button onClick={() => handleDeleteAnimal(habitat.animals[0].id)} className='vet-records-button btn btn-danger'>Supprimer</button>
-                  )}
-                </td>
-                <td rowSpan={habitat.animals.length + 1}>
-                  <button onClick={() => handleDeleteHabitat(habitat.id)} className='vet-records-button btn btn-danger'>Supprimer Habitat</button>
-                  <button onClick={() => handleEditHabitat(habitat.id)} className='vet-records-button btn btn-warning'>Modifier Habitat</button>
-                </td>
-              </tr>
-              {habitat.animals.map((animal) => (
-                <tr key={animal.id}>
-                  <td></td>
-                  <td></td>
-                  <td>
-                    {animal.name} - {animal.species} - Âge : {animal.age}
-                  </td>
-                  <td>
-                    <button onClick={() => handleEditAnimal(animal.id)} className="vet-records-button btn btn-warning">Modifier</button>
-                  </td>
-                </tr>
-              ))}
-            </React.Fragment>
-          ))}
-        </tbody>
-      </table>
-    </div>
+        </React.Fragment>
+      ))}
+    </tbody>
+  </table>
+</div>
 {/*Données Vétérinaires*/}
 <div className="wrapper">
 <div className="admin-container">
