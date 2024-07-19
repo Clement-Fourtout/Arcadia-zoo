@@ -4,25 +4,31 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: no-repeat center center fixed;
   background-size: cover;
   overflow: hidden;
   color: white;
   padding: 20px;
+  min-height: 100vh;
 }
 
 /* Background image for the animal details */
 .animal-image-container {
-  position: relative;
   width: 100%;
-  height: 600px; /* Adjust height as needed */
-  overflow: hidden;
+  max-width: 600px; /* Ajustez la largeur maximale si nécessaire */
   margin-bottom: 20px;
+  display: flex;
+  justify-content: center; /* Centre l'image horizontalement */
+  align-items: center; /* Centre l'image verticalement */
+  height: 400px; /* Hauteur fixe pour l'espace de l'image */
+  overflow: hidden; /* Masque les débordements pour garder une forme propre */
 }
 
 /* Image styling */
 .animal-image-2 {
   width: 100%;
   height: auto;
+  max-height: 100%;
   border-radius: 10px;
   object-fit: cover;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
@@ -40,6 +46,8 @@
   padding: 20px;
   background: rgba(0, 0, 0, 0.5); /* Background color with transparency */
   border-radius: 10px;
+  max-width: 600px;
+  text-align: center;
 }
 
 /* Title styling */
