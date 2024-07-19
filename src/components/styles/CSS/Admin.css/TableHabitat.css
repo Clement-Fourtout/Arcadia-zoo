@@ -34,3 +34,10 @@
 .animals-table th {
   background-color: #f2f2f2;
 }
+.vet-records-button {
+  margin-right: 10px; /* Ajustez cette valeur selon vos besoins */
+}
+
+.button-group {
+  margin-bottom: 10px; /* Espace en bas des groupes de boutons */
+}
