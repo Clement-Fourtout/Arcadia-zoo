@@ -14,7 +14,7 @@
   margin-top: 25px;
   text-decoration: underline;
   font-weight: bold;
-  color: #ffc107;
+  color: #ffffff;
 }
 
 /* Container for the animals in a row */
@@ -53,7 +53,7 @@
 .animal-name {
   text-decoration: underline;
   margin-top: 15px;
-  color: #ffc107;
+  color: #d7f0ff;
 }
 
 /* Details of the animal */
