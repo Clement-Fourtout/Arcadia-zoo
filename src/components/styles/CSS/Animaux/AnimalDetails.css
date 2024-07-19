@@ -35,15 +35,15 @@
 /* Container for description text over the image */
 .animal-description-container {
   position: absolute;
-  top: 90%;
-  left: 50%;
+  top: 20%;
+  left: 75%;
   transform: translate(-50%, -50%); /* Center the text */
   color: #fff;
   z-index: 1; /* Ensure it is above the image */
   padding: 20px;
   background: rgba(0, 0, 0, 0.5); /* Background color with transparency */
   border-radius: 10px;
-  max-width: 600px;
+  max-width: 500px;
   text-align: center;
 }
 
