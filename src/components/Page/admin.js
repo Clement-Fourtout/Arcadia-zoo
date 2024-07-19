@@ -15,6 +15,7 @@ export default function Admin() {
   const [userId, setUserId] = useState('');
   const [token, setToken] = useState('');
   const [email, setEmail] = useState('');
+  const [contacts, setContacts] = useState([]);
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);
   const [services, setServices] = useState([]); 
   const [newService, setNewService] = useState({ title: '', description: '', image: null });
@@ -144,8 +145,23 @@ const handleLogout = () => {
   window.location.href = "/connexion";
 };
 
-// Gestion des services
+// Systeme d'affichage des mails visiteurs
 
+useEffect(() => {
+  const fetchContacts = async () => {
+    try {
+      const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/contacts');
+      const data = await response.json();
+      setContacts(data);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des messages de contact :', error);
+    }
+  };
+
+  fetchContacts();
+}, []);
+
+// Gestion des services
 const fetchServices = useCallback(async () => {
   try {
     const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
@@ -816,6 +832,21 @@ return (
       <AvisEnAttente />
     </div>
 
+
+{/* Affichage des mails de visiteurs en attente de réponses par un employé */}
+
+    <div>
+      <h2 className="text-xl-center text-decoration-underline font-weight-bold mb-3 mt-3">Messages de visiteurs</h2>
+      <ul>
+        {contacts.map(contact => (
+          <li key={contact.id}>
+            <h3>{contact.title}</h3>
+            <p>{contact.description}</p>
+            <p><strong>Email:</strong> {contact.email}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
 
 
     {/* Ajout d'habitat */}
