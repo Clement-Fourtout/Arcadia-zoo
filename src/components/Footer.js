@@ -28,6 +28,8 @@ function Footer() {
                     <li className="nav-item"><a href="/politique" className="nav-link px-3 text-light">Politique des données</a></li>
                     <li className="nav-item"><a href="/mentions" className="nav-link px-3 text-light">Mentions légales</a></li>
                     <li className="nav-item"><a href="/connexion" className="nav-link px-3 text-light">Espace Pro</a></li>
+                    <li className="nav-item"><a href="/contact" className="nav-link px-3 text-light">Contact</a></li>s
+
                     <div className="dropdown">
                         <button className="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Nos horaires d'ouverture

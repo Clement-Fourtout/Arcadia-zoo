@@ -18,6 +18,7 @@ import EditAnimal from './components/Page/Edit/EditAnimal.js';
 import EditHabitat from './components/Page/Edit/EditHabitat.js';
 import EditService from './components/Page/Edit/EditService.js';
 import EditHoraire from './components/Page/Edit/EditHoraire.js';
+import Contact from './components/Page/Contact.js';
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
       <Route path='/parc' element={<Parc/>} />
       <Route path='/services' element={<Services/>} />
       <Route path='/avis' element={<Avis/>} />
+      <Route path='/contact' element={<Contact/>} />
       <Route path='/arcadia' element={<Arcadia/>} />
       <Route path='/admin' element={<Admin/>} />
       <Route path='/politique' element={<Politique/>} />
