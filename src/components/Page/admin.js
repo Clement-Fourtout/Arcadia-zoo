@@ -708,6 +708,7 @@ return (
    {/* Création de compte */}
             <div>
                 <h1 className="text-xl-center text-decoration-underline font-weight-bold mt-5">Page Administrateur</h1>
+                <button onClick={handleLogout} className='vet-records-button btn btn-info'>Déconnexion</button>
                 <div className="wrapper">
                 <div className="admin-container">
             <div className="text-xl-center text-decoration-underline font-weight-bold">
@@ -866,13 +867,7 @@ return (
 
 
 
-    {/* Suppression de compte / Déconnexion */}
-    <div className="p-3 mt-3">
-      <h2 className="text-xl-center text-decoration-underline font-weight-bold mb-3 mt-3">Supprimer mon compte</h2>
-        <p>Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</p>                  
-          <button onClick={handleDeleteAccount} className='vet-records-button btn btn-danger'>Supprimer mon compte</button>
-          <button onClick={handleLogout} className='vet-records-button btn btn-info'>Déconnexion</button>
-    </div>
+
           
 
 {/* Affichage des avis en attente de confirmation par un employé */}
@@ -1283,7 +1278,6 @@ return (
             <td>{record.details}</td>
             <td>
               <button className="vet-records-button btn btn-danger" onClick={() => handleDeleteVetRecord(record.id)}>Supprimer</button>
-              {/* Ajoutez ici d'autres actions comme la modification */}
             </td>
           </tr>
         ))}
@@ -1324,6 +1318,16 @@ return (
         )}
       </div>
     </div>
+
+
+        {/* Suppression de compte / Déconnexion */}
+        <div className="p-3 mt-3">
+      <h2 className="text-xl-center text-decoration-underline font-weight-bold mb-3 mt-3">Supprimer mon compte</h2>
+        <p>Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.</p>                  
+          <button onClick={handleDeleteAccount} className='vet-records-button btn btn-danger'>Supprimer mon compte</button>
+    </div>
+
+
       </div>
       <a href="#top">
     <img src={Top} alt="" style={{ position: "fixed", bottom: "50px", right: "50px", opacity: 0.5 }} />
