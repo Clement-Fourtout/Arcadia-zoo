@@ -11,7 +11,7 @@
 
 1. **Clonez le dépôt**
    git clone https://github.com/Clement-Fourtout/Arcadia-zoo
-   cd votre-depot
+   cd Arcadia-zoo
    
 2. **Installer les dépendances sous Node.js**
    npm install
