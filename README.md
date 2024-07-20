@@ -4,17 +4,17 @@
 
 ### Prérequis
 
-1 - Node.js 
-2 - npm install pour récupérer les dépendances
+- Node.js 
+- npm install pour récupérer les dépendances
 
 ### Étapes pour lancer l'application
 
 1. **Clonez le dépôt**
-   git clone https://github.com/Clement-Fourtout/Arcadia-zoo
-   cd Arcadia-zoo
+  - git clone https://github.com/Clement-Fourtout/Arcadia-zoo
+  - cd Arcadia-zoo
    
 2. **Installer les dépendances sous Node.js**
-   npm install
+  - npm install
 
 3. **Accés aux diverses fonctionnalités via http://localhost:3000/**
   - Liste des animaux par habita.t
