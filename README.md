@@ -15,6 +15,7 @@
    
 2. **Installer les dépendances sous Node.js**
   - npm install
+  - npm start (se diriger sur votre naviagteur sur http://localhost:3000/ )
 
 3. **Accés aux diverses fonctionnalités via http://localhost:3000/**
   - Liste des animaux par habitat.
@@ -30,3 +31,5 @@
   - Test du sytème d'incrémentation des animaux.
   - Test sur avis visiteurs/contact visiteurs (pour la réponse vérifier les spams de votre boite mail 'Arcadia-Zoo' ).
   - Test sur création de compte vétérinaires/employés (pour la confirmation de création de compte vérifier spam dans votre boîte mail 'Arcadia-Zoo' et notez le mot de passe affiché lors de la création du compte (alert en haut de l'écran)).
+  
+  (Un manuel d'utilisation est disponible dans le dossier Docs, veillez à posséder l'extension vscode-pdf pour la lecture de ce dernier)

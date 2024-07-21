@@ -36,8 +36,8 @@ function Histoire () {
             <div class="row justify-content-center  mb-2">
             <div class="col-lg-4 story ">
               <h3 class=" text-custom-histoire text-decoration-underline font-weight-bold mt-5 " >Leur santé, une priorité</h3>
-                <p class="text-light">La famille Saint Pierre attache une importance toute particulière à la santé de leur congénére. Chaque jour, plusieurs vétérinaires viennent afin 
-                                      d'effectuer les contrôles sur chaque animal avant l'ouverture du zoo afin de s'assurer que tout se passe bien.
+                <p class="text-light">La famille Saint Pierre attache une importance toute particulière à la santé de ses congénéres. Chaque jour, plusieurs vétérinaires viennent 
+                                      effectuer des contrôles sur chaque animal avant l'ouverture du zoo afin de s'assurer que tout se passe bien.
                                      </p>
             </div>
             <div class="col-lg-4 ">
@@ -52,7 +52,7 @@ function Histoire () {
             <div class="col-lg-4 story">
             <h3 class=" align-items-center text-custom-histoire text-decoration-underline font-weight-bold mt-5">Une nourriture sélectionnée</h3>
                       <p class="text-light">Les soins tout comme l'apport d'une nourriture de qualité controlée avec un bon grammage pour chaque espèce 
-                                            sont les facteurs les plus importants pour conserver leur bonne état de santé</p>
+                                            sont les facteurs les plus importants pour conserver leur bon état de santé</p>
             </div>
             </div>
 
@@ -75,7 +75,7 @@ function Histoire () {
             <div class="col-lg-4 story">
             <h3 class=" align-items-center text-custom-histoire text-decoration-underline font-weight-bold mt-5">Merci à vous</h3>
                       <p class="text-light">Avant tout, la famille Saint Pierre vous remercie, c'est grâce à vous et vos parents que le zoo existe encore 60 ans plus tard. 
-                                            C'est gràce à vous que l'état de santé et les soins apporté à ces animaux reste tel qu'il y a 60 ans. <br/> La Famille Saint Pierre et les animaux d'Arcadia vous remercient. </p>
+                                            C'est gràce à vous que l'état de santé et les soins apportés à ces animaux reste tels qu'il y a 60 ans. <br/> La Famille Saint Pierre et les animaux d'Arcadia vous remercient. </p>
             </div>
             </div>
   </div>
