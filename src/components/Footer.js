@@ -24,7 +24,7 @@ function Footer() {
         <div className="container-lg bg-dark rounded">
             <footer className="py-3 my-3">
                 <ul className="nav justify-content-center border-bottom pb-3 mb-3">
-                    <li className="nav-item"><a href="/accueil" className="nav-link px-3 text-light">Accueil</a></li>
+                    <li className="nav-item"><a href="/" className="nav-link px-3 text-light">Accueil</a></li>
                     <li className="nav-item"><a href="/politique" className="nav-link px-3 text-light">Politique des données</a></li>
                     <li className="nav-item"><a href="/mentions" className="nav-link px-3 text-light">Mentions légales</a></li>
                     <li className="nav-item"><a href="/connexion" className="nav-link px-3 text-light">Espace Pro</a></li>
