@@ -22,9 +22,9 @@
   margin-bottom: 20px;
   border: 1px solid #ccc;
   padding: 10px;
-  background-color: #f8f9fa; /* Couleur de fond douce */
+  background-color: #f8f9fa; 
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre pour un peu de profondeur */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 .pseudo {
   font-weight: bold;

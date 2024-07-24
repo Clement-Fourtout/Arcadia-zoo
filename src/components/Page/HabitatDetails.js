@@ -11,7 +11,7 @@ const HabitatDetails = () => {
 
   const handleMoreInfo = async (animalId) => {
     document.getElementById(`button-${animalId}`).disabled = true;
-    console.log('Animal ID:', animalId); // Log l'ID pour vérifier qu'il est correct
+    console.log('Animal ID:', animalId); 
     const animalName = await getAnimalName(animalId);
     await incrementConsultations(animalId, animalName);
     navigate(`/animals/${animalId}`);
@@ -36,10 +36,10 @@ const HabitatDetails = () => {
       const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animalviews', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ animalId: animalId.toString(), animalName: animalName }), // Convertir en chaîne de caractères
+        body: JSON.stringify({ animalId: animalId.toString(), animalName: animalName }), 
       });
       const data = await response.json();
-      console.log('Response from server:', data); // Log la réponse du serveur
+      console.log('Response from server:', data); 
     } catch (error) {
       console.error('Erreur lors de l\'incrémentation des consultations:', error);
     }

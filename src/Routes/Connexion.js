@@ -19,23 +19,18 @@ export default function Connexion() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({nom: nom,mot_de_passe: mot_de_passe})
+                body: JSON.stringify({ nom, mot_de_passe})
             });
             
             if (response.ok) {
                 const { token, role, userId } = await response.json();
-                // Stockez le jeton JWT dans le stockage local ou la session
                 localStorage.setItem('token', token);
-                // Stockez également le rôle de l'utilisateur
                 localStorage.setItem('role', role);
-                // Stockez également le numéro utilisateur
                 localStorage.setItem('userId', userId);
                 
-
-                // Redirigez l'utilisateur vers une page protégée ou effectuez d'autres actions
                 navigate('/admin')
+                
             } else {
-                // Si l'authentification échoue, affichez un message d'erreur approprié
                 const { message } = await response.json();
                 setError(message);
             }

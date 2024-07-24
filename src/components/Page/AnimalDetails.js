@@ -15,7 +15,7 @@ const AnimalDetails = () => {
           throw new Error('Erreur lors de la récupération de l\'animal');
         }
         const data = await response.json();
-        setAnimal(data); // Mettre à jour l'état de l'animal avec les données récupérées
+        setAnimal(data); 
       } catch (error) {
         console.error('Error fetching animal:', error);
       }
@@ -24,13 +24,13 @@ const AnimalDetails = () => {
     fetchAnimal();
   }, [id]);
   if (!animal) {
-    return <div>Chargement...</div>; // Affichage de chargement pendant que les données sont récupérées
+    return <div>Chargement...</div>; 
   }
 
-    // Triez les vetRecords par date décroissante
+
     const sortedVetRecords = [...animal.vetRecords].sort((a, b) => new Date(b.visit_date) - new Date(a.visit_date));
 
-    // Récupérez seulement le dernier enregistrement vétérinaire
+
     const latestVetRecord = sortedVetRecords.length > 0 ? sortedVetRecords[0] : null;
 
   return (
