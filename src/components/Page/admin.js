@@ -242,11 +242,6 @@ const handleAddService = async (event) => {
     formData.append('description', newService.description);
     formData.append('image_url', newService.image);
 
-    console.log('Données à envoyer :', {
-      title: newService.title,
-      description: newService.description,
-      image_url: newService.image
-    });
 
     const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services', {
       method: 'POST',
@@ -402,13 +397,6 @@ const handleAddHabitat = async (event) => {
     formData.append('image', newHabitat.image); 
     formData.append('animal_list', newHabitat.animal_list);
 
-    console.log('Données à envoyer :', {
-      name: newHabitat.name,
-      description: newHabitat.description,
-      image: newHabitat.image,
-      animal_list: newHabitat.animal_list
-    });
-
     const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/habitats', {
       method: 'POST',
       headers: {
@@ -461,17 +449,9 @@ const handleDeleteHabitat = async (habitatId) => {
   }
 };
 
+
+
 // Ajout Animaux
-console.log('Données à envoyer :', {
-  name: newAnimal.name,
-  species: newAnimal.species,
-  age: newAnimal.age,
-  habitat_id: newAnimal.habitat_id,
-  image: newAnimal.image,
-});
-
-
-
 const handleAddAnimal = async (event) => {
   event.preventDefault();
   if (!newAnimal.name || !newAnimal.species || !newAnimal.age || !newAnimal.description || !newAnimal.habitat_id || !newAnimal.image ) {
@@ -486,15 +466,6 @@ const handleAddAnimal = async (event) => {
     formData.append('description', newAnimal.description);
     formData.append('habitat_id', newAnimal.habitat_id);
     formData.append('image', newAnimal.image);
-   
-    console.log('Données à envoyer :', {
-      name: newAnimal.name,
-      species: newAnimal.species,
-      age: newAnimal.age,
-      description: newAnimal.description,
-      habitat_id: newAnimal.habitat_id,
-      image: newAnimal.image
-    });
 
     const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/animals', {
       method: 'POST',
