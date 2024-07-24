@@ -73,13 +73,11 @@
 @media (max-width: 768px) {
   .animal-description-container {
     position: relative;
-    bottom: auto;
     left: auto;
     transform: none;
-    margin-top: 20px;
     max-width: 90%;
     width: 90%;
-    right: 5%;
+    right: 0%;
   }
 
   .animal-image-container {
