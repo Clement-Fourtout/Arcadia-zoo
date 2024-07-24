@@ -7,7 +7,7 @@ const DiffServices = () => {
         fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/services')
             .then(response => response.json())
             .then(data => {
-                console.log('Data fetched from API:', data); // Vérifiez le format des données ici
+                console.log('Data fetched from API:', data); 
                 setServices(data);
             })
             .catch(error => console.error('Error fetching services:', error));
@@ -30,7 +30,7 @@ const DiffServices = () => {
                                 {service.title}
                             </h2>
                             <img
-                                src={service.image_url} // Utilisez directement l'URL de l'image récupérée
+                                src={service.image_url} 
                                 className="d-block w-100"
                                 alt={service.title}
                             />

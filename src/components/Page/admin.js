@@ -52,13 +52,14 @@ export default function Admin() {
         setToken(tokenFromStorage);
       } else {
         navigate('/connexion');
-        // Gérer le cas où les données utilisateur ne sont pas disponibles dans le localStorage
+
       }
     }
 
     fetchUserData();
   }, [navigate]);
 
+  
 
 //Création de compte
 const handleRegister = async (event) => {
@@ -97,8 +98,12 @@ const handleRegister = async (event) => {
         console.error('Vous n\'êtes pas autorisé à créer de nouveaux comptes.');
     }
 };
-useEffect(() => {
+
+
+
   // Fonction pour charger les rôles depuis l'API
+useEffect(() => {
+
   const fetchRoles = async () => {
     try {
       const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/roles'); // Remplacez par votre URL d'API
@@ -117,18 +122,19 @@ useEffect(() => {
   fetchRoles();
 }, []);
 
+
+
 //Suppression de compte
 const handleDeleteAccount = async () => {
   try {
       const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/users/${userId}`, {
           method: 'DELETE',
           headers: {
-              'Authorization': `Bearer ${token}` // Assurez-vous d'envoyer le jeton d'authentification si nécessaire
+              'Authorization': `Bearer ${token}`
           },
       });
 
       if (response.ok) {
-          // Redirigez l'utilisateur vers la page de connexion après la suppression réussie du compte
           window.location.href = "/connexion";
       } else {
           const { error } = await response.json();
@@ -139,14 +145,13 @@ const handleDeleteAccount = async () => {
   }
 };
 const handleLogout = () => {
-  // Supprimer le jeton JWT du stockage local
   localStorage.removeItem('token');
-  // Supprimer d'autres données de session si nécessaire
   localStorage.removeItem('role');
   localStorage.removeItem('userId');
-  // Rediriger l'utilisateur vers la page de connexion ou une autre page appropriée
   window.location.href = "/connexion";
 };
+
+
 
 // Systeme d'affichage d'affichage des mails visiteurs non-répondus
 useEffect(() => {
@@ -163,8 +168,9 @@ useEffect(() => {
   fetchContacts();
 }, []);
 
-// Systeme de réponse aux mails visiteurs 
 
+
+// Systeme de réponse aux mails visiteurs 
 const handleResponseChange = (event) => {
   setResponseMessage(event.target.value);
 };
@@ -189,7 +195,6 @@ const handleSendResponse = async () => {
         alert('Réponse envoyée avec succès.');
         setResponseMessage('');
         setSelectedContact(null);
-        // Rafraîchir les messages si nécessaire
       } else {
         console.error('Erreur lors de l\'envoi de la réponse.');
       }
@@ -200,6 +205,8 @@ const handleSendResponse = async () => {
     alert('Veuillez sélectionner un message et écrire une réponse.');
   }
 };
+
+
 
 // Gestion des services
 const fetchServices = useCallback(async () => {
@@ -226,6 +233,8 @@ useEffect(() => {
     fetchServices();
   }
 }, [token, fetchServices]);
+
+
 
 //Ajout de service
 const handleAddService = async (event) => {
@@ -272,6 +281,8 @@ const handleImageChange = (event) => {
   });
 };
 
+
+
 //Suppression de service
   const handleDeleteService = async (serviceId) => {
     try {
@@ -287,7 +298,7 @@ const handleImageChange = (event) => {
         }
 
         console.log('Service supprimé avec succès');
-        fetchServices(); // Rafraîchir la liste des services après la suppression
+        fetchServices(); 
     } catch (error) {
         console.error('Erreur lors de la suppression du service :', error);
     }
@@ -309,6 +320,9 @@ useEffect(() => {
 
   fetchHoraires();
 }, []);
+
+
+
 // Edition de service pour pouvoir les modifier via EditHoraire.js
 const handleEditHoraires = (horaireID) => {
   navigate(`/admin/edit-horaire/`);
@@ -324,7 +338,6 @@ const handleEditService = (serviceID) => {
 //Gestion des Habitats
 const fetchHabitatsAndAnimals = useCallback(async () => {
   try {
-    // Récupérer à la fois les habitats et les animaux
     const [habitatsResponse, animalsResponse] = await Promise.all([
       fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/habitats', {
         headers: {
@@ -338,16 +351,13 @@ const fetchHabitatsAndAnimals = useCallback(async () => {
       }),
     ]);
 
-    // Vérifier les réponses
     if (!habitatsResponse.ok || !animalsResponse.ok) {
       throw new Error('Erreur lors de la récupération des données');
     }
 
-    // Récupérer les données JSON des deux réponses
     const habitatsData = await habitatsResponse.json();
     const animalsData = await animalsResponse.json();
 
-    // Organiser les animaux par habitat
     const habitatsMap = {};
 
     animalsData.forEach((animal) => {
@@ -355,25 +365,22 @@ const fetchHabitatsAndAnimals = useCallback(async () => {
       if (!habitatsMap[habitat_id]) {
         habitatsMap[habitat_id] = {
           id: habitat_id,
-          name: '', // Ajoutez le nom de l'habitat si nécessaire
-          description: '', // Ajoutez la description de l'habitat si nécessaire
+          name: '',
+          description: '',
           animal_list: [],
         };
       }
       habitatsMap[habitat_id].animal_list.push(animal);
     });
 
-    // Mettre à jour les habitats avec leurs descriptions si disponibles
     const updatedHabitats = habitatsData.map((habitat) => ({
       ...habitat,
       animals: habitatsMap[habitat.id] ? habitatsMap[habitat.id].animal_list : [],
     }));
 
-    // Mettre à jour l'état local avec les habitats et les animaux associés
     setHabitats(updatedHabitats);
   } catch (error) {
     console.error('Erreur lors de la récupération des données :', error);
-    // Gérer les erreurs ici (affichage d'un message d'erreur, etc.)
   }
 }, [token]);
 
@@ -382,6 +389,8 @@ useEffect(() => {
     fetchHabitatsAndAnimals();
   }
 }, [token, fetchHabitatsAndAnimals]);
+
+
 
 //Ajout d'habitat
 const handleAddHabitat = async (event) => {
@@ -411,8 +420,8 @@ const handleAddHabitat = async (event) => {
 
     const data = await response.json();
     console.log('Habitat ajouté avec succès', data);
-    fetchHabitatsAndAnimals(); // Rafraîchir la liste des habitats après l'ajout
-    setNewHabitat({ name: '', description: '', image: null, animal_list: '' }); // Réinitialiser le formulaire
+    fetchHabitatsAndAnimals(); 
+    setNewHabitat({ name: '', description: '', image: null, animal_list: '' }); 
     setSuccessMessageVisible(true);
   } catch (error) {
     console.error('Erreur lors de l\'ajout de l\'habitat :', error);
@@ -426,6 +435,10 @@ const handleImageHabitatsChange = (event) => {
     image: event.target.files[0],
   });
 }
+
+
+
+//Edition d'habitat
 const handleEditHabitat = (habitatId) => {
   navigate(`/admin/edit-habitat/${habitatId}`);
 };
@@ -443,7 +456,7 @@ const handleDeleteHabitat = async (habitatId) => {
     }
 
     console.log('Habitat supprimé avec succès');
-    fetchHabitatsAndAnimals(); // Rafraîchir la liste des habitats après la suppression
+    fetchHabitatsAndAnimals(); 
   } catch (error) {
     console.error('Erreur lors de la suppression de l\'habitat :', error);
   }
@@ -505,6 +518,9 @@ const handleImageAnimalsChange = (event) => {
   });
 };
 
+
+
+//Suppression d'animal
 const handleDeleteAnimal = async (animalId) => {
   if (!window.confirm('Êtes-vous sûr de vouloir supprimer cet animal ?')) {
     return;
@@ -522,7 +538,7 @@ const handleDeleteAnimal = async (animalId) => {
     }
 
     alert('Animal supprimé avec succès');
-    fetchHabitatsAndAnimals(); // Rafraîchir la liste des habitats après la suppression
+    fetchHabitatsAndAnimals(); 
   } catch (error) {
     console.error('Error deleting animal:', error);
     alert('Erreur lors de la suppression de l\'animal');
@@ -532,6 +548,9 @@ const handleDeleteAnimal = async (animalId) => {
 const handleEditAnimal = (animalId) => {
   navigate(`/admin/edit-animal/${animalId}`);
 };
+
+
+
 // Afficher compteur d'incrémentation
 useEffect(() => {
   const fetchAnimalViews = async () => {
@@ -569,6 +588,9 @@ useEffect(() => {
   });
   setFilteredVetRecords(records);
 }, [selectedAnimal, selectedDate, animals]);
+
+
+
 // Récupérer la liste des animaux depuis l'API
 useEffect(() => {
   fetchAnimals();
@@ -582,7 +604,6 @@ const fetchAnimals = async () => {
     }
     const data = await response.json();
 
-    // Récupérer les détails des animaux avec leurs enregistrements vétérinaires
     const animalsWithVetRecords = await Promise.all(data.map(async (animal) => {
       const animalResponse = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/animals/${animal.id}`);
       if (!animalResponse.ok) {
@@ -595,12 +616,12 @@ const fetchAnimals = async () => {
     setAnimals(animalsWithVetRecords);
   } catch (error) {
     console.error('Erreur lors du chargement des animaux :', error);
-    // Gérer les erreurs ici
   }
 };
 
 
 
+//Suppression d'enregistrement vétérinaire
 const handleDeleteVetRecord = async (vetRecordId) => {
   try {
     const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords/${vetRecordId}`, {
@@ -611,7 +632,6 @@ const handleDeleteVetRecord = async (vetRecordId) => {
       throw new Error('Erreur lors de la suppression de l\'enregistrement vétérinaire');
     }
 
-    // Mettre à jour l'état pour refléter la suppression
     setAnimal(prevAnimal => {
       if (!prevAnimal || !prevAnimal.vetRecords) {
         return prevAnimal;
@@ -623,12 +643,12 @@ const handleDeleteVetRecord = async (vetRecordId) => {
     });
   } catch (error) {
     console.error('Erreur lors de la suppression de l\'enregistrement vétérinaire :', error);
-    // Gérer les erreurs ici
   }
 };
 
 
 
+// Ajouter in enregistrement vétérinaire
 const handleAddVetRecord = async (event) => {
   event.preventDefault();
 
@@ -654,7 +674,6 @@ const handleAddVetRecord = async (event) => {
     }
 
     alert('Données vétérinaires ajoutées avec succès!');
-    // Réinitialisez les champs du formulaire après l'ajout
     setAnimalId('');
     setHealthStatus('');
     setFood('');
@@ -815,43 +834,41 @@ return (
 
 
 
-          {/* Gestion des horaires */}
-          <div className="container-fluid p-2 mt-1 mb-3 text-center">
-            <h2 className="text-xl-center text-decoration-underline font-weight-bold mb-3 mt-3">Gestion des Horaires</h2>
-            <div className="row justify-content-center mb-2">
-            <div className="col-lg-5">
-                <table className="table table-light table-striped table-centered">
-                    <thead>
-                        <tr>
-                            <th scope="col">Jour</th>
-                            <th scope="col">Heures</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {horaires.map((horaire) => (
-                            <tr key={horaire.id}>
-                                <td>{horaire.jour}</td>
-                                <td>{horaire.heures}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-                <button className='vet-records-button btn btn-info ' onClick={handleEditHoraires}>
-                Modifier les horaires
-                </button>
-            </div>
-            </div>
-        </div>
+{/* Gestion des horaires */}
+  <div className="container-fluid p-2 mt-1 mb-3 text-center">
+    <h2 className="text-xl-center text-decoration-underline font-weight-bold mb-3 mt-3">Gestion des Horaires</h2>
+    <div className="row justify-content-center mb-2">
+    <div className="col-lg-5">
+      <table className="table table-light table-striped table-centered">
+        <thead>
+          <tr>
+            <th scope="col">Jour</th>
+            <th scope="col">Heures</th>
+          </tr>
+        </thead>
+          <tbody>
+            {horaires.map((horaire) => (
+              <tr key={horaire.id}>
+                <td>{horaire.jour}</td>
+                <td>{horaire.heures}</td>
+              </tr>
+            ))}
+          </tbody>
+            </table>
+              <button className='vet-records-button btn btn-info ' onClick={handleEditHoraires}>
+              Modifier les horaires
+              </button>
+    </div>
+    </div>
+  </div>
 
-
-
-
-          
+        
 
 {/* Affichage des avis en attente de confirmation par un employé */}
     <div>
       <AvisEnAttente />
     </div>
+
 
 
 {/* Affichage des mails de visiteurs en attente de réponses par un employé */}
@@ -949,7 +966,8 @@ return (
       </form>
       </div>
     </div>
-          {/* Liste des habitats existants */}
+
+
 
 {/* Ajout d'animaux */}
 <div className='wrapper'>
@@ -1037,6 +1055,8 @@ return (
 </div>
 </div>
 
+
+
 {/*Affichage habitats et leurs animaux*/}
 <div className="habitat-list">
   <h2 className="text-xl-center text-decoration-underline font-weight-bold">
@@ -1117,7 +1137,7 @@ return (
 
 
 
-{/*Données Vétérinaires*/}
+{/*Ajout de données vétérinaires*/}
 <div className="wrapper">
 <div className="admin-container">
       <h2 className="text-xl-center text-decoration-underline font-weight-bold mb-3">Ajouter des données vétérinaires</h2>
@@ -1212,6 +1232,10 @@ return (
     </div>
     </div>
 
+
+
+
+{/* Affichage données vétérinaires et filtres */}
 <div className="container">
 <h1 className="text-center text-decoration-underline font-weight-bold">Enregistrements vétérinaires</h1>
 <div className="filters">
@@ -1266,6 +1290,10 @@ return (
   )}
 </div>
 </div>
+
+
+
+{/* Affichage du tableau d'incrémentation */}
 
     <div className="container-fluid p-2 mt-1 mb-3 text-center">
       <h1 className="text-xl-center text-decoration-underline font-weight-bold" style={{ marginBottom: "50px", marginTop: "25px" }}>
