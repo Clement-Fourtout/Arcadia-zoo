@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     element:<Services />,
   },
   {
-    path:"parc",
+    path:"habitat",
     element:<Parc />,
   },
   {

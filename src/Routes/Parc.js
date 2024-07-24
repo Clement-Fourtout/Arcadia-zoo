@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../components/Header.js";
 import Nav from "../components/Nav.js";
 import Footer from "../components/Footer.js";
-import Animaux from "../components/Page/Habitats.js";
+import Animaux from "../components/Page/Habitat.js";
 
 export default function Parc() {
   return (

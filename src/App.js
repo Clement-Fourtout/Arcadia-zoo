@@ -41,7 +41,7 @@ function App() {
       <Route path='/admin' element={<Admin/>} />
       <Route path='/politique' element={<Politique/>} />
       <Route path='/mentions' element={<MentionsLégales/>} />
-      <Route path="/parc/:id" element={<HabitatDetails />} />
+      <Route path="/habitat/:id" element={<HabitatDetails />} />
       <Route path="/animals/:id" element={<AnimalDetails />} />
       <Route path="/admin/edit-animal/:id" element={<EditAnimal />} />
       <Route path="/admin/edit-habitat/:id" element={<EditHabitat />} />

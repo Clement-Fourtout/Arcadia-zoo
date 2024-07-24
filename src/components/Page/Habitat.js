@@ -44,7 +44,7 @@ const Habitats = () => {
                     )}
                   </div>
                 </div>
-                <Link to={`/parc/${habitat.id}`} className="btn btn-warning">Découvrir {habitat.name}</Link>
+                <Link to={`/habitat/${habitat.id}`} className="btn btn-warning">Découvrir {habitat.name}</Link>
               </div>
             </div>
           </div>

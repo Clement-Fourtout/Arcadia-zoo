@@ -8,7 +8,7 @@ function Nav () {
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link button" href="/parc">Nos animaux</a>
+        <a class="nav-link button" href="/habitat">Nos animaux</a>
         <a class="nav-link button" href="/services">Nos services</a>
         <a class="nav-link button" href="/arcadia">Notre histoire</a>
         <a class="nav-link button" href="/connexion">Espace Pro</a>
