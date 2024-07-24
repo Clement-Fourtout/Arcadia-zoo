@@ -9,7 +9,7 @@ export default function Connexion() {
     const [nom, setNom] = useState('');
     const [mot_de_passe, setMotDePasse] = useState('');
     const [error, setError] = useState('');
-
+    
     const handleConnexion = async (event) => {
         event.preventDefault();
 
@@ -62,7 +62,6 @@ export default function Connexion() {
                         placeholder="Nom d'utilisateur"
                         value={nom}
                         onChange={(event) => setNom(event.target.value)}
-                        autoComplete='username'
                     />
                 </div>
                 <div className="form-field d-flex align-items-center">
@@ -74,7 +73,6 @@ export default function Connexion() {
                         placeholder="Mot de passe"
                         value={mot_de_passe}
                         onChange={(event) => setMotDePasse(event.target.value)}
-                        autoComplete='current-password'
                     />
                 </div>
                 <button type="submit" className="btn mt-3">Connexion</button>
