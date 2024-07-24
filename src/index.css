@@ -25,20 +25,9 @@ code {
 .card-parc-jungle{
   background-color: #438b52;
 }
-.text-custom-marais{
-  color: #92a087;
-}
-.text-custom-jungle{
-  color: #78a518;
-}
+
 .text-custom-savane{
   color: #cfd305;
-}
-.text-custom-insectivore{
-  color: #8f621f;
-}
-.text-custom-histoire {
-  color: #EEE8AA;
 }
 .text-custom-arcadia {
   color: #32CD32;
@@ -57,6 +46,23 @@ code {
 }
 a{
   color: #438b52;
+}
+
+/*Habitat*/
+.card-footer {
+  max-height: 4em; /* Ajustez la hauteur maximale selon vos besoins */
+  overflow-y: auto; /* Ajoute une barre de défilement verticale si le texte dépasse */
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.btn-see-more {
+  color: #bea512; /* Couleur du texte */
+  background-color: transparent; /* Fond transparent */
+  border: none; /* Supprime la bordure */
+  text-decoration: underline; /* Souligner le texte */
+}
+.btn-see-more:hover {
+  color: #6b7703; /* Couleur du texte au survol */
 }
 @media (max-width: 767px) {
   .item {

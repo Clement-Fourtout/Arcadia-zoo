@@ -32,7 +32,18 @@ const Habitats = () => {
               <div className="card-body">
                 <h4 className="card-title text-custom-savane text-decoration-underline">{habitat.name}</h4>
                 <p className="card-text">{habitat.description}</p>
-                <p className="card-footer">Animaux présents : {habitat.animal_list}</p>
+                <div className="card-footer">
+                  <div className="animal-list">
+                    {habitat.animal_list.length > 50 ? (
+                      <>
+                        {habitat.animal_list.slice(0, 50)}...
+                        <button className="btn-see-more" onClick={() => alert(habitat.animal_list)}>Voir plus</button>
+                      </>
+                    ) : (
+                      habitat.animal_list
+                    )}
+                  </div>
+                </div>
                 <Link to={`/parc/${habitat.id}`} className="btn btn-warning">Découvrir {habitat.name}</Link>
               </div>
             </div>
