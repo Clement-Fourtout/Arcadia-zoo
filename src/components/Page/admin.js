@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 export default function Admin() {
   const [roles, setRoles] = useState([]); // État pour stocker les rôles
   const [nom, setNom] = useState('');
-  const [mot_de_passe, setMotDePasse] = useState('');
+  const [setMotDePasse] = useState('');
   const [role, setRole] = useState('');
   const [userId, setUserId] = useState('');
   const [token, setToken] = useState('');
@@ -63,40 +63,46 @@ export default function Admin() {
 
 //Création de compte
 const handleRegister = async (event) => {
-    event.preventDefault();
-    const userRole = localStorage.getItem('role');
-    const email = document.getElementById('email').value;
-    const nom = document.getElementById('nom').value;
-    if (userRole === 'administrateur') {
-        try {
-            const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ nom, mot_de_passe, role, email })
-            });
+  event.preventDefault();
+  
+  const userRole = localStorage.getItem('role');
+  const token = localStorage.getItem('token');  // Récupérer le token JWT depuis le localStorage
+  const email = document.getElementById('email').value;
+  const nom = document.getElementById('nom').value;
 
-            if (response.ok) {
-                const { message, user: {mot_de_passe} } = await response.json();
-                console.log(message);
-                console.log('Mot de passe généré:', mot_de_passe);
-                alert(`Mot de passe généré : ${mot_de_passe}`); // Affichez un message de succès
-                setSuccessMessageVisible(true);
-                setNom('');
-                setMotDePasse('');
-                setRole('');
+  if (userRole === 'administrateur') {
+      try {
+          const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/register', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`  // Ajoutez le token JWT dans l'en-tête
+              },
+              body: JSON.stringify({ nom, role, email })
+          });
 
-            } else {
-                const { error } = await response.json();
-                console.error('Erreur lors de la création du compte :', error);
-            }
-        } catch (error) {
-            console.error('Erreur lors de la création du compte :', error);
-        }
-    } else {
-        console.error('Vous n\'êtes pas autorisé à créer de nouveaux comptes.');
-    }
+          if (response.ok) {
+              const { message, user: { mot_de_passe } } = await response.json();
+              console.log(message);
+              console.log('Mot de passe généré:', mot_de_passe);
+              alert(`Mot de passe généré : ${mot_de_passe}`); // Affichez un message de succès
+              setSuccessMessageVisible(true);
+              // Réinitialisez les champs de formulaire après création de l'utilisateur
+              document.getElementById('email').value = '';
+              document.getElementById('nom').value = '';
+              setMotDePasse('');  // Assurez-vous que setMotDePasse existe si vous l'utilisez
+              setRole('');        // Assurez-vous que setRole existe si vous l'utilisez
+
+          } else {
+              const { message } = await response.json();
+              console.error('Erreur lors de la création du compte :', message);
+          }
+      } catch (error) {
+          console.error('Erreur lors de la création du compte :', error);
+      }
+  } else {
+      console.error('Vous n\'êtes pas autorisé à créer de nouveaux comptes.');
+  }
 };
 
 

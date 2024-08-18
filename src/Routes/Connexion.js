@@ -38,6 +38,7 @@ export default function Connexion() {
             console.error('Erreur de connexion :', error);
             setError('Erreur de connexion');
         }
+        console.log('Token JWT:', localStorage.getItem('token'));
     };
 
 
