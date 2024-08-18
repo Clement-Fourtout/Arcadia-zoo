@@ -76,7 +76,7 @@ const handleRegister = async (event) => {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${token}`  // Ajoutez le token JWT dans l'en-tête
+                  'Authorization': `Bearer ${token}` 
               },
               body: JSON.stringify({ nom, role, email })
           });
@@ -632,6 +632,9 @@ const handleDeleteVetRecord = async (vetRecordId) => {
   try {
     const response = await fetch(`https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords/${vetRecordId}`, {
       method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}` 
+    },
     });
 
     if (!response.ok) {
@@ -647,8 +650,10 @@ const handleDeleteVetRecord = async (vetRecordId) => {
         vetRecords: prevAnimal.vetRecords.filter(record => record.id !== vetRecordId),
       };
     });
+
   } catch (error) {
     console.error('Erreur lors de la suppression de l\'enregistrement vétérinaire :', error);
+    alert('Enregistrement vétérinaire supprimé avec succès !');
   }
 };
 
@@ -658,11 +663,19 @@ const handleDeleteVetRecord = async (vetRecordId) => {
 const handleAddVetRecord = async (event) => {
   event.preventDefault();
 
+  const token = localStorage.getItem('token'); // Assurez-vous que le token est défini
+
+  if (!token) {
+    alert('Vous devez être connecté pour ajouter des données vétérinaires');
+    return;
+  }
+
   try {
     const response = await fetch('https://api-zoo-22654ce4a3d5.herokuapp.com/vetrecords', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` 
       },
       body: JSON.stringify({
         animal_id: animalId,
